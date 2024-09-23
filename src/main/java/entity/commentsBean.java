@@ -1,6 +1,6 @@
 package entity;
 
-public class commentBean {
+public class commentsBean {
 	
 	private int comment_num;
 	private int comment_funding_num;

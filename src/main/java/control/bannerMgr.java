@@ -5,40 +5,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-import entity.alarmBean;
+import entity.bannerBean;
 
-public class alarmMgr {
-
+public class bannerMgr {
+	
 private DBCMgr pool;
 	
-	public alarmMgr() {
+	public bannerMgr() {
 		pool = DBCMgr.getInstance();
 	}
 	
-	public Vector<alarmBean> alarmList(String user_id){
+	public Vector<bannerBean> bannerList(){
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<alarmBean> vlist=null;
+		Vector<bannerBean> vlist=null;
 		try {
 			con = pool.getConnection();
-			sql = "select * from (select * from alarm where alarm_user_id = ? order by alarm_num DESC) where rownum <= 30";
+			sql = "select * from banner";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user_id);
-			rs = pstmt.executeQuery();
 
+			rs = pstmt.executeQuery();
+			
 			while(rs.next()) {
 				
-				alarmBean bean=new alarmBean();
-				bean.setAlarm_num(rs.getInt("alarm_num"));
-				bean.setAlarm_user_id(user_id);
-				bean.setAlarm_con(rs.getString("alarm_con"));
-				bean.setAlarm_check(rs.getInt("alarm_check"));
+				bannerBean bean=new bannerBean();
+				bean.setBanner_title(rs.getString("banner_title"));
+				bean.setBanner_link(rs.getString("banner_link"));
+				
 				vlist.addElement(bean);
 				
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -48,39 +48,17 @@ private DBCMgr pool;
 		
 	}
 
-	public void alarmInsert(alarmBean bean) {
+	public void bannerInsert(bannerBean bean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert alarm(alarm_user_id, alarm_con, alarm_check) values(?, ?, ?)";
+			sql = "insert banner(banner_title, banner_link) values(?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getAlarm_user_id());
-			pstmt.setString(2, bean.getAlarm_con());
-			pstmt.setInt(3, bean.getAlarm_check());
-			pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-		
-	}
-
-	public void alarmCheck(int num) {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "update alarm set alarm_check = 1 where alarm_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setString(1, bean.getBanner_title());
+			pstmt.setString(2, bean.getBanner_link());
 			
 			pstmt.executeUpdate();
 
@@ -92,5 +70,26 @@ private DBCMgr pool;
 		return;
 		
 	}
-	
+
+	public void banerDelete(int num) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "delete from banner where banner_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+		
+	}
 }
