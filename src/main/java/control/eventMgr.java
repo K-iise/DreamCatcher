@@ -107,19 +107,13 @@ public class eventMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update event set event_title = ? where event_num = ? "
-					+"update event set event_con = ? where event_num = ? "
-					+"update event set event_startdate = ? where event_num = ? "
-					+"update event set event_enddate = ? where event_num = ?";
+			sql = "update event set event_title = ?, event_con = ?, event_startdate = ?, event_enddate = ? where event_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getEvent_title());
-			pstmt.setInt(2, bean.getEvent_num());
-			pstmt.setString(3, bean.getEvent_con());
-			pstmt.setInt(4, bean.getEvent_num());
-			pstmt.setString(5, bean.getEvent_startdate());
-			pstmt.setInt(6, bean.getEvent_num());
-			pstmt.setString(7, bean.getEvent_enddate());
-			pstmt.setInt(8, bean.getEvent_num());
+			pstmt.setString(2, bean.getEvent_con());
+			pstmt.setString(3, bean.getEvent_startdate());		
+			pstmt.setString(4, bean.getEvent_enddate());
+			pstmt.setInt(5, bean.getEvent_num());
 
 			pstmt.executeUpdate();
 
