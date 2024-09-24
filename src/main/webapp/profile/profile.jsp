@@ -56,6 +56,7 @@ hr {
 	display: flex; /* Flexbox 사용 */
 	margin-bottom: 20px;
 	margin-top: 20px;
+	align-items: center; /* 추가 */
 }
 
 .profile img {
@@ -65,7 +66,7 @@ hr {
 }
 
 .profile-info {
-	margin-top:25px;
+	margin-top:10px;
 	margin-left: 50px; /* 이미지와의 간격 */
 	color: #333; /* 텍스트 색상 */
 }
@@ -86,6 +87,73 @@ hr {
 	margin-right: 60px;
 	font-size: 20px;
 }
+
+.profile button {
+	width: 50px; /* 원하는 너비로 설정 */
+	height: auto; /* 비율 유지 */
+	border-radius: 100%; /* 둥글게 만들기 (선택사항) */
+}
+
+.profile input.share-button {
+  background: url("sharebutton.png") no-repeat;
+  width: 90px;
+  height: 40px;
+  border-width: 0;
+  margin-right: 60px;
+  margin-left: 80px;
+}
+
+.profile input.follow-button {
+  background: url("followbutton.png") no-repeat;
+  width: 200px;
+  height: 40px;
+  border-width: 0;
+}
+
+.search-span {
+	width: 260px; /* 너비를 조정 */
+	height: 35px; /* 높이를 조정 */
+	border: 1px solid #000000;
+	float: right;
+	display: flex; /* Flexbox 사용 */
+	align-items: center; /* 추가 */
+	background: #dee2e6;
+	border: 5px;
+}
+
+.search-span .input_text{
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #dee2e6;
+	
+}
+
+.search-span .input_icon{
+	border: 0px;
+	float: right;
+}
+
+.title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-header .upload-button{
+  background: url("uploadproject.png") no-repeat;
+  width: 140px;
+  height: 40px;
+  border-width: 0;
+}
+
+.title-header .login-button{
+  background: url("login.png") no-repeat;
+  width: 225px;
+  height: 49px;
+  margin-left: 20px;
+  border-width: 0;
+}
 </style>
 
 <script>
@@ -104,8 +172,12 @@ hr {
 </head>
 <body>
 	<!-- 상단바 1 -->
-	<header>
+	<header class="title-header">
 		<h1>Dream Catcher</h1>
+		<div>
+		<input type="button" class="upload-button" onclick="">
+		<input type="button" class="login-button" onclick="">
+		</div>
 	</header>
 
 	<!-- 카테고리 시작 -->
@@ -113,6 +185,11 @@ hr {
 		<label class="category-label"><img src="menubar.png">카테고리</label>
 		<label class="category-label">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
+		
+		<span class="search-span">
+			<input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요.">
+			<img alt="searchicon" src="searchicon.png" class="input_icon">
+		</span>
 	</header>
 	<!-- 카테고리 끝 -->
 	<hr id="default-hr" width="100%" noshade />
@@ -134,6 +211,8 @@ hr {
 				</div>
 			</div>
 		</div>
+		<input type="button" class="share-button" onclick="alert('공유 버튼 클릭!')">
+		<input type="button" class="follow-button" onclick="alert('팔로우 버튼 클릭!')">
 	</div>
 
 	<!-- 프로필 카테고리 시작 -->
