@@ -9,7 +9,7 @@ import entity.alarmBean;
 
 public class alarmMgr {
 
-private DBCMgr pool;
+	private DBCMgr pool;
 	
 	public alarmMgr() {
 		pool = DBCMgr.getInstance();
@@ -55,7 +55,7 @@ private DBCMgr pool;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert alarm(alarm_user_id, alarm_con, alarm_check) values(?, ?, ?)";
+			sql = "insert into alarm(alarm_user_id, alarm_con, alarm_check) values(?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getAlarm_user_id());
 			pstmt.setString(2, bean.getAlarm_con());

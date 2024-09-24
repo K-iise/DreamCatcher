@@ -9,7 +9,7 @@ import entity.commentsBean;
 
 public class commentsMgr {
 	
-private DBCMgr pool;
+	private DBCMgr pool;
 	
 	public commentsMgr() {
 		pool = DBCMgr.getInstance();
@@ -83,7 +83,7 @@ private DBCMgr pool;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert comments(comment_funding_num, comment_user_id, comment_con, comment_date) values(?, ?, ?, sysdate)";
+			sql = "insert into comments(comment_funding_num, comment_user_id, comment_con, comment_date) values(?, ?, ?, sysdate)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, bean.getComment_funding_num());
 			pstmt.setString(2, bean.getComment_user_id());
@@ -122,7 +122,7 @@ private DBCMgr pool;
 		
 	}
 	
-	public void commentUpdate(int num, String content) {
+	public void commentUpdate(commentsBean bean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -131,8 +131,8 @@ private DBCMgr pool;
 			con = pool.getConnection();
 			sql = "update comments set comment_con = ? where comment_num = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, content);
-			pstmt.setInt(2, num);
+			pstmt.setString(1, bean.getComment_con());
+			pstmt.setInt(2, bean.getComment_num());
 
 			pstmt.executeUpdate();
 

@@ -5,40 +5,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-import entity.bannerBean;
+import entity.couponBean;
 
-public class bannerMgr {
-	
+public class couponMgr {
+
 	private DBCMgr pool;
 	
-	public bannerMgr() {
+	public couponMgr() {
 		pool = DBCMgr.getInstance();
 	}
 	
-	public Vector<bannerBean> bannerList(){
+	public Vector<couponBean> couponList(){
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<bannerBean> vlist=null;
+		Vector<couponBean> vlist=null;
+		
 		try {
 			con = pool.getConnection();
-			sql = "select * from banner";
+			sql = "select * from coupon";
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				
-				bannerBean bean=new bannerBean();
-				bean.setBanner_title(rs.getString("banner_title"));
-				bean.setBanner_link(rs.getString("banner_link"));
+				couponBean bean=new couponBean();
+				bean.setCoupon_num(rs.getInt("coupon_num"));
+				bean.setCoupon_name(rs.getString("coupon_name"));
+				bean.setCoupon_dc(rs.getInt("coupon_dc"));
+				bean.setCoupon_date(rs.getString("coupon_date"));
 				
 				vlist.addElement(bean);
 				
 			}
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -48,17 +51,18 @@ public class bannerMgr {
 		
 	}
 
-	public void bannerInsert(bannerBean bean) {
+	public void couponInsert(couponBean bean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into banner(banner_title, banner_link) values(?, ?)";
+			sql = "insert into coupon(coupon_name, coupon_dc, coupon_date) values(?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getBanner_title());
-			pstmt.setString(2, bean.getBanner_link());
+			pstmt.setString(1, bean.getCoupon_name());
+			pstmt.setInt(2, bean.getCoupon_dc());
+			pstmt.setString(3, bean.getCoupon_date());
 			
 			pstmt.executeUpdate();
 
@@ -71,17 +75,17 @@ public class bannerMgr {
 		
 	}
 
-	public void banerDelete(int num) {
+	public void couponDelete(int num) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "delete from banner where banner_num = ?";
+			sql = "delete from coupon where coupon_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
-
+			
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -92,4 +96,5 @@ public class bannerMgr {
 		return;
 		
 	}
+	
 }

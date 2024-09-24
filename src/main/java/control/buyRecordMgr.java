@@ -9,7 +9,7 @@ import entity.buyRecordBean;
 
 public class buyRecordMgr {
 	
-private DBCMgr pool;
+	private DBCMgr pool;
 	
 	public buyRecordMgr() {
 		pool = DBCMgr.getInstance();
@@ -56,7 +56,7 @@ private DBCMgr pool;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert buy_record(buy_price_num, buy_user_id, buy_date) values(?, ?, sysdate)";
+			sql = "insert into buy_record(buy_price_num, buy_user_id, buy_date) values(?, ?, sysdate)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, bean.getBuy_price_num());
 			pstmt.setString(2, bean.getBuy_user_id());
