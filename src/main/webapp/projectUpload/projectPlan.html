@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Catcher</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        height: 100vh;
+        overflow: hidden; /* Prevents scrolling on the entire page */
+    }
+
+    .header {
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+
+    .menu {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+
+    .menu span {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .container {
+        display: flex;
+        height: calc(100vh - 80px);
+    }
+
+    .left {
+        width: 40%;
+        background: url('image.jpg') no-repeat center center / cover;
+        border-right: 1px solid #ccc;
+    }
+
+    .right {
+        width: 60%;
+        overflow-y: auto; /* Enables scrolling for right section */
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding-bottom: 100px; /* Adds extra space at the bottom */
+    }
+
+    .toggle-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    label {
+        display: block;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+    }
+
+    input[type="radio"] {
+        display: none; /* Hides the actual radio input */
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: red;
+        color: white;
+        border-color: red;
+    }
+
+    .textarea-container {
+        margin-top: 20px;
+        flex-grow: 1; /* Pushes the next button to the bottom */
+    }
+
+    textarea {
+        width: calc(100% - 40px); /* Adjusts the width to account for padding */
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        resize: none; /* Prevents resizing of the textarea */
+    }
+
+    .next-button {
+        position: fixed; /* Keeps the button visible at the bottom */
+        bottom: 20px; /* Distance from the bottom */
+        right: 20px; /* Distance from the right side */
+        padding: 15px 25px;
+        background-color: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 100; /* Ensures the button is above other elements */
+    }
+
+</style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><h1>Dream Catcher</h1></div>
+        <div class="menu">
+            <span>카테고리</span>
+            <span>홈</span>
+            <span>인기</span>
+            <span>신규</span>
+            <span>스토어</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">
+            <!-- Left image full cover -->
+        </div>
+        <div class="right">
+            <h2>멋진 아이디어가 있으시군요!</h2>
+            <h2>어떤 프로젝트를 계획 중이신가요?</h2>
+            <p>나중에 변경 가능하니 너무 걱정하지 마세요.</p>
+            <div class="toggle-container" id="toggleContainer"></div>
+            <div class="textarea-container">
+                <h2>프로젝트를 간단하게 소개해주세요.</h2>
+                <textarea rows="4" placeholder="프로젝트 요약을 입력해주세요."></textarea>
+            </div>
+            <button class="next-button">다음</button>
+        </div>
+    </div>
+    <script>
+        const projects = [
+            "보드게임, TRPG", "디지털 게임", "웹툰 만화",
+            "웹툰 리소스", "디자인 문구", "캐릭터 굿즈", "홈, 리빙",
+            "테크, 가전", "반려동물", "푸드", "향수, 뷰티",
+            "의류", "잡화", "주얼리", "출판", "디자인",
+            "예술", "사진", "음악", "영화, 비디오", "공연"
+        ];
+
+        const container = document.getElementById('toggleContainer');
+
+        projects.forEach((project, index) => {
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.id = project.replace(/,|\s+/g, '_').toLowerCase();
+            radio.name = 'project';
+            radio.className = 'toggle-button';
+
+            const label = document.createElement('label');
+            label.htmlFor = radio.id;
+            label.textContent = project;
+
+            container.appendChild(radio);
+            container.appendChild(label);
+        });
+    </script>
+</body>
+</html>
