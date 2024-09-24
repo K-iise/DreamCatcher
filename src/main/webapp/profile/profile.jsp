@@ -126,7 +126,6 @@ hr {
 	border: 0px;
 	outline: none;
 	background: #dee2e6;
-	
 }
 
 .search-span .input_icon{
@@ -157,7 +156,7 @@ hr {
 </style>
 
 <script>
-        function highlight(selectedLabel) {
+        function highlight(selectedLabel, contentId) {
             // 모든 프로필 라벨 색상 초기화
             const labels = document.querySelectorAll('.profile-label');
             labels.forEach(label => {
@@ -167,8 +166,16 @@ hr {
             // 선택된 라벨 색상 변경
             selectedLabel.classList.add('active');
 
+            // 모든 콘텐츠 숨기기
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // 선택된 콘텐츠만 보이기
+            document.getElementById(contentId).style.display = 'block';
         }
-    </script>
+</script>
 </head>
 <body>
 	<!-- 상단바 1 -->
@@ -217,12 +224,21 @@ hr {
 
 	<!-- 프로필 카테고리 시작 -->
 	<div>
-		<label class="profile-label active" onclick="highlight(this)">프로필</label>
-		<label class="profile-label" onclick="highlight(this)">프로젝트 후기</label>
-		<label class="profile-label" onclick="highlight(this)">올린 프로젝트</label>
-		<label class="profile-label" onclick="highlight(this)">팔로워</label> <label
-			class="profile-label" onclick="highlight(this)">팔로잉</label>
+		<label class="profile-label active" onclick="highlight(this, 'profile-content')">프로필</label>
+		<label class="profile-label" onclick="highlight(this, 'review-content')">프로젝트 후기</label>
+		<label class="profile-label" onclick="highlight(this, 'project-content')">올린 프로젝트</label>
+		<label class="profile-label" onclick="highlight(this, 'followers-content')">팔로워</label>
+		<label class="profile-label" onclick="highlight(this, 'following-content')">팔로잉</label>
 		<hr id="highlight-hr" width="100%" noshade />
+	</div>
+
+	<!-- 각 프로필 카테고리 마다 사용될 body. -->
+	<div id="content">
+		<div id="profile-content" class="tab-content">프로필 정보 내용</div>
+		<div id="review-content" class="tab-content" style="display:none;">프로젝트 후기 내용</div>
+		<div id="project-content" class="tab-content" style="display:none;">올린 프로젝트 내용</div>
+		<div id="followers-content" class="tab-content" style="display:none;">팔로워 목록</div>
+		<div id="following-content" class="tab-content" style="display:none;">팔로잉 목록</div>
 	</div>
 
 </body>
