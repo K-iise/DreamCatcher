@@ -10,12 +10,12 @@ import entity.readRecordBean;
 
 public class readRecordMgr {
 	private DBCMgr pool;
-	
+
 	public readRecordMgr() {
 		pool = DBCMgr.getInstance();
 	}
-	
-	public Vector<readRecordBean> readList30(String user_id){
+
+	public Vector<readRecordBean> readList30(String user_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -26,12 +26,13 @@ public class readRecordMgr {
 			sql = "SELECT * FROM READ_RECORD ORDER BY num DESC WHERE ROWNUM <= 30";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				readRecordBean bean=new readRecordBean();
+			while (rs.next()) {
+				readRecordBean bean = new readRecordBean();
 				bean.setRead_num(rs.getInt("read_num"));
 				bean.setRead_funding_num(rs.getInt("read_funding_num"));
 				bean.setRead_user_id(user_id);
 				bean.setRead_wish(rs.getInt("read_wish"));
+				
 				vlist.addElement(bean);
 			}
 		} catch (Exception e) {
@@ -41,8 +42,8 @@ public class readRecordMgr {
 		}
 		return vlist;
 	}
-	
-	public Vector<readRecordBean> readListWish(String user_id){
+
+	public Vector<readRecordBean> readListWish(String user_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -53,12 +54,13 @@ public class readRecordMgr {
 			sql = "SELECT * FROM READ_RECORD WHERE READ_WISH = 1";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				readRecordBean bean=new readRecordBean();
+			while (rs.next()) {
+				readRecordBean bean = new readRecordBean();
 				bean.setRead_num(rs.getInt("read_num"));
 				bean.setRead_funding_num(rs.getInt("read_funding_num"));
 				bean.setRead_user_id(user_id);
 				bean.setRead_wish(rs.getInt("read_wish"));
+				
 				vlist.addElement(bean);
 			}
 		} catch (Exception e) {
@@ -68,7 +70,7 @@ public class readRecordMgr {
 		}
 		return vlist;
 	}
-	
+
 	public void readInsert(readRecordBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -87,5 +89,6 @@ public class readRecordMgr {
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
+		return;
 	}
 }
