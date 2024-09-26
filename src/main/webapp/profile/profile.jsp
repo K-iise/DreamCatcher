@@ -1,5 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="control.usersMgr" %>
+<%@ page import="entity.usersBean" %>
+<%@ page import="control.followMgr" %>
+<%@ page import="entity.followBean" %>
+<%
+
+	usersBean ubean=new usersBean();
+	usersBean mybean=new usersBean();
+	usersMgr uMgr=new usersMgr();
+	followBean fbean=new followBean();
+	followMgr fMgr=new followMgr();
+	
+	ubean.setUser_address("aaa");
+	ubean.setUser_id("aaa");
+	ubean.setUser_info("안뇽하세요");
+	ubean.setUser_master(0);
+	ubean.setUser_name("aaa");
+	ubean.setUser_phone("111-1111-1111");
+	ubean.setUser_pw("1234");
+	ubean.setUser_resnum("111111-1111111");
+	
+	mybean.setUser_address("aaa");
+	mybean.setUser_id("aaa");
+	mybean.setUser_info("안뇽하세요");
+	mybean.setUser_master(0);
+	mybean.setUser_name("aaa");
+	mybean.setUser_phone("111-1111-1111");
+	mybean.setUser_pw("1234");
+	mybean.setUser_resnum("111111-1111111");
+	
+	int follower=fMgr.getFollowerCount(ubean.getUser_id());
+	int following=fMgr.getFollowingCount(ubean.getUser_id());
+	
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +130,7 @@ hr {
 }
 
 .profile input.share-button {
-  background: url("sharebutton.png") no-repeat;
+  background: url("image/sharebutton.png") no-repeat;
   width: 90px;
   height: 40px;
   border-width: 0;
@@ -104,7 +139,14 @@ hr {
 }
 
 .profile input.follow-button {
-  background: url("followbutton.png") no-repeat;
+  background: url("image/followbutton.png") no-repeat;
+  width: 200px;
+  height: 40px;
+  border-width: 0;
+}
+
+.profile input.edit-button {
+  background: url("image/editbutton.png") no-repeat;
   width: 200px;
   height: 40px;
   border-width: 0;
@@ -140,18 +182,67 @@ hr {
 }
 
 .title-header .upload-button{
-  background: url("uploadproject.png") no-repeat;
+  background: url("image/uploadproject.png") no-repeat;
   width: 140px;
   height: 40px;
   border-width: 0;
 }
 
 .title-header .login-button{
-  background: url("login.png") no-repeat;
+  background: url("image/login.png") no-repeat;
   width: 225px;
   height: 49px;
   margin-left: 20px;
   border-width: 0;
+}
+
+/* 상단바 1 css */
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+}
+
+
+/* 상단바 아이콘 */
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header span{
+	width: 40px;
+	height: 40px;
+	padding: 15px;
+	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
+	margin-left: 20px;
+}
+
+.title-header span img {
+	width: 35px; /* 원하는 너비 설정 */
+	height: 35px; /* 원하는 높이 설정 */
+	vertical-align: top;
+	margin-right: 5px;
 }
 </style>
 
@@ -182,8 +273,21 @@ hr {
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
+		<%if(mybean.getUser_id()==null||mybean.getUser_id().equals("")){ %>
 		<input type="button" class="upload-button" onclick="">
 		<input type="button" class="login-button" onclick="">
+		<%}else { %>
+		
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="">
+			<input type="button" class="bell-button" onclick="">
+			<span onclick="">
+				<img src="guest.png">
+				<b><%=mybean.getUser_name() %></b>
+			</span>
+		</div>
+		
+		<%} %>
 		</div>
 	</header>
 
@@ -205,21 +309,25 @@ hr {
 	<div class="profile">
 		<img src="test.jpg" alt="Profile Image">
 		<div class="profile-info">
-			<b>홍길동(프로필 이름)</b> <br>가입 날짜(5년전)
+			<b><%=ubean.getUser_name() %></b>
 			<div class="profile-detail">
 				<div>
-					<b>팔로워</b><br> 100
+					<b>팔로워</b><br> <%=follower %>
 				</div>
 				<div>
-					<b>팔로잉</b><br> 50
+					<b>팔로잉</b><br> <%=following %>
 				</div>
 				<div>
 					<b>누적 후원자</b><br> 20
 				</div>
 			</div>
 		</div>
+		<%if(mybean.getUser_id().equals(ubean.getUser_id())){ %>
+		<input type="button" class="edit-button" onclick="">
+		<%}else{ %>
 		<input type="button" class="share-button" onclick="alert('공유 버튼 클릭!')">
 		<input type="button" class="follow-button" onclick="alert('팔로우 버튼 클릭!')">
+		<%} %>
 	</div>
 
 	<!-- 프로필 카테고리 시작 -->
@@ -234,7 +342,7 @@ hr {
 
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
-		<div id="profile-content" class="tab-content">프로필 정보 내용</div>
+		<div id="profile-content" class="tab-content"><%=ubean.getUser_info() %></div>
 		<div id="review-content" class="tab-content" style="display:none;">프로젝트 후기 내용</div>
 		<div id="project-content" class="tab-content" style="display:none;">올린 프로젝트 내용</div>
 		<div id="followers-content" class="tab-content" style="display:none;">팔로워 목록</div>
