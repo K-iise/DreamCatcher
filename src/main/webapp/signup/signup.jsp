@@ -32,16 +32,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <script>
+        function redirect() {
+            alert("회원가입 성공! 로그인 페이지로 이동합니다.");
+            window.location.href = "../login/login.html"; // 리디렉션
+        }
+        
+        // 페이지가 로드될 때 redirect 함수를 호출
+        window.onload = redirect;
+    </script>
 </head>
+
 <body>
-<tr>
-  <td><%= name %></td>
-  <td><%= username %></td>
-  <td><%= password %></td>
-  <td><%= phonenumber %></td>
-  <td><%= national_id_number_front %></td>
-  <td><%= national_id_number_back %></td>
-  <td><%= address %></td>
-</tr>
+
 </body>
 </html>
