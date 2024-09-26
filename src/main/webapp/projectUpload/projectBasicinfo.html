@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 계획</title>
+<style>
+    /* 전체 페이지의 기본 스타일 설정 */
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        height: 100%;
+        overflow: auto;
+        box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+
+    .header {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: left;
+        padding: 10px 20px;
+        width: 100%;
+    }
+
+    .logo h1 {
+        margin: 0;
+    }
+
+    .menu {
+        display: flex;
+        justify-content: start;
+        gap: 10px;
+        list-style-type: none;
+        padding-left: 20px;
+    }
+
+    .menu li {
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 0 auto;
+        width: calc(100% - 40px);
+        max-width: 1200px;
+    }
+
+    .section {
+        border-bottom: 1px solid #ccc;
+        padding: 30px 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .text-info {
+        flex-basis: 50%;
+    }
+
+    .input-group-inline {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    label {
+        margin-right: 10px;
+    }
+
+    select, input[type="text"], textarea {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    input[type="text"], textarea {
+        width: 100%;
+    }
+
+    input[type="text"] {
+        height: 60px;
+        font-size: 18px;
+    }
+
+    textarea {
+        height: 150px;
+        font-size: 16px;
+    }
+
+    .input-group-full {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .image-upload-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .upload-details {
+        flex: 1;
+    }
+
+    .upload-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 50%;
+    }
+
+    .preview-box {
+        width: 300px;
+        height: 200px;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px dashed #ccc;
+        margin-bottom: 10px;
+    }
+
+    .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .url-input {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 입력 필드가 자리를 더 차지하도록 설정 */
+}
+
+.url-prefix {
+    margin-right: 8px; /* 텍스트와 입력 필드 사이의 여백 */
+}
+
+.check-button {
+    padding: 8px 16px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 20px;
+    background-color: #fff;
+    width: 100%;
+}
+
+.radio-custom {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    position: relative;
+    display: inline-block;
+    background-color: #fff; /* 초기 배경색 설정 */
+    transition: background-color 0.2s, border-color 0.2s; /* 부드러운 전환 효과 */
+}
+
+.radio-label input[type="radio"] {
+    display: none; /* 기본 라디오 버튼 숨기기 */
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom {
+    background-color: red; /* 라디오 버튼 체크 시 빨간색 배경 */
+    border-color: red; /* 테두리도 빨간색으로 변경 */
+}
+
+
+
+</style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>프로젝트 기획</h1>
+        </div>
+        <ul class="menu">
+            <li>기본 정보</li>
+            <li>펀딩 계획</li>
+            <li>프로젝트 계획</li>
+            <li>창작자 정보</li>
+        </ul>
+    </div>
+    <div class="container">
+        <!-- 프로젝트 카테고리 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>프로젝트 카테고리</h2>
+                <p>프로젝트 성격과 가장 일치하는 카테고리를 선택해주세요.</p>
+                <p>적합하지 않을 경우 운영자에 의해 조정될 수 있습니다.</p>
+            </div>
+            <div class="input-group-inline">
+                <div>
+                    <label for="main-category">카테고리:</label>
+                    <select id="main-category">
+                        <option value="digital_game">디지털 게임</option>
+                        <option value="board_game">보드 게임</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sub-category">세부 카테고리:</label>
+                    <select id="sub-category">
+                        <option value="webtoon">웹툰</option>
+                        <option value="design">디자인</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로젝트 제목 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>프로젝트 제목</h2>
+                <p>프로젝트의 주제, 창작물의 품목이 정확하게</p>
+                <p>드러나는 멋진 제목을 붙여주세요.</p>
+            </div>
+            <div class="input-group-inline">
+                <input type="text" placeholder="프로젝트의 제목을 입력해 주세요.">
+            </div>
+        </div>
+
+        <!-- 프로젝트 요약 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>프로젝트 요약</h2>
+                <p>후원자 분들이 프로젝트를 빠르게 이해할 수 있도록</p>
+                <p>명확하고 간략하게 소개해주세요.</p>
+            </div>
+            <div class="input-group-inline">
+                <textarea placeholder="프로젝트를 간단히 요약해 보세요."></textarea>
+            </div>
+        </div>
+
+        <!-- 이미지 업로드 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>프로젝트 대표 이미지</h2>
+                <p>후원자 분들이 프로젝트의 내용을 쉽게 파악하고 좋은 인상을</p>
+                <p>받을 수 있도록 이미지를 업로드 해주세요.</p>
+            </div>
+            <div class="upload-controls">
+                <div class="preview-box">이미지 미리보기</div>
+                <input type="file" class="upload-input">
+            </div>
+        </div>
+        
+        <!-- 프로젝트 페이지 주소 섹션 -->
+	<div class="section">
+    	<div class="text-info">
+     	   <h2>프로젝트 페이지 주소</h2>
+      	  <p>프로젝트 페이지로 접속하기 위한 웹페이지 주소(URL)을 설정 해주세요.</p>
+   	 </div>
+   	 <div class="input-group-inline">
+   	     <div class="url-input">
+    	        <span class="url-prefix">dreamcatcher.com/</span>
+    	        <input type="text">
+    	    </div>
+    	    <button class="check-button">중복 확인</button>
+  	  </div>
+	</div>
+
+	<!-- 성인 인증 섹션 -->
+<div class="section">
+    <div class="text-info">
+        <h2>성인인증</h2>
+        <p>성인 인증이 필요한 선물을 제공하는 경우 선택해 주세요.</p>
+        <p>해당 프로젝트는 성인 인증 후에 상세 페이지를 확인할 수 있습니다.</p>
+        <p>예) 성인 출판물, 전통주 등</p>
+    </div>
+    <div class="radio-group">
+        <label class="radio-label">
+            <input type="radio" name="age-restriction" value="all-ages">
+            <span class="radio-custom"></span>
+            전체 이용가 프로젝트
+        </label>
+        <label class="radio-label">
+            <input type="radio" name="age-restriction" value="adults-only">
+            <span class="radio-custom"></span>
+            성인 전용 프로젝트
+        </label>
+    </div>
+</div>
+
+		<!-- 검색 태그 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>검색 태그</h2>
+                <p>잠재 후원자의 관심사를 고려한 검색 태그를 입력해주세요</p>
+                <p>외부 엔진이나 드림캐처에서 해당 태그로 검색한</p>
+                <p>후원자가 프로젝트를 발견할 수 있습니다.</p>
+            </div>
+            <div class="input-group-inline">
+                <input type="text">
+            </div>
+        </div>
+		
+			<!-- 커뮤니티 이용 여부 섹션 -->
+<div class="section">
+    <div class="text-info">
+        <h2>커뮤니티 이용 여부</h2>
+        <p>프로젝트 커뮤니티 이용 여부를 결정합니다.</p>
+    </div>
+    <div class="radio-group">
+        <label class="radio-label">
+            <input type="radio" name="age-restriction" value="all-ages">
+            <span class="radio-custom"></span>
+            이용함
+        </label>
+        <label class="radio-label">
+            <input type="radio" name="age-restriction" value="adults-only">
+            <span class="radio-custom"></span>
+            이용 안함
+        </label>
+    </div>
+</div>
+		
+        
+    </div>
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var uploadInput = document.querySelector('.upload-input');
+        var previewBox = document.querySelector('.preview-box');
+
+        uploadInput.addEventListener('change', function() {
+            var file = this.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    imgElement.className = 'preview-image';
+                    previewBox.innerHTML = '';
+                    previewBox.appendChild(imgElement);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
