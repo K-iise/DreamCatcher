@@ -52,7 +52,7 @@ public class usersMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into USERS(USER_ID, USER_PW, USER_NAME, USER_RESNUM, USER_PHONE, USER_ADDRESS, USER_MASTER, USER_INFO) values(?,?,?,?,?,?,?,?)";
+			sql = "insert into USERS(USER_ID, USER_PW, USER_NAME, USER_RESNUM, USER_PHONE, USER_ADDRESS, USER_MASTER) values(?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUser_id());
 			pstmt.setString(2, bean.getUser_pw());
@@ -61,8 +61,8 @@ public class usersMgr {
 			pstmt.setString(5, bean.getUser_phone());
 			pstmt.setString(6, bean.getUser_address());
 			pstmt.setInt(7, bean.getUser_master());
-			pstmt.setString(8, bean.getUser_info());
 			pstmt.executeUpdate();
+			System.out.println("성공");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class usersMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "select USER_ID from USERS where USER_ID = ?, USER_PW = ?";
+			sql = "select USER_ID from USERS where USER_ID = ? and USER_PW = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
@@ -159,5 +159,11 @@ public class usersMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return pw;
+	}
+	
+	public static void main(String[] args) {
+		usersMgr mgr=new usersMgr();
+		boolean id=mgr.userCheck("123", "123");
+		System.out.println(id);
 	}
 }

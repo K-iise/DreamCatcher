@@ -13,5 +13,14 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Java/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-javafx-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-swing-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-swt-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-win32-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/jxbrowser-win64-7.40.0.jar"/>
+	<classpathentry kind="lib" path="C:/Java/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/718_34/Documents/네이트온 받은 파일/ojdbc7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
