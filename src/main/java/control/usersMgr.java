@@ -161,4 +161,30 @@ public class usersMgr {
 		return pw;
 	}
 	
+	public void updateUserPW(usersBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "update USERS set USER_PW = ? where USER_ID = ? and USER_RESNUM = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getUser_pw());
+			pstmt.setString(2, bean.getUser_id());
+			pstmt.setString(3, bean.getUser_resnum());
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+	}
+	
+	public static void main(String[] args) {
+		usersMgr mgr=new usersMgr();
+		boolean id=mgr.userCheck("123", "123");
+		System.out.println(id);
+	}
 }
