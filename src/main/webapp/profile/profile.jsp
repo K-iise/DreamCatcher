@@ -207,6 +207,7 @@ hr {
 
 /* 상단바 아이콘 */
 .title-header .upload-button {
+<<<<<<< HEAD
 	background: url("image/uploadproject.png") no-repeat;
 	width: 140px;
 	height: 40px;
@@ -224,6 +225,25 @@ hr {
 
 .title-header .bell-button {
 	background: url("image/bellicon.png") no-repeat;
+=======
+	background: url("uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .heart-button {
+	background: url("hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("bellicon.png") no-repeat;
+>>>>>>> branch 'master' of https://github.com/K-iise/DreamCatcher.git
 	width: 40px;
 	height: 40px;
 	border: 0px;

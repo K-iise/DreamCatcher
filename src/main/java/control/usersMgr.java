@@ -161,9 +161,4 @@ public class usersMgr {
 		return pw;
 	}
 	
-	public static void main(String[] args) {
-		usersMgr mgr=new usersMgr();
-		boolean id=mgr.userCheck("123", "123");
-		System.out.println(id);
-	}
 }
