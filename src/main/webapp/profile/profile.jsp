@@ -319,7 +319,7 @@ hr {
 		
 		<span class="search-span">
 			<input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요.">
-			<img alt="searchicon" src="searchicon.png" class="input_icon">
+			<img alt="searchicon" src="image/searchicon.png" class="input_icon">
 		</span>
 	</header>
 	<!-- 카테고리 끝 -->
