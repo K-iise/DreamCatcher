@@ -1,39 +1,35 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="control.usersMgr" %>
-<%@ page import="entity.usersBean" %>
-<%@ page import="control.followMgr" %>
-<%@ page import="entity.followBean" %>
+<%@ page import="control.usersMgr"%>
+<%@ page import="entity.usersBean"%>
+<%@ page import="control.followMgr"%>
+<%@ page import="entity.followBean"%>
 <%
+usersBean ubean = new usersBean();
+usersBean mybean = new usersBean();
+usersMgr uMgr = new usersMgr();
+followBean fbean = new followBean();
+followMgr fMgr = new followMgr();
 
-	usersBean ubean=new usersBean();
-	usersBean mybean=new usersBean();
-	usersMgr uMgr=new usersMgr();
-	followBean fbean=new followBean();
-	followMgr fMgr=new followMgr();
-	
-	ubean.setUser_address("aaa");
-	ubean.setUser_id("aaa");
-	ubean.setUser_info("안뇽하세요");
-	ubean.setUser_master(0);
-	ubean.setUser_name("aaa");
-	ubean.setUser_phone("111-1111-1111");
-	ubean.setUser_pw("1234");
-	ubean.setUser_resnum("111111-1111111");
-	
-	mybean.setUser_address("aaa");
-	mybean.setUser_id("aaa");
-	mybean.setUser_info("안뇽하세요");
-	mybean.setUser_master(0);
-	mybean.setUser_name("aaa");
-	mybean.setUser_phone("111-1111-1111");
-	mybean.setUser_pw("1234");
-	mybean.setUser_resnum("111111-1111111");
-	
-	int follower=fMgr.getFollowerCount(ubean.getUser_id());
-	int following=fMgr.getFollowingCount(ubean.getUser_id());
-	
+ubean.setUser_address("aaa");
+ubean.setUser_id("aaa");
+ubean.setUser_info("안뇽하세요");
+ubean.setUser_master(0);
+ubean.setUser_name("aaa");
+ubean.setUser_phone("111-1111-1111");
+ubean.setUser_pw("1234");
+ubean.setUser_resnum("111111-1111111");
 
+mybean.setUser_address("aaa");
+mybean.setUser_id("aaa");
+mybean.setUser_info("안뇽하세요");
+mybean.setUser_master(0);
+mybean.setUser_name("닉네이미이이이이이이이이이ㅣ이이이잉ㅁ");
+mybean.setUser_phone("111-1111-1111");
+mybean.setUser_pw("1234");
+mybean.setUser_resnum("111111-1111111");
 
+int follower = fMgr.getFollowerCount(ubean.getUser_id());
+int following = fMgr.getFollowingCount(ubean.getUser_id());
 %>
 <!DOCTYPE html>
 <html>
@@ -101,7 +97,7 @@ hr {
 }
 
 .profile-info {
-	margin-top:10px;
+	margin-top: 10px;
 	margin-left: 50px; /* 이미지와의 간격 */
 	color: #333; /* 텍스트 색상 */
 }
@@ -123,6 +119,15 @@ hr {
 	font-size: 20px;
 }
 
+.profile-buttons {
+	margin-left: auto; /* 오른쪽 정렬 */
+	display: flex;
+	flex-direction: row; /* 버튼을 수직으로 배치 */
+	align-items: flex-end; /* 오른쪽 정렬 */
+	gap: 10px; /* 버튼 간의 간격 조정 */
+}
+
+
 .profile button {
 	width: 50px; /* 원하는 너비로 설정 */
 	height: auto; /* 비율 유지 */
@@ -130,26 +135,27 @@ hr {
 }
 
 .profile input.share-button {
-  background: url("image/sharebutton.png") no-repeat;
-  width: 90px;
-  height: 40px;
-  border-width: 0;
-  margin-right: 60px;
-  margin-left: 80px;
+	background: url("image/sharebutton.png") no-repeat;
+	width: 90px;
+	height: 40px;
+	border-width: 0;
+	margin-right: 60px;
+	margin-left: 80px;
 }
 
 .profile input.follow-button {
-  background: url("image/followbutton.png") no-repeat;
-  width: 200px;
-  height: 40px;
-  border-width: 0;
+	background: url("image/followbutton.png") no-repeat;
+	width: 200px;
+	height: 40px;
+	border-width: 0;
 }
 
 .profile input.edit-button {
-  background: url("image/editbutton.png") no-repeat;
-  width: 200px;
-  height: 40px;
-  border-width: 0;
+	background: url("image/editbutton.png") no-repeat;
+	width: 200px;
+	height: 40px;
+	border-width: 0;
+	align-items: right;
 }
 
 .search-span {
@@ -163,37 +169,42 @@ hr {
 	border: 5px;
 }
 
-.search-span .input_text{
+.search-span .input_text {
 	font-size: 18px;
 	border: 0px;
 	outline: none;
 	background: #dee2e6;
 }
 
-.search-span .input_icon{
+.search-span .input_icon {
 	border: 0px;
 	float: right;
 }
 
 .title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.title-header div {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: center; /* 내부 요소 수직 가운데 정렬 */
 }
 
-.title-header .upload-button{
-  background: url("image/uploadproject.png") no-repeat;
-  width: 140px;
-  height: 40px;
-  border-width: 0;
+
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border-width: 0;
 }
 
-.title-header .login-button{
-  background: url("image/login.png") no-repeat;
-  width: 225px;
-  height: 49px;
-  margin-left: 20px;
-  border-width: 0;
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
 }
 
 /* 상단바 1 css */
@@ -201,13 +212,10 @@ hr {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	
 }
-
 
 /* 상단바 아이콘 */
 .title-header .upload-button {
-<<<<<<< HEAD
 	background: url("image/uploadproject.png") no-repeat;
 	width: 140px;
 	height: 40px;
@@ -225,8 +233,6 @@ hr {
 
 .title-header .bell-button {
 	background: url("image/bellicon.png") no-repeat;
-=======
-	background: url("uploadproject.png") no-repeat;
 	width: 140px;
 	height: 40px;
 	border: 0px;
@@ -243,19 +249,22 @@ hr {
 
 .title-header .bell-button {
 	background: url("bellicon.png") no-repeat;
->>>>>>> branch 'master' of https://github.com/K-iise/DreamCatcher.git
 	width: 40px;
 	height: 40px;
 	border: 0px;
 	margin-left: 20px;
 }
 
-.title-header span{
-	width: 40px;
-	height: 40px;
+.title-header span {
+	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
+	width: 150px;
 	padding: 15px;
+	align-items: center; /* 수직 가운데 정렬 */
 	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
 	margin-left: 20px;
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
 }
 
 .title-header span img {
@@ -293,33 +302,37 @@ hr {
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
-		<%if(mybean.getUser_id()==null||mybean.getUser_id().equals("")){ %>
-		<input type="button" class="upload-button" onclick="">
-		<input type="button" class="login-button" onclick="">
-		<%}else { %>
-		
-			<input type="button" class="upload-button" onclick=""> 
-			<input type="button" class="heart-button" onclick="">
-			<input type="button" class="bell-button" onclick="">
-			<span onclick="">
-				<img src="guest.png">
-				<b><%=mybean.getUser_name() %></b>
+			<%
+			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
+			%>
+			<input type="button" class="upload-button" onclick=""> <input
+				type="button" class="login-button" onclick="">
+			<%
+			} else {
+			%>
+
+			<input type="button" class="upload-button" onclick=""> <input
+				type="button" class="heart-button" onclick=""> <input
+				type="button" class="bell-button" onclick=""> 
+				<span onclick=""> <img src="guest.png"> <b><%=mybean.getUser_name()%></b>
 			</span>
 		</div>
-		
-		<%} %>
+
+		<%
+		}
+		%>
 		</div>
 	</header>
 
 	<!-- 카테고리 시작 -->
 	<header>
-		<label class="category-label"><img src="menubar.png">카테고리</label>
+		<label class="category-label"><img src="image/menubar.png">카테고리</label>
 		<label class="category-label">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
-		
-		<span class="search-span">
-			<input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요.">
-			<img alt="searchicon" src="image/searchicon.png" class="input_icon">
+
+		<span class="search-span"> <input type="text"
+			class="input_text" name="search" placeholder="검색어를 입력하세요."> <img
+			alt="searchicon" src="image/searchicon.png" class="input_icon">
 		</span>
 	</header>
 	<!-- 카테고리 끝 -->
@@ -327,46 +340,65 @@ hr {
 
 	<!-- 프로필 정보 -->
 	<div class="profile">
-		<img src="test.jpg" alt="Profile Image">
+		<img src="image/test.jpg" alt="Profile Image">
 		<div class="profile-info">
-			<b><%=ubean.getUser_name() %></b>
+			<b><%=ubean.getUser_name()%></b>
 			<div class="profile-detail">
 				<div>
-					<b>팔로워</b><br> <%=follower %>
+					<b>팔로워</b><br>
+					<%=follower%>
 				</div>
 				<div>
-					<b>팔로잉</b><br> <%=following %>
+					<b>팔로잉</b><br>
+					<%=following%>
 				</div>
 				<div>
 					<b>누적 후원자</b><br> 20
 				</div>
 			</div>
 		</div>
-		<%if(mybean.getUser_id().equals(ubean.getUser_id())){ %>
-		<input type="button" class="edit-button" onclick="">
-		<%}else{ %>
-		<input type="button" class="share-button" onclick="alert('공유 버튼 클릭!')">
-		<input type="button" class="follow-button" onclick="alert('팔로우 버튼 클릭!')">
-		<%} %>
+		<div class="profile-buttons">
+			<!-- 새로운 Flexbox div 추가 -->
+			<%
+			if (mybean.getUser_id().equals(ubean.getUser_id())) {
+			%>
+			<input type="button" class="edit-button" onclick="">
+			<%
+			} else {
+			%>
+			<input type="button" class="share-button"
+				onclick="alert('공유 버튼 클릭!')"> <input type="button"
+				class="follow-button" onclick="alert('팔로우 버튼 클릭!')">
+			<%
+			}
+			%>
+		</div>
 	</div>
 
 	<!-- 프로필 카테고리 시작 -->
 	<div>
-		<label class="profile-label active" onclick="highlight(this, 'profile-content')">프로필</label>
-		<label class="profile-label" onclick="highlight(this, 'review-content')">프로젝트 후기</label>
-		<label class="profile-label" onclick="highlight(this, 'project-content')">올린 프로젝트</label>
-		<label class="profile-label" onclick="highlight(this, 'followers-content')">팔로워</label>
-		<label class="profile-label" onclick="highlight(this, 'following-content')">팔로잉</label>
+		<label class="profile-label active"
+			onclick="highlight(this, 'profile-content')">프로필</label> <label
+			class="profile-label" onclick="highlight(this, 'review-content')">프로젝트
+			후기</label> <label class="profile-label"
+			onclick="highlight(this, 'project-content')">올린 프로젝트</label> <label
+			class="profile-label" onclick="highlight(this, 'followers-content')">팔로워</label>
+		<label class="profile-label"
+			onclick="highlight(this, 'following-content')">팔로잉</label>
 		<hr id="highlight-hr" width="100%" noshade />
 	</div>
 
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
-		<div id="profile-content" class="tab-content"><%=ubean.getUser_info() %></div>
-		<div id="review-content" class="tab-content" style="display:none;">프로젝트 후기 내용</div>
-		<div id="project-content" class="tab-content" style="display:none;">올린 프로젝트 내용</div>
-		<div id="followers-content" class="tab-content" style="display:none;">팔로워 목록</div>
-		<div id="following-content" class="tab-content" style="display:none;">팔로잉 목록</div>
+		<div id="profile-content" class="tab-content"><%=ubean.getUser_info()%></div>
+		<div id="review-content" class="tab-content" style="display: none;">프로젝트
+			후기 내용</div>
+		<div id="project-content" class="tab-content" style="display: none;">올린
+			프로젝트 내용</div>
+		<div id="followers-content" class="tab-content" style="display: none;">팔로워
+			목록</div>
+		<div id="following-content" class="tab-content" style="display: none;">팔로잉
+			목록</div>
 	</div>
 
 </body>
