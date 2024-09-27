@@ -42,6 +42,7 @@ body {
 	padding: 0 15%; /* 왼쪽과 오른쪽에 15%의 여백 추가 */
 }
 
+/* 카테고리 css */
 .category-label {
 	font-size: 25px; /* 원하는 크기로 변경 */
 	font-weight: 700;
@@ -65,14 +66,6 @@ body {
 	/* 이미지 색상 변경 */
 }
 
-.profile-label {
-	font-size: 20px; /* 원하는 크기로 변경 */
-	font-weight: 500;
-	margin-right: 30px;
-	color: gray; /* 기본 텍스트 색상 */
-	cursor: pointer; /* 클릭 가능 표시 */
-}
-
 .active {
 	color: black; /* 활성화된 텍스트 색상 */
 }
@@ -83,12 +76,22 @@ hr {
 	background-color: #dee2e6; /* 기본 색상 */
 }
 
+/* 프로필 css */
 .profile {
 	display: flex; /* Flexbox 사용 */
 	margin-bottom: 20px;
 	margin-top: 20px;
 	align-items: center; /* 추가 */
 }
+
+.profile-label {
+	font-size: 20px; /* 원하는 크기로 변경 */
+	font-weight: 500;
+	margin-right: 30px;
+	color: gray; /* 기본 텍스트 색상 */
+	cursor: pointer; /* 클릭 가능 표시 */
+}
+
 
 .profile img {
 	width: 180px; /* 원하는 너비로 설정 */
@@ -158,6 +161,7 @@ hr {
 	align-items: right;
 }
 
+/* 검색 바 css */
 .search-span {
 	width: 260px; /* 너비를 조정 */
 	height: 35px; /* 높이를 조정 */
@@ -181,38 +185,19 @@ hr {
 	float: right;
 }
 
-.title-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.title-header div {
-    display: flex;
-    align-items: center; /* 내부 요소 수직 가운데 정렬 */
-}
-
-
-.title-header .upload-button {
-	background: url("image/uploadproject.png") no-repeat;
-	width: 140px;
-	height: 40px;
-	border-width: 0;
-}
-
-.title-header .login-button {
-	background: url("image/login.png") no-repeat;
-	width: 225px;
-	height: 49px;
-	margin-left: 20px;
-	border-width: 0;
-}
-
 /* 상단바 1 css */
 .title-header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
+.title-header div {
+    display: flex;
+    align-items: center; /* 내부 요소 수직 가운데 정렬 */
+}
+
+
 
 /* 상단바 아이콘 */
 .title-header .upload-button {
@@ -221,6 +206,14 @@ hr {
 	height: 40px;
 	border: 0px;
 	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
 }
 
 .title-header .heart-button {
@@ -233,22 +226,6 @@ hr {
 
 .title-header .bell-button {
 	background: url("image/bellicon.png") no-repeat;
-	width: 140px;
-	height: 40px;
-	border: 0px;
-	margin-right: 10px;
-}
-
-.title-header .heart-button {
-	background: url("hearticon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header .bell-button {
-	background: url("bellicon.png") no-repeat;
 	width: 40px;
 	height: 40px;
 	border: 0px;
@@ -270,7 +247,7 @@ hr {
 .title-header span img {
 	width: 35px; /* 원하는 너비 설정 */
 	height: 35px; /* 원하는 높이 설정 */
-	vertical-align: top;
+	vertical-align: middle;
 	margin-right: 5px;
 }
 </style>
