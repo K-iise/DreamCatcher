@@ -37,221 +37,8 @@ int following = fMgr.getFollowingCount(ubean.getUser_id());
 <meta charset="UTF-8">
 <title>프로필 화면</title>
 <style>
-body {
-	margin: 0; /* 기본 여백 제거 */
-	padding: 0 15%; /* 왼쪽과 오른쪽에 15%의 여백 추가 */
-}
-
-/* 카테고리 css */
-.category-label {
-	font-size: 25px; /* 원하는 크기로 변경 */
-	font-weight: 700;
-	margin-right: 20px;
-}
-
-.category-label img {
-	width: 20px; /* 이미지의 너비를 조정 */
-	height: 20px; /* 이미지의 높이를 조정 */
-	margin-right: 15px; /* 이미지와 텍스트 사이의 간격 */
-}
-
-/* 마우스를 올렸을 때의 스타일 */
-.category-label:hover {
-	color: red; /* 마우스 오버 시 텍스트 색상 */
-}
-
-.category-label:hover img {
-	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
-		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
-	/* 이미지 색상 변경 */
-}
-
-.active {
-	color: black; /* 활성화된 텍스트 색상 */
-}
-
-hr {
-	border: none; /* 기본 경계 제거 */
-	height: 1px; /* 높이 설정 */
-	background-color: #dee2e6; /* 기본 색상 */
-}
-
-/* 프로필 css */
-.profile {
-	display: flex; /* Flexbox 사용 */
-	margin-bottom: 20px;
-	margin-top: 20px;
-	align-items: center; /* 추가 */
-}
-
-.profile-label {
-	font-size: 20px; /* 원하는 크기로 변경 */
-	font-weight: 500;
-	margin-right: 30px;
-	color: gray; /* 기본 텍스트 색상 */
-	cursor: pointer; /* 클릭 가능 표시 */
-}
-
-
-.profile img {
-	width: 180px; /* 원하는 너비로 설정 */
-	height: auto; /* 비율 유지 */
-	border-radius: 50%; /* 둥글게 만들기 (선택사항) */
-}
-
-.profile-info {
-	margin-top: 10px;
-	margin-left: 50px; /* 이미지와의 간격 */
-	color: #333; /* 텍스트 색상 */
-}
-
-.profile b {
-	font-size: 20px;
-}
-
-.profile-detail {
-	display: flex; /* Flexbox 사용 */
-	justify-content: space-between; /* 간격 균등 배치 */
-	margin-top: 20px; /* 상단 여백 추가 */
-	color: #555; /* 텍스트 색상 */
-}
-
-.profile-detail div {
-	text-align: center; /* 중앙 정렬 */
-	margin-right: 60px;
-	font-size: 20px;
-}
-
-.profile-buttons {
-	margin-left: auto; /* 오른쪽 정렬 */
-	display: flex;
-	flex-direction: row; /* 버튼을 수직으로 배치 */
-	align-items: flex-end; /* 오른쪽 정렬 */
-	gap: 10px; /* 버튼 간의 간격 조정 */
-}
-
-
-.profile button {
-	width: 50px; /* 원하는 너비로 설정 */
-	height: auto; /* 비율 유지 */
-	border-radius: 100%; /* 둥글게 만들기 (선택사항) */
-}
-
-.profile input.share-button {
-	background: url("image/sharebutton.png") no-repeat;
-	width: 90px;
-	height: 40px;
-	border-width: 0;
-	margin-right: 60px;
-	margin-left: 80px;
-}
-
-.profile input.follow-button {
-	background: url("image/followbutton.png") no-repeat;
-	width: 200px;
-	height: 40px;
-	border-width: 0;
-}
-
-.profile input.edit-button {
-	background: url("image/editbutton.png") no-repeat;
-	width: 200px;
-	height: 40px;
-	border-width: 0;
-	align-items: right;
-}
-
-/* 검색 바 css */
-.search-span {
-	width: 260px; /* 너비를 조정 */
-	height: 35px; /* 높이를 조정 */
-	border: 1px solid #000000;
-	float: right;
-	display: flex; /* Flexbox 사용 */
-	align-items: center; /* 추가 */
-	background: #dee2e6;
-	border: 5px;
-}
-
-.search-span .input_text {
-	font-size: 18px;
-	border: 0px;
-	outline: none;
-	background: #dee2e6;
-}
-
-.search-span .input_icon {
-	border: 0px;
-	float: right;
-}
-
-/* 상단바 1 css */
-.title-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.title-header div {
-    display: flex;
-    align-items: center; /* 내부 요소 수직 가운데 정렬 */
-}
-
-
-
-/* 상단바 아이콘 */
-.title-header .upload-button {
-	background: url("image/uploadproject.png") no-repeat;
-	width: 140px;
-	height: 40px;
-	border: 0px;
-	margin-right: 10px;
-}
-
-.title-header .login-button {
-	background: url("image/login.png") no-repeat;
-	width: 225px;
-	height: 49px;
-	margin-left: 20px;
-	border-width: 0;
-}
-
-.title-header .heart-button {
-	background: url("image/hearticon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header .bell-button {
-	background: url("image/bellicon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header span {
-	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
-	width: 150px;
-	padding: 15px;
-	align-items: center; /* 수직 가운데 정렬 */
-	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
-	margin-left: 20px;
-	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
-}
-
-.title-header span img {
-	width: 35px; /* 원하는 너비 설정 */
-	height: 35px; /* 원하는 높이 설정 */
-	vertical-align: middle;
-	margin-right: 5px;
-}
 </style>
-
+<link href="profile.css" rel="stylesheet">
 <script>
         function highlight(selectedLabel, contentId) {
             // 모든 프로필 라벨 색상 초기화
@@ -369,8 +156,35 @@ hr {
 		<div id="profile-content" class="tab-content"><%=ubean.getUser_info()%></div>
 		<div id="review-content" class="tab-content" style="display: none;">프로젝트
 			후기 내용</div>
-		<div id="project-content" class="tab-content" style="display: none;">올린
-			프로젝트 내용</div>
+		<div id="project-content" class="tab-content" style="display: none;">
+			<div style="margin-left: 20px; margin-top: 20px;">N개의 프로젝트가 있습니다.</div>
+			<div id="projects">
+				<div id="upload-project">
+					<!-- 프로젝트 사진 -->
+					<img src="image/interest-project1.jpg"> 
+					<!-- 창작자 명 -->
+					<a class="creator-name">몽상부띠그</a><br>
+					 <!-- 제품명 -->
+					<label class="product-name">
+						한복원단으로 만나는 [십장생 매듭원피스2]
+					</label><br>
+					<p class="description">
+						<!-- 상세 설명 -->
+						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
+					</p>
+					<!-- 진행 정보 -->
+					<div class="progress-info">
+						<span class="progress-percentage">1408%</span> <span
+							class="progress-amount">7,040,700원</span> <span
+							class="progress-time">8일 남음</span>
+					</div>
+					<!-- 진행 바 -->
+					<progress id="progress" value="1408" min="0" max="100">123</progress>
+				</div>
+				
+				
+			</div>
+		</div>
 		<div id="followers-content" class="tab-content" style="display: none;">팔로워
 			목록</div>
 		<div id="following-content" class="tab-content" style="display: none;">팔로잉

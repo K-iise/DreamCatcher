@@ -34,236 +34,8 @@ mybean.setUser_resnum("111111-1111111");
 <meta charset="UTF-8">
 <title>홈 화면</title>
 <style>
-body {
-	margin: 0;
-	padding: 0 15%;
-}
-
-/* 카테고리 css */
-.category-label {
-	font-size: 25px;
-	font-weight: 700;
-	margin-right: 20px;
-}
-
-.category-label img {
-	width: 20px;
-	height: 20px;
-	margin-right: 15px;
-}
-
-.category-label:hover {
-	color: red;
-}
-
-.category-label:hover img {
-	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
-		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
-}
-
-.active {
-	color: black;
-}
-
-hr {
-	border: none;
-	height: 1px;
-	background-color: #dee2e6;
-}
-
-/* 검색 바 css */
-.search-span {
-	width: 260px;
-	height: 35px;
-	border: 1px solid #000000;
-	float: right;
-	display: flex;
-	align-items: center;
-	background: #dee2e6;
-	border: 5px;
-}
-
-.search-span .input_text {
-	font-size: 18px;
-	border: 0px;
-	outline: none;
-	background: #dee2e6;
-}
-
-.search-span .input_icon {
-	border: 0px;
-	float: right;
-}
-
-/* 상단바 1 css */
-.title-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.title-header div {
-	display: flex;
-	align-items: center;
-}
-
-.title-header .upload-button {
-	background: url("image/uploadproject.png") no-repeat;
-	width: 140px;
-	height: 40px;
-	border: 0px;
-	margin-right: 10px;
-}
-
-.title-header .login-button {
-	background: url("image/login.png") no-repeat;
-	width: 225px;
-	height: 49px;
-	margin-left: 20px;
-	border-width: 0;
-}
-
-.title-header .heart-button {
-	background: url("image/hearticon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header .bell-button {
-	background: url("image/bellicon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header span {
-	display: inline-block;
-	width: 150px;
-	padding: 15px;
-	align-items: center;
-	border: 1px solid black;
-	margin-left: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.title-header span img {
-	width: 35px;
-	height: 35px;
-	vertical-align: middle;
-	margin-right: 5px;
-}
-
-.MainTop {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	margin-bottom: 20px;
-}
-
-.left-section {
-	flex: 4;
-	display: flex;
-	flex-direction: column;
-}
-
-.right-section {
-	flex: 2;
-	background-color: #f9f9f9;
-	margin-left: 20px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
-}
-
-.slider-container {
-	width: 933px;
-	overflow: hidden; /* 슬라이더가 넘치는 부분 숨김 */
-	position: relative;
-}
-
-.slides {
-	display: flex;
-	transition: transform 0.5s ease-in-out;
-	width: calc(933px * 3); /* 슬라이드 수에 따라 너비 조정 */
-}
-
-.slide {
-	width: 933px;
-}
-
-.slide img {
-	width: 933px;
-	height: 300px;
-	object-fit: fill;
-}
-
-.prev, .next {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
-	z-index: 100;
-}
-
-.prev {
-	left: 10px;
-}
-
-.next {
-	right: 10px;
-}
-
-/* Optional: pagination (dots) */
-.dots {
-	text-align: center;
-	margin-top: 0px;
-}
-
-.dot {
-	height: 15px;
-	width: 15px;
-	margin: 0 5px;
-	background-color: #bbb;
-	border-radius: 50%;
-	display: inline-block;
-	cursor: pointer;
-}
-
-.active {
-	background-color: #717171;
-}
-
-/* 추가 콘텐츠 스타일 */
-.additional-content {
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-}
-
-/* 오른쪽 인기 프로젝트 랭킹 스타일 */
-.right-section h2 {
-	font-size: 24px;
-	margin-bottom: 10px;
-}
-
-.right-section ul {
-	list-style: none;
-	padding: 0;
-}
-
-.right-section li {
-	margin-bottom: 10px;
-	font-size: 18px;
-}
 </style>
+<link href="home.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -336,8 +108,24 @@ hr {
 
 			<!-- 추가 콘텐츠 영역 -->
 			<div class="additional-content">
-				<h2>추가 콘텐츠</h2>
-				<p>여기에 추가 콘텐츠가 들어갑니다.</p>
+				<h2 style="margin: 20px;">주목할 만한 프로젝트</h2>
+				
+				<div id="interest-project">
+				<!-- 프로젝트 사진 -->
+				<img src="image/interest-project1.jpg"> 
+				<!-- 창작자 명 -->
+				<a class="creator-name">몽상부띠그</a><br>
+				 <!-- 제품명 -->
+				<label class="product-name">
+					한복원단으로 만나는 [십장생 매듭원피스2]
+				</label><br>
+				<!-- 진행 정보 -->
+				<div class="progress-info">
+					<span class="progress-percentage">1408% 달성</span> 
+				</div>
+
+			</div>
+			
 			</div>
 		</div>
 
