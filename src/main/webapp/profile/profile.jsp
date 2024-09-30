@@ -108,7 +108,7 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 
 	<!-- 프로필 정보 -->
 	<div class="profile">
-		<img src="image/test.jpg" alt="Profile Image">
+		<img src='<%=ubean.getUser_image()%>' alt="Profile Image">
 		<div class="profile-info">
 			<b><%=ubean.getUser_name()%></b>
 			<div class="profile-detail">
@@ -158,18 +158,19 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
+	
 		<div id="profile-content" class="tab-content">
 			<div id="content-box">
 				<%=ubean.getUser_info()%>
 			</div>
 		</div>
+		
 		<div id="review-content" class="tab-content" style="display: none;">
 			<div id="content-box">프로젝트 후기 내용</div>
 		</div>
+		
 		<div id="project-content" class="tab-content" style="display: none;">
-
 			<div id="content-box">
-
 				<div style="margin-left: 20px; margin-top: 20px;"><%=fdCount%>개의
 					프로젝트가 있습니다.
 				</div>
@@ -210,25 +211,26 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 				<%
 				}
 				%>
-				<div id="followers-content" class="tab-content"
-					style="display: none;">
+			</div>
+		</div>
+		<div id="followers-content" class="tab-content"
+				style="display: none;">
 
-					<div id="content-box">
-						<div id="follower-box">
-							<img src="image/guest.png" alt="Follower Image">
-							<div class="follower-info">
-								<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
-							</div>
-							<input type="button" class="follow-button">
+				<div id="content-box">
+					<div id="follower-box">
+						<img src="image/guest.png" alt="Follower Image">
+						<div class="follower-info">
+							<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
 						</div>
-
+						<input type="button" class="follow-button">
 					</div>
-				</div>
 
-				<div id="following-content" class="tab-content"
-					style="display: none;">팔로잉 목록</div>
+				</div>
 			</div>
 
-			<hr id="highlight-hr" width="100%" noshade />
+		<div id="following-content" class="tab-content"
+				style="display: none;">팔로잉 목록</div>
+	</div>
+	<hr id="highlight-hr" width="100%" noshade />
 </body>
 </html>
