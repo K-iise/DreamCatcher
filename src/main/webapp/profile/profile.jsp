@@ -1,35 +1,39 @@
+<%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="control.usersMgr"%>
 <%@ page import="entity.usersBean"%>
 <%@ page import="control.followMgr"%>
 <%@ page import="entity.followBean"%>
+<%@ page import="control.fundingMgr"%>
+<%@ page import="entity.fundingBean"%>
 <%
-usersBean ubean = new usersBean();
-usersBean mybean = new usersBean();
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
 
-ubean.setUser_address("aaa");
-ubean.setUser_id("aaa");
-ubean.setUser_info("안뇽하세요");
-ubean.setUser_master(0);
-ubean.setUser_name("aaa");
-ubean.setUser_phone("111-1111-1111");
-ubean.setUser_pw("1234");
-ubean.setUser_resnum("111111-1111111");
+usersBean ubean = uMgr.oneUserList("aaaa");
+usersBean mybean = uMgr.oneUserList("aaa");
 
-mybean.setUser_address("aaa");
-mybean.setUser_id("aaa");
-mybean.setUser_info("안뇽하세요");
-mybean.setUser_master(0);
-mybean.setUser_name("닉네이미이이이이이이이이이ㅣ이이이잉ㅁ");
-mybean.setUser_phone("111-1111-1111");
-mybean.setUser_pw("1234");
-mybean.setUser_resnum("111111-1111111");
+if (ubean.getUser_image() == null || ubean.getUser_image().equals("")) {
+
+	ubean.setUser_image("image/guest.png");
+
+}
+
+if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
+
+	mybean.setUser_image("image/guest.png");
+
+}
 
 int follower = fMgr.getFollowerCount(ubean.getUser_id());
 int following = fMgr.getFollowingCount(ubean.getUser_id());
+
+fundingMgr fdMgr = new fundingMgr();
+
+Vector<fundingBean> fdvlist = fdMgr.fundingListForUserId(ubean.getUser_id());
+
+int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 %>
 <!DOCTYPE html>
 <html>
@@ -79,7 +83,7 @@ int following = fMgr.getFollowingCount(ubean.getUser_id());
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
 				type="button" class="bell-button" onclick=""> <span
-				onclick=""> <img src="image/guest.png"> <b><%=mybean.getUser_name()%></b>
+				onclick=""> <img src='<%=mybean.getUser_image()%>'> <b><%=mybean.getUser_name()%></b>
 			</span>
 		</div>
 
@@ -163,57 +167,68 @@ int following = fMgr.getFollowingCount(ubean.getUser_id());
 			<div id="content-box">프로젝트 후기 내용</div>
 		</div>
 		<div id="project-content" class="tab-content" style="display: none;">
-		
-		<div id="content-box">
-		
-			<div style="margin-left: 20px; margin-top: 20px;">N개의 프로젝트가
-				있습니다.</div>
-			<div id="projects">
-				<div id="upload-project">
-					<!-- 프로젝트 사진 -->
-					<img src="image/interest-project1.jpg">
-					<!-- 창작자 명 -->
-					<a class="creator-name">몽상부띠그</a><br>
-					<!-- 제품명 -->
-					<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
-					<p class="description">
-						<!-- 상세 설명 -->
-						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
-					</p>
-					<!-- 진행 정보 -->
-					<div class="progress-info">
-						<span class="progress-percentage">1408%</span> <span
-							class="progress-amount">7,040,700원</span> <span
-							class="progress-time">8일 남음</span>
-					</div>
-					<!-- 진행 바 -->
-					<progress id="progress" value="1408" min="0" max="100">123</progress>
-				</div>
-
-			</div>
-			
-			</div>
-		</div>
-		<div id="followers-content" class="tab-content" style="display: none;">
 
 			<div id="content-box">
 
-				<div id="follower-box">
-					<img src="image/guest.png" alt="Follower Image">
-					<div class="follower-info">
-						<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+				<div style="margin-left: 20px; margin-top: 20px;"><%=fdCount%>개의
+					프로젝트가 있습니다.
+				</div>
+				<%
+				if (fdCount != 0) {
+				%>
+				<%
+				for (int i = 0; i < fdCount; i++) {
+				%>
+				<div id="projects">
+					<div id="upload-project">
+						<!-- 프로젝트 사진 -->
+						<img src='<%=fdvlist.get(i).getFunding_image()%>'>
+						<!-- 창작자 명 -->
+						<a class="creator-name"> <%=uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name()%>
+						</a><br>
+						<!-- 제품명 -->
+						<label class="product-name"> <%=fdvlist.get(i).getFunding_title()%>
+						</label><br>
+						<!-- 진행 정보 -->
+						<div class="progress-info">
+							<span class="progress-percentage"> <%=(int) (((double) fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100)%>
+								%
+							</span> <span class="progress-amount"> <%=fdvlist.get(i).getFunding_nprice()%>
+							</span> <span class="progress-time"> <%=fdMgr.fundDate(fdvlist.get(i).getFunding_num())%>일
+								남음
+							</span>
+						</div>
+						<!-- 진행 바 -->
+						<progress id="progress"
+							value="<%=(int) (((double) fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100)%>"
+							min="0" max="100"></progress>
 					</div>
-					<input type="button" class="follow-button">
+				</div>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
+				<div id="followers-content" class="tab-content"
+					style="display: none;">
+
+					<div id="content-box">
+						<div id="follower-box">
+							<img src="image/guest.png" alt="Follower Image">
+							<div class="follower-info">
+								<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+							</div>
+							<input type="button" class="follow-button">
+						</div>
+
+					</div>
 				</div>
 
+				<div id="following-content" class="tab-content"
+					style="display: none;">팔로잉 목록</div>
 			</div>
-		</div>
-		
-		<div id="following-content" class="tab-content" style="display: none;">팔로잉
-			목록</div>
-	</div>
 
-	<hr id="highlight-hr" width="100%" noshade />
-
+			<hr id="highlight-hr" width="100%" noshade />
 </body>
 </html>
