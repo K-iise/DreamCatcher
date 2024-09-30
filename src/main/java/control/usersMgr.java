@@ -35,6 +35,7 @@ public class usersMgr {
 				bean.setUser_address(rs.getString("user_address"));
 				bean.setUser_master(rs.getInt("user_master"));
 				bean.setUser_info(rs.getString("user_info"));
+				bean.setUser_image(rs.getString("user_image"));
 				
 				vlist.addElement(bean);
 			}
@@ -97,7 +98,7 @@ public class usersMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update USERS set USER_PW = ?, USER_NAME = ?, USER_RESNUM = ?, USER_PHONE = ?, USER_ADDRESS = ?, USER_INFO = ? where USER_ID = ?";
+			sql = "update USERS set USER_PW = ?, USER_NAME = ?, USER_RESNUM = ?, USER_PHONE = ?, USER_ADDRESS = ?, USER_INFO = ? , USER_IMAGE = ? where USER_ID = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getUser_pw());
 			pstmt.setString(2, bean.getUser_name());
@@ -105,7 +106,8 @@ public class usersMgr {
 			pstmt.setString(4, bean.getUser_phone());
 			pstmt.setString(5, bean.getUser_address());
 			pstmt.setString(6, bean.getUser_info());
-			pstmt.setString(7, bean.getUser_id());
+			pstmt.setString(7, bean.getUser_image());
+			pstmt.setString(8, bean.getUser_id());
 			pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -180,6 +182,40 @@ public class usersMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return;
+	}
+	
+	public usersBean oneUserList(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		usersBean bean=new usersBean();
+		try {
+			con = pool.getConnection();
+			sql = "select * from USERS where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				
+				bean.setUser_id(rs.getString("user_id"));
+				bean.setUser_pw(rs.getString("user_pw"));
+				bean.setUser_name(rs.getString("user_name"));
+				bean.setUser_resnum(rs.getString("user_resnum"));
+				bean.setUser_phone(rs.getString("user_phone"));
+				bean.setUser_address(rs.getString("user_address"));
+				bean.setUser_master(rs.getInt("user_master"));
+				bean.setUser_info(rs.getString("user_info"));
+				bean.setUser_image(rs.getString("user_image"));
+				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
 	}
 	
 	public static void main(String[] args) {

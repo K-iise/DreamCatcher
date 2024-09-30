@@ -4,34 +4,32 @@
 <%@ page import="control.followMgr"%>
 <%@ page import="entity.followBean"%>
 <%
-usersBean ubean = new usersBean();
-usersBean mybean = new usersBean();
+
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
 
-ubean.setUser_address("aaa");
-ubean.setUser_id("aaa");
-ubean.setUser_info("안뇽하세요");
-ubean.setUser_master(0);
-ubean.setUser_name("aaa");
-ubean.setUser_phone("111-1111-1111");
-ubean.setUser_pw("1234");
-ubean.setUser_resnum("111111-1111111");
+usersBean ubean = uMgr.oneUserList("aaaa");
+usersBean mybean = uMgr.oneUserList("aaa");
 
-mybean.setUser_address("aaa");
-mybean.setUser_id("aaa");
-mybean.setUser_info("안뇽하세요");
-mybean.setUser_master(0);
-mybean.setUser_name("닉네이미이이이이이이이이이ㅣ이이이잉ㅁ");
-mybean.setUser_phone("111-1111-1111");
-mybean.setUser_pw("1234");
-mybean.setUser_resnum("111111-1111111");
+
+if(ubean.getUser_image()==null||ubean.getUser_image().equals("")){
+	
+	ubean.setUser_image("image/guest.png");
+	
+}
+
+
+if(mybean.getUser_image()==null||mybean.getUser_image().equals("")){
+	
+	mybean.setUser_image("image/guest.png");
+	
+}
 
 int follower = fMgr.getFollowerCount(ubean.getUser_id());
 int following = fMgr.getFollowingCount(ubean.getUser_id());
 
-String img="image/guest.png";
+
 %>
 <!DOCTYPE html>
 <html>
@@ -293,7 +291,7 @@ hr {
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
 				type="button" class="bell-button" onclick=""> 
-				<span onclick=""> <img src='<%=img%>'> <b><%=mybean.getUser_name()%></b>
+				<span onclick=""> <img src='<%=mybean.getUser_image()%>'> <b><%=mybean.getUser_name()%></b>
 			</span>
 		</div>
 
@@ -318,7 +316,7 @@ hr {
 
 	<!-- 프로필 정보 -->
 	<div class="profile">
-		<img src="image/test.jpg" alt="Profile Image">
+		<img src='<%=ubean.getUser_image() %>' alt="Profile Image">
 		<div class="profile-info">
 			<b><%=ubean.getUser_name()%></b>
 			<div class="profile-detail">
