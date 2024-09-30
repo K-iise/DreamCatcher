@@ -177,10 +177,11 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 				<%
 				if (fdCount != 0) {
 				%>
-				<%
-				for (int i = 0; i < fdCount; i++) {
-				%>
+
 				<div id="projects">
+					<%
+					for (int i = 0; i < fdCount; i++) {
+					%>
 					<div id="upload-project">
 						<!-- 프로젝트 사진 -->
 						<img src='<%=fdvlist.get(i).getFunding_image()%>'>
@@ -194,7 +195,7 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 						<div class="progress-info">
 							<span class="progress-percentage"> <%=(int) (((double) fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100)%>
 								%
-							</span> <span class="progress-amount"> <%=fdvlist.get(i).getFunding_nprice()%>
+							</span> <span class="progress-amount"> <%=fdvlist.get(i).getFunding_nprice()%>원
 							</span> <span class="progress-time"> <%=fdMgr.fundDate(fdvlist.get(i).getFunding_num())%>일
 								남음
 							</span>
@@ -204,31 +205,33 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 							value="<%=(int) (((double) fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100)%>"
 							min="0" max="100"></progress>
 					</div>
+					<%
+					}
+					%>
 				</div>
-				<%
-				}
-				%>
+
 				<%
 				}
 				%>
 			</div>
 		</div>
-		<div id="followers-content" class="tab-content" style="display: none;">
+	
+	<div id="followers-content" class="tab-content" style="display: none;">
 
-			<div id="content-box">
-				<div id="follower-box">
-					<img src="image/guest.png" alt="Follower Image">
-					<div class="follower-info">
-						<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
-					</div>
-					<input type="button" class="follow-button">
+		<div id="content-box">
+			<div id="follower-box">
+				<img src="image/guest.png" alt="Follower Image">
+				<div class="follower-info">
+					<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
 				</div>
-
+				<input type="button" class="follow-button">
 			</div>
-		</div>
 
-		<div id="following-content" class="tab-content" style="display: none;">팔로잉
-			목록</div>
+		</div>
+	</div>
+
+	<div id="following-content" class="tab-content" style="display: none;">팔로잉
+		목록</div>
 	</div>
 	<hr id="highlight-hr" width="100%" noshade />
 </body>
