@@ -27,8 +27,8 @@ body {
 	/* 이미지 색상 변경 */
 }
 
-.active {
-	color: black; /* 활성화된 텍스트 색상 */
+.profile-label.active {
+    color: black; /* 활성화된 라벨의 텍스트 색상 */
 }
 
 hr {
@@ -308,3 +308,58 @@ progress::-moz-progress-bar {
 	width: 30%; /* 고정 너비 설정 */
 	text-align: right; /* 오른쪽 정렬 */
 }
+
+#content-box{
+	min-height: 450px;
+}
+
+
+/* 팔로워 박스 */
+#follower-box {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 버튼을 오른쪽 끝으로 배치 */
+    border: 0.5px solid #e3e3e3;
+}	
+
+.follower-info{
+	display: flex;
+	flex-direction: column; /* 버튼을 수직으로 배치 */
+}
+
+.follower-info a{
+	font-size: 18px; /* 창작자 이름 크기 */
+	font-weight: bold; /* 굵게 */
+	text-decoration: none; /* 밑줄 제거 */
+	margin-bottom: 10px;
+}
+
+.follower-info a:hover {
+    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+    color: #000000; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+}
+
+.follower-info label{
+	font-size: 15px; /* 창작자 이름 크기 */
+	color: #6D6D6D;
+}
+
+#follower-box img {
+	width: 70px; /* 원하는 너비로 설정 */
+	height: 70px; /* 비율 유지 */
+	border-radius: 50%; /* 둥글게 만들기 (선택사항) */
+	margin-left: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 20px;
+}
+
+#follower-box .follow-button {
+	background: url("image/followbutton2.png") no-repeat;
+	width: 120px; 
+	height: 40px;
+	border-width: 0;
+	margin-left: auto; /* 버튼을 오른쪽 끝으로 밀어냄 */
+	margin-right: 30px;
+}
+
