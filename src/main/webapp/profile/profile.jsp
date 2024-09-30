@@ -215,23 +215,23 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 				%>
 			</div>
 		</div>
-	
-	<div id="followers-content" class="tab-content" style="display: none;">
 
-		<div id="content-box">
-			<div id="follower-box">
-				<img src="image/guest.png" alt="Follower Image">
-				<div class="follower-info">
-					<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+		<div id="followers-content" class="tab-content" style="display: none;">
+
+			<div id="content-box">
+				<div id="follower-box">
+					<img src="image/guest.png" alt="Follower Image">
+					<div class="follower-info">
+						<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+					</div>
+					<input type="button" class="follow-button">
 				</div>
-				<input type="button" class="follow-button">
+
 			</div>
-
 		</div>
-	</div>
 
-	<div id="following-content" class="tab-content" style="display: none;">팔로잉
-		목록</div>
+		<div id="following-content" class="tab-content" style="display: none;">팔로잉
+			목록</div>
 	</div>
 	<hr id="highlight-hr" width="100%" noshade />
 </body>
