@@ -30,6 +30,8 @@ mybean.setUser_resnum("111111-1111111");
 
 int follower = fMgr.getFollowerCount(ubean.getUser_id());
 int following = fMgr.getFollowingCount(ubean.getUser_id());
+
+String img="image/guest.png";
 %>
 <!DOCTYPE html>
 <html>
@@ -291,7 +293,7 @@ hr {
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
 				type="button" class="bell-button" onclick=""> 
-				<span onclick=""> <img src="guest.png"> <b><%=mybean.getUser_name()%></b>
+				<span onclick=""> <img src='<%=img%>'> <b><%=mybean.getUser_name()%></b>
 			</span>
 		</div>
 
