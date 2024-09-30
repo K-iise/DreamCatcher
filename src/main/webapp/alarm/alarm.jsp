@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector" %>
+<%@page import="entity.alarmBean" %>
+<%@page import="control.alarmMgr" %>
+<%
+	alarmMgr amgr = new alarmMgr();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -297,6 +303,12 @@ hr {
 </script>
 </head>
 <body>
+<%
+    // 로그인한 사용자 ID를 세션에서 가져옴
+    String user_id = (String) session.getAttribute("idKey");
+    // amgr 객체를 통해 알람 리스트를 가져옴
+    Vector<alarmBean> alarmList = amgr.alarmList(user_id);
+%>
 	<!-- 상단바 1 -->
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
@@ -332,44 +344,41 @@ hr {
 
 	<!-- 관심 카테고리 시작 -->
 	<div>
-		<label class="alarm-label active"
-			onclick="highlight(this, 'entire-content')">전체</label> <label
-			class="alarm-label" onclick="highlight(this, 'activity-content')">활동</label>
-		<label class="alarm-label"
-			onclick="highlight(this, 'project-content')">프로젝트</label>
-		<hr id="highlight-hr" width="100%" noshade />
+    	<label class="alarm-label active" onclick="highlight(this, 'alarm-content')">전체</label> 
+    	<label class="alarm-label" onclick="highlight(this, 'activity-content')">활동</label>
+    	<label class="alarm-label" onclick="highlight(this, 'project-content')">프로젝트</label>
+    	<hr id="highlight-hr" width="100%" noshade />
 	</div>
 
 
 	<!-- 각 관심 카테고리 마다 사용될 body. -->
 	<div id="content">
-		
-		<div id="entire-content" class="tab-content">
-			<!-- 알림 정보 Sample -->
-			<div id="alarm-content">
-				<div id="alarmSample" class="alarm-sample">
-					<img src="image/interest-project1.jpg" class="alarm-image">
-					<div class="alarm-text">
-						<label class="alarmname">좋아하신 <b>북다마스북커버</b> 프로젝트에 창작자의 새
-							게시글이 올라왔습니다.
-						</label>
-						<p class="description">안녕하세요. 데이즈엔터(주) 롤앤토크 텀블벅 담당자입니다. 마지막 날,
-							이것만큼은 꼭 확인 부탁드립니다! 현재 구성을 확인한 결과, 낱권으로 2권 혹은 3권 분량의 후원을 하실 때 구성별로
-							따로 후원하신 분들이 확인되어 일단 확인된 분들에 한해 별도 메시지를 발송드렸습니다. 사정상 반드시 개별발송을
-							원하시는 분이 아니라면, 배송비가 추가 중복 결제가 되니 여러권의..
-							</p>
-						<small >5 일전</small>
-					</div>
-					<a href="#" class="delete-button" onclick="confirmDelete()">삭제</a>
-				</div>
-
-			</div>
-		</div>
-		<div id="activity-content" class="tab-content" style="display: none;">
-			활동내용</div>
-
-		<div id="project-content" class="tab-content" style="display: none;">
-			프로젝트 내용</div>
+	    <!-- 전체 알림 내용 -->
+	    <div id="alarm-content" class="tab-content">
+	        <% if (alarmList != null) { %>
+	            <% for(int i = 0; i < alarmList.size(); i++) { %>
+	                <div id="alarmSample_<%= i %>" class="alarm-sample">
+	                    <img src="image/interest-project1.jpg" class="alarm-image">    
+	                    <div class="alarm-text">
+	                        <label class="alarmname"><%= alarmList.get(i).getAlarm_con() %></label>
+	                    </div>
+	                    <a href="#" class="delete-button" onclick="confirmDelete()">삭제</a>
+	                </div>
+	            <% } %>
+	        <% } else { %>
+	            <p>알림이 없습니다.</p>
+	        <% } %>
+	    </div>
+	
+	    <!-- 활동 내용 -->
+	    <div id="activity-content" class="tab-content" style="display: none;">
+	        <p>여기에 활동 내역이 표시됩니다.</p>
+	    </div>
+	
+	    <!-- 프로젝트 내용 -->
+	    <div id="project-content" class="tab-content" style="display: none;">
+	        <p>여기에 프로젝트 내용이 표시됩니다.</p>
+	    </div>
 	</div>
 	
 	<!-- 삭제 확인 모달 -->

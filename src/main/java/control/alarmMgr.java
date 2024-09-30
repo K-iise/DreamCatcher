@@ -21,7 +21,7 @@ public class alarmMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<alarmBean> vlist=null;
+		Vector<alarmBean> vlist= new Vector<alarmBean>();
 		try {
 			con = pool.getConnection();
 			sql = "select * from (select * from alarm where alarm_user_id = ? order by alarm_num DESC) where rownum <= 30";
