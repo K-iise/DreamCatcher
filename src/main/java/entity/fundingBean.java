@@ -4,13 +4,20 @@ public class fundingBean {
 	
 	private int funding_num;
 	private String funding_title;
-	private String funding_category;
+	private int funding_category;
 	private String funding_con;
 	private int funding_tprice;
 	private String funding_term;
 	private int funding_nprice;
 	private String funding_user_id;
+	private String funding_image;
 	
+	public String getFunding_image() {
+		return funding_image;
+	}
+	public void setFunding_image(String funding_image) {
+		this.funding_image = funding_image;
+	}
 	public int getFunding_num() {
 		return funding_num;
 	}
@@ -23,10 +30,10 @@ public class fundingBean {
 	public void setFunding_title(String funding_title) {
 		this.funding_title = funding_title;
 	}
-	public String getFunding_category() {
+	public int getFunding_category() {
 		return funding_category;
 	}
-	public void setFunding_category(String funding_category) {
+	public void setFunding_category(int funding_category) {
 		this.funding_category = funding_category;
 	}
 	public String getFunding_con() {

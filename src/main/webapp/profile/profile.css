@@ -1,0 +1,365 @@
+body {
+	margin: 0; /* 기본 여백 제거 */
+	padding: 0 15%; /* 왼쪽과 오른쪽에 15%의 여백 추가 */
+}
+
+/* 카테고리 css */
+.category-label {
+	font-size: 25px; /* 원하는 크기로 변경 */
+	font-weight: 700;
+	margin-right: 20px;
+}
+
+.category-label img {
+	width: 20px; /* 이미지의 너비를 조정 */
+	height: 20px; /* 이미지의 높이를 조정 */
+	margin-right: 15px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+/* 마우스를 올렸을 때의 스타일 */
+.category-label:hover {
+	color: red; /* 마우스 오버 시 텍스트 색상 */
+}
+
+.category-label:hover img {
+	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
+		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
+	/* 이미지 색상 변경 */
+}
+
+.profile-label.active {
+    color: black; /* 활성화된 라벨의 텍스트 색상 */
+}
+
+hr {
+	border: none; /* 기본 경계 제거 */
+	height: 1px; /* 높이 설정 */
+	background-color: #dee2e6; /* 기본 색상 */
+}
+
+/* 프로필 css */
+.profile {
+	display: flex; /* Flexbox 사용 */
+	margin-bottom: 20px;
+	margin-top: 20px;
+	align-items: center; /* 추가 */
+}
+
+.profile-label {
+	font-size: 20px; /* 원하는 크기로 변경 */
+	font-weight: 500;
+	margin-right: 30px;
+	color: gray; /* 기본 텍스트 색상 */
+	cursor: pointer; /* 클릭 가능 표시 */
+}
+
+
+.profile img {
+	width: 180px; /* 원하는 너비로 설정 */
+	height: auto; /* 비율 유지 */
+	border-radius: 50%; /* 둥글게 만들기 (선택사항) */
+}
+
+.profile-info {
+	margin-top: 10px;
+	margin-left: 50px; /* 이미지와의 간격 */
+	color: #333; /* 텍스트 색상 */
+}
+
+.profile b {
+	font-size: 20px;
+}
+
+.profile-detail {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 간격 균등 배치 */
+	margin-top: 20px; /* 상단 여백 추가 */
+	color: #555; /* 텍스트 색상 */
+}
+
+.profile-detail div {
+	text-align: center; /* 중앙 정렬 */
+	margin-right: 60px;
+	font-size: 20px;
+}
+
+.profile-buttons {
+	margin-left: auto; /* 오른쪽 정렬 */
+	display: flex;
+	flex-direction: row; /* 버튼을 수직으로 배치 */
+	align-items: flex-end; /* 오른쪽 정렬 */
+	gap: 10px; /* 버튼 간의 간격 조정 */
+}
+
+
+.profile button {
+	width: 50px; /* 원하는 너비로 설정 */
+	height: auto; /* 비율 유지 */
+	border-radius: 100%; /* 둥글게 만들기 (선택사항) */
+}
+
+.profile input.share-button {
+	background: url("image/sharebutton.png") no-repeat;
+	width: 90px;
+	height: 40px;
+	border-width: 0;
+	margin-right: 60px;
+	margin-left: 80px;
+}
+
+.profile input.follow-button {
+	background: url("image/followbutton.png") no-repeat;
+	width: 200px;
+	height: 40px;
+	border-width: 0;
+}
+
+.profile input.edit-button {
+	background: url("image/editbutton.png") no-repeat;
+	width: 200px;
+	height: 40px;
+	border-width: 0;
+	align-items: right;
+}
+
+/* 검색 바 css */
+.search-span {
+	width: 260px; /* 너비를 조정 */
+	height: 35px; /* 높이를 조정 */
+	border: 1px solid #000000;
+	float: right;
+	display: flex; /* Flexbox 사용 */
+	align-items: center; /* 추가 */
+	background: #dee2e6;
+	border: 5px;
+}
+
+.search-span .input_text {
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #dee2e6;
+}
+
+.search-span .input_icon {
+	border: 0px;
+	float: right;
+}
+
+/* 상단바 1 css */
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title-header div {
+    display: flex;
+    align-items: center; /* 내부 요소 수직 가운데 정렬 */
+}
+
+
+
+/* 상단바 아이콘 */
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
+}
+
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header span {
+	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
+	width: 150px;
+	padding: 15px;
+	align-items: center; /* 수직 가운데 정렬 */
+	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
+	margin-left: 20px;
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
+}
+
+.title-header span img {
+	width: 35px; /* 원하는 너비 설정 */
+	height: 35px; /* 원하는 높이 설정 */
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+/* 전체 올린 프로젝트 영역*/
+#projects {
+	display: flex;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+
+}
+
+/* 단일 올린 프로젝트 영역 css */
+#upload-project img {
+	width: 280px; /* 원하는 너비 설정 */
+	height: 280px; /* 원하는 높이 설정 */
+}
+
+#upload-project {
+	width: 280px; /* 원하는 너비 설정 */
+	height: 420px; /* 비율 유지 */
+	margin: 20px;
+	margin-bottom: 20px;
+}
+
+.creator-name {
+	font-size: 15px; /* 창작자 이름 크기 */
+	font-weight: bold; /* 굵게 */
+	color: #6D6D6D; /* 색상 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+.creator-name:hover {
+    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+    color: #6D6D6D; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+}
+
+.product-name {
+	font-size: 18px; /* 제품명 크기 */
+	font-weight: bold; /* 굵게 */
+	color: #000000; /* 색상 */
+}
+
+.description {
+	font-size: 14px; /* 설명 크기 */
+	color: #777; /* 색상 */
+	margin-top: 5px; /* 위쪽 여백 */
+	margin-bottom: 0px; /* 아래쪽 여백만 추가 */
+}
+
+progress {
+	width: 100%; /* 부모 요소의 너비에 맞춤 */
+	height: 3px; /* 높이 설정 */
+	appearance: none; /* 기본 스타일 제거 */
+	background-color: #e0e0e0; /* 배경 색상 */
+	margin-top: 5px; /* progress 위쪽 여백 추가 */
+	margin-bottom: 13px; /* progress 아래쪽 여백 추가 (필요에 따라 조정) */
+}
+
+progress::-webkit-progress-bar {
+	background-color: #e0e0e0; /* 배경 색상 (Webkit 브라우저 전용) */
+	border-radius: 10px; /* 모서리 둥글게 */
+}
+
+progress::-webkit-progress-value {
+	background-color: red; /* 진행 바 색상 (Webkit 브라우저 전용) */
+	border-radius: 10px; /* 모서리 둥글게 */
+}
+
+progress::-moz-progress-bar {
+	background-color: red; /* 진행 바 색상 (Firefox 전용) */
+	border-radius: 10px; /* 모서리 둥글게 */
+}
+
+.progress-info {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 공간을 균등하게 배분 */
+	align-items: center; /* 수직 정렬 */
+	margin-top: 5px; /* 위쪽 여백 */
+	margin-bottom: 0px;
+}
+
+.progress-percentage {
+	font-size: 15px; /* 폰트 크기 */
+	font-weight: bold; /* 굵게 */
+	color: red; /* 텍스트 색상 */
+	width: 30%; /* 고정 너비 설정 */
+}
+
+.progress-amount {
+	font-size: 13px; /* 폰트 크기 */
+	color: #000000; /* 텍스트 색상 */
+	width: 70%; /* 고정 너비 설정 */
+}
+
+.progress-time {
+	font-size: 15px; /* 폰트 크기 */
+	color: #000000; /* 텍스트 색상 */
+	width: 30%; /* 고정 너비 설정 */
+	text-align: right; /* 오른쪽 정렬 */
+}
+
+#content-box{
+	min-height: 450px;
+}
+
+
+/* 팔로워 박스 */
+#follower-box {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 버튼을 오른쪽 끝으로 배치 */
+    border: 0.5px solid #e3e3e3;
+}	
+
+.follower-info{
+	display: flex;
+	flex-direction: column; /* 버튼을 수직으로 배치 */
+}
+
+.follower-info a{
+	font-size: 18px; /* 창작자 이름 크기 */
+	font-weight: bold; /* 굵게 */
+	text-decoration: none; /* 밑줄 제거 */
+	margin-bottom: 10px;
+}
+
+.follower-info a:hover {
+    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+    color: #000000; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+}
+
+.follower-info label{
+	font-size: 15px; /* 창작자 이름 크기 */
+	color: #6D6D6D;
+}
+
+#follower-box img {
+	width: 70px; /* 원하는 너비로 설정 */
+	height: 70px; /* 비율 유지 */
+	border-radius: 50%; /* 둥글게 만들기 (선택사항) */
+	margin-left: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 20px;
+}
+
+#follower-box .follow-button {
+	background: url("image/followbutton2.png") no-repeat;
+	width: 120px; 
+	height: 40px;
+	border-width: 0;
+	margin-left: auto; /* 버튼을 오른쪽 끝으로 밀어냄 */
+	margin-right: 30px;
+}
+

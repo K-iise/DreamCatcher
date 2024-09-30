@@ -1,0 +1,276 @@
+body {
+	margin: 0;
+	padding: 0 15%;
+}
+
+/* 카테고리 css */
+.category-label {
+	font-size: 25px;
+	font-weight: 700;
+	margin-right: 20px;
+}
+
+.category-label img {
+	width: 20px;
+	height: 20px;
+	margin-right: 15px;
+}
+
+.category-label:hover {
+	color: red;
+}
+
+.category-label:hover img {
+	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
+		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
+}
+
+.active {
+	color: black;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: #dee2e6;
+}
+
+/* 검색 바 css */
+.search-span {
+	width: 260px;
+	height: 35px;
+	border: 1px solid #000000;
+	float: right;
+	display: flex;
+	align-items: center;
+	background: #dee2e6;
+	border: 5px;
+}
+
+.search-span .input_text {
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #dee2e6;
+}
+
+.search-span .input_icon {
+	border: 0px;
+	float: right;
+}
+
+/* 상단바 1 css */
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title-header div {
+	display: flex;
+	align-items: center;
+}
+
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
+}
+
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header span {
+	display: inline-block;
+	width: 150px;
+	padding: 15px;
+	align-items: center;
+	border: 1px solid black;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title-header span img {
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.MainTop {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.left-section {
+	flex: 4;
+	display: flex;
+	flex-direction: column;
+}
+
+.right-section {
+	flex: 2;
+	background-color: #f9f9f9;
+	margin-left: 20px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.slider-container {
+	width: 933px;
+	overflow: hidden; /* 슬라이더가 넘치는 부분 숨김 */
+	position: relative;
+}
+
+.slides {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+	width: calc(933px * 3); /* 슬라이드 수에 따라 너비 조정 */
+}
+
+.slide {
+	width: 933px;
+}
+
+.slide img {
+	width: 933px;
+	height: 300px;
+	object-fit: fill;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.prev {
+	left: 10px;
+}
+
+.next {
+	right: 10px;
+}
+
+/* Optional: pagination (dots) */
+.dots {
+	text-align: center;
+	margin-top: 0px;
+}
+
+.dot {
+	height: 15px;
+	width: 15px;
+	margin: 0 5px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.active {
+	background-color: #717171;
+}
+
+/* 추가 콘텐츠 스타일 */
+.additional-content {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+/* 오른쪽 인기 프로젝트 랭킹 스타일 */
+.right-section h2 {
+	font-size: 24px;
+	margin-bottom: 10px;
+}
+
+.right-section ul {
+	list-style: none;
+	padding: 0;
+}
+
+.right-section li {
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+
+/* 주목할 만한 프로젝트 영역 css */
+#interest-project img {
+	width: 192px; /* 원하는 너비 설정 */
+	height: 180px; /* 원하는 높이 설정 */
+}
+
+#interest-project {
+	width: 192px; /* 원하는 너비 설정 */
+	height: 280px; /* 비율 유지 */
+	margin: 10px;
+}
+
+.creator-name {
+	font-size: 15px; /* 창작자 이름 크기 */
+	font-weight: bold; /* 굵게 */
+	color: #6D6D6D; /* 색상 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+.creator-name:hover {
+    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+    color: #6D6D6D; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+}
+
+.product-name {
+	font-size: 15px; /* 제품명 크기 */
+	font-weight: bold; /* 굵게 */
+	color: #000000; /* 색상 */
+}
+
+
+.progress-info {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 공간을 균등하게 배분 */
+	align-items: center; /* 수직 정렬 */
+	margin-top: 5px; /* 위쪽 여백 */
+	margin-bottom: 0px;
+}
+
+.progress-percentage {
+	font-size: 15px; /* 폰트 크기 */
+	font-weight: bold; /* 굵게 */
+	color: red; /* 텍스트 색상 */
+	width: 100%; /* 고정 너비 설정 */
+}
+

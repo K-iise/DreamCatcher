@@ -49,7 +49,7 @@ public class followMgr {
 		
 	}
 
-	public int getFollowCount(String user_id) {
+	public int getFollowerCount(String user_id) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -58,7 +58,7 @@ public class followMgr {
 		int count=0;
 		try {
 			con = pool.getConnection();
-			sql = "select count(*) as follow_count from follow where follow_get_user_id = ?";
+			sql = "select count(*) as follower_count from follow where follow_get_user_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			
@@ -66,7 +66,37 @@ public class followMgr {
 			
 			while(rs.next()) {
 				
-				count=rs.getInt("follow_count");
+				count=rs.getInt("follower_count");
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+		
+	}
+	
+	public int getFollowingCount(String user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count=0;
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) as following_count from follow where follow_set_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				count=rs.getInt("following_count");
 				
 			}
 			

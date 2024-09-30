@@ -10,7 +10,14 @@ public class usersBean {
 	private String user_address;
 	private int user_master;
 	private String user_info;
+	private String user_image;
 	
+	public String getUser_image() {
+		return user_image;
+	}
+	public void setUser_image(String user_image) {
+		this.user_image = user_image;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
