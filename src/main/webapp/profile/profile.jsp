@@ -30,6 +30,17 @@ int follower = fMgr.getFollowerCount(ubean.getUser_id());
 int following = fMgr.getFollowingCount(ubean.getUser_id());
 
 fundingMgr fdMgr = new fundingMgr();
+<<<<<<< HEAD
+=======
+
+Vector<fundingBean> fdvlist = fdMgr.fundingListForUserId(ubean.getUser_id());
+
+
+int fdCount=fdMgr.fundingCount(ubean.getUser_id());
+
+
+
+>>>>>>> origin/프로필올린프로젝트
 
 Vector<fundingBean> fdvlist = fdMgr.fundingListForUserId(ubean.getUser_id());
 
@@ -158,6 +169,7 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
+<<<<<<< HEAD
 	
 		<div id="profile-content" class="tab-content">
 			<div id="content-box">
@@ -215,6 +227,52 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 		</div>
 		<div id="followers-content" class="tab-content"
 				style="display: none;">
+=======
+		<div id="profile-content" class="tab-content"><%=ubean.getUser_info()%></div>
+		<div id="review-content" class="tab-content" style="display: none;">프로젝트 후기 내용</div>
+		<div id="project-content" class="tab-content" style="display: none;">
+			<div style="margin-left: 20px; margin-top: 20px;"><%=fdCount %>개의 프로젝트가 있습니다.</div>
+			<%if(fdCount!=0){ %>
+			
+    <div id="projects">
+    <% for (int i = 0; i < fdCount; i++) { %>
+        <div id="upload-project">
+            <!-- 프로젝트 사진 -->
+            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
+            <!-- 창작자 명 -->
+            <a class="creator-name">
+                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
+            </a><br>
+            <!-- 제품명 -->
+            <label class="product-name">
+                <%= fdvlist.get(i).getFunding_title() %>
+            </label><br>
+            <!-- 진행 정보 -->
+            <div class="progress-info">
+                <span class="progress-percentage">
+                    <%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %> %
+                </span> 
+                <span class="progress-amount">
+                    <%= fdvlist.get(i).getFunding_nprice() %>원
+                </span> 
+                <span class="progress-time">
+                    <%= fdMgr.fundDate(fdvlist.get(i).getFunding_num()) %>일 남음
+                </span>
+            </div>
+            <!-- 진행 바 -->
+            <progress id="progress" value="<%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %>" min="0" max="100"></progress>
+        </div>
+        <% } %>
+    </div>
+
+		<%} %>
+
+		<div id="followers-content" class="tab-content" style="display: none;">팔로워
+			목록</div>
+		<div id="following-content" class="tab-content" style="display: none;">팔로잉
+			목록</div>
+	</div>
+>>>>>>> origin/프로필올린프로젝트
 
 				<div id="content-box">
 					<div id="follower-box">
