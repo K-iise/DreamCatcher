@@ -135,12 +135,102 @@ hr {
 	flex-direction: column;
 }
 
+/* 오른쪽 랭킹 세션. */
 .right-section {
+	display: flex;
 	flex: 2;
 	background-color: #f9f9f9;
 	margin-left: 20px;
 	border-radius: 5px;
 	border: 1px solid #ddd;
+	flex-direction: column; /* 수직으로 정렬. */
+
+}
+
+/* 오른쪽 랭킹 헤더. */
+#header-ranking {
+	display: flex;
+	justify-content: space-between; /* h2 + p와 a를 양 끝에 배치 */
+	align-items: flex-start; /* 모든 아이템을 상단에 정렬 */
+}
+
+.title-group {
+	display: flex;
+	flex-direction: column; /* h2와 p를 수직으로 정렬 */
+}
+
+#header-ranking h2 {
+	font-size: 20px;
+	padding: 0px;
+	margin: 5px;
+}
+
+#header-ranking p {
+	font-size: 12px;
+	padding: 0px;
+	margin: 5px;
+}
+
+#header-ranking a {
+	font-size: 15px;
+	margin-left: auto; /* 자동으로 오른쪽으로 밀림 */
+	padding: 0px;
+	margin: 10px;
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 오른쪽 랭킹 프로젝트. */
+#project-ranking {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	width: 350px;
+	height: 95px;
+	justify-content: center; /* 내부 요소를 수평 중앙 정렬 */
+	margin: 10px 0; /* 위쪽과 아래쪽 마진 추가 */
+}
+
+#project-ranking img{
+	width: 100px;
+	height: 100px;
+	
+}
+
+#project-ranking b{
+	font-size: 20px;
+	margin-left: 35px;
+	color: red;
+	
+}
+
+#project-rankinfo{
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	width: 150px;
+	height: 100px;
+	
+}
+
+#project-rankinfo b{
+	font-size: 15px;
+	margin: 0px;
+	margin-left: 40px;
+	padding: 0px;
+}
+
+#project-rankinfo p{
+	font-size: 15px;
+	width:148px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;	
+	display: -webkit-box; /* Webkit 기반 브라우저에서 박스 모델 사용 */
+	-webkit-box-orient: vertical; /* 세로로 박스 방향 설정 */
+	-webkit-line-clamp: 2; /* 최대 2줄로 제한 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 잘린 부분에 '...' 표시 */
+	font-weight: bold
 }
 
 .slider-container {
@@ -205,28 +295,25 @@ hr {
 	background-color: #717171;
 }
 
+
 /* 추가 콘텐츠 스타일 */
 .additional-content {
+	display: flex;
 	background-color: #fff;
 	border: 1px solid #ddd;
 	border-radius: 5px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column; /* 버튼을 수직으로 배치 */
 }
 
-/* 오른쪽 인기 프로젝트 랭킹 스타일 */
-.right-section h2 {
-	font-size: 24px;
-	margin-bottom: 10px;
+#projects {
+	display: flex;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: row; /* 버튼을 수직으로 배치 */
 }
 
-.right-section ul {
-	list-style: none;
-	padding: 0;
-}
 
-.right-section li {
-	margin-bottom: 10px;
-	font-size: 18px;
-}
+
 
 /* 주목할 만한 프로젝트 영역 css */
 #interest-project img {
@@ -237,7 +324,7 @@ hr {
 #interest-project {
 	width: 192px; /* 원하는 너비 설정 */
 	height: 280px; /* 비율 유지 */
-	margin: 10px;
+	margin: 20px;
 }
 
 .creator-name {
@@ -273,4 +360,5 @@ hr {
 	color: red; /* 텍스트 색상 */
 	width: 100%; /* 고정 너비 설정 */
 }
+
 

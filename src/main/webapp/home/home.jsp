@@ -106,37 +106,52 @@ mybean.setUser_resnum("111111-1111111");
 					onclick="currentSlide(3)"></span>
 			</div>
 
-			<!-- 추가 콘텐츠 영역 -->
+			<!-- 주목할 만한 프로젝트 영역 -->
 			<div class="additional-content">
 				<h2 style="margin: 20px;">주목할 만한 프로젝트</h2>
-				
-				<div id="interest-project">
-				<!-- 프로젝트 사진 -->
-				<img src="image/interest-project1.jpg"> 
-				<!-- 창작자 명 -->
-				<a class="creator-name">몽상부띠그</a><br>
-				 <!-- 제품명 -->
-				<label class="product-name">
-					한복원단으로 만나는 [십장생 매듭원피스2]
-				</label><br>
-				<!-- 진행 정보 -->
-				<div class="progress-info">
-					<span class="progress-percentage">1408% 달성</span> 
+
+				<div id="projects">
+					<div id="interest-project">
+						<!-- 프로젝트 사진 -->
+						<img src="image/interest-project1.jpg">
+						<!-- 창작자 명 -->
+						<a class="creator-name">몽상부띠그</a><br>
+						<!-- 제품명 -->
+						<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+						<!-- 진행 정보 -->
+						<div class="progress-info">
+							<span class="progress-percentage">1408% 달성</span>
+						</div>
+					</div>
+
+			
 				</div>
 
-			</div>
-			
+
+
 			</div>
 		</div>
 
 		<!-- 오른쪽 섹션 (인기 프로젝트 랭킹) -->
 		<div class="right-section">
-			<h2>인기 프로젝트 랭킹</h2>
-			<ul>
-				<li>프로젝트 1</li>
-				<li>프로젝트 2</li>
-				<li>프로젝트 3</li>
-			</ul>
+			<div id="header-ranking">
+				<div class="title-group">
+					<h2>인기 프로젝트</h2>
+					<p>24.09.30 15.24 기준</p>
+				</div>
+				<a href="#">전체 보기</a>
+			</div>
+			
+			<div id="project-ranking">
+				<img src="image/interest-project1.jpg">
+				<b>1등</b>
+				<div id="project-rankinfo">
+					<b style="color: #6D6D6D">무용지용</b>
+					<p>어디서든지 누를 수 있는 <키보드 키링></p>
+					<b>5434 % 달성</b>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<script src="slide.js"></script>
