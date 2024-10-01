@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 계획</title>
+
+    <!-- Quill.js CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            height: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: left;
+            padding: 10px 20px;
+            width: 100%;
+        }
+
+        .logo h1 {
+            margin: 0;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: start;
+            gap: 10px;
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .menu li {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .container {
+            padding: 20px;
+            margin: 0 auto;
+            width: calc(100% - 40px);
+            max-width: 1200px;
+        }
+
+        .section {
+            border-bottom: 1px solid #ccc;
+            padding: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .text-info {
+            flex-basis: 30%;
+        }
+
+        .editor-container {
+            flex-basis: 70%;
+            margin-bottom: 40px;
+        }
+
+        .editor {
+            height: 500px; /* 에디터의 세로 크기를 동일하게 설정 */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <h1>프로젝트 기획</h1>
+        </div>
+        <ul class="menu">
+            <li>기본 정보</li>
+            <li>펀딩 계획</li>
+            <li>프로젝트 계획</li>
+            <li>창작자 정보</li>
+        </ul>
+    </div>
+    <div class="container">        
+        <!-- 프로젝트 계획 섹션 -->
+        <div class="section">
+            <div class="text-info">
+                <h2>프로젝트 계획</h2>
+            </div>
+            <!-- 첫 번째 글쓰기 기능을 추가한 에디터 섹션 -->
+            <div class="editor-container">
+                <h2>프로젝트 소개</h2>
+                <p>무엇을 만들기 위한 프로젝트인지 설명해 주세요.</p>
+                <div id="editor0" class="editor"></div> <!-- 첫 번째 Quill.js 에디터 -->
+            </div>
+        </div>
+        
+        <!-- 두 번째 글쓰기 기능을 추가한 에디터 섹션 -->
+        <div class="section">
+            <div class="text-info">
+            </div>
+            <div class="editor-container">
+                <h2>프로젝트 예산</h2>
+                <p>펀딩 목표 금액을 제작에 어떻게 사용할 것인지 구체적으로 알려주세요. ‘인건비’, ‘배송비’, ‘인쇄비’, ‘대관료’ 등 세부 항목별로 작성해야 합니다.</p>
+                <div id="editor1" class="editor"></div> <!-- 두 번째 Quill.js 에디터 -->
+            </div>
+        </div>
+        
+        <!-- 세 번째 글쓰기 기능을 추가한 에디터 섹션 -->
+        <div class="section">
+            <div class="text-info">
+            </div>
+            <div class="editor-container">
+                <h2>프로젝트 일정</h2>
+                <p>작업 일정을 구체적인 날짜와 함께 작성하세요. 후원자가 일정을 보면서 어떤 작업이 진행될지 알 수 있어야 합니다. 펀딩 종료 이후의 제작 일정을 반드시 포함하세요.</p>
+                <div id="editor2" class="editor"></div> <!-- 세 번째 Quill.js 에디터 -->
+            </div>
+        </div>
+        
+        <!-- 네 번째 글쓰기 기능을 추가한 에디터 섹션 -->
+        <div class="section">
+            <div class="text-info">
+            </div>
+            <div class="editor-container">
+                <h2>선물 설명</h2>
+                <p>후원자가 후원 금액별로 받을 수 있는 선물을 상세하게 알려주세요. 표로 정리하거나 예시 이미지를 포함하는 것도 방법입니다.</p>
+                <div id="editor3" class="editor"></div> <!-- 네 번째 Quill.js 에디터 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Quill.js Script -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Quill.js 이미지 업로드 기능 추가 -->
+    <script>
+        function imageHandler() {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.click();
+
+            input.onchange = function () {
+                var file = input.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var base64String = e.target.result;
+                    var range = quill.getSelection();
+                    quill.insertEmbed(range.index, 'image', base64String);
+                };
+                reader.readAsDataURL(file);
+            };
+        }
+
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+
+            ['clean'],                                         // remove formatting button
+            ['link', 'image']                                  // link and image, image includes handler
+        ];
+
+        var quills = [];
+
+        for (var i = 0; i < 4; i++) {
+            quills[i] = new Quill(`#editor${i}`, {
+                theme: 'snow', // Quill.js의 기본 테마 설정
+                modules: {
+                    toolbar: {
+                        container: toolbarOptions,
+                        handlers: {
+                            image: imageHandler // 이미지 핸들러 정의
+                        }
+                    }
+                }
+            });
+        }
+
+        // 초기 텍스트를 외부에서 선언
+        var initialContent = [
+            `막연하다면 아래의 질문에 대한 답에 내용에 포함되도록 작성해보세요.<br><br>
+Q. 무엇을 만들기 위한 프로젝트인가요?<br>
+Q. 프로젝트를 간단히 소개한다면?<br>
+Q. 이 프로젝트가 왜 의미있나요?<br>
+Q. 이 프로젝트를 시작하게 된 배경이 무엇인가요?`,
+            
+            `설정하신 목표 금액을 어디에 사용 예정이신지 구체적인 지출 항목으로 적어 주세요.
+- 예산은 '제작비'가 아닌 구체적인 '항목'으로 적어 주세요.
+- 이번 프로젝트의 실행에 필요한 비용으로만 작성해 주세요.
+- 기부, 다음 프로젝트에 사용하기 등은 이번 프로젝트의 예산으로 볼 수 없어요.
+- 만약 전체 제작 비용 중 일부만 모금하시는 경우라면, 나머지 제작 비용은 어떻게 마련 예정인지 추가로 작성해 주세요.<br>
+(예시)<br>
+목표 금액은 아래의 지출 항목으로 사용할 예정입니다.
+ - 인건비
+ - 배송비
+ - 발주비
+ - 디자인 의뢰비
+ - 수수료`,
+            
+            `설정하신 목표 금액을 어디에 사용 예정이신지 구체적인 지출 항목으로 적어 주세요.<br>        
+(예시)
+목표 금액은 아래의 지출 항목으로 사용할 예정입니다.
+ - 0월0일: 현재 제품 시안 및 1차 샘플 제작
+ - 0월0일: 펀딩 시작일
+ - 0월0일: 샘플 작업 보완
+ - 0월0일: 펀딩 종료일
+ - 0월0일: 2차 샘플 제작
+ - 0월0일: 제품 디테일 보완
+ - 0월0일: 제품 발주 시작
+  - 0월0일: 후가공 처리 및 포장 작업
+ - 0월0일: 선물 예상 전달일`,
+            
+            ``
+        ];
+
+        // 초기 텍스트 적용
+        for (var i = 0; i < quills.length; i++) {
+            quills[i].root.innerHTML = initialContent[i];
+        }
+    </script>
+</body>
+</html>
