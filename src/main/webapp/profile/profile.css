@@ -86,7 +86,7 @@ hr {
 .profile-buttons {
 	margin-left: auto; /* 오른쪽 정렬 */
 	display: flex;
-	flex-direction: row; /* 버튼을 수직으로 배치 */
+	flex-direction: column; /* 버튼을 수직으로 배치 */
 	align-items: flex-end; /* 오른쪽 정렬 */
 	gap: 10px; /* 버튼 간의 간격 조정 */
 }
@@ -341,6 +341,12 @@ progress::-moz-progress-bar {
 .follower-info{
 	display: flex;
 	flex-direction: column; /* 버튼을 수직으로 배치 */
+}
+
+#follower-infos{
+	display: flex;
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: flex-start;
 }
 
 .follower-info a{

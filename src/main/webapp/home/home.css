@@ -1,6 +1,14 @@
+
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+
 body {
 	margin: 0;
 	padding: 0 15%;
+}
+
+header {
+    position: relative; /* 상대 위치 설정 */
+    overflow: visible; /* 오버플로우를 보이도록 설정 */
 }
 
 /* 카테고리 css */
@@ -39,11 +47,12 @@ hr {
 .search-span {
 	width: 260px;
 	height: 35px;
-	border: 1px solid #000000;
+	border: 1px solid #E6E6E6;
 	float: right;
 	display: flex;
 	align-items: center;
-	background: #dee2e6;
+	justify-content: space-between; /* h2 + p와 a를 양 끝에 배치 */
+	background: #E6E6E6;
 	border: 5px;
 }
 
@@ -51,10 +60,13 @@ hr {
 	font-size: 18px;
 	border: 0px;
 	outline: none;
-	background: #dee2e6;
+	background: #E6E6E6;
+	font-family: 'Nanum Gothic Coding';
+	font-weight: bold;
 }
 
 .search-span .input_icon {
+	display:flex;
 	border: 0px;
 	float: right;
 }
@@ -129,18 +141,113 @@ hr {
 	margin-bottom: 20px;
 }
 
+.MainBottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+
 .left-section {
 	flex: 4;
 	display: flex;
 	flex-direction: column;
 }
 
+/* 오른쪽 랭킹 세션. */
 .right-section {
+	display: flex;
 	flex: 2;
-	background-color: #f9f9f9;
 	margin-left: 20px;
-	border-radius: 5px;
-	border: 1px solid #ddd;
+	flex-direction: column; /* 수직으로 정렬. */
+
+}
+
+/* 오른쪽 랭킹 헤더. */
+#header-ranking {
+	display: flex;
+	justify-content: space-between; /* h2 + p와 a를 양 끝에 배치 */
+	align-items: flex-start; /* 모든 아이템을 상단에 정렬 */
+}
+
+.title-group {
+	display: flex;
+	flex-direction: column; /* h2와 p를 수직으로 정렬 */
+}
+
+#header-ranking h2 {
+	font-size: 20px;
+	padding: 0px;
+	margin: 5px;
+}
+
+#header-ranking p {
+	font-size: 12px;
+	padding: 0px;
+	margin: 5px;
+}
+
+#header-ranking a {
+	font-size: 15px;
+	margin-left: auto; /* 자동으로 오른쪽으로 밀림 */
+	padding: 0px;
+	margin: 10px;
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 오른쪽 랭킹 프로젝트. */
+#project-ranking {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	width: 350px;
+	height: 95px;
+	justify-content: center; /* 내부 요소를 수평 중앙 정렬 */
+	margin: 10px 0; /* 위쪽과 아래쪽 마진 추가 */
+}
+
+#project-ranking img{
+	width: 100px;
+	height: 100px;
+	
+}
+
+#project-ranking b{
+	font-size: 20px;
+	margin-left: 35px;
+	color: red;
+	
+}
+
+#project-rankinfo{
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	width: 150px;
+	height: 100px;
+	
+}
+
+#project-rankinfo b{
+	font-size: 15px;
+	margin: 0px;
+	margin-left: 40px;
+	padding: 0px;
+}
+
+#project-rankinfo p{
+	font-size: 15px;
+	width:148px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;	
+	display: -webkit-box; /* Webkit 기반 브라우저에서 박스 모델 사용 */
+	-webkit-box-orient: vertical; /* 세로로 박스 방향 설정 */
+	-webkit-line-clamp: 2; /* 최대 2줄로 제한 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 잘린 부분에 '...' 표시 */
+	font-weight: bold
 }
 
 .slider-container {
@@ -205,28 +312,50 @@ hr {
 	background-color: #717171;
 }
 
+
 /* 추가 콘텐츠 스타일 */
 .additional-content {
+	display: flex;
 	background-color: #fff;
-	border: 1px solid #ddd;
-	border-radius: 5px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column; /* 버튼을 수직으로 배치 */
 }
 
-/* 오른쪽 인기 프로젝트 랭킹 스타일 */
-.right-section h2 {
-	font-size: 24px;
-	margin-bottom: 10px;
+
+/* 추가 콘텐츠 스타일 */
+.recent-content {
+	display: flex;
+	width: 100%;
+	background-color: #fff;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column; /* 버튼을 수직으로 배치 */
 }
 
-.right-section ul {
-	list-style: none;
-	padding: 0;
+
+#projects {
+	display: flex;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: row; /* 버튼을 수평으로 배치 */
 }
 
-.right-section li {
-	margin-bottom: 10px;
-	font-size: 18px;
+/* 주목할 만한 프로젝트 영역 css */
+#recent-project img {
+	width: 220x; /* 원하는 너비 설정 */
+	height: 240px; /* 원하는 높이 설정 */
 }
+
+#recent-project {
+	width: 220px; /* 원하는 너비 설정 */
+	height: 300px; /* 비율 유지 */
+	margin: 20px;
+}
+
+#recent-head{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 
 /* 주목할 만한 프로젝트 영역 css */
 #interest-project img {
@@ -237,7 +366,7 @@ hr {
 #interest-project {
 	width: 192px; /* 원하는 너비 설정 */
 	height: 280px; /* 비율 유지 */
-	margin: 10px;
+	margin: 20px;
 }
 
 .creator-name {
@@ -272,5 +401,62 @@ hr {
 	font-weight: bold; /* 굵게 */
 	color: red; /* 텍스트 색상 */
 	width: 100%; /* 고정 너비 설정 */
+}
+
+.cat-container {
+	position: relative;
+	display: flex;
+}
+
+.depth1-wrapper {
+	display: none; /* 기본적으로 숨김 */ 
+	position : absolute; /* 절대 위치 설정 */
+	overflow : hidden;
+	width: 100%;
+	height: auto;
+	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
+	transition: max-height 0.3s ease-in-out;
+	flex-direction: row;
+	background: rgb(255, 255, 255);
+	z-index: 999;
+	user-select: none;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 7px;
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.category-label:hover ~ .depth1-wrapper {
+	display: flex; /* 호버 시에 보이게 */
+	flex-wrap: wrap; /* 내용에 맞게 줄 바꿈 */
+}
+
+.depth1-group {
+	display: flex; /* 가로 방향 정렬 */
+	flex-direction: column; /* 세로 방향 정렬 */
+}
+
+.depth1-item {
+	display: flex;
+	align-items: center; /* 아이콘과 텍스트 정렬 */
+	padding: 8px 12px; /* 항목 패딩 */
+	cursor: pointer;
+}
+
+.depth1-item:hover {
+	background-color: #f1f1f1; /* 호버 시 배경색 변화 */
+}
+
+.depth1-icon {
+	margin-right: 8px; /* 아이콘과 텍스트 간격 */
+}
+	
+.depth1-icon-img {
+	width: 45px; /* 아이콘 크기 조정 */
+	height: 45px;
+}
+
+.depth1-text {
+	font-size: 18px;
 }
 

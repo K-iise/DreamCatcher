@@ -7,6 +7,7 @@
 <%@ page import="control.fundingMgr"%>
 <%@ page import="entity.fundingBean"%>
 
+
 <%
 
 String selectuserId="aaaa";
@@ -18,6 +19,7 @@ selectuserId = request.getParameter("userId");
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
+
 
 usersBean ubean = uMgr.oneUserList(selectuserId);
 usersBean mybean = uMgr.oneUserList(myId);
@@ -34,6 +36,7 @@ if(mybean.getUser_image()==null||mybean.getUser_image().equals("")){
 	
 	mybean.setUser_image("image/guest.png");
 	
+
 }
 
 int follower = fMgr.getFollowerCount(ubean.getUser_id());
@@ -42,6 +45,7 @@ int following = fMgr.getFollowingCount(ubean.getUser_id());
 fundingMgr fdMgr = new fundingMgr();
 
 Vector<fundingBean> fdvlist = fdMgr.fundingListForUserId(ubean.getUser_id());
+
 
 
 int fdCount=fdMgr.fundingCount(ubean.getUser_id());
@@ -125,6 +129,7 @@ else if("follow-delete".equals(followAction)){
 
 
 
+
 %>
 
 
@@ -188,8 +193,10 @@ else if("follow-delete".equals(followAction)){
 
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
+
 				type="button" class="bell-button" onclick=""> 
 				<span onclick=""> <img src='<%=mybean.getUser_image()%>'> <b><%=mybean.getUser_name()%></b>
+
 			</span>
 		</div>
 
@@ -214,7 +221,9 @@ else if("follow-delete".equals(followAction)){
 
 	<!-- 프로필 정보 -->
 	<div class="profile">
+
 		<img src='<%=ubean.getUser_image() %>' alt="Profile Image">
+
 		<div class="profile-info">
 			<b><%=ubean.getUser_name()%></b>
 			<div class="profile-detail">
@@ -265,6 +274,7 @@ else if("follow-delete".equals(followAction)){
 
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
+
 		<div id="profile-content" class="tab-content"><%=ubean.getUser_info()%></div>
 		<div id="review-content" class="tab-content" style="display: none;">프로젝트 후기 내용</div>
 		<div id="project-content" class="tab-content" style="display: none;">
@@ -309,8 +319,10 @@ else if("follow-delete".equals(followAction)){
 		<%} %>
 		</div>
 
+
 		<div id="followers-content" class="tab-content" style="display: none;">
 			<div id="content-box">
+
 				<% if(fgvlist != null && follower != 0) { %>
 				    <% for(int i = 0; i < follower; i++) { 
 				        usersBean user = uMgr.oneUserList(fgvlist.get(i).getFollow_set_user_id());
@@ -412,6 +424,7 @@ else if("follow-delete".equals(followAction)){
 			</div>
 		</div>
 	</div>
+
 
 </body>
 </html>
