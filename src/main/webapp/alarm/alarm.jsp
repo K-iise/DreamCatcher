@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector" %>
+<%@page import="entity.alarmBean" %>
+<%@page import="control.alarmMgr" %>
+<%@page import="entity.usersBean" %>
+<%@page import="control.usersMgr" %>
+<%
+	alarmMgr amgr = new alarmMgr();
+	usersMgr mgr = new usersMgr();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,13 +147,14 @@ hr {
 /* 알람 정보 */
 .alarm-sample {
 	display: flex; /* Flexbox 사용 */
-	align-items: flex-start; /* 위쪽 정렬 */
+	align-items: center; /* 위쪽 정렬 */
 	width: auto;
 	height: auto; /* 높이를 자동으로 조정 */
-	padding: 15px; /* 여백 추가 */
+	padding: 5px; /* 여백 추가 */
 	border: 1px solid #dee2e6; /* 경계선 추가 */
 	background-color: #f8f9fa; /* 배경색 설정 */
 	margin-bottom: 10px; /* 아래쪽 여백 */
+	
 }
 
 .alarm-sample:hover{
@@ -153,8 +163,8 @@ hr {
 
 /* 알람 사진 */
 .alarm-image {
-	width: 120px; /* 원하는 너비 설정 */
-	height: 120px; /* 원하는 높이 설정 */
+	width: 60px; /* 원하는 너비 설정 */
+	height: 60px; /* 원하는 높이 설정 */
 	margin-right: 20px; /* 이미지와 텍스트 사이의 간격 */
 }
 
@@ -166,55 +176,16 @@ hr {
 
 /* 알람 이름 */
 .alarmname {
-	font-size: 19px; /* 제품명 크기 */
+	font-size: 20px; /* 제품명 크기 */
 	color: #000000; /* 색상 */
-	margin-bottom: 0px; /* 제목과 내용 사이의 간격 */
 }
 
-/* 알람 내용 */
-.description {
-	font-size: 16px; /* 설명 크기 */
-	color: #6c757d; /* 색상 변경 (회색) */
-	line-height: 1.5; /* 줄 높이 설정 */
-	width: 1057px;
-	overflow: hidden; /* 내용 넘침 방지 */
-	text-overflow: ellipsis; /* 넘치는 텍스트는 ...로 표시 */
-	display: -webkit-box; /* 웹킷 박스 모델 사용 */
-	-webkit-line-clamp: 3; /* 최대 3줄로 제한 */
-	-webkit-box-orient: vertical; /* 세로 방향으로 설정 */
-}
 
-/* 알람 날짜*/
-.alarm-text small {
-	font-size: 15px;
-}
-
-/* 삭제 링크 */
-.delete-button {
-	padding: 5px 10px; /* 링크 패딩 */
-	background-color: #dc3545; /* 빨간색 배경 */
-	color: white; /* 흰색 텍스트 */
-	text-decoration: none; /* 기본 밑줄 제거 */
-	border-radius: 5px; /* 둥근 모서리 */
-	margin-left: 60px;
-}
 
 .delete-button:hover {
 	background-color: #c82333; /* 호버 시 색상 변경 */
 }
 
-
-/* 삭제 확인 모달 */
-.modal {
-    display: none; /* Hide by default */
-    position: fixed; /* Fixed in place */
-    z-index: 1; /* On top of everything */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Darken the background */
-}
 
 .modal-content {
     background-color: #fefefe;
@@ -293,10 +264,35 @@ hr {
             alert("알림이 삭제되었습니다."); // 삭제 후 알림
             closeModal(); // 모달 닫기
         }
-		
 </script>
 </head>
 <body>
+<%
+    // 로그인한 사용자 ID를 세션에서 가져옴
+    String user_id = (String) session.getAttribute("idKey");
+    // amgr 객체를 통해 알람 리스트를 가져옴
+    Vector<alarmBean> alarmList = amgr.alarmList(user_id);
+    // 유저 이름을 위한 유저리스트 가져오기
+    Vector<usersBean> userList = mgr.userList();
+    // 유저 이름 찾기
+    String userName = "";
+    for (usersBean user : userList) {
+        if (user.getUser_id().equals(user_id)) {
+            userName = user.getUser_name();
+            break; // 사용자를 찾으면 루프 종료
+        }
+    }
+    
+    if (alarmList != null) {
+        for (int i = 0; i < alarmList.size(); i++) {
+            int alarmNum = alarmList.get(i).getAlarm_num(); // 알람 번호 가져오기
+            amgr.alarmCheck(alarmNum); // alarmCheck 메서드 호출
+        }
+    }
+    
+    
+    System.out.println("알람 개수: " + alarmList.size());
+%>
 	<!-- 상단바 1 -->
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
@@ -306,7 +302,7 @@ hr {
 			<input type="button" class="bell-button" onclick="">
 			<span onclick="">
 				<img src="image/guest.png">
-				<b>사용자 이름</b>
+				<b><%=userName%></b>
 			</span>
 		</div>
 	</header>
@@ -332,55 +328,41 @@ hr {
 
 	<!-- 관심 카테고리 시작 -->
 	<div>
-		<label class="alarm-label active"
-			onclick="highlight(this, 'entire-content')">전체</label> <label
-			class="alarm-label" onclick="highlight(this, 'activity-content')">활동</label>
-		<label class="alarm-label"
-			onclick="highlight(this, 'project-content')">프로젝트</label>
-		<hr id="highlight-hr" width="100%" noshade />
+    	<label class="alarm-label active" onclick="highlight(this, 'alarm-content')">전체</label> 
+    	<label class="alarm-label" onclick="highlight(this, 'activity-content')">활동</label>
+    	<label class="alarm-label" onclick="highlight(this, 'project-content')">프로젝트</label>
+    	<hr id="highlight-hr" width="100%" noshade />
 	</div>
 
 
 	<!-- 각 관심 카테고리 마다 사용될 body. -->
 	<div id="content">
-		
-		<div id="entire-content" class="tab-content">
-			<!-- 알림 정보 Sample -->
-			<div id="alarm-content">
-				<div id="alarmSample" class="alarm-sample">
-					<img src="image/interest-project1.jpg" class="alarm-image">
-					<div class="alarm-text">
-						<label class="alarmname">좋아하신 <b>북다마스북커버</b> 프로젝트에 창작자의 새
-							게시글이 올라왔습니다.
-						</label>
-						<p class="description">안녕하세요. 데이즈엔터(주) 롤앤토크 텀블벅 담당자입니다. 마지막 날,
-							이것만큼은 꼭 확인 부탁드립니다! 현재 구성을 확인한 결과, 낱권으로 2권 혹은 3권 분량의 후원을 하실 때 구성별로
-							따로 후원하신 분들이 확인되어 일단 확인된 분들에 한해 별도 메시지를 발송드렸습니다. 사정상 반드시 개별발송을
-							원하시는 분이 아니라면, 배송비가 추가 중복 결제가 되니 여러권의..
-							</p>
-						<small >5 일전</small>
-					</div>
-					<a href="#" class="delete-button" onclick="confirmDelete()">삭제</a>
-				</div>
-
-			</div>
-		</div>
-		<div id="activity-content" class="tab-content" style="display: none;">
-			활동내용</div>
-
-		<div id="project-content" class="tab-content" style="display: none;">
-			프로젝트 내용</div>
-	</div>
+	    <!-- 전체 알림 내용 -->
+	    <div id="alarm-content" class="tab-content">
+	        <% if (alarmList != null && !alarmList.isEmpty()) { %>
+			    <% for(int i = 0; i < alarmList.size(); i++) { %>
+			        <div id="alarmSample_<%= i %>" class="alarm-sample">
+			            <img src="<%= alarmList.get(i).getAlarm_image() %>" class="alarm-image">    
+			            <div class="alarm-text">
+			                <label class="alarmname"><%= alarmList.get(i).getAlarm_con() %></label>
+			            </div>
+			        </div>
+			    <% } %>
+			<% } else { %>
+			    <p>알림이 없습니다.</p>
+			<% } %>
+	    </div>
 	
-	<!-- 삭제 확인 모달 -->
-	<div id="deleteModal" class="modal">
-		<div class="modal-content">
-			<p style="font-size: 18px; font-weight: bold">알림을 삭제하시면 알림 페이지에서 확인하실 수 없습니다. <br>삭제하시겠습니까?</p>
-			<button onclick="deleteAlarm()">확인</button>
-			<button onclick="closeModal()">취소</button>
-		</div>
-	</div>
-
-
+	    <!-- 활동 내용 -->
+	    <div id="activity-content" class="tab-content" style="display: none;">
+	        <p>여기에 활동 내역이 표시됩니다.</p>
+	    </div>
+	
+	    <!-- 프로젝트 내용 -->
+	    <div id="project-content" class="tab-content" style="display: none;">
+	        <p>여기에 프로젝트 내용이 표시됩니다.</p>
+	    </div>
+	</div>	
+	
 </body>
 </html>
