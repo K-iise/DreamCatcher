@@ -15,13 +15,13 @@ public class followMgr {
 		pool = DBCMgr.getInstance();
 	}
 	
-	public Vector<followBean> followList(String user_id){
+	public Vector<followBean> followingList(String user_id){
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<followBean> vlist=null;
+		Vector<followBean> vlist=new Vector<followBean>();
 		
 		try {
 			con = pool.getConnection();
@@ -36,6 +36,40 @@ public class followMgr {
 				bean.setFollow_num(rs.getInt("follow_num"));
 				bean.setFollow_get_user_id(rs.getString("follow_get_user_id"));
 				bean.setFollow_set_user_id(user_id);
+				
+				vlist.addElement(bean);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+		
+	}
+	
+public Vector<followBean> followerList(String user_id){
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<followBean> vlist=new Vector<followBean>();
+		
+		try {
+			con = pool.getConnection();
+			sql = "select * from follow where follow_get_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				followBean bean=new followBean();
+				bean.setFollow_num(rs.getInt("follow_num"));
+				bean.setFollow_set_user_id(rs.getString("follow_set_user_id"));
+				bean.setFollow_get_user_id(user_id);
 				
 				vlist.addElement(bean);
 				
@@ -132,16 +166,17 @@ public class followMgr {
 		
 	}
 
-	public void followDelete(int num) {
+	public void followDelete(followBean bean) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "delete from follow where follow_num = ?";
+			sql = "delete from follow where follow_set_user_id = ? and follow_get_user_id = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setString(1, bean.getFollow_set_user_id());
+			pstmt.setString(2, bean.getFollow_get_user_id());
 			
 			pstmt.executeUpdate();
 
@@ -151,6 +186,31 @@ public class followMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return;
+		
+	}
+	
+	public boolean followCheck(String set_user_id, String get_user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag=false;
+		try {
+			con = pool.getConnection();
+			sql = "select * from follow where follow_set_user_id = ? and follow_get_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, set_user_id);
+			pstmt.setString(2, get_user_id);
+
+			rs = pstmt.executeQuery();
+			flag=rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
 		
 	}
 	

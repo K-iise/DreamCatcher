@@ -111,8 +111,11 @@ public class fundingMgr {
 				
 				fundingBean bean=new fundingBean();
 
+				
 				bean.setFunding_num(rs.getInt("funding_num"));
-				bean.setFunding_title(rs.getString("funding_title"));	
+				bean.setFunding_title(rs.getString("funding_title"));
+				
+
 				bean.setFunding_category(rs.getInt("funding_category"));
 				
 				bean.setFunding_con(rs.getString("funding_con"));
@@ -263,7 +266,11 @@ public class fundingMgr {
 			while(rs.next()) {
 				
 				count = (int) Math.ceil(rs.getDouble("days_until_fund_term"));
-				System.out.println(count);
+
+				
+				
+
+
 			}
 
 		} catch (Exception e) {
