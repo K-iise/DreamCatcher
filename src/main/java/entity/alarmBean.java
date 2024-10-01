@@ -6,6 +6,7 @@ public class alarmBean {
 	private String alarm_user_id;
 	private String alarm_con;
 	private int alarm_check;
+	private String alarm_image;
 	
 	public int getAlarm_num() {
 		return alarm_num;
@@ -21,6 +22,12 @@ public class alarmBean {
 	}
 	public String getAlarm_con() {
 		return alarm_con;
+	}
+	public String getAlarm_image() {
+		return alarm_image;
+	}
+	public void setAlarm_image(String alarm_image) {
+		this.alarm_image = alarm_image;
 	}
 	public void setAlarm_con(String alarm_con) {
 		this.alarm_con = alarm_con;
