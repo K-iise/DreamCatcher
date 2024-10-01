@@ -3,6 +3,11 @@ body {
 	padding: 0 15%;
 }
 
+header {
+    position: relative; /* 상대 위치 설정 */
+    overflow: visible; /* 오버플로우를 보이도록 설정 */
+}
+
 /* 카테고리 css */
 .category-label {
 	font-size: 25px;
@@ -39,11 +44,11 @@ hr {
 .search-span {
 	width: 260px;
 	height: 35px;
-	border: 1px solid #000000;
+	border: 1px solid #dee2e6;
 	float: right;
 	display: flex;
 	align-items: center;
-	background: #dee2e6;
+	background: #dee2e6;;
 	border: 5px;
 }
 
