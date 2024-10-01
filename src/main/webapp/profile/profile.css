@@ -327,6 +327,12 @@ progress::-moz-progress-bar {
 	flex-direction: column; /* 버튼을 수직으로 배치 */
 }
 
+#follower-infos{
+	display: flex;
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: flex-start;
+}
+
 .follower-info a{
 	font-size: 18px; /* 창작자 이름 크기 */
 	font-weight: bold; /* 굵게 */
