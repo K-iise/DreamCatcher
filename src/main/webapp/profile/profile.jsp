@@ -220,9 +220,11 @@ int fdCount = fdMgr.fundingCount(ubean.getUser_id());
 
 			<div id="content-box">
 				<div id="follower-box">
-					<img src="image/guest.png" alt="Follower Image">
-					<div class="follower-info">
-						<a>팔로워 이름</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+					<div id="follower-infos">
+						<img src="image/guest.png" alt="Follower Image">
+						<div class="follower-info">
+							<a>김민성</a> <label>팔로잉 1 · 후원한 프로젝트 3</label>
+						</div>
 					</div>
 					<input type="button" class="follow-button">
 				</div>

@@ -33,102 +33,8 @@ mybean.setUser_resnum("111111-1111111");
 <head>
 <meta charset="UTF-8">
 <title>홈 화면</title>
-<style>
-</style>
-<link href="home.css" rel="stylesheet" />
-<style>
-.cat-container {
-	position: relative;
-	display: flex;
-}
-
-.depth1-wrapper {
-	display: none; /* 기본적으로 숨김 */ 
-	position : absolute; /* 절대 위치 설정 */
-	overflow : hidden;
-	width: 100%;
-	height: auto;
-	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
-	transition: max-height 0.3s ease-in-out;
-	flex-direction: row;
-	background: rgb(255, 255, 255);
-	z-index: 999;
-	user-select: none;
-	box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 7px;
-	position: absolute; /* 절대 위치 설정 */
-	overflow: hidden;
-	margin-top: 10px;
-}
-
-.category-label:hover ~ .depth1-wrapper {
-	display: flex; /* 호버 시에 보이게 */
-	flex-wrap: wrap; /* 내용에 맞게 줄 바꿈 */
-}
-
-.depth1-group {
-	display: flex; /* 가로 방향 정렬 */
-	flex-direction: column; /* 세로 방향 정렬 */
-}
-
-.depth1-item {
-	display: flex;
-	align-items: center; /* 아이콘과 텍스트 정렬 */
-	padding: 8px 12px; /* 항목 패딩 */
-	cursor: pointer;
-}
-
-.depth1-item:hover {
-	background-color: #f1f1f1; /* 호버 시 배경색 변화 */
-}
-
-.depth1-icon {
-	margin-right: 8px; /* 아이콘과 텍스트 간격 */
-}
-
-.depth1-icon-img {
-	width: 45px; /* 아이콘 크기 조정 */
-	height: 45px;
-}
-
-.depth1-text {
-	font-size: 18px;
-}
-</style>
+<link href="home.css" rel="stylesheet"/>
 </head>
-
-<script>
-//JavaScript 코드를 문서의 끝에 추가
-document.addEventListener('DOMContentLoaded', function () {
-    const categoryLabel = document.getElementById('category-label');
-    const depth1Wrapper = document.querySelector('.depth1-wrapper');
-    
-    let isHovering = false; // 카테고리와 상세 카테고리 영역에 마우스가 있는지 여부
-
-    // 카테고리 라벨에 마우스 오버 이벤트 추가
-    categoryLabel.addEventListener('mouseenter', function () {
-        depth1Wrapper.style.display = 'flex'; // 상세 카테고리 보이기
-        isHovering = true;
-    });
-
-    // 상세 카테고리 영역에 마우스 오버 이벤트 추가
-    depth1Wrapper.addEventListener('mouseenter', function () {
-        isHovering = true; // 상세 카테고리 영역에 마우스가 있음
-    });
-
-    // 마우스가 카테고리 라벨이나 상세 카테고리에서 벗어났을 때
-    categoryLabel.addEventListener('mouseleave', function () {
-        if (!isHovering) {
-            depth1Wrapper.style.display = 'none'; // 상세 카테고리 숨기기
-        }
-    });
-
-    depth1Wrapper.addEventListener('mouseleave', function () {
-        isHovering = false; // 마우스가 상세 카테고리 영역에서 벗어났음
-        depth1Wrapper.style.display = 'none'; // 상세 카테고리 숨기기
-    });
-});
-</script>
-
 <body>
 
 	<!-- 상단바 1 -->
@@ -156,8 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		%>
 	</header>
 
-
-
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
@@ -173,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	<!-- 카테고리 끝 -->
 
 	<!-- 상세 카테고리 창 -->
-		<div class="cat-container">
+	<div class="cat-container">
 			<div class="depth1-wrapper">
 				<div class="depth1-group">
 					<div class="depth1-item">
@@ -424,11 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							<span class="progress-percentage">1408% 달성</span>
 						</div>
 					</div>
-
-
 				</div>
-
-
 
 			</div>
 		</div>
@@ -457,7 +357,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		</div>
 	</div>
+	
+	<hr id="default-hr" width="100%" noshade />
+	
+	<!-- Main 화면 아래쪽 영역 -->
+	<div class="MainBottom">
+					<!-- 최근 본 프로젝트 -->
+			<div class="recent-content">
+				<div id="recent-head">
+				<h2 style="margin: 20px;">최근 본 프로젝트</h2>
+				<a href="#">전체 보기</a>
+				</div>
+				<div id="projects">
+				<!-- 최대 5개 까지만 하면 좋음. -->
+					<div id="recent-project">
+						<!-- 프로젝트 사진 -->
+						<img src="image/interest-project1.jpg">
+						<!-- 창작자 명 -->
+						<a class="creator-name">몽상부띠그</a><br>
+						<!-- 제품명 -->
+						<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+						<!-- 진행 정보 -->
+						<div class="progress-info">
+							<span class="progress-percentage">1408% 달성</span>
+						</div>
+					</div><!-- recent-project end -->	
+				</div><!-- projects end -->
+			</div> <!-- recent-content end-->
+	</div>
+	
+	<hr id="default-hr" width="100%" noshade style="margin-top: 50px; margin-bottom: 50px;"/>
+	
 	<script src="slide.js"></script>
-
+	<script src="detailInfo.js"></script>
 </body>
 </html>
