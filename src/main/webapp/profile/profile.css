@@ -114,6 +114,13 @@ hr {
 	border-width: 0;
 }
 
+.profile input.follow-delete-button {
+	background: url("image/follow-deletebutton.png") no-repeat;
+	width: 200px;
+	height: 40px;
+	border-width: 0;
+}
+
 .profile input.edit-button {
 	background: url("image/editbutton.png") no-repeat;
 	width: 200px;
@@ -309,6 +316,9 @@ progress::-moz-progress-bar {
 	text-align: right; /* 오른쪽 정렬 */
 }
 
+
+
+
 #content-box{
 	min-height: 450px;
 }
@@ -321,6 +331,12 @@ progress::-moz-progress-bar {
     justify-content: space-between; /* 버튼을 오른쪽 끝으로 배치 */
     border: 0.5px solid #e3e3e3;
 }	
+
+#follower-infos{
+	display: flex;
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: flex-start;
+}
 
 .follower-info{
 	display: flex;
@@ -354,7 +370,7 @@ progress::-moz-progress-bar {
 	margin-right: 20px;
 }
 
-#follower-box .follow-button {
+#follower-button2 {
 	background: url("image/followbutton2.png") no-repeat;
 	width: 120px; 
 	height: 40px;
@@ -363,3 +379,11 @@ progress::-moz-progress-bar {
 	margin-right: 30px;
 }
 
+#follower-deletebutton2 {
+	background: url("image/follow-deletebutton2.png") no-repeat;
+	width: 120px; 
+	height: 40px;
+	border-width: 0;
+	margin-left: auto; /* 버튼을 오른쪽 끝으로 밀어냄 */
+	margin-right: 30px;
+}
