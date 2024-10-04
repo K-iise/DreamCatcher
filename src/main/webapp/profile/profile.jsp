@@ -9,9 +9,10 @@
 
 
 <%
-
-String selectuserId="aaaa";
-String myId="aaa";
+String user_id = (String) session.getAttribute("idKey");
+String selectedId = request.getParameter("selectedid");
+String selectuserId=selectedId;
+String myId=user_id;
 if(request.getParameter("userId")!=null){
 selectuserId = request.getParameter("userId");
 }

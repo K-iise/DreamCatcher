@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import entity.fundingBean;
+import entity.readRecordBean;
 
 public class fundingMgr {
 	
@@ -59,10 +60,10 @@ public class fundingMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<fundingBean> vlist=null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding order by tprice / nprice desc";
+			sql = "select * from funding order by funding_tprice / funding_nprice asc";
 			pstmt = con.prepareStatement(sql);
 			
 
@@ -114,10 +115,7 @@ public class fundingMgr {
 				
 				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));
-				
-
 				bean.setFunding_category(rs.getInt("funding_category"));
-				
 				bean.setFunding_con(rs.getString("funding_con"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
@@ -279,6 +277,88 @@ public class fundingMgr {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return count;
+	}
+	
+	public Vector<fundingBean> fundingByRecord(Vector<readRecordBean> rvlist){
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
+		for(int i=0;i<rvlist.size();i++) {
+			try {
+				con = pool.getConnection();
+				sql = "select * from funding where funding_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, rvlist.get(i).getRead_funding_num());
+	
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					
+					fundingBean bean=new fundingBean();
+
+					bean.setFunding_num(rs.getInt("funding_num"));
+					bean.setFunding_title(rs.getString("funding_title"));
+					bean.setFunding_category(rs.getInt("funding_category"));
+					bean.setFunding_con(rs.getString("funding_con"));
+					bean.setFunding_tprice(rs.getInt("funding_tprice"));
+					bean.setFunding_term(rs.getString("funding_term"));
+					bean.setFunding_nprice(rs.getInt("funding_nprice"));
+					bean.setFunding_image(rs.getString("funding_image"));
+					bean.setFunding_user_id(rs.getString("funding_user_id"));
+					
+					vlist.addElement(bean);
+					
+				}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+		}
+		return vlist;
+		
+	}
+	
+	public Vector<fundingBean> fundingByRecordHigh(){
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT f.* FROM funding f JOIN (SELECT read_funding_num, COUNT(*) AS read_count FROM read_record GROUP BY read_funding_num) r ON f.funding_num = r.read_funding_num ORDER BY r.read_count DESC";
+
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				fundingBean bean=new fundingBean();
+				bean.setFunding_num(rs.getInt("funding_num"));
+				bean.setFunding_title(rs.getString("funding_title"));
+				bean.setFunding_category(rs.getInt("funding_category"));
+				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_tprice(rs.getInt("funding_tprice"));
+				bean.setFunding_term(rs.getString("funding_term"));
+				bean.setFunding_nprice(rs.getInt("funding_nprice"));
+				bean.setFunding_image(rs.getString("funding_image"));
+				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				
+				vlist.addElement(bean);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+		
 	}
 	
 }
