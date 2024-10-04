@@ -1,0 +1,290 @@
+
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+
+body {
+	margin: 0;
+	padding: 0 15%;
+}
+
+header {
+    position: relative; /* 상대 위치 설정 */
+    overflow: visible; /* 오버플로우를 보이도록 설정 */
+}
+
+/* 카테고리 css */
+.category-label {
+	font-size: 25px;
+	font-weight: 700;
+	margin-right: 20px;
+}
+
+.category-label img {
+	width: 20px;
+	height: 20px;
+	margin-right: 15px;
+}
+
+.category-label:hover {
+	color: red;
+}
+
+.category-label:hover img {
+	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
+		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
+}
+
+.active {
+	color: black;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: #dee2e6;
+}
+
+/* 검색 바 css */
+.search-span {
+	width: 260px;
+	height: 35px;
+	border: 1px solid #E6E6E6;
+	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* h2 + p와 a를 양 끝에 배치 */
+	background: #E6E6E6;
+	border: 5px;
+}
+
+.search-span .input_text {
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #E6E6E6;
+	font-family: 'Nanum Gothic Coding';
+	font-weight: bold;
+}
+
+.search-span .input_icon {
+	display:flex;
+	border: 0px;
+	float: right;
+}
+
+/* 상단바 1 css */
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title-header div {
+	display: flex;
+	align-items: center;
+}
+
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
+}
+
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header span {
+	 position: relative;
+    display: inline-block;
+	width: 150px;
+	padding: 15px;
+	align-items: center;
+	border: 1px solid black;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title-header span img {
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+
+.cat-container {
+	position: relative;
+	display: flex;
+}
+
+.depth1-wrapper {
+	display: none; /* 기본적으로 숨김 */ 
+	position : absolute; /* 절대 위치 설정 */
+	overflow : hidden;
+	width: 100%;
+	height: auto;
+	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
+	transition: max-height 0.3s ease-in-out;
+	flex-direction: row;
+	background: rgb(255, 255, 255);
+	z-index: 999;
+	user-select: none;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 7px;
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.category-label:hover ~ .depth1-wrapper {
+	display: flex; /* 호버 시에 보이게 */
+	flex-wrap: wrap; /* 내용에 맞게 줄 바꿈 */
+}
+
+.depth1-group {
+	display: flex; /* 가로 방향 정렬 */
+	flex-direction: column; /* 세로 방향 정렬 */
+}
+
+.depth1-item {
+	display: flex;
+	align-items: center; /* 아이콘과 텍스트 정렬 */
+	padding: 8px 12px; /* 항목 패딩 */
+	cursor: pointer;
+}
+
+.depth1-item:hover {
+	background-color: #f1f1f1; /* 호버 시 배경색 변화 */
+}
+
+.depth1-icon {
+	margin-right: 8px; /* 아이콘과 텍스트 간격 */
+}
+	
+.depth1-icon-img {
+	width: 45px; /* 아이콘 크기 조정 */
+	height: 45px;
+}
+
+.depth1-text {
+	font-size: 18px;
+}
+
+.MainTop {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.left-section {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+}
+
+.right-section {
+	display: flex;
+	flex: 3;
+	margin-left: 10px;
+	flex-direction: column; /* 수직으로 정렬. */
+
+}
+
+.slider-container {
+	width: 779px;
+	overflow: hidden; /* 슬라이더가 넘치는 부분 숨김 */
+	position: relative;
+}
+
+.slides {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+	width: calc(779px * 3); /* 슬라이드 수에 따라 너비 조정 */
+}
+
+.slide {
+	width: 779px;
+}
+
+.slide img {
+	width: 779px;
+	height: 451px;
+	object-fit: fill;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.prev {
+	left: 10px;
+}
+
+.next {
+	right: 10px;
+}
+
+
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
+
