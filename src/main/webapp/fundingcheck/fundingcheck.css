@@ -209,13 +209,14 @@ hr {
 .right-section {
 	display: flex;
 	flex: 3;
-	margin-left: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
 	flex-direction: column; /* 수직으로 정렬. */
 
 }
 
 .slider-container {
-	width: 779px;
+	width: 750px;
 	overflow: hidden; /* 슬라이더가 넘치는 부분 숨김 */
 	position: relative;
 }
@@ -223,15 +224,15 @@ hr {
 .slides {
 	display: flex;
 	transition: transform 0.5s ease-in-out;
-	width: calc(779px * 3); /* 슬라이드 수에 따라 너비 조정 */
+	width: calc(750px * 3); /* 슬라이드 수에 따라 너비 조정 */
 }
 
 .slide {
-	width: 779px;
+	width: 750px;
 }
 
 .slide img {
-	width: 779px;
+	width: 750px;
 	height: 451px;
 	object-fit: fill;
 }
@@ -286,5 +287,99 @@ hr {
     text-decoration: none;
     display: block; /* 세로로 나열되도록 설정 */
     width: 100%;
+}
+
+.funding-info{
+	display: flex;
+	flex-direction: column;
+	
+}
+
+#funding-category{
+	font-size: 20px;
+	color: #808080;
+	font-weight: bold;
+}
+
+#funding-name {
+	font-size: 23px;
+	font-weight: normal;
+}
+
+#funding-people{
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0px;
+	margin-top: 20px;
+}
+
+#funding-money{
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.funding-detail p{
+	font-size:15px;
+    margin: 0px; /* 상하 여백 제거 */
+    padding: 0px; /* 안쪽 여백 제거 */
+    margin-bottom: 10px;
+    
+}
+
+#funding-buttons{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+#donate-button{
+	width: 350px;
+	height: 60px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #000000;
+	background: #FAFAFA;
+	border: 1px solid #D9D9D9;
+}
+
+.button-container {
+	display: flex;
+	width: 60px;
+	height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #D9D9D9;
+}
+
+.circle-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    border: 0px;
+}
+
+.share-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    border: 0px;
+}
+
+.circle-button .icon {
+    color: red;
+    font-size: 24px;
+}
+
+.button-number {
+    font-size: 12px;
+    color: black;
 }
 

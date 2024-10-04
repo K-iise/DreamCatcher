@@ -319,20 +319,39 @@ mybean.setUser_resnum("111111-1111111");
 		
 		<div class="right-section">
 			<div class="funding-info">
-				<p>생활가전 ></p>
-				<h2>귀, 파지말고 관리하세요! 세계가 인정한 이어스캐너 비비드 Home30S</h2>
-				<h2>970 명 참여</h2>
-				<h2>80,302,700 원 달성</h2>
+				<p id="funding-category">생활가전 ></p>
+				<b id="funding-name">귀, 파지말고 관리하세요! 세계가 인정한 이어스캐너 비비드 Home30S</b>
+				<h2 id="funding-people">970 명 참여</h2>
+				<h2 id="funding-money">80,302,700 원 달성</h2>
 				<hr id="default-hr" width="100%" noshade />
-				<p>목표 금액 : 5,000,000 원
-				<br><br>
-				펀딩 기간 : 2024.09.16 ~ 2024.09.27
-				<br><br>
-				결제 : 목표 금액 달성 시 2024.09.28에 결제 진행</p>
+				<div class="funding-detail">
+				<p>목표 금액 : 5,000,000 원</p>
+				<p>펀딩 기간 : 2024.09.16 ~ 2024.09.27</p>
+				<p>결제 : 목표 금액 달성 시 2024.09.28에 결제 진행</p>
+				</div>
+				<div id="funding-buttons">
+				    <div class="button-container">
+				        <button class="circle-button">
+				            <img src="image/heartbutton.png"></img>
+				        </button>
+				        <span class="button-number">123</span>
+				    </div>
+				    
+				    <div class="button-container">
+				   		<button class="share-button">
+				            <img src="image/sharebuttonicon.png"></img>
+				        </button>
+				        <span class="button-number">123</span>
+				    </div>
+				    
+					<button id="donate-button">프로젝트 후원하기</button>
+				</div>
 			</div>
 		</div>
 	</div>
 
+	<hr id="default-hr" width="100%" noshade />
+	
 	<script src="detailInfo.js"></script>
 	<script src="dropdown.js"></script>
 </body>
