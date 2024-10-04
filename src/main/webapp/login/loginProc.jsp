@@ -15,11 +15,7 @@
 		msg = "로그인 성공"; 
 		session.setAttribute("idKey", login.getUser_id());
 		session.setAttribute("login", login);
-		response.sendRedirect("/DreamCatcher/alarm/alarm.jsp?user_id=" + login.getUser_id());
-        return;
-	}
-%>
-<script>er_id());
+		response.sendRedirect("/DreamCatcher/home/home.jsp");
         return;
 	}
 %>

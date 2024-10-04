@@ -23,8 +23,9 @@ public class readRecordMgr {
 		Vector<readRecordBean> vlist = new Vector<readRecordBean>();
 		try {
 			con = pool.getConnection();
-			sql = "SELECT * FROM READ_RECORD ORDER BY num DESC WHERE ROWNUM <= 30";
+			sql = "SELECT * FROM READ_RECORD WHERE ROWNUM <= 30 AND READ_USER_ID = ? ORDER BY READ_NUM DESC";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				readRecordBean bean = new readRecordBean();
