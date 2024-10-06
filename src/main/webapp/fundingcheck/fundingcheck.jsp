@@ -298,6 +298,7 @@ mybean.setUser_resnum("111111-1111111");
 
 	<hr id="default-hr" width="100%" noshade />
 	
+	<!-- 상단 부분. -->
 	<div class="MainTop">
 		<div class="left-section">
 			<div class="slider-container">
@@ -352,7 +353,30 @@ mybean.setUser_resnum("111111-1111111");
 
 	<hr id="default-hr" width="100%" noshade />
 	
+	<!-- 하단 부분 -->
+	<div>
+		<label class="funding-label active"
+			onclick="highlight(this, 'funding-content')">프로젝트 계획</label> <label
+			class="funding-label" onclick="highlight(this, 'community-content')">커뮤니티</label>
+		<hr id="highlight-hr" width="100%" noshade />
+	</div>
+	
+	<!-- 각 관심 카테고리 마다 사용될 body. -->
+	<div id="content">
+		<div id="funding-content" class="tab-content">
+			<div id="project-plan">
+				dadfasf
+			
+			</div>
+		</div>
+		
+		<div id="community-content" class="tab-content" style="display: none;">
+			커뮤니티 댓글
+		</div>
+	</div>
+	
 	<script src="detailInfo.js"></script>
 	<script src="dropdown.js"></script>
+	<script src="fundinglabel.js"></script>
 </body>
 </html>
