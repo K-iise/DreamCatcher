@@ -18,6 +18,7 @@ usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
 buyRecordMgr brMgr=new buyRecordMgr();
+alarmMgr aMgr=new alarmMgr();
 
 
 usersBean ubean = uMgr.oneUserList(selectuserId);
@@ -193,7 +194,11 @@ else if("follow-delete".equals(followAction)){
 
 			<input type="button" class="upload-button" onclick=""> 
 			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> 
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
 			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %> 
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>

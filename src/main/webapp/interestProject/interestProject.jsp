@@ -1,12 +1,9 @@
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="control.readRecordMgr" %>
-<%@page import="entity.readRecordBean" %>
-<%@page import="control.fundingMgr" %>
-<%@page import="entity.fundingBean" %>
-<%@page import="control.usersMgr" %> 
-<%@page import="entity.usersBean" %>
+<%@page import="control.*" %>
+<%@page import="entity.*" %>
+
 <%
 	String id = (String)session.getAttribute("idKey");
 	readRecordMgr rmgr = new readRecordMgr();
@@ -42,6 +39,8 @@
             break; // 사용자를 찾으면 루프 종료
         }
     }
+    
+    alarmMgr aMgr=new alarmMgr();
 %>
 <!DOCTYPE html>
 <html>
@@ -169,6 +168,13 @@ hr {
 	margin-left: 20px;
 }
 
+.title-header .bell-button2 {
+	background: url("image/bellicon2.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
 
 .title-header span {
 	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
@@ -206,6 +212,11 @@ hr {
 	height: 457px; /* 비율 유지 */
 	margin-right: 50px; /* 오른쪽 여백 */
 	margin-bottom: 10px; /* 아래쪽 여백 */
+}
+
+#interest-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 .creator-name {
@@ -397,7 +408,11 @@ progress::-moz-progress-bar {
 
 			<input type="button" class="upload-button" onclick=""> 
 			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
 			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %> 
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>
@@ -470,6 +485,7 @@ progress::-moz-progress-bar {
             </div>
         
 	        <div id="projects">
+
 			    <%	
 			        // 각 funding_num에 대해 funding 정보를 가져와서 출력
 			        if (wishList.size() > 0) {
@@ -497,7 +513,7 @@ progress::-moz-progress-bar {
 			        <!-- 프로젝트 사진 -->
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
 			        <!-- 창작자 명 -->
-			        <a class="creator-name"><%= user.getUser_name() %></a><br>
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->
 			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
 			        <!-- 진행 정보 -->
@@ -524,7 +540,7 @@ progress::-moz-progress-bar {
 			        <!-- 프로젝트 사진 -->
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
 			        <!-- 창작자 명 -->
-			        <a class="creator-name"><%= user.getUser_name() %></a><br>
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->
 			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
 			        <!-- 진행 정보 -->
@@ -545,7 +561,7 @@ progress::-moz-progress-bar {
 			        <!-- 프로젝트 사진 -->
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
 			        <!-- 창작자 명 -->
-			        <a class="creator-name"><%= user.getUser_name() %></a><br>
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->
 			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
 			        <!-- 진행 정보 -->
@@ -574,6 +590,7 @@ progress::-moz-progress-bar {
 			            message = "관심 프로젝트가 없습니다.";
 			        }
 			    %>
+
 			</div>
         </div>
     </div>
