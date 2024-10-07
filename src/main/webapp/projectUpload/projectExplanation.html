@@ -9,6 +9,7 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
     <style>
+        /* 전체 페이지의 기본 스타일 설정 */
         body, html {
             margin: 0;
             padding: 0;
@@ -23,31 +24,127 @@
             box-sizing: inherit;
         }
 
+        /* 상단바 디자인 */
         .header {
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: left;
-            padding: 10px 20px;
+            display: flex;
+            flex-direction: column; /* 세로 정렬 */
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px 15%;
+            border-bottom: 1px solid #dee2e6;
+            position: relative;
+        }
+
+        /* 뒤로가기 버튼이 있는 줄 */
+        .back-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
             width: 100%;
+            margin-bottom: 30px; /* 로고와 공간 추가 */
+        }
+
+        /* 뒤로가기 버튼 */
+        .back-button {
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 24px; /* 화살표 크기 조정 */
+            color: black;
+            border: none;
+        }
+
+        /* 로고 영역 */
+        .logo {
+            margin-bottom: 25px; /* 아래 메뉴와 간격 추가 */
+            display: flex;
+            align-items: center;
         }
 
         .logo h1 {
             margin: 0;
+            font-size: 30px;
+            font-weight: 700;
         }
 
-        .menu {
+        .menu-bar {
             display: flex;
-            justify-content: start;
-            gap: 10px;
-            list-style-type: none;
-            padding-left: 20px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
         }
 
-        .menu li {
-            padding: 5px 10px;
+        .menu-bar .category-label {
+            font-size: 25px; /* 글자 크기 동일하게 */
+            font-weight: 700;
+            margin-right: 20px;
             cursor: pointer;
+            white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
         }
 
+        .menu-bar .category-label:hover {
+            color: red; /* 마우스 올리면 빨간색 */
+        }
+
+        .menu-bar .category-label + .category-label {
+            margin-left: 20px;
+        }
+
+        /* 추가한 요소들 */
+        .user-controls {
+            position: absolute;
+            right: 15%;
+            top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-controls .upload-button {
+            background: url("image/uploadproject.png") no-repeat;
+            width: 140px;
+            height: 40px;
+            border-width: 0;
+            margin-right: 10px;
+        }
+
+        .user-controls .heart-button {
+            background: url("image/hearticon.png") no-repeat;
+            width: 40px;
+            height: 40px;
+            border: 0px;
+            margin-left: 20px;
+        }
+
+        .user-controls .bell-button {
+            background: url("image/bellicon.png") no-repeat;
+            width: 40px;
+            height: 40px;
+            border: 0px;
+            margin-left: 20px;
+        }
+
+        .user-controls span {
+            display: inline-block;
+            width: 150px;
+            padding: 15px;
+            align-items: center;
+            border: 1px solid black;
+            margin-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-controls span img {
+            width: 35px;
+            height: 35px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        /* 나머지 스타일은 기존 코드 유지 */
         .container {
             padding: 20px;
             margin: 0 auto;
@@ -80,16 +177,33 @@
 </head>
 <body>
     <div class="header">
+        <!-- 뒤로가기 버튼이 있는 줄 -->
+        <div class="back-row">
+            <button class="back-button" onclick="history.back();">←</button>
+        </div>
+
+        <!-- 프로젝트 기획 로고 -->
         <div class="logo">
             <h1>프로젝트 기획</h1>
         </div>
-        <ul class="menu">
-            <li>기본 정보</li>
-            <li>펀딩 계획</li>
-            <li>프로젝트 계획</li>
-            <li>창작자 정보</li>
-        </ul>
+
+        <!-- 사용자 컨트롤 -->
+        <div class="user-controls">
+            <input type="button" class="upload-button" onclick="">
+            <input type="button" class="heart-button" onclick="">
+            <input type="button" class="bell-button" onclick="">
+            <span><img src="image/guest.png"> <b>홍길동</b></span>
+        </div>
+
+        <!-- 메뉴들 -->
+        <nav class="menu-bar">
+            <label class="category-label">기본 정보</label>
+            <label class="category-label">펀딩 계획</label>
+            <label class="category-label">프로젝트 계획</label>
+            <label class="category-label">창작자 정보</label>
+        </nav>
     </div>
+
     <div class="container">        
         <!-- 프로젝트 계획 섹션 -->
         <div class="section">
