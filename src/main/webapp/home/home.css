@@ -245,11 +245,20 @@ hr {
 	
 }
 
-#project-ranking b{
-	font-size: 20px;
-	margin-left: 35px;
-	color: red;
-	
+#project-ranking a b {
+    font-size: 15px;
+    margin-left: 0; /* 마진을 제거하거나 조정 */
+}
+
+#project-ranking a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+#project-ranking b {
+    font-size: 20px;
+    margin-left: 35px;
+    color: red !important;
 }
 
 #project-rankinfo{
@@ -376,6 +385,11 @@ hr {
 	height: 240px; /* 원하는 높이 설정 */
 }
 
+#recent-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
 #recent-project {
 	width: 220px; /* 원하는 너비 설정 */
 	height: 300px; /* 비율 유지 */
@@ -393,6 +407,11 @@ hr {
 #interest-project img {
 	width: 192px; /* 원하는 너비 설정 */
 	height: 180px; /* 원하는 높이 설정 */
+}
+
+#interest-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 #interest-project {
