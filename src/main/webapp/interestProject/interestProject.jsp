@@ -12,6 +12,8 @@
 	readRecordMgr rmgr = new readRecordMgr();
 	fundingMgr fmgr = new fundingMgr();
 	usersMgr umgr = new usersMgr();
+	usersBean mybean = new usersBean();
+	mybean=umgr.oneUserList(id);
 	
 	// 사용자 ID와 관련된 read_wish가 1인 read_funding_num 가져오기
     Vector<readRecordBean> wishList = rmgr.readListWish(id);
@@ -224,6 +226,37 @@ hr {
 	color: #000000; /* 색상 */
 }
 
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
+
 progress {
 	width: 100%; /* 부모 요소의 너비에 맞춤 */
 	height: 3px; /* 높이 설정 */
@@ -276,14 +309,14 @@ progress::-moz-progress-bar {
 	text-align: right; /* 오른쪽 정렬 */
 }
 
-.dropdown-array {
+.dropdown1-array {
     display: flex; /* Flexbox 사용 */
     justify-content: space-between; /* 양쪽 끝에 배치 */
     margin-top: 20px; /* 위쪽 여백 추가 (필요에 따라 조정) */
     margin-bottom: 20px;
 }
 
-.dropdown select {
+.dropdown1 select {
     padding: 5px; /* 패딩 */
     font-size: 18px; /* 글자 크기 */
     border: 1px solid #ccc; /* 테두리 */
@@ -294,7 +327,7 @@ progress::-moz-progress-bar {
 
 
 /* 선택된 옵션의 색상 변경 */
-.dropdown select option:hover {
+.dropdown1 select option:hover {
     background-color: #D0D0D0; /* 옵션에 마우스를 올렸을 때 배경 색상 */
 }
 
@@ -348,21 +381,45 @@ progress::-moz-progress-bar {
 </head>
 <body>
     <!-- 상단바 1 -->
-    <header class="title-header">
-        <h1>Dream Catcher</h1>
-        <div>
-            <input type="button" class="upload-button" onclick=""> <input
-                type="button" class="heart-button" onclick=""> <input
-                type="button" class="bell-button" onclick=""> 
-                <span onclick=""> <img src="image/guest.png"> <b><%= userName %></b>
-            </span>
-        </div>
-    </header>
+	<header class="title-header">
+		<h1>Dream Catcher</h1>
+		<div>
+			<%
+			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
+			%>
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
+			<%
+			} else {
+			%>
+
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
+			</span>
+		</div>
+
+		<%
+		}
+		%>
+	</header>
+
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
     <!-- 카테고리 시작 -->
     <header>
         <label class="category-label"><img src="image/menubar.png">카테고리</label>
-        <label class="category-label">홈</label> <label class="category-label">인기</label>
+        <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
         <label class="category-label">신규</label> <label class="category-label">스토어</label>
 
         <span class="search-span"> <input type="text"
@@ -391,9 +448,9 @@ progress::-moz-progress-bar {
         <div id="interest-content" class="tab-content">	
 
             <!-- 정렬 드롭다운들 -->
-            <div class="dropdown-array">
+            <div class="dropdown1-array">
                 <!-- 날짜순 드롭다운 -->
-                <div class="dropdown">
+                <div class="dropdown1">
                     <form method="get" action="">
                         <select id="date-sort" name="sortType" onchange="this.form.submit(); changeColor(this)"> 
 					    <option value="all" <%= "all".equals(selectedSort) ? "selected" : "" %>>전체</option> 
@@ -404,7 +461,7 @@ progress::-moz-progress-bar {
                 </div>
                 
                 <!-- 추가순 드롭다운 -->
-                <div class="dropdown">
+                <div class="dropdown1">
                     <select id="add-sort" onchange="changeColor(this)"> 
                         <option value="added">추가순</option> 
                         <option value="deadline_approaching">마감 임박순</option> 
@@ -520,5 +577,6 @@ progress::-moz-progress-bar {
 			</div>
         </div>
     </div>
+    <script src="dropdown.js"></script>
 </body>
 </html>
