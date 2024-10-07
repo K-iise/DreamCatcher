@@ -606,6 +606,7 @@ hr {
 #donate-content {
 	display: flex;
 	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
 #donate-content b {
@@ -624,6 +625,7 @@ hr {
 	outline: none;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
 }
 
 /* 선물하기 창  */
@@ -646,9 +648,100 @@ color: #000000;
 
 }
 
-
 #product-ul{
 	font-size: 12px;
 	margin: 0px;
 	margin-top: 5px;
+}
+
+
+#product-buy{
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	border: 1px solid #000000;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
+}
+
+#buy-info{
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	background: #f1f3f5;
+	margin-bottom: 20px;
+}
+
+#buy-button{
+	color: #FAFAFA;
+	background: #DC5252;
+	border: 0px;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#select-button{
+	color: #DC5252;
+	background: #FAFAFA;
+	border: 1px solid #DC5252;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#product-bottom{
+	display: flex;
+	
+}
+
+
+.stepper {
+    display: flex;
+    align-items: center;
+}
+
+.stepper button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+}
+
+.stepper button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.stepper-input {
+    width: 40px;
+    height: 40px;
+    text-align: right;
+    border: 0px;
+    font-size: 18px;
+}
+
+#product-bottom{
+	display: flex;
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+}
+
+#product-bottom p{
+	font-size: 18px;
+	font-weight: bold;
+	color: #DC5252;
 }
