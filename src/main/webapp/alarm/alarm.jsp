@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector" %>
-<%@page import="entity.alarmBean" %>
-<%@page import="control.alarmMgr" %>
-<%@page import="entity.usersBean" %>
-<%@page import="control.usersMgr" %>
+<%@page import="entity.*" %>
+<%@page import="control.*" %>
+
 <%
 	alarmMgr amgr = new alarmMgr();
 	usersMgr mgr = new usersMgr();
