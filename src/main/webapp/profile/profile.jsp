@@ -1,11 +1,8 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="control.usersMgr"%>
-<%@ page import="entity.usersBean"%>
-<%@ page import="control.followMgr"%>
-<%@ page import="entity.followBean"%>
-<%@ page import="control.fundingMgr"%>
-<%@ page import="entity.fundingBean"%>
+
+<%@ page import="control.*" %>
+<%@ page import="entity.*" %>
 
 
 <%
@@ -20,6 +17,7 @@ selectuserId = request.getParameter("userId");
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
+buyRecordMgr brMgr=new buyRecordMgr();
 
 
 usersBean ubean = uMgr.oneUserList(selectuserId);
@@ -179,25 +177,26 @@ else if("follow-delete".equals(followAction)){
 </script>
 </head>
 <body>
-	<!-- 상단바 1 -->
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
 			<%
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="login-button" onclick="">
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
 			<%
 			} else {
 			%>
 
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
-
-				type="button" class="bell-button" onclick=""> 
-				<span onclick=""> <img src='<%=mybean.getUser_image()%>'> <b><%=mybean.getUser_name()%></b>
-
+				type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
 			</span>
 		</div>
 
@@ -205,11 +204,18 @@ else if("follow-delete".equals(followAction)){
 		}
 		%>
 	</header>
+	
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a>관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label"><img src="image/menubar.png">카테고리</label>
-		<label class="category-label">홈</label> <label class="category-label">인기</label>
+		<label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -237,7 +243,8 @@ else if("follow-delete".equals(followAction)){
 					<%=following%>
 				</div>
 				<div>
-					<b>누적 후원자</b><br> 20
+					<b>누적 후원자</b><br> 
+					<%=brMgr.buyRecordTotalCount(ubean.getUser_id()) %>
 				</div>
 			</div>
 		</div>
@@ -288,7 +295,7 @@ else if("follow-delete".equals(followAction)){
 			            <!-- 프로젝트 사진 -->
 			            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
 			            <!-- 창작자 명 -->
-			            <a class="creator-name">
+			            <a class="creator-name" href="profile.jsp?userId=<%=fdvlist.get(i).getFunding_user_id() %>">
 			                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
 			            </a><br>
 			            <!-- 제품명 -->
@@ -333,7 +340,7 @@ else if("follow-delete".equals(followAction)){
 				                <img src='<%=user.getUser_image()%>' alt="Follower Image">
 				                <div class="follower-info">
 				                    <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %>
-				                     · 후원한 프로젝트 <%=fdMgr.fundingCount(user.getUser_id()) %></label>
+				                     · 후원한 프로젝트 <%=brMgr.buyRecordCount(user.getUser_id()) %></label>
 				                </div>
 				                </div>
 				               <%if(mybean.getUser_id().equals(user.getUser_id())){ %>
@@ -385,7 +392,7 @@ else if("follow-delete".equals(followAction)){
 				            <div id="follower-infos">
 				                <img src='<%=user.getUser_image()%>' alt="Follower Image">
 				                <div class="follower-info">
-				                     <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %> · 후원한 프로젝트 <%=fdMgr.fundingCount(user.getUser_id()) %></label>
+				                     <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %> · 후원한 프로젝트 <%=brMgr.buyRecordCount(user.getUser_id()) %></label>
 				                </div>
 				                </div>
 				               <%if(mybean.getUser_id().equals(user.getUser_id())){ %>
@@ -426,6 +433,6 @@ else if("follow-delete".equals(followAction)){
 		</div>
 	</div>
 
-
+	<script src="dropdown.js"></script>
 </body>
 </html>
