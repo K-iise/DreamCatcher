@@ -91,7 +91,42 @@ public class fundingMgr {
 		
 	}
 	
+	public Vector<fundingBean> fundingListForNum(int num){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from funding where funding_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
 
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				fundingBean bean=new fundingBean();				
+				bean.setFunding_num(rs.getInt("funding_num"));
+				bean.setFunding_title(rs.getString("funding_title"));			
+				bean.setFunding_category(rs.getInt("funding_category"));				
+				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_tprice(rs.getInt("funding_tprice"));
+				bean.setFunding_term(rs.getString("funding_term"));
+				bean.setFunding_nprice(rs.getInt("funding_nprice"));
+				bean.setFunding_image(rs.getString("funding_image"));
+				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				
+				vlist.addElement(bean);								
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;		
+	}
+	
 	public Vector<fundingBean> fundingListForUserId(String user_id){
 		
 		Connection con = null;
@@ -134,10 +169,10 @@ public class fundingMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return vlist;
-		
+		return vlist;		
 	}
-
+	
+	
 	public void fundingInsert(fundingBean bean) {
 		
 		Connection con = null;
@@ -266,11 +301,6 @@ public class fundingMgr {
 			while(rs.next()) {
 				
 				count = (int) Math.ceil(rs.getDouble("days_until_fund_term"));
-
-				
-				
-
-
 			}
 
 		} catch (Exception e) {

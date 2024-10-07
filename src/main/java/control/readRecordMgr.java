@@ -51,8 +51,10 @@ public class readRecordMgr {
 		Vector<readRecordBean> vlist = new Vector<readRecordBean>();
 		try {
 			con = pool.getConnection();
-			sql = "SELECT * FROM READ_RECORD WHERE READ_WISH = 1";
+			// user_id가 일치하는 레코드만 가져오도록 쿼리 수정
+			sql = "SELECT * FROM READ_RECORD WHERE READ_WISH = 1 AND READ_USER_ID = ?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id); // user_id 값을 쿼리에 바인딩
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				readRecordBean bean = new readRecordBean();
