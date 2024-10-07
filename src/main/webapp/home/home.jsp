@@ -45,9 +45,9 @@ readRecordMgr rMgr=new readRecordMgr();
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
-				type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>
@@ -61,7 +61,7 @@ readRecordMgr rMgr=new readRecordMgr();
 	
 	<div class="dropdown-content">
 		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
-	    <a>관심프로젝트</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
 	    <a href="../alarm/alarm.jsp">알림</a>
 	    <a href="../logout/logout.jsp">로그아웃</a>
     </div>
