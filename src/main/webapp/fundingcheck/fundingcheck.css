@@ -428,7 +428,7 @@ hr {
 	width: 100%;
 	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 	position: relative;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .comment-input {
@@ -470,6 +470,7 @@ hr {
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 	flex-direction: column;
 	border: 1px solid #e0e0e0;
+	margin-bottom: 10px;
 }
 
 #comments-profile{
@@ -514,6 +515,7 @@ hr {
 	margin-top:10px;
 	margin-left:20px;
 	margin-right:20px;
+	margin-bottom:15px;
 	font-size: 15px;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
@@ -522,4 +524,58 @@ hr {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	margin: 0px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+#comment-recommend{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center; 
+}
+
+#comment-recommend img {
+	width: 22px;
+	height: 19px;
+	margin: 0px;
+	margin-right: 10px;
+}
+
+#comment-recommend p {
+	font-size: 15px;
+	color: black;
+}
+
+#comment-option{
+	margin: 20px;
+	display: flex;
+}
+
+#comment-option img{
+	width: 5px;
+	height: 22px;
+}
+
+.dropdown-comment {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    margin-top:22px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-comment p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-comment p:hover {
+    background-color: #f1f1f1;
 }

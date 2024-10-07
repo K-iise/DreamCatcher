@@ -374,7 +374,7 @@ mybean.setUser_resnum("111111-1111111");
 
 				<!-- 댓글 창 Example -->
 				<div id="comments">
-				
+
 					<div id="comments-profile">
 						<div id="comment-top">
 							<img alt="information-image" src="image/guest.png">
@@ -383,21 +383,42 @@ mybean.setUser_resnum("111111-1111111");
 								<p>응원글</p>
 							</div>
 						</div>
+						<div id="comment-option">
+							<img alt="option-icon" src="image/optionicon.png" onclick="toggleCommentDropdown(event)">
+							<div id="comment-dropdown" class="dropdown-comment">
+								<p onclick="editComment()">수정</p>
+								<p onclick="deleteComment()">삭제</p>
+								<p onclick="replyToComment()">답변</p>
+							</div>
+						</div>
 					</div>
-					<p id="comment-text">
-							펀딩 마감까지 일주일도 남지 않았는데 주사위를 포함한 상품 부록의 디자인은 언제쯤 공개되는 걸까요? 단순한 디자인 상품도 아니고 '텀블벅 후원 한정'으로 소장할 수 있는 상품이라는 것이 펀딩 부록의 차별점인데, 디자인을 알지 못하고 무턱대고 구매하기엔 부록이 포함된 세트가 절대 싼 가격은 아니지 않습니까? 더욱이 캐릭터 시트나 클리어 파일은 디자인을 쉽게 예상할 수 있지만 주사위와 주머니 세트는 그렇지 않으니까요. 아무리 원작사와 컨펌 중에 있다고 해도 후원 기간이 한 달이나 되는데 아직도 소식이 없다는 건 소비자 입장에서 마음이 불편하지 않겠습니까? 그렇다고 하루종일 텀블벅만 확인하고 있을 수도 없는 노릇이고요. 프로젝트 진행 전에 완벽히 검수받은 후에 펀딩을 시작할 수는 없었던 걸까요? 대외비라는 게 있으니 모든 상황을 다 공유할 수 없는 상황이야 이해하지만 펀딩이 얼마 남지 않은 상황까지도 아무런 경과 보고가 없다는 건 불만스럽습니다. 어떤 소식이든 좋으니 부록과 관련된 부분은 펀딩 마감 전에 제대로 된 공지를 한 번 더 해주셨으면 합니다.
-					</p>
-					
+					<p id="comment-text">펀딩 마감까지 일주일도 남지 않았는데 주사위를 포함한 상품 부록의 디자인은
+						언제쯤 공개되는 걸까요? 단순한 디자인 상품도 아니고 '텀블벅 후원 한정'으로 소장할 수 있는 상품이라는 것이 펀딩
+						부록의 차별점인데, 디자인을 알지 못하고 무턱대고 구매하기엔 부록이 포함된 세트가 절대 싼 가격은 아니지 않습니까?
+						더욱이 캐릭터 시트나 클리어 파일은 디자인을 쉽게 예상할 수 있지만 주사위와 주머니 세트는 그렇지 않으니까요. 아무리
+						원작사와 컨펌 중에 있다고 해도 후원 기간이 한 달이나 되는데 아직도 소식이 없다는 건 소비자 입장에서 마음이 불편하지
+						않겠습니까? 그렇다고 하루종일 텀블벅만 확인하고 있을 수도 없는 노릇이고요. 프로젝트 진행 전에 완벽히 검수받은 후에
+						펀딩을 시작할 수는 없었던 걸까요? 대외비라는 게 있으니 모든 상황을 다 공유할 수 없는 상황이야 이해하지만 펀딩이
+						얼마 남지 않은 상황까지도 아무런 경과 보고가 없다는 건 불만스럽습니다. 어떤 소식이든 좋으니 부록과 관련된 부분은
+						펀딩 마감 전에 제대로 된 공지를 한 번 더 해주셨으면 합니다.</p>
+
 					<div id="comment-bottom">
 						<p>5일 전</p>
+						<div id="comment-recommend">
+							<img alt="recommend-image" src="image/recommend.png">
+							<p id="recommed-score">0</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<hr id="default-hr" width="100%" noshade />
+
 	<script src="detailInfo.js"></script>
 	<script src="dropdown.js"></script>
 	<script src="fundinglabel.js"></script>
+	<script src="comment_dropdown.js"></script>
 </body>
 </html>
