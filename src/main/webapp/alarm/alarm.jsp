@@ -298,7 +298,7 @@ hr {
 		<h1>Dream Catcher</h1>
 		<div>
 			<input type="button" class="upload-button" onclick=""> 
-			<input type="button" class="heart-button" onclick="">
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
 			<input type="button" class="bell-button" onclick="">
 			<span onclick="">
 				<img src="image/guest.png">
