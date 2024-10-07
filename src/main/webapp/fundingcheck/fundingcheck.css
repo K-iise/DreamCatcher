@@ -745,3 +745,50 @@ color: #000000;
 	font-weight: bold;
 	color: #DC5252;
 }
+
+#creator-content {
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#creator-box{
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
+}
+
+#creator-info{
+	display: flex;
+	flex-direction: row; /* 수평으로 정렬 */
+	align-items: center;
+	margin-top: 20px;
+}
+
+#creator-info img{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+#creator-info a{
+	font-size: 18px;
+	font-weight: bold;
+	color: black; /* 기본 링크 색상 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+#creator-intro{
+	display: flex;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
