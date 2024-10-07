@@ -1,5 +1,5 @@
-
-@import url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+@import
+	url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
 
 body {
 	margin: 0;
@@ -7,8 +7,8 @@ body {
 }
 
 header {
-    position: relative; /* 상대 위치 설정 */
-    overflow: visible; /* 오버플로우를 보이도록 설정 */
+	position: relative; /* 상대 위치 설정 */
+	overflow: visible; /* 오버플로우를 보이도록 설정 */
 }
 
 /* 카테고리 css */
@@ -66,7 +66,7 @@ hr {
 }
 
 .search-span .input_icon {
-	display:flex;
+	display: flex;
 	border: 0px;
 	float: right;
 }
@@ -116,8 +116,8 @@ hr {
 }
 
 .title-header span {
-	 position: relative;
-    display: inline-block;
+	position: relative;
+	display: inline-block;
 	width: 150px;
 	padding: 15px;
 	align-items: center;
@@ -135,16 +135,15 @@ hr {
 	margin-right: 5px;
 }
 
-
 .cat-container {
 	position: relative;
 	display: flex;
 }
 
 .depth1-wrapper {
-	display: none; /* 기본적으로 숨김 */ 
-	position : absolute; /* 절대 위치 설정 */
-	overflow : hidden;
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
 	width: 100%;
 	height: auto;
 	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
@@ -183,7 +182,7 @@ hr {
 .depth1-icon {
 	margin-right: 8px; /* 아이콘과 텍스트 간격 */
 }
-	
+
 .depth1-icon-img {
 	width: 45px; /* 아이콘 크기 조정 */
 	height: 45px;
@@ -212,7 +211,6 @@ hr {
 	margin-left: 20px;
 	margin-right: 20px;
 	flex-direction: column; /* 수직으로 정렬. */
-
 }
 
 .slider-container {
@@ -257,45 +255,43 @@ hr {
 	right: 10px;
 }
 
-
 .dropdown {
-    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
-    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+	position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+	display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
 }
 
 .dropbtn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
 }
 
 .dropdown-content {
-    display: none; /* 기본적으로 숨김 */
-    position: absolute; /* 부모 요소에 대해 절대 위치 */
-    background-color: #f9f9f9;
-    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
-    min-height: 160px;
-    box-shadow: rgba(0,0,0,0.2);
-    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
-    right: 0;
-    margin-right: 15%;
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 부모 요소에 대해 절대 위치 */
+	background-color: #f9f9f9;
+	min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+	min-height: 160px;
+	box-shadow: rgba(0, 0, 0, 0.2);
+	z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+	right: 0;
+	margin-right: 15%;
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block; /* 세로로 나열되도록 설정 */
-    width: 100%;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block; /* 세로로 나열되도록 설정 */
+	width: 100%;
 }
 
-.funding-info{
+.funding-info {
 	display: flex;
 	flex-direction: column;
-	
 }
 
-#funding-category{
+#funding-category {
 	font-size: 20px;
 	color: #808080;
 	font-weight: bold;
@@ -306,14 +302,14 @@ hr {
 	font-weight: normal;
 }
 
-#funding-people{
+#funding-people {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0px;
 	margin-top: 20px;
 }
 
-#funding-money{
+#funding-money {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0px;
@@ -321,22 +317,21 @@ hr {
 	margin-bottom: 10px;
 }
 
-.funding-detail p{
-	font-size:15px;
-    margin: 0px; /* 상하 여백 제거 */
-    padding: 0px; /* 안쪽 여백 제거 */
-    margin-bottom: 10px;
-    
+.funding-detail p {
+	font-size: 15px;
+	margin: 0px; /* 상하 여백 제거 */
+	padding: 0px; /* 안쪽 여백 제거 */
+	margin-bottom: 10px;
 }
 
-#funding-buttons{
+#funding-buttons {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	margin-top: 10px;
 }
 
-#donate-button{
+#donate-button {
 	width: 350px;
 	height: 60px;
 	font-size: 22px;
@@ -350,39 +345,38 @@ hr {
 	display: flex;
 	width: 60px;
 	height: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #D9D9D9;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #D9D9D9;
 }
 
 .circle-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #FAFAFA;
-    border: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #FAFAFA;
+	border: 0px;
 }
 
 .share-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #FAFAFA;
-    border: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #FAFAFA;
+	border: 0px;
 }
 
 .circle-button .icon {
-    color: red;
-    font-size: 24px;
+	color: red;
+	font-size: 24px;
 }
 
 .button-number {
-    font-size: 12px;
-    color: black;
+	font-size: 12px;
+	color: black;
 }
-
 
 .funding-label {
 	font-size: 20px; /* 원하는 크기로 변경 */
@@ -409,11 +403,123 @@ hr {
 	margin-top: 20px;
 	align-items: center; /* 추가 */
 }
-
-#project-plan{
+/* 프로젝트 계획 탭 */
+#project-plan {
 	display: flex;
 	border: 1px solid #000000;
 	width: 60%;
-	height: 1000px;
+	min-height: 100px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
+/* 커뮤니티 탭. */
+#community {
+	display: flex;
+	width: 60%;
+	min-height: 100px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column;
+	
+}
+
+/* 댓글 입력 창  css*/
+.comment-box {
+	border-radius: 5px;
+	width: 100%;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.comment-input {
+	width: calc(100% - 100px);
+	height: 60px;
+	border: none;
+	resize:none;
+	border-radius: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 18px;
+	outline: none;
+	border: 1px solid #e0e0e0;
+	float: left;
+}
+
+.submit-btn {
+	border: none;
+	border-radius: 5px;
+	background-color: #e0e0e0;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 16px;
+	height: 60px;
+	width: 80px;
+	float: right;
+}
+
+.submit-btn:hover {
+	background-color: black;
+	color: #e0e0e0;
+}
+
+/* 댓글 창 Example css */
+#comments{
+	display: flex;
+	width:100%;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column;
+	border: 1px solid #e0e0e0;
+}
+
+#comments-profile{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#comment-top{
+	display: flex;
+	flex-direction: row;
+	margin: 20px;
+}
+
+#comment-top img{
+	width: 66px;
+	height: 66px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+
+#information-text{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#information-text b{
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0px;
+	margin-bottom: 10px;	
+}
+
+#information-text p {
+	font-size: 12px;
+	margin: 0px;	
+}
+
+#comment-text{
+	margin:0px;
+	margin-top:10px;
+	margin-left:20px;
+	margin-right:20px;
+	font-size: 15px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#comment-bottom{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}

@@ -256,6 +256,12 @@ progress::-moz-progress-bar {
 .selected-option {
 	color: red;
 }
+
+#projects {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
 </style>
 
 <script>
@@ -359,27 +365,38 @@ progress::-moz-progress-bar {
 				</div>
 			</div>
 
+			<!-- 관심 프로젝트 그룹. -->
+			<div id="projects">
+				
+				<!-- 여기에 관심 프로젝트 추가. -->
+				
+				<div id="interest-project">
+					<!-- 프로젝트 사진 -->
+					<img src="image/interest-project1.jpg">
+					<!-- 창작자 명 -->
+					<a class="creator-name">몽상부띠그</a><br>
+					<!-- 제품명 -->
+					<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+					<p class="description">
+						<!-- 상세 설명 -->
+						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
+					</p>
+					<!-- 진행 정보 -->
+					<div class="progress-info">
+						<span class="progress-percentage">1408%</span> <span
+							class="progress-amount">7,040,700원</span> <span
+							class="progress-time">8일 남음</span>
+					</div>
+					<!-- 진행 바 -->
+					<progress id="progress" value="1408" min="0" max="100">123</progress>
 
-			<div id="interest-project">
-				<!-- 프로젝트 사진 -->
-				<img src="image/interest-project1.jpg">
-				<!-- 창작자 명 -->
-				<a class="creator-name">몽상부띠그</a><br>
-				<!-- 제품명 -->
-				<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
-				<p class="description">
-					<!-- 상세 설명 -->
-					조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
-				</p>
-				<!-- 진행 정보 -->
-				<div class="progress-info">
-					<span class="progress-percentage">1408%</span> <span
-						class="progress-amount">7,040,700원</span> <span
-						class="progress-time">8일 남음</span>
 				</div>
-				<!-- 진행 바 -->
-				<progress id="progress" value="1408" min="0" max="100">123</progress>
+
+
 			</div>
+
+
+
 		</div>
 		<div id="alarm-content" class="tab-content" style="display: none;">알림신청
 			내용</div>
