@@ -70,7 +70,7 @@ readRecordMgr rMgr=new readRecordMgr();
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
-		</label> <label class="category-label">홈</label> <label class="category-label">인기</label>
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -330,7 +330,7 @@ readRecordMgr rMgr=new readRecordMgr();
 						<!-- 프로젝트 사진 -->
 						<img src=<%=fdjvlist.get(i).getFunding_image() %>>
 						<!-- 창작자 명 -->
-						<a class="creator-name"><%=uMgr.oneUserList(fdjvlist.get(i).getFunding_user_id()).getUser_name() %></a><br>
+						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdjvlist.get(i).getFunding_user_id() %>"><%=uMgr.oneUserList(fdjvlist.get(i).getFunding_user_id()).getUser_name() %></a><br>
 						<!-- 제품명 -->
 						<label class="product-name"><%=fdjvlist.get(i).getFunding_title() %></label><br>
 						<!-- 진행 정보 -->
@@ -362,7 +362,9 @@ readRecordMgr rMgr=new readRecordMgr();
 			<div id="project-ranking">
 				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
 				<div id="project-rankinfo">
-					<b style="color: #6D6D6D"><%=uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
+					<a href="../profile/profile.jsp?userId=<%=fdivlist.get(i).getFunding_user_id() %>">
+    					<b style="color: #6D6D6D"><%= uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
+					</a>
 					<p>
 						<%= fdivlist.get(i).getFunding_title() %>
 					</p>
@@ -394,7 +396,8 @@ readRecordMgr rMgr=new readRecordMgr();
 						<!-- 프로젝트 사진 -->
 						<img src=<%=fdcvlist.get(i).getFunding_image()%>>
 						<!-- 창작자 명 -->
-						<a class="creator-name"><%=uMgr.oneUserList(fdcvlist.get(i).getFunding_user_id()).getUser_name()%></a><br>
+						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdcvlist.get(i).getFunding_user_id() %>">
+						<%=uMgr.oneUserList(fdcvlist.get(i).getFunding_user_id()).getUser_name()%></a><br>
 						<!-- 제품명 -->
 						<label class="product-name"><%=fdcvlist.get(i).getFunding_title() %></label><br>
 						<!-- 진행 정보 -->
