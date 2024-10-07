@@ -260,9 +260,22 @@ else if("follow-delete".equals(followAction)){
 			<input type="button" class="share-button" onclick="copyToClipboard()"> 
 			
 			<%if(fMgr.followCheck(mybean.getUser_id(), ubean.getUser_id())){ %>
-			<input type="button" class="follow-delete-button" onclick="document.location.href='profile.jsp?followAction=follow-delete'">
+			
+			<form method="post" id="followdeleteForm">
+				<input type="hidden" name="followAction" value="follow-delete">
+				<input type="hidden" name="set_user_id" value="<%=mybean.getUser_id()%>">
+				<input type="hidden" name="get_user_id" value="<%=ubean.getUser_id()%>">
+				<input type="hidden" name="redirectTab" value="followers-content">
+				<input type="button" class="follow-delete-button" onclick="document.getElementById('followdeleteForm').submit();">
+			</form>
 			<%}else{ %>
-			<input type="button" class="follow-button" onclick="document.location.href='profile.jsp?followAction=follow'">
+			<form method="post" id="followForm">
+				<input type="hidden" name="followAction" value="follow">
+				<input type="hidden" name="set_user_id" value="<%=mybean.getUser_id()%>">
+				<input type="hidden" name="get_user_id" value="<%=ubean.getUser_id()%>">
+				<input type="hidden" name="redirectTab" value="followers-content">
+				<input type="button" class="follow-button" onclick="document.getElementById('followForm').submit();">
+			</form>
 			<%} %>
 			<%
 			}
