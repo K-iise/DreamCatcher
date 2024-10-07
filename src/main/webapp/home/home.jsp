@@ -1,17 +1,13 @@
 <%@page import="java.util.Vector"%>
 <%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="control.usersMgr"%>
-<%@ page import="entity.usersBean"%>
-<%@ page import="control.fundingMgr"%>
-<%@ page import="entity.fundingBean"%>
-<%@ page import="control.readRecordMgr"%>
-<%@ page import="entity.readRecordBean"%>
-<%
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>
 
-
+<% 
 usersMgr uMgr = new usersMgr();
 usersBean mybean = new usersBean();
+
 
 String user_id = (String) session.getAttribute("idKey");
 
@@ -19,6 +15,7 @@ mybean=uMgr.oneUserList(user_id);
 
 fundingMgr fdMgr=new fundingMgr();
 readRecordMgr rMgr=new readRecordMgr();
+alarmMgr aMgr=new alarmMgr();
 
 %>
 <!DOCTYPE html>
@@ -45,9 +42,13 @@ readRecordMgr rMgr=new readRecordMgr();
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
-				type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick=""> 
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>
