@@ -340,6 +340,7 @@ hr {
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
 			<input type="button" class="upload-button" onclick=""> 
+
 			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
 
 
@@ -347,12 +348,12 @@ hr {
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
+			<input type="button" class="upload-button" onclick=""> <input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> <input
 				type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>
+
 			</span>
 		</div>
 

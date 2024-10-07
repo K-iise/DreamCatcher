@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Catcher - 프로젝트 관리</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        box-sizing: border-box;
+    }
+
+    .header {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        display: flex;
+        justify-content: center; /* 중앙 정렬 */
+        align-items: center;
+        position: relative;
+    }
+
+    .header-left {
+        position: absolute;
+        left: 20px; /* 왼쪽에 고정 */
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    .header-left .back-arrow {
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center; /* 중앙 정렬 */
+    }
+
+    .main-container {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .project-overview {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    .project-image {
+        width: 150px;
+        height: 150px;
+        background-color: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .project-details {
+        font-size: 18px;
+    }
+
+    .project-details h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .project-details p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .review-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .review-status button {
+        padding: 8px 12px;
+        border: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .project-card-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .project-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 23%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        height: 300px;
+        text-align: left;
+    }
+
+    .project-card h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .project-card p {
+        color: #888;
+        font-size: 14px;
+        margin: 0;
+    }
+
+</style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <span class="back-arrow">←</span>
+            <span>내가 만든 프로젝트</span>
+        </div>
+        <h1>Dream Catcher</h1> <!-- 중앙으로 이동된 로고 -->
+    </div>
+
+    <div class="main-container">
+        <!-- 프로젝트 개요 -->
+        <div class="project-overview">
+            <div class="project-image">
+                <p>IMAGE</p>
+            </div>
+            <div class="project-details">
+                <h2>김유준의 프로젝트</h2>
+                <p>보드게임 · TRPG · 김유준</p>
+            </div>
+        </div>
+
+        <!-- 심사 상태 -->
+        <div class="review-status">
+            <button>심사 기준</button>
+        </div>
+
+        <!-- 프로젝트 카드 -->
+        <div class="project-card-container">
+            <div class="project-card">
+                <h3>기본 정보</h3>
+                <p>N% 작성완료</p>
+            </div>
+            <div class="project-card">
+                <h3>펀딩 계획</h3>
+                <p>N% 작성완료</p>
+            </div>
+            <div class="project-card">
+                <h3>프로젝트 계획</h3>
+                <p>N% 작성완료</p>
+            </div>
+            <div class="project-card">
+                <h3>창작자 정보</h3>
+                <p>N% 작성완료</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
