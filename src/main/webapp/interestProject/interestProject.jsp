@@ -485,110 +485,112 @@ progress::-moz-progress-bar {
             </div>
         
 	        <div id="projects">
-	        <%	
-				        // 각 funding_num에 대해 funding 정보를 가져와서 출력
-				        if (wishList.size() > 0) {
-				            for (readRecordBean bean : wishList) {
-			%>
-	            <div id="interest-project">
-				   <% 
-				                int fundingNum = bean.getRead_funding_num();
-				                Vector<fundingBean> fundingInfo = fmgr.fundingListForNum(fundingNum);
-				
-				                // funding 정보가 있는 경우 출력
-				                if (fundingInfo.size() > 0) {
-				                    fundingBean funding = fundingInfo.get(0); // 첫 번째 결과만 사용
-				
-				                    // 사용자의 이름을 가져오기 위해 usersMgr 호출
-				                    usersBean user = umgr.oneUserList(funding.getFunding_user_id());
-				
-				                    // 진행 상태 확인
-				                    boolean isOngoing = fmgr.fundDate(fundingNum) > 0;
-				                    boolean isEnded = fmgr.fundDate(fundingNum) <= 0;
-				
-				                    // 선택된 정렬 옵션에 따라 출력 조건
-				                    if ("ongoing".equals(selectedSort) && isOngoing) {
-				   %>
-				                        <!-- 프로젝트 사진 -->
-				                        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
-				                        <!-- 창작자 명 -->
-				                        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
-				                        <!-- 제품명 -->
-				                        <label class="product-name"><%= funding.getFunding_title() %></label><br>
-				                        <!-- 진행 정보 -->
-				                        <div class="progress-info">
-				                            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
-				                            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
-				                            <span class="progress-time">
-				                            <% if (fmgr.fundDate(fundingNum) > 0) {%>
-				                                <%= fmgr.fundDate(fundingNum) %>일 남음
-				                            <% } else { %>
-				                                종료
-				                            <% } %>
-				                            </span>
-				                        </div>
-				                        <!-- 진행 바 -->
-				                        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
-				                        <hr /> <!-- 구분선 추가 -->
-				   <%
-				                    } else if ("ended".equals(selectedSort) && isEnded) {
-				   %>
-				                        <!-- 프로젝트 사진 -->
-				                        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
-				                        <!-- 창작자 명 -->
-				                        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
-				                        <!-- 제품명 -->
-				                        <label class="product-name"><%= funding.getFunding_title() %></label><br>
-				                        <!-- 진행 정보 -->
-				                        <div class="progress-info">
-				                            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
-				                            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
-				                            <span class="progress-time">
-				                            <% if (fmgr.fundDate(fundingNum) > 0) {%>
-				                                <%= fmgr.fundDate(fundingNum) %>일 남음
-				                            <% } else { %>
-				                                종료
-				                            <% } %>
-				                            </span>
-				                        </div>
-				                        <!-- 진행 바 -->
-				                        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
-				                        <hr /> <!-- 구분선 추가 -->
-				   <%
-				                    } else if ("all".equals(selectedSort)) { // 'all' 선택 시
-				   %>
-				                        <!-- 프로젝트 사진 -->
-				                        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
-				                        <!-- 창작자 명 -->
-				                        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
-				                        <!-- 제품명 -->
-				                        <label class="product-name"><%= funding.getFunding_title() %></label><br>
-				                        <!-- 진행 정보 -->
-				                        <div class="progress-info">
-				                            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
-				                            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
-				                            <span class="progress-time">
-				                            <% if (fmgr.fundDate(fundingNum) > 0) {%>
-				                                <%= fmgr.fundDate(fundingNum) %>일 남음
-				                            <% } else { %>
-				                                종료
-				                            <% } %>
-				                            </span>
-				                        </div>
-				                        <!-- 진행 바 -->
-				                        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
-				                        <hr /> <!-- 구분선 추가 -->
-				   <%
-				                    }
-				                }				           
-				   %>
-				</div>
-				<%
-				 }
-				        } else {
-				            message = "관심 프로젝트가 없습니다.";
-				        }
-				 %>
+
+			    <%	
+			        // 각 funding_num에 대해 funding 정보를 가져와서 출력
+			        if (wishList.size() > 0) {
+			            for (readRecordBean bean : wishList) {
+			    %>
+			    <%
+			        int fundingNum = bean.getRead_funding_num();
+			        Vector<fundingBean> fundingInfo = fmgr.fundingListForNum(fundingNum);
+			
+			        // funding 정보가 있는 경우 출력
+			        if (fundingInfo.size() > 0) {
+			            fundingBean funding = fundingInfo.get(0); // 첫 번째 결과만 사용
+			
+			            // 사용자의 이름을 가져오기 위해 usersMgr 호출
+			            usersBean user = umgr.oneUserList(funding.getFunding_user_id());
+			
+			            // 진행 상태 확인
+			            boolean isOngoing = fmgr.fundDate(fundingNum) > 0;
+			            boolean isEnded = fmgr.fundDate(fundingNum) <= 0;
+			
+			            // 선택된 정렬 옵션에 따라 출력 조건
+			            if ("ongoing".equals(selectedSort) && isOngoing) {
+			    %>
+			    <div id="interest-project">
+			        <!-- 프로젝트 사진 -->
+			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        <!-- 창작자 명 -->
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
+			        <!-- 제품명 -->
+			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
+			        <!-- 진행 정보 -->
+			        <div class="progress-info">
+			            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
+			            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
+			            <span class="progress-time">
+			            <% if (fmgr.fundDate(fundingNum) > 0) {%>
+			                <%= fmgr.fundDate(fundingNum) %>일 남음
+			            <% } else { %>
+			                종료
+			            <% } %>
+			            </span>
+			        </div>
+			        <!-- 진행 바 -->
+			        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
+			        <hr /> <!-- 구분선 추가 -->
+			    </div>
+			    <%
+			            } else if ("ended".equals(selectedSort) && isEnded) {
+			    %>
+			    <div id="interest-project">
+			        <!-- 종료된 프로젝트만 출력하는 블록 -->
+			        <!-- 프로젝트 사진 -->
+			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        <!-- 창작자 명 -->
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
+			        <!-- 제품명 -->
+			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
+			        <!-- 진행 정보 -->
+			        <div class="progress-info">
+			            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
+			            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
+			            <span class="progress-time">종료</span>
+			        </div>
+			        <!-- 진행 바 -->
+			        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
+			        <hr /> <!-- 구분선 추가 -->
+			    </div>
+			    <%
+			            } else if ("all".equals(selectedSort)) { // 'all' 선택 시
+			    %>
+			    <div id="interest-project">
+			        <!-- 모든 프로젝트를 출력하는 블록 -->
+			        <!-- 프로젝트 사진 -->
+			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        <!-- 창작자 명 -->
+			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
+			        <!-- 제품명 -->
+			        <label class="product-name"><%= funding.getFunding_title() %></label><br>
+			        <!-- 진행 정보 -->
+			        <div class="progress-info">
+			            <span class="progress-percentage"><%= (funding.getFunding_nprice() * 100 / funding.getFunding_tprice()) + "%" %></span> 
+			            <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
+			            <span class="progress-time">
+			            <% if (fmgr.fundDate(fundingNum) > 0) {%>
+			                <%= fmgr.fundDate(fundingNum) %>일 남음
+			            <% } else { %>
+			                종료
+			            <% } %>
+			            </span>
+			        </div>
+			        <!-- 진행 바 -->
+			        <progress id="progress" value="<%= funding.getFunding_nprice() %>" min="0" max="<%= funding.getFunding_tprice() %>"></progress>
+			        <hr /> <!-- 구분선 추가 -->
+			    </div>
+			    <%
+			            }
+			        }				           
+			    %>
+			    <% 
+			            }
+			        } else {
+			            message = "관심 프로젝트가 없습니다.";
+			        }
+			    %>
+
 			</div>
         </div>
     </div>
