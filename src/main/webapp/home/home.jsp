@@ -363,7 +363,7 @@ readRecordMgr rMgr=new readRecordMgr();
 				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
 				<div id="project-rankinfo">
 					<a href="../profile/profile.jsp?userId=<%=fdivlist.get(i).getFunding_user_id() %>">
-    					<b style="color: #6D6D6D"><%= uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
+    					<b style="color: #6D6D6D !important"><%= uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
 					</a>
 					<p>
 						<%= fdivlist.get(i).getFunding_title() %>
