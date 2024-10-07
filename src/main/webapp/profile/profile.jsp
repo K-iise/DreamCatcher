@@ -61,7 +61,7 @@ if ("follow".equals(followAction)) {
     bean.setFollow_get_user_id(ubean.getUser_id());
     
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp"); // 성공 알림
+    response.sendRedirect("profile.jsp?userId="+selectuserId); // 성공 알림
 }
 else if("follow-delete".equals(followAction)){
 	
@@ -70,7 +70,7 @@ else if("follow-delete".equals(followAction)){
 	    bean.setFollow_get_user_id(ubean.getUser_id());
 	    
 	    fMgr.followDelete(bean); // followInsert 호출
-	    response.sendRedirect("profile.jsp");
+	    response.sendRedirect("profile.jsp?userId="+selectuserId);
 	
 }else if ("follower2".equals(followAction)) {
     String set_user_id = request.getParameter("set_user_id");
@@ -82,7 +82,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("follower2-delete".equals(followAction)) {
@@ -95,7 +95,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followDelete(bean); // followInsert 호출;
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("following2".equals(followAction)) {
@@ -108,7 +108,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("following2-delete".equals(followAction)) {
@@ -121,7 +121,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followDelete(bean); // followInsert 호출;
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }
