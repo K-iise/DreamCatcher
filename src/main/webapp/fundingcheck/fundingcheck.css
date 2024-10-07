@@ -407,19 +407,23 @@ hr {
 #project-plan {
 	display: flex;
 	border: 1px solid #000000;
-	width: 60%;
+	width: 100%;
 	min-height: 100px;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#community-content {
+	display: flex;
+	width: 100%;
 }
 
 /* 커뮤니티 탭. */
 #community {
 	display: flex;
-	width: 60%;
+	width: 100%;
 	min-height: 100px;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 	flex-direction: column;
-	
 }
 
 /* 댓글 입력 창  css*/
@@ -435,7 +439,7 @@ hr {
 	width: calc(100% - 100px);
 	height: 60px;
 	border: none;
-	resize:none;
+	resize: none;
 	border-radius: 10px;
 	padding: 10px;
 	box-sizing: border-box;
@@ -464,63 +468,63 @@ hr {
 }
 
 /* 댓글 창 Example css */
-#comments{
+#comments {
 	display: flex;
-	width:100%;
+	width: 100%;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 	flex-direction: column;
 	border: 1px solid #e0e0e0;
 	margin-bottom: 10px;
 }
 
-#comments-profile{
+#comments-profile {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-#comment-top{
+#comment-top {
 	display: flex;
 	flex-direction: row;
 	margin: 20px;
 }
 
-#comment-top img{
+#comment-top img {
 	width: 66px;
 	height: 66px;
 	margin-right: 10px;
 	border-radius: 50%;
 }
 
-#information-text{
+#information-text {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-#information-text b{
+#information-text b {
 	font-size: 18px;
 	font-weight: bold;
 	margin: 0px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 
 #information-text p {
 	font-size: 12px;
-	margin: 0px;	
+	margin: 0px;
 }
 
-#comment-text{
-	margin:0px;
-	margin-top:10px;
-	margin-left:20px;
-	margin-right:20px;
-	margin-bottom:15px;
-	font-size: 15px;
-	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+#comment-text {
+	margin: 0px;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 15px; font-size : 15px;
+	flex-wrap: wrap;
+	font-size: 15px; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
-#comment-bottom{
+#comment-bottom {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -530,11 +534,11 @@ hr {
 	margin-bottom: 10px;
 }
 
-#comment-recommend{
+#comment-recommend {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center; 
+	align-items: center;
 }
 
 #comment-recommend img {
@@ -549,33 +553,102 @@ hr {
 	color: black;
 }
 
-#comment-option{
+#comment-option {
 	margin: 20px;
 	display: flex;
 }
 
-#comment-option img{
+#comment-option img {
 	width: 5px;
 	height: 22px;
 }
 
 .dropdown-comment {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100px;
-    margin-top:22px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 100px;
+	margin-top: 22px; box-shadow : 0px 8px 16px 0px rgba( 0, 0, 0, 0.2);
+	z-index: 1;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-comment p {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
 }
 
 .dropdown-comment p:hover {
-    background-color: #f1f1f1;
+	background-color: #f1f1f1;
+}
+
+.MainBottom {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	width: 100%; /* 전체 너비 설정 */
+}
+
+.left-section {
+	flex: 3; /* 60% 너비 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+.right-section {
+	flex: 2; /* 40% 너비 */
+	margin-left: 20px; /* 여백 추가 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+#donate-content {
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+#donate-content b {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+#donate-information {
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+}
+
+/* 선물하기 창  */
+#donate-information p {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 25px;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+#donate-information b{
+font-family: 'NanumGothic';
+font-style: normal;
+font-weight: 700;
+font-size: 38px;
+line-height: 25px;
+color: #000000;
+
+}
+
+
+#product-ul{
+	font-size: 12px;
+	margin: 0px;
+	margin-top: 5px;
 }
