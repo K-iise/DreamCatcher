@@ -1,9 +1,18 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 
+
 <%@ page import="control.*" %>
 <%@ page import="entity.*" %>
 
+
+
+<%@ page import="control.usersMgr"%>
+<%@ page import="entity.usersBean"%>
+<%@ page import="control.followMgr"%>
+<%@ page import="entity.followBean"%>
+<%@ page import="control.fundingMgr"%>
+<%@ page import="entity.fundingBean"%>
 
 <%
 String user_id = (String) session.getAttribute("idKey");
@@ -126,6 +135,7 @@ else if("follow-delete".equals(followAction)){
     
    
 }
+
 
 
 
@@ -306,6 +316,7 @@ else if("follow-delete".equals(followAction)){
 		<div id="project-content" class="tab-content" style="display: none;">
 			<div style="margin-left: 20px; margin-top: 20px;"><%=fdCount %>개의 프로젝트가 있습니다.</div>
 			<%if(fdCount!=0){ %>
+
 			
 			    <div id="projects">
 			    <% for (int i = 0; i < fdCount; i++) { %>
@@ -449,6 +460,44 @@ else if("follow-delete".equals(followAction)){
 				
 			</div>
 		</div>
+=======
+			<% for (int i = 0; i < fdCount; i++) { %>
+    <div id="projects">
+        <div id="upload-project">
+            <!-- 프로젝트 사진 -->
+            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
+            <!-- 창작자 명 -->
+            <a class="creator-name">
+                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
+            </a><br>
+            <!-- 제품명 -->
+            <label class="product-name">
+                <%= fdvlist.get(i).getFunding_title() %>
+            </label><br>
+            <!-- 진행 정보 -->
+            <div class="progress-info">
+                <span class="progress-percentage">
+                    <%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %> %
+                </span> 
+                <span class="progress-amount">
+                    <%= fdvlist.get(i).getFunding_nprice() %>원
+                </span> 
+                <span class="progress-time">
+                    <%= fdMgr.fundDate(fdvlist.get(i).getFunding_num()) %>일 남음
+                </span>
+            </div>
+            <!-- 진행 바 -->
+            <progress id="progress" value="<%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %>" min="0" max="100"></progress>
+        </div>
+    </div>
+<% } %>
+		
+
+		<div id="followers-content" class="tab-content" style="display: none;">팔로워
+			목록</div>
+		<div id="following-content" class="tab-content" style="display: none;">팔로잉
+			목록</div>
+
 	</div>
 
 	<script src="dropdown.js"></script>

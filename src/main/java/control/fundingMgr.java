@@ -92,6 +92,7 @@ public class fundingMgr {
 		
 	}
 	
+
 	public Vector<fundingBean> fundingListForNum(int num){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -128,6 +129,7 @@ public class fundingMgr {
 		return vlist;		
 	}
 	
+
 	public Vector<fundingBean> fundingListForUserId(String user_id){
 		
 		Connection con = null;
@@ -147,10 +149,19 @@ public class fundingMgr {
 				
 				fundingBean bean=new fundingBean();
 
+
 				
 				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(rs.getInt("funding_category"));
+
+				
+				bean.setFunding_num(rs.getInt("funding_num"));
+				bean.setFunding_title(rs.getString("funding_title"));
+				
+				bean.setFunding_category(rs.getInt("funding_category"));
+				
+
 				bean.setFunding_con(rs.getString("funding_con"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
@@ -299,6 +310,9 @@ public class fundingMgr {
 			while(rs.next()) {
 				
 				count = (int) Math.ceil(rs.getDouble("days_until_fund_term"));
+			
+				System.out.println(count);
+
 			}
 
 		} catch (Exception e) {
@@ -309,6 +323,7 @@ public class fundingMgr {
 		return count;
 	}
 	
+
 	public Vector<fundingBean> fundingByRecord(Vector<readRecordBean> rvlist){
 		
 		Connection con = null;
@@ -391,4 +406,5 @@ public class fundingMgr {
 		
 	}
 	
+
 }
