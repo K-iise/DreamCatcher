@@ -104,7 +104,7 @@
                 <input type="submit" class="button" value="로그인">
                 <hr width="50%" color="#dee2e6" noshade/>
                 <div>
-                    <a href="/DreamCatcher/findpassword/findpassword.html" class="link">비밀번호 찾기</a>
+                    <a href="/DreamCatcher/findpassword/findpassword.jsp" class="link">비밀번호 찾기</a>
                     <span class="separator">|</span>
                     <a href="/DreamCatcher/signup/signup.html" class="link">회원가입</a>
                 </div>

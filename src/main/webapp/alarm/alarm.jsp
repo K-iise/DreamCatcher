@@ -33,6 +33,7 @@ body {
 	height: 20px; /* 이미지의 높이를 조정 */
 	margin-right: 15px; /* 이미지와 텍스트 사이의 간격 */
 }
+
 .dropdown {
     position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
     display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
@@ -348,8 +349,9 @@ hr {
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> <input
-				type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> 
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
 			<span class="dropbtn" onclick="toggleDropdown()">
 				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
 			    <b><%= mybean.getUser_name() %></b>
@@ -364,7 +366,7 @@ hr {
 	
 	<div class="dropdown-content">
 		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
-	    <a>관심프로젝트</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
 	    <a href="../alarm/alarm.jsp">알림</a>
 	    <a href="../logout/logout.jsp">로그아웃</a>
     </div>
