@@ -1,0 +1,449 @@
+body {
+	margin: 0;
+	padding: 0 15%;
+}
+
+hr {
+	border: none; /* 기본 경계 제거 */
+	height: 1px; /* 높이 설정 */
+	background-color: #dee2e6; /* 기본 색상 */
+}
+
+/* 상단 부분 css */
+#header {
+	display: flex;
+	flex-direction: row;
+	align-items: center; /* 추가 */
+	margin-top: 10px;
+}
+
+#header a {
+	font-size: 35px;
+	font-weight: bold;
+	color: black;
+	margin: 0px;
+	margin-right: 35px;
+}
+
+#header p {
+	font-size: 30px;
+	font-weight: bold;
+	color: black;
+	margin: 0px;
+}
+
+/* 전체 div 구조 css */
+.Main {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	width: 100%; /* 전체 너비 설정 */
+}
+
+.left-section {
+	flex: 3; /* 50% 너비 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+.right-section {
+	flex: 3; /* 50% 너비 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	margin-left: 50px;
+}
+
+#project-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-top: 30px;
+	margin-left: 20px;
+	margin-bottom: 30px;
+}
+
+/* 프로젝트 대표 이미지*/
+#project-title img {
+	width: 125px;
+	height: 125px;
+	margin-right: 45px;
+}
+
+/* 프로젝트 사진 옆 텍스트 Div*/
+#title-info {
+	display: flex;
+	flex-direction: column;
+}
+
+#text-category {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 20px;
+	color: rgba(0, 0, 0, 0.5);
+	margin: 0px;
+	margin-bottom: 15px;
+}
+
+#text-title {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	color: #000000;
+	margin: 0px;
+	margin-bottom: 15px;
+}
+/* 프로젝트 가격 정보 */
+#product-price {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	align-items: center;
+}
+
+#totalprice {
+	font-size: 22px;
+	margin: 0px;
+}
+
+#recent-percent {
+	font-size: 20px;
+	margin: 0px;
+	color: red;
+}
+
+#remain-day {
+	font-size: 20px;
+	margin: 0px;
+}
+
+/* 선물 정보 */
+#gift-title {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-left: 20px;
+}
+
+#gift-box {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: row;
+	border: 1px solid #000000;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+#box-title {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+#box-title b {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	margin: 20px;
+}
+
+#box-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 60px;
+}
+
+#product-content {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 22px;
+	color: #000000;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+
+#box-price {
+	/* 가격 */
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 22px;
+	color: #000000;
+}
+
+#expection-content {
+	display: flex;
+	width: 262px;
+	height: 40px;
+	background: rgba(217, 217, 217, 0.5);
+	justify-content: center;
+	align-items: center;
+	width: 262px;
+}
+
+#expection-content b {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+#total-box {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border: 1px solid #000000;
+	margin-top: 230px;
+}
+
+#total-box b {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	margin: 30px;
+}
+
+#project-explan {
+	/* 설명 */
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 20px;
+	color: #000000;
+}
+
+#check_wrap {
+	display: flex;
+	align-items: center;
+	margin: 10px 0;
+	margin-bottom: 20px;
+}
+
+input[type="checkbox"] {
+	display: none; /* 기본 체크박스 숨기기 */
+}
+
+label {
+	position: relative;
+	cursor: pointer;
+	padding-left: 60px; /* 체크박스 공간 */
+	font-size: 20px;
+	color: #000000;
+}
+
+label span {
+	transition: color 0.3s;
+}
+
+/* 체크박스 스타일 */
+label::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 35px;
+	height: 35px;
+	border: 2px solid #DC5252; /* 체크박스 테두리 색상 */
+	border-radius: 4px; /* 둥근 모서리 */
+	background-color: #fff; /* 체크박스 배경 색상 */
+	transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* 체크박스 체크 상태 */
+input[type="checkbox"]:checked+label::before {
+	background-color: #DC5252; /* 체크 시 배경 색상 */
+	border-color: #DC5252; /* 체크 시 테두리 색상 */
+}
+
+input[type="checkbox"]:checked+label span {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+#notification {
+	/* 약관 설명 */
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 20px;
+	/* or 111% */
+	margin: 0px;
+	margin-top: 10px;
+	color: #000000;
+}
+
+#donate-button {
+	/* 후원버튼 */
+	width: 100%;
+	font-size: 30px;
+	font-weight: bold;
+	color: #FFFFFF;
+	background: #EE493E;
+	border: 0px;
+	padding: 15px;
+}
+
+#coupon-info {
+	display: flex;
+	margin-top: 20px;
+	flex-direction: column;
+}
+
+/* 선물 정보 */
+#coupon-title {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-left: 20px;
+}
+
+#coupon-box {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid #000000;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+#coupon-box b {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	margin: 20px;
+}
+
+#coupon-box p {
+	/* 사용 가능 0개 / 보유 0개 */
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	/* identical to box height */
+	color: rgba(0, 0, 0, 0.5);
+}
+
+#coupon-box button{
+
+box-sizing: border-box;
+
+width: 110px;
+height: 35px;
+color: rgba(0, 0, 0, 0.5);
+border: 1px solid rgba(0, 0, 0, 0.5);
+font-size: 16px;
+font-weight: bold;
+margin-right: 20px;
+}
+
+/* 결제 정보 */
+#payment-title {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 22px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.5);
+	margin-left: 20px;
+}
+
+#payment-info {
+	display: flex;
+	margin-top: 20px;
+	flex-direction: column;
+}
+
+#payment-box {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+	border: 1px solid #000000;
+	margin-left: 20px;
+	margin-top: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+
+#payment-label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 35px; /* 라디오 버튼 공간 */
+    font-size: 22px;
+    color: #333;
+    margin: 5px 0; /* 라벨 간격 */
+    margin-right: 40px;
+    margin-left: 20px;
+}
+
+input[type="radio"] {
+    display: none; /* 기본 라디오 버튼 숨기기 */
+}
+
+/* 라디오 버튼 스타일 */
+#payment-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #DC5252; /* 라디오 버튼 테두리 색상 */
+    border-radius: 50%; /* 원형 모양 */
+    background-color: #fff; /* 라디오 버튼 배경 색상 */
+    transition: background-color 0.3s;
+}
+
+/* 라디오 버튼 체크 상태 */
+input[type="radio"]:checked + span::before {
+    background-color: #DC5252; /* 체크 시 배경 색상 */
+}
+
+input[type="radio"]:checked + span::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px; /* 체크된 점의 크기 */
+    height: 14px; /* 체크된 점의 크기 */
+    border-radius: 50%; /* 원형 모양 */
+    background-color: #DC5252; /* 체크된 점 색상 */
+}
+
+/* 라벨 텍스트 스타일 */
+span {
+    transition: color 0.3s;
+}
+
+/* 라디오 버튼 선택 시 텍스트 색상 변화 */
+input[type="radio"]:checked + span {
+    color: #DC5252; /* 선택 시 글자 색상 */
+    font-weight: bold; /* 선택 시 글자 두껍게 */
+}
+
