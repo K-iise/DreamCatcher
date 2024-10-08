@@ -365,6 +365,7 @@ mybean.setUser_resnum("111111-1111111");
 					<!-- 펀딩 내용 -->
 					<div id="project-plan">
 						<!-- 프로젝트 계획 내용 -->
+						
 					</div>
 				</div>
 
@@ -438,10 +439,12 @@ mybean.setUser_resnum("111111-1111111");
 					<p id="creator-intro">
 					다람북스는 책과 일상 속에서 의미 있는 제품을 만드는 창작 팀입니다. 이야기가 가진 힘을 믿으며, 그 이야기를 다양한 형태로 풀어내 사람들에게 영감을 주는 것을 목표로 하고 있습니다. 실용적이면서도 특별한 제품들을 통해 일상 속에 이야기를 더해 나갑니다.
 					</p>
-				
+					<hr id="default-hr" width="100%" noshade />
+					<div id="creator-buttons">
+						<button id="inquiry-button">창작자 문의</button>
+						<button id="follow-button">+ 팔로우</button>
+					</div>
 				</div>
-				
-			
 			</div>
 		
 		
@@ -452,8 +455,11 @@ mybean.setUser_resnum("111111-1111111");
 				<!-- 상품 선택(구매)  예시 -->
 				<div id="product-buy">
 					<div id="buy-info">
-						<label id="product-information"> <b>더블크로스 The 3rd
-								Edition 기본 세트</b>
+						<label id="product-information"> 
+						<div id="product-title">
+							<b>더블크로스 The 3rd	Edition 기본 세트</b>
+							<button id="delete-button">X</button>
+						</div>
 							<ul id="product-ul">
 								<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
 								<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>

@@ -406,10 +406,16 @@ hr {
 /* 프로젝트 계획 탭 */
 #project-plan {
 	display: flex;
-	border: 1px solid #000000;
-	width: 100%;
-	min-height: 100px;
+	flex-direction: column; /* 수직으로 정렬 */
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	width: 100%;
+	min-height:1000px;
+	border: none;
+	resize: none;
+	box-sizing: border-box;
+	outline: none;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-top: 10px;
 }
 
 #community-content {
@@ -746,6 +752,17 @@ color: #000000;
 	color: #DC5252;
 }
 
+#product-title{
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+#delete-button{
+	border: 0px;
+	font-size: 18px;
+}
+
 #creator-content {
 	display: flex;
 	flex-direction: column; /* 수직으로 정렬 */
@@ -791,4 +808,31 @@ color: #000000;
 #creator-intro{
 	display: flex;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#creator-buttons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#inquiry-button{
+	width: 120px;
+	height: 45px;
+	font-weight: bold;
+	font-size: 16px;
+	border: 1px solid #000000;
+	background: #FAFAFA;
+	margin-right: 15px;
+}
+
+#follow-button{
+	width: 120px;
+	height: 45px;
+	font-size:16px;
+	font-weight: bold;
+	color: #DC5252;
+	background: #FAFAFA;
+	border: 1px solid #DC5252;
 }
