@@ -16,15 +16,11 @@ mybean=uMgr.oneUserList(user_id);
 alarmMgr aMgr=new alarmMgr();
 fundingMgr fdMgr=new fundingMgr();
 fundingBean fdbean=new fundingBean();
+createFundingMgr cfMgr=new createFundingMgr();
+createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
 
-String selectedProject = (String) session.getAttribute("selectedProject");
-String projectDescription = (String) session.getAttribute("projectSummary");
-
-if (selectedProject == null || selectedProject.isEmpty()) {
-    selectedProject = "default";
-}
-
+String selectedProject=fdMgr.getCategory(cfbean.getCreatefunding_category());
 
 
 %>
@@ -472,7 +468,11 @@ textarea {
                 <p>드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="input-group-inline">
-                <input type="text" name="projectTitle" placeholder="프로젝트의 제목을 입력해 주세요.">
+            	<%if(cfbean.getCreatefunding_title()==null||cfbean.getCreatefunding_title().equals("")){ %>
+                <input type="text" name="projectTitle" placeholder="프로젝트의 제목을 입력해 주세요." >
+                <%}else{ %>
+                <input type="text" name="projectTitle" value=<%=cfbean.getCreatefunding_title() %> >
+                <%} %>
 
             </div>
         </div>
@@ -485,7 +485,7 @@ textarea {
                 <p>명확하고 간략하게 소개해주세요.</p>
             </div>
             <div class="input-group-inline">
-            <textarea placeholder="프로젝트를 간단히 요약해 보세요."><%=projectDescription %></textarea>
+            <textarea placeholder="프로젝트를 간단히 요약해 보세요."><%=cfbean.getCreatefunding_summary() %></textarea>
             </div>
         </div>
 

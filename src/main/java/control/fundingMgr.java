@@ -406,5 +406,32 @@ public class fundingMgr {
 		
 	}
 	
+	public String getCategory(int num) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String category="";
+		try {
+			con = pool.getConnection();
+			sql = "select * from category where category_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				category=rs.getString("category_funding");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return category;
+		
+	}
 
 }
