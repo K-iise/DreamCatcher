@@ -1,3 +1,20 @@
+<%@page import="java.util.Vector"%>
+<%@page import="java.time.LocalDate"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>
+<%
+
+usersMgr uMgr = new usersMgr();
+usersBean mybean = new usersBean();
+
+
+String user_id = (String) session.getAttribute("idKey");
+
+mybean=uMgr.oneUserList(user_id);
+alarmMgr aMgr=new alarmMgr();
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -88,6 +105,14 @@ hr {
 
 .title-header .bell-button {
 	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button2 {
+	background: url("image/bellicon2.png") no-repeat;
 	width: 40px;
 	height: 40px;
 	border: 0px;
@@ -218,7 +243,36 @@ hr {
 .dropdown select option:hover {
     background-color: #D0D0D0;
 }
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
 
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
 /* 두 번째 코드에서 필요한 스타일 */
 .container {
 	display: flex;
@@ -229,7 +283,7 @@ hr {
 
 .left {
 	width: 40%;
-	background: url('image.jpg') no-repeat center center / cover;
+	background: url('image/image.jpg') no-repeat center center / cover;
 	border-right: 1px solid #ccc;
 }
 
@@ -304,17 +358,47 @@ textarea {
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
+			<%
+			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
+			%>
 			<input type="button" class="upload-button" onclick=""> 
-			<input type="button" class="heart-button" onclick=""> 
-			<input type="button" class="bell-button" onclick=""> 
-			<span onclick=""> <img src="image/guest.png"> <b> 홍길동</b></span>
-		</div>
-	</header>
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
 
+
+			<%
+			} else {
+			%>
+
+			
+
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
+
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
+			</span>
+		</div>
+
+		<%
+		}
+		%>
+	</header>
+	
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 	<!-- 카테고리 시작 -->
 	<nav class="menu-bar">
 		<label class="category-label"><img src="image/menubar.png">카테고리</label>
-		<label class="category-label">홈</label> 
+		 <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> 
 		<label class="category-label">인기</label>
 		<label class="category-label">신규</label> 
 		<label class="category-label">스토어</label>
@@ -377,5 +461,7 @@ textarea {
             container.appendChild(label);
         });
     </script>
+    
+    <script src="dropdown.js"></script>
 </body>
 </html>

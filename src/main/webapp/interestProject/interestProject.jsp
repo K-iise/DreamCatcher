@@ -398,7 +398,7 @@ progress::-moz-progress-bar {
 			<%
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
-			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="upload-button" onclick="alert('로그인 해주세요');"> 
 			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
 
 
@@ -406,7 +406,7 @@ progress::-moz-progress-bar {
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectPlan.jsp'">  
 			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
 			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
 			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
