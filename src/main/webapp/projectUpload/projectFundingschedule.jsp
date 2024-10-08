@@ -1,3 +1,24 @@
+<%@page import="java.util.Vector"%>
+<%@page import="java.time.LocalDate"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>
+<%@ page import="java.io.*" %>
+<%@ page import="javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%
+
+request.setCharacterEncoding("UTF-8");
+String user_id = (String) session.getAttribute("idKey");
+
+usersMgr uMgr = new usersMgr();
+usersBean mybean = new usersBean();
+mybean=uMgr.oneUserList(user_id);
+alarmMgr aMgr=new alarmMgr();
+fundingMgr fdMgr=new fundingMgr();
+fundingBean fdbean=new fundingBean();
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -274,8 +295,54 @@
         .schedule-start .input-wrapper {
             width: 100%;
         }
+        
+        .user-controls .bell-button2 {
+			background: url("image/bellicon2.png") no-repeat;
+			width: 40px;
+			height: 40px;
+			border: 0px;
+			margin-left: 20px;
+		}
 
+		.dropdown {
+		    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+		    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+		}
+		
+		.dropbtn {
+		    background-color: transparent;
+		    border: none;
+		    cursor: pointer;
+		}
+		
+		.dropdown-content {
+		    display: none; /* 기본적으로 숨김 */
+		    position: absolute; /* 부모 요소에 대해 절대 위치 */
+		    background-color: #f9f9f9;
+		    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+		    min-height: 160px;
+		    box-shadow: rgba(0,0,0,0.2);
+		    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+		    right: 0;
+		    margin-right: 15%;
+		}
+		
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block; /* 세로로 나열되도록 설정 */
+		    width: 100%;
+		}
     </style>
+    <script>
+    // 폼 제출을 위한 JavaScript 함수
+    function submitForm(pageURL) {
+        var form = document.getElementById("projectForm");  // 'projectForm' ID를 가진 폼을 가져옵니다.
+        form.action = pageURL;  // action 속성을 동적으로 변경합니다.
+        form.submit();  // 폼을 제출합니다.
+    }
+</script>
 </head>
 <body>
     <div class="header">
@@ -291,21 +358,35 @@
 
         <!-- 사용자 컨트롤 -->
         <div class="user-controls">
-            <input type="button" class="upload-button" onclick="">
-            <input type="button" class="heart-button" onclick="">
-            <input type="button" class="bell-button" onclick="">
-            <span><img src="image/guest.png"> <b>홍길동</b></span>
+            <input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
+
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
+			</span>
         </div>
+        
+    <div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
         <!-- 메뉴들 -->
         <nav class="menu-bar">
-            <label class="category-label">기본 정보</label>
-            <label class="category-label">펀딩 계획</label>
-            <label class="category-label">프로젝트 계획</label>
-            <label class="category-label">창작자 정보</label>
+           <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectBasicinfo')">기본 정보</label>
+            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectFundingschedule')">펀딩 계획</label>
+            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectExplanation')">프로젝트 계획</label>
+            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectCreatorinfo')">창작자 정보</label>
         </nav>
     </div>
-
+	<form id="projectForm" action="" method="post">
     <div class="container">
         
         <!-- 프로젝트 목표 금액 섹션 -->
@@ -380,7 +461,7 @@
         </div>
         
     </div>
-
+</form>
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -423,5 +504,6 @@
             }
         }
     </script>
+    <script src="dropdown.js"></script>
 </body>
 </html>

@@ -243,6 +243,7 @@ hr {
 .dropdown select option:hover {
     background-color: #D0D0D0;
 }
+
 .dropdown {
     position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
     display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
@@ -419,18 +420,19 @@ textarea {
             <h2>멋진 아이디어가 있으시군요!</h2>
             <h2>어떤 프로젝트를 계획 중이신가요?</h2>
             <p>나중에 변경 가능하니 너무 걱정하지 마세요.</p>
-
-            <!-- 프로젝트 종류 선택 영역 -->
-            <div class="toggle-container" id="toggleContainer"></div>
-
-            <!-- 프로젝트 소개 텍스트 영역 -->
-            <div class="textarea-container">
-                <h2>프로젝트를 간단하게 소개해주세요.</h2>
-                <textarea rows="4" placeholder="프로젝트 요약을 입력해주세요."></textarea>
-            </div>
-
-            <!-- 다음 버튼 -->
-            <button class="next-button">다음</button>
+			<form action="uploadData.jsp" method="POST">
+			    <!-- 프로젝트 종류 선택 영역 -->
+			    <div class="toggle-container" id="toggleContainer"></div>
+			
+			    <!-- 프로젝트 소개 텍스트 영역 -->
+			    <div class="textarea-container">
+			        <h2>프로젝트를 간단하게 소개해주세요.</h2>
+			        <textarea name="projectSummary" rows="4" placeholder="프로젝트 요약을 입력해주세요."></textarea>
+			    </div>
+			
+			    <!-- 다음 버튼 -->
+			    <button type="submit" class="next-button">다음</button>
+			</form>
         </div>
     </div>
 
@@ -450,12 +452,14 @@ textarea {
             radio.type = 'radio';
             radio.id = project.replace(/,|\s+/g, '_').toLowerCase();
             radio.name = 'project';
+            radio.value = project;
             radio.className = 'toggle-button';
+            
 
             const label = document.createElement('label');
             label.htmlFor = radio.id;
             label.textContent = project;
-			label.classList.add('toggle-button-label');
+            label.classList.add('toggle-button-label');
 
             container.appendChild(radio);
             container.appendChild(label);
