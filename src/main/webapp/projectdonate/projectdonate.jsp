@@ -38,6 +38,7 @@
 					</div>
 				</div>
 			</div>
+			
 
 			<!-- 선물 정보 -->
 			<div id="gift-info">
@@ -61,6 +62,22 @@
 						</div>
 
 						<p id="box-price">29,000원</p>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 배송지 정보 -->
+			<div id="delivery-info">
+				<b id="delivery-title">배송지</b>
+				<div id="delivery-box">
+					<button id="delivery-button">+ 배송지 추가</button>
+					
+					<div id="deliver-detail">
+						<div id="deliver-profile">
+							<b id="deliver-name">김윤기</b>
+							<p id="deliver-address">[38540] 경북 경산시 감못둑길 20 (갑제동) 2005</p>
+						</div>
+						<button id="change-button">변경</button>
 					</div>
 				</div>
 			</div>
@@ -104,12 +121,12 @@
 			</p>
 
 			<div id="check_wrap">
-				<input type="checkbox" id="check1"> <label for="check1"><span>개인정보
+				<input type="checkbox" id="check1"> <label id = "explan-label" for="check1"><span>개인정보
 						제 3자 제공 동의</span></label>
 			</div>
 
 			<div id="check_wrap">
-				<input type="checkbox" id="check_btn" /> <label for="check_btn"><span>후원
+				<input type="checkbox" id="check_btn" /> <label id = "explan-label"for="check_btn"><span>후원
 						유의사항 확인</span></label>
 			</div>
 
@@ -124,6 +141,25 @@
 			<button id="donate-button">후원하기</button>
 		</div>
 	</div>
+	
+	
+	<!-- 배송지 추가 모달 -->
+<div id="delivery-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>배송지 추가</h2>
+        <div id="delivery-form">
+            <label id ="receiver"for="recipient-name">받는 사람</label>
+            <input type="text" id="recipient-name" placeholder="받는 분의 성함을 입력해주세요.">
 
+            <label id = "address-name" for="address">주소</label>
+            <input type="text" id="address" placeholder="받는 분의 주소를 입력해주세요.">
+
+            <button id = "address-add">추가</button>
+        </div>
+    </div>
+</div>
+
+<script src="delivery-modal.js"></script>
 </body>
 </html>
