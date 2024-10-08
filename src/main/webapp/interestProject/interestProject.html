@@ -87,10 +87,9 @@ hr {
 }
 
 .title-header div {
-    display: flex;
-    align-items: center; /* 내부 요소 수직 가운데 정렬 */
+	display: flex;
+	align-items: center; /* 내부 요소 수직 가운데 정렬 */
 }
-
 
 .title-header .upload-button {
 	background: url("image/uploadproject.png") no-repeat;
@@ -124,14 +123,6 @@ hr {
 	margin-left: 20px;
 }
 
-.title-header .bell-button2 {
-	background: url("image/bellicon2.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
 .title-header span {
 	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
 	width: 150px;
@@ -140,8 +131,8 @@ hr {
 	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
 	margin-left: 20px;
 	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 말줄임표(...) 적용 */
 }
 
 .title-header span img {
@@ -172,8 +163,8 @@ hr {
 }
 
 .creator-name:hover {
-    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-    color: #6D6D6D; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+	text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
+	color: #6D6D6D; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
 }
 
 .product-name {
@@ -242,31 +233,35 @@ progress::-moz-progress-bar {
 }
 
 .dropdown-array {
-    display: flex; /* Flexbox 사용 */
-    justify-content: space-between; /* 양쪽 끝에 배치 */
-    margin-top: 20px; /* 위쪽 여백 추가 (필요에 따라 조정) */
-    margin-bottom: 20px;
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 양쪽 끝에 배치 */
+	margin-top: 20px; /* 위쪽 여백 추가 (필요에 따라 조정) */
+	margin-bottom: 20px;
 }
 
 .dropdown select {
-    padding: 5px; /* 패딩 */
-    font-size: 18px; /* 글자 크기 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 2px; /* 모서리 둥글게 */
-    background-color: white; /* 배경색 */
-    cursor: pointer; /* 커서 변경 */
+	padding: 5px; /* 패딩 */
+	font-size: 18px; /* 글자 크기 */
+	border: 1px solid #ccc; /* 테두리 */
+	border-radius: 2px; /* 모서리 둥글게 */
+	background-color: white; /* 배경색 */
+	cursor: pointer; /* 커서 변경 */
 }
-
 
 /* 선택된 옵션의 색상 변경 */
 .dropdown select option:hover {
-    background-color: #D0D0D0; /* 옵션에 마우스를 올렸을 때 배경 색상 */
+	background-color: #D0D0D0; /* 옵션에 마우스를 올렸을 때 배경 색상 */
 }
 
 .selected-option {
-    color: red;
+	color: red;
 }
 
+#projects {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
 </style>
 
 <script>
@@ -312,8 +307,8 @@ progress::-moz-progress-bar {
 		<div>
 			<input type="button" class="upload-button" onclick=""> <input
 				type="button" class="heart-button" onclick=""> <input
-				type="button" class="bell-button" onclick=""> 
-				<span onclick=""> <img src="image/guest.png"> <b> 홍길동</b>
+				type="button" class="bell-button" onclick=""> <span
+				onclick=""> <img src="image/guest.png"> <b> 홍길동</b>
 			</span>
 		</div>
 	</header>
@@ -344,58 +339,64 @@ progress::-moz-progress-bar {
 			class="interest-label" onclick="highlight(this, 'alarm-content')">알림신청</label>
 		<hr id="highlight-hr" width="100%" noshade />
 	</div>
-	
-	
+
+
 	<!-- 각 관심 카테고리 마다 사용될 body. -->
 	<div id="content">
-		<div id="interest-content" class="tab-content">	
-		
-		
-		
-		
-<!-- 정렬 드롭다운들 -->
-<div class="dropdown-array">
-    <!-- 날짜순 드롭다운 -->
-    <div class="dropdown">
-        <select id="date-sort" onchange="changeColor(this)"> 
-            <option value="all">전체</option> 
-            <option value="ongoing">진행중</option> 
-            <option value="ended">종료된</option> 
-        </select>
-    </div>
-    
-    <!-- 추가순 드롭다운 -->
-    <div class="dropdown">
-        <select id="add-sort" onchange="changeColor(this)"> 
-            <option value="added">추가순</option> 
-            <option value="deadline_approaching">마감 임박순</option> 
-        </select>
-    </div>
-</div>
+		<div id="interest-content" class="tab-content">
 
-		
-			<div id="interest-project">
-				<!-- 프로젝트 사진 -->
-				<img src="image/interest-project1.jpg"> 
-				<!-- 창작자 명 -->
-				<a class="creator-name">몽상부띠그</a><br>
-				 <!-- 제품명 -->
-				<label class="product-name">
-					한복원단으로 만나는 [십장생 매듭원피스2]
-				</label><br>
-				<p class="description">
-					<!-- 상세 설명 -->
-					조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
-				</p>
-				<!-- 진행 정보 -->
-				<div class="progress-info">
-					<span class="progress-percentage">1408%</span> <span
-						class="progress-amount">7,040,700원</span> <span
-						class="progress-time">8일 남음</span>
+			<!-- 정렬 드롭다운들 -->
+			<div class="dropdown-array">
+				<!-- 날짜순 드롭다운 -->
+				<div class="dropdown">
+					<select id="date-sort" onchange="changeColor(this)">
+						<option value="all">전체</option>
+						<option value="ongoing">진행중</option>
+						<option value="ended">종료된</option>
+					</select>
 				</div>
-				<!-- 진행 바 -->
-				<progress id="progress" value="1408" min="0" max="100">123</progress>
+
+				<!-- 추가순 드롭다운 -->
+				<div class="dropdown">
+					<select id="add-sort" onchange="changeColor(this)">
+						<option value="added">추가순</option>
+						<option value="deadline_approaching">마감 임박순</option>
+					</select>
+				</div>
 			</div>
+
+			<!-- 관심 프로젝트 그룹. -->
+			<div id="projects">
+				
+				<!-- 여기에 관심 프로젝트 추가. -->
+				
+				<div id="interest-project">
+					<!-- 프로젝트 사진 -->
+					<img src="image/interest-project1.jpg">
+					<!-- 창작자 명 -->
+					<a class="creator-name">몽상부띠그</a><br>
+					<!-- 제품명 -->
+					<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+					<p class="description">
+						<!-- 상세 설명 -->
+						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
+					</p>
+					<!-- 진행 정보 -->
+					<div class="progress-info">
+						<span class="progress-percentage">1408%</span> <span
+							class="progress-amount">7,040,700원</span> <span
+							class="progress-time">8일 남음</span>
+					</div>
+					<!-- 진행 바 -->
+					<progress id="progress" value="1408" min="0" max="100">123</progress>
+
+				</div>
+
+
+			</div>
+
+
+
 		</div>
 		<div id="alarm-content" class="tab-content" style="display: none;">알림신청
 			내용</div>

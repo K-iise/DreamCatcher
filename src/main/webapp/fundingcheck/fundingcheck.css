@@ -1,0 +1,838 @@
+@import
+	url(https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+
+body {
+	margin: 0;
+	padding: 0 15%;
+}
+
+header {
+	position: relative; /* 상대 위치 설정 */
+	overflow: visible; /* 오버플로우를 보이도록 설정 */
+}
+
+/* 카테고리 css */
+.category-label {
+	font-size: 25px;
+	font-weight: 700;
+	margin-right: 20px;
+}
+
+.category-label img {
+	width: 20px;
+	height: 20px;
+	margin-right: 15px;
+}
+
+.category-label:hover {
+	color: red;
+}
+
+.category-label:hover img {
+	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
+		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
+}
+
+.active {
+	color: black;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background-color: #dee2e6;
+}
+
+/* 검색 바 css */
+.search-span {
+	width: 260px;
+	height: 35px;
+	border: 1px solid #E6E6E6;
+	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: space-between; /* h2 + p와 a를 양 끝에 배치 */
+	background: #E6E6E6;
+	border: 5px;
+}
+
+.search-span .input_text {
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #E6E6E6;
+	font-family: 'Nanum Gothic Coding';
+	font-weight: bold;
+}
+
+.search-span .input_icon {
+	display: flex;
+	border: 0px;
+	float: right;
+}
+
+/* 상단바 1 css */
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title-header div {
+	display: flex;
+	align-items: center;
+}
+
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border: 0px;
+	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
+}
+
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header span {
+	position: relative;
+	display: inline-block;
+	width: 150px;
+	padding: 15px;
+	align-items: center;
+	border: 1px solid black;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title-header span img {
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.cat-container {
+	position: relative;
+	display: flex;
+}
+
+.depth1-wrapper {
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
+	transition: max-height 0.3s ease-in-out;
+	flex-direction: row;
+	background: rgb(255, 255, 255);
+	z-index: 999;
+	user-select: none;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 7px;
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.category-label:hover ~ .depth1-wrapper {
+	display: flex; /* 호버 시에 보이게 */
+	flex-wrap: wrap; /* 내용에 맞게 줄 바꿈 */
+}
+
+.depth1-group {
+	display: flex; /* 가로 방향 정렬 */
+	flex-direction: column; /* 세로 방향 정렬 */
+}
+
+.depth1-item {
+	display: flex;
+	align-items: center; /* 아이콘과 텍스트 정렬 */
+	padding: 8px 12px; /* 항목 패딩 */
+	cursor: pointer;
+}
+
+.depth1-item:hover {
+	background-color: #f1f1f1; /* 호버 시 배경색 변화 */
+}
+
+.depth1-icon {
+	margin-right: 8px; /* 아이콘과 텍스트 간격 */
+}
+
+.depth1-icon-img {
+	width: 45px; /* 아이콘 크기 조정 */
+	height: 45px;
+}
+
+.depth1-text {
+	font-size: 18px;
+}
+
+.MainTop {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 20px;
+}
+
+.left-section {
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+}
+
+.right-section {
+	display: flex;
+	flex: 3;
+	margin-left: 20px;
+	margin-right: 20px;
+	flex-direction: column; /* 수직으로 정렬. */
+}
+
+.slider-container {
+	width: 750px;
+	overflow: hidden; /* 슬라이더가 넘치는 부분 숨김 */
+	position: relative;
+}
+
+.slides {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+	width: calc(750px * 3); /* 슬라이드 수에 따라 너비 조정 */
+}
+
+.slide {
+	width: 750px;
+}
+
+.slide img {
+	width: 750px;
+	height: 451px;
+	object-fit: fill;
+}
+
+.prev, .next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.prev {
+	left: 10px;
+}
+
+.next {
+	right: 10px;
+}
+
+.dropdown {
+	position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+	display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.dropdown-content {
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 부모 요소에 대해 절대 위치 */
+	background-color: #f9f9f9;
+	min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+	min-height: 160px;
+	box-shadow: rgba(0, 0, 0, 0.2);
+	z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+	right: 0;
+	margin-right: 15%;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block; /* 세로로 나열되도록 설정 */
+	width: 100%;
+}
+
+.funding-info {
+	display: flex;
+	flex-direction: column;
+}
+
+#funding-category {
+	font-size: 20px;
+	color: #808080;
+	font-weight: bold;
+}
+
+#funding-name {
+	font-size: 23px;
+	font-weight: normal;
+}
+
+#funding-people {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0px;
+	margin-top: 20px;
+}
+
+#funding-money {
+	font-size: 24px;
+	font-weight: bold;
+	margin: 0px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.funding-detail p {
+	font-size: 15px;
+	margin: 0px; /* 상하 여백 제거 */
+	padding: 0px; /* 안쪽 여백 제거 */
+	margin-bottom: 10px;
+}
+
+#funding-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+#donate-button {
+	width: 350px;
+	height: 60px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #000000;
+	background: #FAFAFA;
+	border: 1px solid #D9D9D9;
+}
+
+.button-container {
+	display: flex;
+	width: 60px;
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #D9D9D9;
+}
+
+.circle-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #FAFAFA;
+	border: 0px;
+}
+
+.share-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #FAFAFA;
+	border: 0px;
+}
+
+.circle-button .icon {
+	color: red;
+	font-size: 24px;
+}
+
+.button-number {
+	font-size: 12px;
+	color: black;
+}
+
+.funding-label {
+	font-size: 20px; /* 원하는 크기로 변경 */
+	font-weight: 500;
+	margin-right: 30px;
+	color: gray; /* 기본 텍스트 색상 */
+	cursor: pointer; /* 클릭 가능 표시 */
+}
+
+.active {
+	color: black; /* 활성화된 텍스트 색상 */
+	font-weight: bold;
+}
+
+hr {
+	border: none; /* 기본 경계 제거 */
+	height: 1px; /* 높이 설정 */
+	background-color: #dee2e6; /* 기본 색상 */
+}
+
+.funding {
+	display: flex; /* Flexbox 사용 */
+	margin-bottom: 20px;
+	margin-top: 20px;
+	align-items: center; /* 추가 */
+}
+/* 프로젝트 계획 탭 */
+#project-plan {
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	width: 100%;
+	min-height:1000px;
+	border: none;
+	resize: none;
+	box-sizing: border-box;
+	outline: none;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-top: 10px;
+}
+
+#community-content {
+	display: flex;
+	width: 100%;
+}
+
+/* 커뮤니티 탭. */
+#community {
+	display: flex;
+	width: 100%;
+	min-height: 100px;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column;
+}
+
+/* 댓글 입력 창  css*/
+.comment-box {
+	border-radius: 5px;
+	width: 100%;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.comment-input {
+	width: calc(100% - 100px);
+	height: 60px;
+	border: none;
+	resize: none;
+	border-radius: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 18px;
+	outline: none;
+	border: 1px solid #e0e0e0;
+	float: left;
+}
+
+.submit-btn {
+	border: none;
+	border-radius: 5px;
+	background-color: #e0e0e0;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 16px;
+	height: 60px;
+	width: 80px;
+	float: right;
+}
+
+.submit-btn:hover {
+	background-color: black;
+	color: #e0e0e0;
+}
+
+/* 댓글 창 Example css */
+#comments {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column;
+	border: 1px solid #e0e0e0;
+	margin-bottom: 10px;
+}
+
+#comments-profile {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#comment-top {
+	display: flex;
+	flex-direction: row;
+	margin: 20px;
+}
+
+#comment-top img {
+	width: 66px;
+	height: 66px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+
+#information-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#information-text b {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+#information-text p {
+	font-size: 12px;
+	margin: 0px;
+}
+
+#comment-text {
+	margin: 0px;
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 15px; font-size : 15px;
+	flex-wrap: wrap;
+	font-size: 15px; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#comment-bottom {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+#comment-recommend {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#comment-recommend img {
+	width: 22px;
+	height: 19px;
+	margin: 0px;
+	margin-right: 10px;
+}
+
+#comment-recommend p {
+	font-size: 15px;
+	color: black;
+}
+
+#comment-option {
+	margin: 20px;
+	display: flex;
+}
+
+#comment-option img {
+	width: 5px;
+	height: 22px;
+}
+
+.dropdown-comment {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 100px;
+	margin-top: 22px; box-shadow : 0px 8px 16px 0px rgba( 0, 0, 0, 0.2);
+	z-index: 1;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-comment p {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-comment p:hover {
+	background-color: #f1f1f1;
+}
+
+.MainBottom {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	width: 100%; /* 전체 너비 설정 */
+}
+
+.left-section {
+	flex: 3; /* 60% 너비 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+.right-section {
+	flex: 2; /* 40% 너비 */
+	margin-left: 20px; /* 여백 추가 */
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+}
+
+#donate-content {
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#donate-content b {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+#donate-information {
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
+}
+
+/* 선물하기 창  */
+#donate-information p {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 25px;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+#donate-information b{
+font-family: 'NanumGothic';
+font-style: normal;
+font-weight: 700;
+font-size: 38px;
+line-height: 25px;
+color: #000000;
+
+}
+
+#product-ul{
+	font-size: 12px;
+	margin: 0px;
+	margin-top: 5px;
+}
+
+
+#product-buy{
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	border: 1px solid #000000;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
+}
+
+#buy-info{
+	flex-direction: column; /* 수직으로 정렬 */
+	display: flex;
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	background: #f1f3f5;
+	margin-bottom: 20px;
+}
+
+#buy-button{
+	color: #FAFAFA;
+	background: #DC5252;
+	border: 0px;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#select-button{
+	color: #DC5252;
+	background: #FAFAFA;
+	border: 1px solid #DC5252;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#product-bottom{
+	display: flex;
+	
+}
+
+
+.stepper {
+    display: flex;
+    align-items: center;
+}
+
+.stepper button {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+}
+
+.stepper button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.stepper-input {
+    width: 40px;
+    height: 40px;
+    text-align: right;
+    border: 0px;
+    font-size: 18px;
+}
+
+#product-bottom{
+	display: flex;
+	justify-content: space-between; /* 좌우 공간 균등 분배 */
+}
+
+#product-bottom p{
+	font-size: 18px;
+	font-weight: bold;
+	color: #DC5252;
+}
+
+#product-title{
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+#delete-button{
+	border: 0px;
+	font-size: 18px;
+}
+
+#creator-content {
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#creator-box{
+	display: flex;
+	flex-direction: column; /* 수직으로 정렬 */
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	width: 100%;
+	border: none;
+	resize: none;
+	padding: 10px;
+	box-sizing: border-box;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+	margin-bottom: 20px;
+}
+
+#creator-info{
+	display: flex;
+	flex-direction: row; /* 수평으로 정렬 */
+	align-items: center;
+	margin-top: 20px;
+}
+
+#creator-info img{
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+#creator-info a{
+	font-size: 18px;
+	font-weight: bold;
+	color: black; /* 기본 링크 색상 */
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+#creator-intro{
+	display: flex;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+}
+
+#creator-buttons{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#inquiry-button{
+	width: 120px;
+	height: 45px;
+	font-weight: bold;
+	font-size: 16px;
+	border: 1px solid #000000;
+	background: #FAFAFA;
+	margin-right: 15px;
+}
+
+#follow-button{
+	width: 120px;
+	height: 45px;
+	font-size:16px;
+	font-weight: bold;
+	color: #DC5252;
+	background: #FAFAFA;
+	border: 1px solid #DC5252;
+}
