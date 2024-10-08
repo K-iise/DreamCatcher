@@ -2,146 +2,354 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dream Catcher</title>
+<title>프로젝트 계획 화면</title>
 <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-        height: 100vh;
-        overflow: hidden; /* Prevents scrolling on the entire page */
-    }
+body {
+	margin: 0;
+	padding: 0 15%;
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	overflow: hidden; /* 추가: 바깥쪽 스크롤바 제거 */
+}
 
-    .header {
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    }
+.category-label {
+	font-size: 25px;
+	font-weight: 700;
+	margin-right: 20px;
+	display: inline-block;
+}
 
-    .logo {
-        margin-bottom: 10px;
-    }
+.category-label img {
+	width: 20px;
+	height: 20px;
+	margin-right: 15px;
+}
 
-    .menu {
-        display: flex;
-        justify-content: flex-start;
-        gap: 10px;
-    }
+.category-label:hover {
+	color: red;
+}
 
-    .menu span {
-        padding: 5px 10px;
-        cursor: pointer;
-    }
+.category-label:hover img {
+	filter: brightness(0) saturate(100%) invert(26%) sepia(93%) saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
+}
 
-    .container {
-        display: flex;
-        height: calc(100vh - 80px);
-    }
+.interest-label {
+	font-size: 20px;
+	font-weight: 500;
+	margin-right: 30px;
+	color: gray;
+	cursor: pointer;
+}
 
-    .left {
-        width: 40%;
-        background: url('image.jpg') no-repeat center center / cover;
-        border-right: 1px solid #ccc;
-    }
+.active {
+	color: black;
+}
 
-    .right {
-        width: 60%;
-        overflow-y: auto; /* Enables scrolling for right section */
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        padding-bottom: 100px; /* Adds extra space at the bottom */
-    }
+hr {
+	border: none;
+	height: 1px;
+	background-color: #dee2e6;
+}
 
-    .toggle-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        margin: 20px 0;
-    }
+.title-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-    label {
-        display: block;
-        background-color: #fff;
-        border: 2px solid #ccc;
-        padding: 10px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 5px;
-    }
+.title-header div {
+	display: flex;
+	align-items: center;
+}
 
-    input[type="radio"] {
-        display: none; /* Hides the actual radio input */
-    }
+.title-header .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border-width: 0;
+	margin-right: 10px;
+}
 
-    input[type="radio"]:checked + label {
-        background-color: red;
-        color: white;
-        border-color: red;
-    }
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
+}
 
-    .textarea-container {
-        margin-top: 20px;
-        flex-grow: 1; /* Pushes the next button to the bottom */
-    }
+.title-header .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
 
-    textarea {
-        width: calc(100% - 40px); /* Adjusts the width to account for padding */
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        resize: none; /* Prevents resizing of the textarea */
-    }
+.title-header .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
 
-    .next-button {
-        position: fixed; /* Keeps the button visible at the bottom */
-        bottom: 20px; /* Distance from the bottom */
-        right: 20px; /* Distance from the right side */
-        padding: 15px 25px;
-        background-color: red;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        z-index: 100; /* Ensures the button is above other elements */
-    }
+.title-header span {
+	display: inline-block;
+	width: 150px;
+	padding: 15px;
+	align-items: center;
+	border: 1px solid black;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title-header span img {
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.search-span {
+	width: 260px;
+	height: 35px;
+	border: 1px solid #000000;
+	display: flex;
+	align-items: center;
+	background: #dee2e6;
+	margin-left: auto; /* 검색창을 우측 정렬 */
+}
+
+.search-span .input_text {
+	font-size: 18px;
+	border: 0px;
+	outline: none;
+	background: #dee2e6;
+	width: 100%;
+}
+
+.search-span .input_icon {
+	width: 20px;
+	height: 20px;
+}
+
+.menu-bar {
+	display: flex;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.menu-bar .category-label {
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+.menu-bar .category-label + .category-label {
+	margin-left: 20px;
+}
+
+@media (max-width: 768px) {
+	.menu-bar {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.menu-bar .category-label {
+		margin-bottom: 10px;
+	}
+}
+
+/* 추가한 스타일 */
+#interest-project img {
+	width: 320px;
+	height: 320px;
+}
+
+#interest-project {
+	width: 324px;
+	height: 457px;
+	margin-right: 50px;
+	margin-bottom: 10px;
+}
+
+.creator-name {
+	font-size: 15px;
+	font-weight: bold;
+	color: #6D6D6D;
+	text-decoration: none;
+}
+
+.creator-name:hover {
+    text-decoration: underline;
+    color: #6D6D6D;
+}
+
+.product-name {
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.description {
+	font-size: 14px;
+	color: #777;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.dropdown-array {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.dropdown select {
+    padding: 5px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.dropdown select option:hover {
+    background-color: #D0D0D0;
+}
+
+/* 두 번째 코드에서 필요한 스타일 */
+.container {
+	display: flex;
+	height: calc(100vh - 80px);
+	margin-top: 20px;
+	overflow-y: auto; /* 내부 콘텐츠만 스크롤 */
+}
+
+.left {
+	width: 40%;
+	background: url('image.jpg') no-repeat center center / cover;
+	border-right: 1px solid #ccc;
+}
+
+.right {
+	width: 60%;
+	overflow-y: auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	padding-bottom: 100px;
+}
+
+.toggle-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	margin: 20px 0;
+}
+
+label.toggle-button-label {
+	display: block;
+	background-color: #fff;
+	border: 2px solid #ccc;
+	padding: 10px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border-radius: 5px;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+input[type="radio"]:checked + label.toggle-button-label {
+	background-color: red;
+	color: white;
+	border-color: red;
+}
+
+.textarea-container {
+	margin-top: 20px;
+	flex-grow: 1;
+}
+
+textarea {
+	width: calc(100% - 40px);
+	padding: 10px;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	resize: none;
+}
+
+.next-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 15px 25px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 100;
+}
 
 </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo"><h1>Dream Catcher</h1></div>
-        <div class="menu">
-            <span>카테고리</span>
-            <span>홈</span>
-            <span>인기</span>
-            <span>신규</span>
-            <span>스토어</span>
-        </div>
-    </div>
-    <div class="container">
+	<!-- 상단바 1 -->
+	<header class="title-header">
+		<h1>Dream Catcher</h1>
+		<div>
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick=""> 
+			<input type="button" class="bell-button" onclick=""> 
+			<span onclick=""> <img src="image/guest.png"> <b> 홍길동</b></span>
+		</div>
+	</header>
+
+	<!-- 카테고리 시작 -->
+	<nav class="menu-bar">
+		<label class="category-label"><img src="image/menubar.png">카테고리</label>
+		<label class="category-label">홈</label> 
+		<label class="category-label">인기</label>
+		<label class="category-label">신규</label> 
+		<label class="category-label">스토어</label>
+
+		<span class="search-span"> 
+			<input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요."> 
+			<img alt="searchicon" src="image/searchicon.png" class="input_icon">
+		</span>
+	</nav>
+	<hr id="default-hr" width="100%" noshade />
+
+	<!-- 두 번째 코드 추가 -->
+	<div class="container">
         <div class="left">
-            <!-- Left image full cover -->
+            <!-- 왼쪽 이미지 전체 커버 -->
         </div>
         <div class="right">
             <h2>멋진 아이디어가 있으시군요!</h2>
             <h2>어떤 프로젝트를 계획 중이신가요?</h2>
             <p>나중에 변경 가능하니 너무 걱정하지 마세요.</p>
+
+            <!-- 프로젝트 종류 선택 영역 -->
             <div class="toggle-container" id="toggleContainer"></div>
+
+            <!-- 프로젝트 소개 텍스트 영역 -->
             <div class="textarea-container">
                 <h2>프로젝트를 간단하게 소개해주세요.</h2>
                 <textarea rows="4" placeholder="프로젝트 요약을 입력해주세요."></textarea>
             </div>
+
+            <!-- 다음 버튼 -->
             <button class="next-button">다음</button>
         </div>
     </div>
+
     <script>
         const projects = [
             "보드게임, TRPG", "디지털 게임", "웹툰 만화",
@@ -163,6 +371,7 @@
             const label = document.createElement('label');
             label.htmlFor = radio.id;
             label.textContent = project;
+			label.classList.add('toggle-button-label');
 
             container.appendChild(radio);
             container.appendChild(label);

@@ -1,5 +1,12 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+
+
+<%@ page import="control.*" %>
+<%@ page import="entity.*" %>
+
+
+
 <%@ page import="control.usersMgr"%>
 <%@ page import="entity.usersBean"%>
 <%@ page import="control.followMgr"%>
@@ -7,11 +14,11 @@
 <%@ page import="control.fundingMgr"%>
 <%@ page import="entity.fundingBean"%>
 
-
 <%
-
-String selectuserId="aaaa";
-String myId="aaa";
+String user_id = (String) session.getAttribute("idKey");
+String selectedId = request.getParameter("selectedid");
+String selectuserId=selectedId;
+String myId=user_id;
 if(request.getParameter("userId")!=null){
 selectuserId = request.getParameter("userId");
 }
@@ -19,6 +26,8 @@ selectuserId = request.getParameter("userId");
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
+buyRecordMgr brMgr=new buyRecordMgr();
+alarmMgr aMgr=new alarmMgr();
 
 
 usersBean ubean = uMgr.oneUserList(selectuserId);
@@ -62,7 +71,7 @@ if ("follow".equals(followAction)) {
     bean.setFollow_get_user_id(ubean.getUser_id());
     
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp"); // 성공 알림
+    response.sendRedirect("profile.jsp?userId="+selectuserId); // 성공 알림
 }
 else if("follow-delete".equals(followAction)){
 	
@@ -71,7 +80,7 @@ else if("follow-delete".equals(followAction)){
 	    bean.setFollow_get_user_id(ubean.getUser_id());
 	    
 	    fMgr.followDelete(bean); // followInsert 호출
-	    response.sendRedirect("profile.jsp");
+	    response.sendRedirect("profile.jsp?userId="+selectuserId);
 	
 }else if ("follower2".equals(followAction)) {
     String set_user_id = request.getParameter("set_user_id");
@@ -83,7 +92,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("follower2-delete".equals(followAction)) {
@@ -96,7 +105,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followDelete(bean); // followInsert 호출;
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("following2".equals(followAction)) {
@@ -109,7 +118,7 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followInsert(bean); // followInsert 호출
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }else if ("following2-delete".equals(followAction)) {
@@ -122,10 +131,11 @@ else if("follow-delete".equals(followAction)){
     
     // 팔로우 작업 수행 (예: 데이터베이스에 추가)
     fMgr.followDelete(bean); // followInsert 호출;
-    response.sendRedirect("profile.jsp");
+    response.sendRedirect("profile.jsp?userId="+selectuserId);
     
    
 }
+
 
 
 
@@ -178,25 +188,30 @@ else if("follow-delete".equals(followAction)){
 </script>
 </head>
 <body>
-	<!-- 상단바 1 -->
 	<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
 			<%
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="login-button" onclick="">
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
 			<%
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
-
-				type="button" class="bell-button" onclick=""> 
-				<span onclick=""> <img src='<%=mybean.getUser_image()%>'> <b><%=mybean.getUser_name()%></b>
-
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> 
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %> 
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
 			</span>
 		</div>
 
@@ -204,11 +219,18 @@ else if("follow-delete".equals(followAction)){
 		}
 		%>
 	</header>
+	
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label"><img src="image/menubar.png">카테고리</label>
-		<label class="category-label">홈</label> <label class="category-label">인기</label>
+		<label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -236,7 +258,8 @@ else if("follow-delete".equals(followAction)){
 					<%=following%>
 				</div>
 				<div>
-					<b>누적 후원자</b><br> 20
+					<b>누적 후원자</b><br> 
+					<%=brMgr.buyRecordTotalCount(ubean.getUser_id()) %>
 				</div>
 			</div>
 		</div>
@@ -252,9 +275,22 @@ else if("follow-delete".equals(followAction)){
 			<input type="button" class="share-button" onclick="copyToClipboard()"> 
 			
 			<%if(fMgr.followCheck(mybean.getUser_id(), ubean.getUser_id())){ %>
-			<input type="button" class="follow-delete-button" onclick="document.location.href='profile.jsp?followAction=follow-delete'">
+			
+			<form method="post" id="followdeleteForm">
+				<input type="hidden" name="followAction" value="follow-delete">
+				<input type="hidden" name="set_user_id" value="<%=mybean.getUser_id()%>">
+				<input type="hidden" name="get_user_id" value="<%=ubean.getUser_id()%>">
+				<input type="hidden" name="redirectTab" value="followers-content">
+				<input type="button" class="follow-delete-button" onclick="document.getElementById('followdeleteForm').submit();">
+			</form>
 			<%}else{ %>
-			<input type="button" class="follow-button" onclick="document.location.href='profile.jsp?followAction=follow'">
+			<form method="post" id="followForm">
+				<input type="hidden" name="followAction" value="follow">
+				<input type="hidden" name="set_user_id" value="<%=mybean.getUser_id()%>">
+				<input type="hidden" name="get_user_id" value="<%=ubean.getUser_id()%>">
+				<input type="hidden" name="redirectTab" value="followers-content">
+				<input type="button" class="follow-button" onclick="document.getElementById('followForm').submit();">
+			</form>
 			<%} %>
 			<%
 			}
@@ -280,6 +316,7 @@ else if("follow-delete".equals(followAction)){
 		<div id="project-content" class="tab-content" style="display: none;">
 			<div style="margin-left: 20px; margin-top: 20px;"><%=fdCount %>개의 프로젝트가 있습니다.</div>
 			<%if(fdCount!=0){ %>
+
 			
 			    <div id="projects">
 			    <% for (int i = 0; i < fdCount; i++) { %>
@@ -287,7 +324,7 @@ else if("follow-delete".equals(followAction)){
 			            <!-- 프로젝트 사진 -->
 			            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
 			            <!-- 창작자 명 -->
-			            <a class="creator-name">
+			            <a class="creator-name" href="profile.jsp?userId=<%=fdvlist.get(i).getFunding_user_id() %>">
 			                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
 			            </a><br>
 			            <!-- 제품명 -->
@@ -332,7 +369,7 @@ else if("follow-delete".equals(followAction)){
 				                <img src='<%=user.getUser_image()%>' alt="Follower Image">
 				                <div class="follower-info">
 				                    <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %>
-				                     · 후원한 프로젝트 <%=fdMgr.fundingCount(user.getUser_id()) %></label>
+				                     · 후원한 프로젝트 <%=brMgr.buyRecordCount(user.getUser_id()) %></label>
 				                </div>
 				                </div>
 				               <%if(mybean.getUser_id().equals(user.getUser_id())){ %>
@@ -384,7 +421,7 @@ else if("follow-delete".equals(followAction)){
 				            <div id="follower-infos">
 				                <img src='<%=user.getUser_image()%>' alt="Follower Image">
 				                <div class="follower-info">
-				                     <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %> · 후원한 프로젝트 <%=fdMgr.fundingCount(user.getUser_id()) %></label>
+				                     <a href="profile.jsp?userId=<%=user.getUser_id() %>"><%=user.getUser_name() %></a> <label>팔로잉 <%=fMgr.getFollowingCount(user.getUser_id()) %> · 후원한 프로젝트 <%=brMgr.buyRecordCount(user.getUser_id()) %></label>
 				                </div>
 				                </div>
 				               <%if(mybean.getUser_id().equals(user.getUser_id())){ %>
@@ -423,8 +460,46 @@ else if("follow-delete".equals(followAction)){
 				
 			</div>
 		</div>
+=======
+			<% for (int i = 0; i < fdCount; i++) { %>
+    <div id="projects">
+        <div id="upload-project">
+            <!-- 프로젝트 사진 -->
+            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
+            <!-- 창작자 명 -->
+            <a class="creator-name">
+                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
+            </a><br>
+            <!-- 제품명 -->
+            <label class="product-name">
+                <%= fdvlist.get(i).getFunding_title() %>
+            </label><br>
+            <!-- 진행 정보 -->
+            <div class="progress-info">
+                <span class="progress-percentage">
+                    <%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %> %
+                </span> 
+                <span class="progress-amount">
+                    <%= fdvlist.get(i).getFunding_nprice() %>원
+                </span> 
+                <span class="progress-time">
+                    <%= fdMgr.fundDate(fdvlist.get(i).getFunding_num()) %>일 남음
+                </span>
+            </div>
+            <!-- 진행 바 -->
+            <progress id="progress" value="<%= (int)(((double)fdvlist.get(i).getFunding_nprice() / fdvlist.get(i).getFunding_tprice()) * 100) %>" min="0" max="100"></progress>
+        </div>
+    </div>
+<% } %>
+		
+
+		<div id="followers-content" class="tab-content" style="display: none;">팔로워
+			목록</div>
+		<div id="following-content" class="tab-content" style="display: none;">팔로잉
+			목록</div>
+
 	</div>
 
-
+	<script src="dropdown.js"></script>
 </body>
 </html>

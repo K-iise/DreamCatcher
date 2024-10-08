@@ -37,6 +37,37 @@ hr {
 	background-color: #dee2e6; /* 기본 색상 */
 }
 
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
+
 /* 프로필 css */
 .profile {
 	display: flex; /* Flexbox 사용 */
@@ -200,6 +231,14 @@ hr {
 	margin-left: 20px;
 }
 
+.title-header .bell-button2 {
+	background: url("image/bellicon2.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
 .title-header span {
 	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
 	width: 150px;
@@ -237,6 +276,11 @@ hr {
 	height: 420px; /* 비율 유지 */
 	margin: 20px;
 	margin-bottom: 20px;
+}
+
+#upload-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 .creator-name {
@@ -332,40 +376,35 @@ progress::-moz-progress-bar {
     border: 0.5px solid #e3e3e3;
 }	
 
-#follower-infos{
-	display: flex;
-	align-items: center; /* 수직 중앙 정렬 */
-	justify-content: flex-start;
+#follower-infos {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: flex-start;
 }
 
-.follower-info{
-	display: flex;
-	flex-direction: column; /* 버튼을 수직으로 배치 */
+.follower-info {
+    display: flex;
+    flex-direction: column; /* 버튼을 수직으로 배치 */
 }
 
-#follower-infos{
-	display: flex;
-	align-items: center; /* 수직 중앙 정렬 */
-	justify-content: flex-start;
+.follower-info a {
+    font-size: 18px; /* 창작자 이름 크기 */
+    font-weight: bold; /* 굵게 */
+    text-decoration: none; /* 밑줄 제거 */
+    margin-bottom: 10px; /* 다음 요소와의 간격 */
 }
 
-.follower-info a{
-	font-size: 18px; /* 창작자 이름 크기 */
-	font-weight: bold; /* 굵게 */
-	text-decoration: none; /* 밑줄 제거 */
-	margin-bottom: 10px;
+
+
+.follower-info a:-webkit-any-link {
+    color: #6D6D6D !important; /* 우선적으로 회색 색상 설정 */
+    text-decoration: none; /* 밑줄 제거 */
 }
 
-.follower-info a:hover {
-    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-    color: #000000; /* 마우스 오버 시 색상 변경 (원하는 색상으로 조정) */
+.follower-info label {
+    font-size: 15px; /* 창작자 이름 크기 */
+    color: #6D6D6D !important; /* 색상 설정 */
 }
-
-.follower-info label{
-	font-size: 15px; /* 창작자 이름 크기 */
-	color: #6D6D6D;
-}
-
 #follower-box img {
 	width: 70px; /* 원하는 너비로 설정 */
 	height: 70px; /* 비율 유지 */

@@ -72,4 +72,64 @@ public class buyRecordMgr {
 		
 	}
 	
+	public int buyRecordCount(String user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count=0;
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) as buy_count from buy_record where buy_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				count=rs.getInt("buy_count");
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+		
+	}
+	
+	public int buyRecordTotalCount(String user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count=0;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT COUNT(*) as buy_count FROM buy_record br JOIN price p ON br.buy_price_num = p.price_num JOIN funding f ON p.price_funding_num = f.funding_num WHERE f.funding_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+				count=rs.getInt("buy_count");
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return count;
+		
+	}
+	
+	
+	
 }

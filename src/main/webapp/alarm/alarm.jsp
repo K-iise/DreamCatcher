@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector" %>
-<%@page import="entity.alarmBean" %>
-<%@page import="control.alarmMgr" %>
-<%@page import="entity.usersBean" %>
-<%@page import="control.usersMgr" %>
+<%@page import="entity.*" %>
+<%@page import="control.*" %>
+
 <%
 	alarmMgr amgr = new alarmMgr();
 	usersMgr mgr = new usersMgr();
@@ -34,6 +33,36 @@ body {
 	margin-right: 15px; /* 이미지와 텍스트 사이의 간격 */
 }
 
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
 /* 마우스를 올렸을 때의 스타일 */
 .category-label:hover {
 	color: red; /* 마우스 오버 시 텍스트 색상 */
@@ -99,8 +128,13 @@ hr {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	
 }
+
+.title-header div {
+    display: flex;
+    align-items: center; /* 내부 요소 수직 가운데 정렬 */
+}
+
 
 
 /* 상단바 아이콘 */
@@ -110,6 +144,14 @@ hr {
 	height: 40px;
 	border: 0px;
 	margin-right: 10px;
+}
+
+.title-header .login-button {
+	background: url("image/login.png") no-repeat;
+	width: 225px;
+	height: 49px;
+	margin-left: 20px;
+	border-width: 0;
 }
 
 .title-header .heart-button {
@@ -128,18 +170,22 @@ hr {
 	margin-left: 20px;
 }
 
-.title-header span{
-	width: 40px;
-	height: 40px;
+.title-header span {
+	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
+	width: 150px;
 	padding: 15px;
+	align-items: center; /* 수직 가운데 정렬 */
 	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
 	margin-left: 20px;
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
+    overflow: hidden; /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
 }
 
 .title-header span img {
 	width: 35px; /* 원하는 너비 설정 */
 	height: 35px; /* 원하는 높이 설정 */
-	vertical-align: top;
+	vertical-align: middle;
 	margin-right: 5px;
 }
 
@@ -273,15 +319,8 @@ hr {
     // amgr 객체를 통해 알람 리스트를 가져옴
     Vector<alarmBean> alarmList = amgr.alarmList(user_id);
     // 유저 이름을 위한 유저리스트 가져오기
-    Vector<usersBean> userList = mgr.userList();
-    // 유저 이름 찾기
-    String userName = "";
-    for (usersBean user : userList) {
-        if (user.getUser_id().equals(user_id)) {
-            userName = user.getUser_name();
-            break; // 사용자를 찾으면 루프 종료
-        }
-    }
+	usersBean mybean = new usersBean();
+	mybean=mgr.oneUserList(user_id);
     
     if (alarmList != null) {
         for (int i = 0; i < alarmList.size(); i++) {
@@ -294,23 +333,47 @@ hr {
     System.out.println("알람 개수: " + alarmList.size());
 %>
 	<!-- 상단바 1 -->
-	<header class="title-header">
+<header class="title-header">
 		<h1>Dream Catcher</h1>
 		<div>
+			<%
+			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
+			%>
 			<input type="button" class="upload-button" onclick=""> 
-			<input type="button" class="heart-button" onclick="">
-			<input type="button" class="bell-button" onclick="">
-			<span onclick="">
-				<img src="image/guest.png">
-				<b><%=userName%></b>
+
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
+			<%
+			} else {
+			%>
+
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> 
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
+
 			</span>
 		</div>
+
+		<%
+		}
+		%>
 	</header>
+	
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label"><img src="image/menubar.png">카테고리</label>
-		<label class="category-label">홈</label> <label class="category-label">인기</label>
+		<label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -363,6 +426,6 @@ hr {
 	        <p>여기에 프로젝트 내용이 표시됩니다.</p>
 	    </div>
 	</div>	
-	
+	<script src="dropdown.js"></script>
 </body>
 </html>

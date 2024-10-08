@@ -1,32 +1,22 @@
+<%@page import="java.util.Vector"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="control.usersMgr"%>
-<%@ page import="entity.usersBean"%>
-<%@ page import="control.followMgr"%>
-<%@ page import="entity.followBean"%>
-<%
-usersBean ubean = new usersBean();
-usersBean mybean = new usersBean();
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>
+
+<% 
 usersMgr uMgr = new usersMgr();
-followBean fbean = new followBean();
-followMgr fMgr = new followMgr();
+usersBean mybean = new usersBean();
 
-ubean.setUser_address("aaa");
-ubean.setUser_id("aaaa");
-ubean.setUser_info("안뇽하세요");
-ubean.setUser_master(0);
-ubean.setUser_name("aaa");
-ubean.setUser_phone("111-1111-1111");
-ubean.setUser_pw("1234");
-ubean.setUser_resnum("111111-1111111");
 
-mybean.setUser_address("aaa");
-mybean.setUser_id("aaa");
-mybean.setUser_info("안뇽하세요");
-mybean.setUser_master(0);
-mybean.setUser_name("닉네이미이이이이이이이이이ㅣ이이이잉ㅁ");
-mybean.setUser_phone("111-1111-1111");
-mybean.setUser_pw("1234");
-mybean.setUser_resnum("111111-1111111");
+String user_id = (String) session.getAttribute("idKey");
+
+mybean=uMgr.oneUserList(user_id);
+
+fundingMgr fdMgr=new fundingMgr();
+readRecordMgr rMgr=new readRecordMgr();
+alarmMgr aMgr=new alarmMgr();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -44,16 +34,26 @@ mybean.setUser_resnum("111111-1111111");
 			<%
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="login-button" onclick="">
+			<input type="button" class="upload-button" onclick=""> 
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
 			<%
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
-				type="button" class="bell-button" onclick=""> <span
-				onclick=""> <img src="image/guest.png"> <b><%=mybean.getUser_name()%></b>
+			<input type="button" class="upload-button" onclick=""> 
+
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
+
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
 			</span>
 		</div>
 
@@ -61,11 +61,19 @@ mybean.setUser_resnum("111111-1111111");
 		}
 		%>
 	</header>
-
+	
+	<div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
+    
+    
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
-		</label> <label class="category-label">홈</label> <label class="category-label">인기</label>
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -314,22 +322,28 @@ mybean.setUser_resnum("111111-1111111");
 			<!-- 주목할 만한 프로젝트 영역 -->
 			<div class="additional-content">
 				<h2 style="margin: 20px;">주목할 만한 프로젝트</h2>
-
+				<%
+				Vector<fundingBean> fdjvlist=fdMgr.fundingByRecordHigh();
+				int d3 = Math.min(5, fdjvlist.size());
+				%>
 				<div id="projects">
+				<%for(int i=0;i<d3;i++){ %>
+				
 					<div id="interest-project">
 						<!-- 프로젝트 사진 -->
-						<img src="image/interest-project1.jpg">
+						<img src=<%=fdjvlist.get(i).getFunding_image() %>>
 						<!-- 창작자 명 -->
-						<a class="creator-name">몽상부띠그</a><br>
+						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdjvlist.get(i).getFunding_user_id() %>"><%=uMgr.oneUserList(fdjvlist.get(i).getFunding_user_id()).getUser_name() %></a><br>
 						<!-- 제품명 -->
-						<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+						<label class="product-name"><%=fdjvlist.get(i).getFunding_title() %></label><br>
 						<!-- 진행 정보 -->
 						<div class="progress-info">
-							<span class="progress-percentage">1408% 달성</span>
+							<span class="progress-percentage"><%= (int)(((double)fdjvlist.get(i).getFunding_nprice() / fdjvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
 						</div>
 					</div>
+				
+				<%} %>
 				</div>
-
 			</div>
 		</div>
 
@@ -338,23 +352,29 @@ mybean.setUser_resnum("111111-1111111");
 			<div id="header-ranking">
 				<div class="title-group">
 					<h2>인기 프로젝트</h2>
-					<p>24.09.30 15.24 기준</p>
+					<p><%= LocalDate.now() %> 기준</p>
 				</div>
 				<a href="#">전체 보기</a>
 			</div>
-
+			<%
+			Vector<fundingBean> fdivlist=fdMgr.fundingListForPercent();
+			int d=5;
+			if(fdivlist.size()<5) {d=fdivlist.size();}
+			%>
+			<%for(int i=0;i<d;i++){ %>
 			<div id="project-ranking">
-				<img src="image/interest-project1.jpg"> <b>1등</b>
+				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
 				<div id="project-rankinfo">
-					<b style="color: #6D6D6D">무용지용</b>
+					<a href="../profile/profile.jsp?userId=<%=fdivlist.get(i).getFunding_user_id() %>">
+    					<b style="color: #6D6D6D !important"><%= uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
+					</a>
 					<p>
-						어디서든지 누를 수 있는
-						<키보드 키링>
+						<%= fdivlist.get(i).getFunding_title() %>
 					</p>
-					<b>5434 % 달성</b>
+					<b><%= (int)(((double)fdivlist.get(i).getFunding_nprice() / fdivlist.get(i).getFunding_tprice()) * 100) %>% 달성</b>
 				</div>
 			</div>
-
+			<%} %>
 		</div>
 	</div>
 	
@@ -370,18 +390,25 @@ mybean.setUser_resnum("111111-1111111");
 				</div>
 				<div id="projects">
 				<!-- 최대 5개 까지만 하면 좋음. -->
+				<%
+				Vector<fundingBean> fdcvlist=fdMgr.fundingByRecord(rMgr.readList30(user_id));
+				int d2 = Math.min(5, fdcvlist.size());
+				%>
+				<%for(int i=0;i<d2;i++){ %>
 					<div id="recent-project">
 						<!-- 프로젝트 사진 -->
-						<img src="image/interest-project1.jpg">
+						<img src=<%=fdcvlist.get(i).getFunding_image()%>>
 						<!-- 창작자 명 -->
-						<a class="creator-name">몽상부띠그</a><br>
+						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdcvlist.get(i).getFunding_user_id() %>">
+						<%=uMgr.oneUserList(fdcvlist.get(i).getFunding_user_id()).getUser_name()%></a><br>
 						<!-- 제품명 -->
-						<label class="product-name"> 한복원단으로 만나는 [십장생 매듭원피스2] </label><br>
+						<label class="product-name"><%=fdcvlist.get(i).getFunding_title() %></label><br>
 						<!-- 진행 정보 -->
 						<div class="progress-info">
-							<span class="progress-percentage">1408% 달성</span>
+							<span class="progress-percentage"><%= (int)(((double)fdcvlist.get(i).getFunding_nprice() / fdcvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
 						</div>
 					</div><!-- recent-project end -->	
+				<%} %>
 				</div><!-- projects end -->
 			</div> <!-- recent-content end-->
 	</div>
@@ -390,5 +417,6 @@ mybean.setUser_resnum("111111-1111111");
 	
 	<script src="slide.js"></script>
 	<script src="detailInfo.js"></script>
+	<script src="dropdown.js"></script>
 </body>
 </html>

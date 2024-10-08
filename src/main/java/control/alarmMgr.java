@@ -91,5 +91,31 @@ public class alarmMgr {
 		}
 		return;
 	}
+	
+	public boolean alarmOnOff(String user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag=false;
+		try {
+			con = pool.getConnection();
+			sql = "select * from alarm where alarm_check = 0 and alarm_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			rs = pstmt.executeQuery();
+			flag=rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+		
+		
+	}
 	 
 }

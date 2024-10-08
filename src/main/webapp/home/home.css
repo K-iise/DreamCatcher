@@ -43,6 +43,38 @@ hr {
 	background-color: #dee2e6;
 }
 
+.dropdown {
+    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute; /* 부모 요소에 대해 절대 위치 */
+    background-color: #f9f9f9;
+    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+    min-height: 160px;
+    box-shadow: rgba(0,0,0,0.2);
+    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+    right: 0;
+    margin-right: 15%;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; /* 세로로 나열되도록 설정 */
+    width: 100%;
+}
+
+
 /* 검색 바 css */
 .search-span {
 	width: 260px;
@@ -109,6 +141,14 @@ hr {
 
 .title-header .bell-button {
 	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.title-header .bell-button2 {
+	background: url("image/bellicon2.png") no-repeat;
 	width: 40px;
 	height: 40px;
 	border: 0px;
@@ -213,11 +253,20 @@ hr {
 	
 }
 
-#project-ranking b{
-	font-size: 20px;
-	margin-left: 35px;
-	color: red;
-	
+#project-ranking a b {
+    font-size: 15px;
+    margin-left: 0; /* 마진을 제거하거나 조정 */
+}
+
+#project-ranking a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+#project-ranking b {
+    font-size: 20px;
+    margin-left: 35px;
+    color: red !important;
 }
 
 #project-rankinfo{
@@ -340,8 +389,13 @@ hr {
 
 /* 주목할 만한 프로젝트 영역 css */
 #recent-project img {
-	width: 220x; /* 원하는 너비 설정 */
+	width: 220px; /* 원하는 너비 설정 */
 	height: 240px; /* 원하는 높이 설정 */
+}
+
+#recent-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
 }
 
 #recent-project {
@@ -363,10 +417,16 @@ hr {
 	height: 180px; /* 원하는 높이 설정 */
 }
 
+#interest-project a {
+    display: inline-block;
+    text-decoration: none; /* 밑줄 제거 */
+}
+
 #interest-project {
 	width: 192px; /* 원하는 너비 설정 */
 	height: 280px; /* 비율 유지 */
 	margin: 20px;
+	
 }
 
 .creator-name {
