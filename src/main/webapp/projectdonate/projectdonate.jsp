@@ -88,8 +88,8 @@
 
 				<div id="coupon-box">
 					<b>응원권 선택</b>
-					<p>사용 가능 0개 / 보유 0개</p>
-					<button>응원권 사용</button>
+					<p id="coupon-hold">사용 가능 0개 / 보유 0개</p>
+					<button id="coupon-button">응원권 사용</button>
 				</div>
 			</div>
 
@@ -160,6 +160,33 @@
     </div>
 </div>
 
+<!-- 응원권 선택 모달 -->
+<div id="support-ticket-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-support-modal">&times;</span>
+        <h2>응원권 선택</h2>
+        <div id="support-ticket-form">
+        
+        	<!-- 응원권 예시 1 -->
+        	<div class="ticket-box">
+        		<label class ="usable-label">사용 가능</label>
+        		<b class = "ticket-price">1,000원</b>
+        		<label class ="coupon-label">창작자 팔로우 시 1000원 할인</label>
+        	</div>
+        	
+        	<!-- 응원권 예시 2 -->
+        	<div class="ticket-box">
+        		<label class ="usable-label">사용 가능</label>
+        		<b class = "ticket-price">2,000원</b>
+        		<label class ="coupon-label">창작자 팔로우 시 2000원 할인</label>
+        	</div>
+        	
+            <button id="support-confirm" class="btn-primary-support">확인</button>
+        </div>
+    </div>
+</div>
+
 <script src="delivery-modal.js"></script>
+<script src="coupon-modal.js"></script>
 </body>
 </html>
