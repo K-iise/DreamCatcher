@@ -4,6 +4,7 @@
 <%@ page import="control.*"%>
 <%@ page import="entity.*"%>
 <%
+request.setCharacterEncoding("UTF-8");
 
 usersMgr uMgr = new usersMgr();
 usersBean mybean = new usersBean();
@@ -13,6 +14,38 @@ String user_id = (String) session.getAttribute("idKey");
 
 mybean=uMgr.oneUserList(user_id);
 alarmMgr aMgr=new alarmMgr();
+createFundingMgr cfMgr=new createFundingMgr();
+createFundingBean cfbean=new createFundingBean();
+cfbean.setCreatefunding_user_id(mybean.getUser_id());
+
+String Action = request.getParameter("Action");
+// 폼으로부터 전송된 프로젝트 종류(project)는 int 값으로 처리해야 합니다.
+
+
+// 프로젝트 요약문 처리
+
+
+if ("action".equals(Action)) {
+	String projectSummary = request.getParameter("projectSummary");
+	String projectStr = request.getParameter("project"); // 문자열로 받아온 후
+	int project = 0;
+
+	try {
+	    project = Integer.parseInt(projectStr); // 문자열을 int로 변환
+	} catch (NumberFormatException e) {
+	    // 변환에 실패하면 예외 처리
+	    out.println("프로젝트 종류를 숫자로 변환할 수 없습니다.");
+	    return; // 오류가 발생한 경우 더 이상 진행하지 않음
+	}
+	
+	
+	cfbean.setCreatefunding_category(project);
+	cfbean.setCreatefunding_summary(projectSummary);
+	
+	cfMgr.createFunding_insert(cfbean);
+    
+    response.sendRedirect("projectBasicinfo.jsp"); // 성공 알림
+}
 
 %>
 <!DOCTYPE html>
@@ -410,7 +443,7 @@ textarea {
 		</span>
 	</nav>
 	<hr id="default-hr" width="100%" noshade />
-
+	<form id="projectForm" method="POST">
 	<!-- 두 번째 코드 추가 -->
 	<div class="container">
         <div class="left">
@@ -420,22 +453,21 @@ textarea {
             <h2>멋진 아이디어가 있으시군요!</h2>
             <h2>어떤 프로젝트를 계획 중이신가요?</h2>
             <p>나중에 변경 가능하니 너무 걱정하지 마세요.</p>
-			<form action="uploadData.jsp" method="POST">
 			    <!-- 프로젝트 종류 선택 영역 -->
 			    <div class="toggle-container" id="toggleContainer"></div>
-			
+				
 			    <!-- 프로젝트 소개 텍스트 영역 -->
 			    <div class="textarea-container">
 			        <h2>프로젝트를 간단하게 소개해주세요.</h2>
 			        <textarea name="projectSummary" rows="4" placeholder="프로젝트 요약을 입력해주세요."></textarea>
 			    </div>
-			
+				<input type="hidden" name="Action" value="action">
 			    <!-- 다음 버튼 -->
-			    <button type="submit" class="next-button">다음</button>
-			</form>
+			    <button class="next-button" onclick="document.getElementById('projectForm').submit();">다음</button>
+			
         </div>
     </div>
-
+	</form>
     <script>
         const projects = [
             "보드게임, TRPG", "디지털 게임", "웹툰 만화",
@@ -452,8 +484,8 @@ textarea {
             radio.type = 'radio';
             radio.id = project.replace(/,|\s+/g, '_').toLowerCase();
             radio.name = 'project';
-            radio.value = project;
             radio.className = 'toggle-button';
+            radio.value = index+1;
             
 
             const label = document.createElement('label');

@@ -41,6 +41,7 @@
     }
     
     alarmMgr aMgr=new alarmMgr();
+    createFundingMgr cfMgr=new createFundingMgr();
 %>
 <!DOCTYPE html>
 <html>
@@ -406,7 +407,11 @@ progress::-moz-progress-bar {
 			} else {
 			%>
 
-			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectPlan.jsp'">  
+			<%if(cfMgr.createFundingCheck(mybean.getUser_id())){%>
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectBasicinfo.jsp'">
+			<%}else{ %>
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectPlan.jsp'"> 
+			<%} %>  
 			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
 			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
 			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
