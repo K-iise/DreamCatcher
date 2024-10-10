@@ -39,7 +39,6 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 }
 %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,26 +48,6 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 </style>
 <link href="profileEdit.css" rel="stylesheet">
 <script>
-		function highlight(selectedLabel, contentId) {
-		    // 모든 프로필 라벨 색상 초기화
-		    const labels = document.querySelectorAll('.profile-label');
-		    labels.forEach(label => {
-		        label.classList.remove('active');
-		    });
-		
-		    // 선택된 라벨 색상 변경
-		    selectedLabel.classList.add('active');
-		
-		    // 모든 콘텐츠 숨기기
-		    const contents = document.querySelectorAll('.tab-content');
-		    contents.forEach(content => {
-		        content.style.display = 'none';
-		    });
-		
-		    // 선택된 콘텐츠만 보이기
-		    document.getElementById(contentId).style.display = 'block';
-		}
-        
         function copyToClipboard() {
             
             navigator.clipboard.writeText(request.getRequestURL().toString()).then(function() {
@@ -145,8 +124,9 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 		<label class="category-label" style="cursor: pointer;"
 			onclick="window.location.href='../home/home.jsp'">홈</label> <label
 			class="category-label">인기</label> <label class="category-label">신규</label>
+		
 		<label class="category-label">스토어</label> <span class="search-span">
-			<input type="text" class="input_text" name="search"
+			<input type="text" class="input_search" name="search"
 			placeholder="검색어를 입력하세요."> <img alt="searchicon"
 			src="image/searchicon.png" class="input_icon">
 		</span>
@@ -215,8 +195,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 							<button class="change-button">변경</button>
 						</div>
 						<p class="user-name"
-							style="margin: 0px; color: rgb(158, 158, 158); white-space: pre-wrap;">등록된
-							소개가 없습니다.</p>
+							style="margin: 0px; color: rgb(158, 158, 158); white-space: pre-wrap;">등록된 소개가 없습니다.</p>
 						<textarea placeholder="자기소개를 입력해주세요." class="input_textarea"></textarea>
 						<button class="save-button">저장</button>
 					</div>

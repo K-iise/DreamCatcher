@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const profileImage = document.getElementById('profileImage');
 	const profilePhotoSaveButton = document.querySelector('.edit-box:nth-child(1) .save-button');
 
+	let originalImageSrc = profileImage.src;
+
 	// 프로필 사진 변경 버튼 클릭 시 이벤트 처리
 	profilePhotoChangeButton.addEventListener('click', function() {
 		if (profilePhotoChangeButton.textContent === '변경') {
@@ -15,9 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			profilePhotoSaveButton.style.display = 'flex';
 		}
 		else {
+			profileImage.src = originalImageSrc;  // 원래 이미지로 복원
 			profilePhotoChangeButton.textContent = '변경';
 			profilePhotoInfo.style.display = 'none';
 			profilePhotoSaveButton.style.display = 'none';
+			profilePhotoInput.value = '';  // 파일 선택 초기화
 		}
 	});
 
