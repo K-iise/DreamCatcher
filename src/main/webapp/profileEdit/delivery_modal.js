@@ -1,7 +1,6 @@
 // 모달 관련 변수
 const modal = document.getElementById("delivery-modal");
-const btn = document.getElementById("delivery-button");
-const btn2 = document.getElementById("change-button");
+const btn2 = document.getElementById("deliver-change");
 const span = document.getElementsByClassName("close")[0];
 
 // 배송지 정보 관련 변수
@@ -11,10 +10,6 @@ const deliveryDetail = document.getElementById("deliver-detail");
 const deliverName = document.getElementById("deliver-name");
 const deliverAddress = document.getElementById("deliver-address");
 
-// 버튼 클릭 시 모달 열기
-btn.onclick = function() {
-	modal.style.display = "block";
-}
 
 // 변경 버튼 클릭 시 모달 열기
 btn2.onclick = function() {
