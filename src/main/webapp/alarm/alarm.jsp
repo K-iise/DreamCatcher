@@ -7,6 +7,7 @@
 <%
 	alarmMgr amgr = new alarmMgr();
 	usersMgr mgr = new usersMgr();
+	createFundingMgr cfMgr=new createFundingMgr();
 %>
 <!DOCTYPE html>
 <html>
@@ -348,7 +349,11 @@ hr {
 			} else {
 			%>
 
+			<%if(cfMgr.createFundingCheck(mybean.getUser_id())){%>
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectBasicinfo.jsp'">
+			<%}else{ %>
 			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectPlan.jsp'"> 
+			<%} %>
 			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'"> 
 			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
 			<span class="dropbtn" onclick="toggleDropdown()">
