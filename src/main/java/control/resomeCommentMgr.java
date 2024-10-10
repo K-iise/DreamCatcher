@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import entity.recomeCommentBean;
+
 public class resomeCommentMgr {
 	
 	private DBCMgr pool;
@@ -37,9 +39,28 @@ public class resomeCommentMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return count;
-		
-		
+		return count;		
+	}
+	
+	public void recomeInsert(recomeCommentBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "insert into recome_comment(recome_comment_num, recome_user_id) values(?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bean.getRecom_comment_num());
+			pstmt.setString(2, bean.getRecom_user_id());
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
 	}
 	
 }

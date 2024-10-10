@@ -1,32 +1,26 @@
+<%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="control.usersMgr"%>
 <%@ page import="entity.usersBean"%>
 <%@ page import="control.followMgr"%>
 <%@ page import="entity.followBean"%>
+<%@ page import="control.commentsMgr" %>
+<%@ page import="entity.commentsBean" %>
 <%
 usersBean ubean = new usersBean();
 usersBean mybean = new usersBean();
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
+commentsMgr cMgr = new commentsMgr();
 
-ubean.setUser_address("aaa");
-ubean.setUser_id("aaaa");
-ubean.setUser_info("안뇽하세요");
-ubean.setUser_master(0);
-ubean.setUser_name("aaa");
-ubean.setUser_phone("111-1111-1111");
-ubean.setUser_pw("1234");
-ubean.setUser_resnum("111111-1111111");
+//funding_num을 쿼리 파라미터에서 가져옴
+int fundingNum = Integer.parseInt(request.getParameter("fundingNum"));
 
-mybean.setUser_address("aaa");
-mybean.setUser_id("aaa");
-mybean.setUser_info("안뇽하세요");
-mybean.setUser_master(0);
-mybean.setUser_name("닉네이미이이이이이이이이이ㅣ이이이잉ㅁ");
-mybean.setUser_phone("111-1111-1111");
-mybean.setUser_pw("1234");
-mybean.setUser_resnum("111111-1111111");
+//댓글 목록을 가져옴
+Vector<commentsBean> commentsList = cMgr.commentList(fundingNum);
+
+String user_id = (String) session.getAttribute("idKey");
 %>
 <!DOCTYPE html>
 <html>
@@ -375,18 +369,27 @@ mybean.setUser_resnum("111111-1111111");
 					<div id="community">
 						<!-- 댓글 입력 창 -->
 						<div class="comment-box">
-							<textarea class="comment-input" placeholder="메시지를 입력하세요..."></textarea>
-							<button class="submit-btn">작성</button>
+						    <form action="commentInsert.jsp" method="post"> <!-- action을 commentInsert.jsp로 설정 -->
+						        <textarea name="comment_con" class="comment-input" placeholder="메시지를 입력하세요..." required></textarea>
+						        <input type="hidden" name="fundingNum" value="<%= fundingNum %>"> <!-- fundingNum을 hidden 필드로 추가 -->
+						        <input type="submit" class="submit-btn" value="작성"> <!-- submit 버튼으로 변경 -->
+						    </form>
 						</div>
 
 						<!-- 댓글 창 Example -->
 						<div id="comments">
+							<%
+							if (commentsList != null && !commentsList.isEmpty()) {
+								for (commentsBean comment : commentsList) {
+									int daysAgo = new commentsMgr().commentDate(comment.getComment_num()); // 댓글 작성일로부터 경과된 일수 가져오기
+									// 댓글 작성자의 user_name 가져오기
+									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id()); 
+							%>
 							<div id="comments-profile">
 								<div id="comment-top">
 									<img alt="information-image" src="image/guest.png">
 									<div id="information-text">
-										<b>홍길동</b>
-										<p>응원글</p>
+										<b><%= commentUser.getUser_name() %></b>
 									</div>
 								</div>
 								<div id="comment-option">
@@ -399,36 +402,36 @@ mybean.setUser_resnum("111111-1111111");
 									</div>
 								</div>
 							</div>
-							<p id="comment-text">펀딩 마감까지 일주일도 남지 않았는데 주사위를 포함한 상품 부록의
-								디자인은 언제쯤 공개되는 걸까요? 단순한 디자인 상품도 아니고 '텀블벅 후원 한정'으로 소장할 수 있는 상품이라는
-								것이 펀딩 부록의 차별점인데, 디자인을 알지 못하고 무턱대고 구매하기엔 부록이 포함된 세트가 절대 싼 가격은 아니지
-								않습니까? 더욱이 캐릭터 시트나 클리어 파일은 디자인을 쉽게 예상할 수 있지만 주사위와 주머니 세트는 그렇지
-								않으니까요. 아무리 원작사와 컨펌 중에 있다고 해도 후원 기간이 한 달이나 되는데 아직도 소식이 없다는 건 소비자
-								입장에서 마음이 불편하지 않겠습니까? 그렇다고 하루종일 텀블벅만 확인하고 있을 수도 없는 노릇이고요. 프로젝트 진행
-								전에 완벽히 검수받은 후에 펀딩을 시작할 수는 없었던 걸까요? 대외비라는 게 있으니 모든 상황을 다 공유할 수 없는
-								상황이야 이해하지만 펀딩이 얼마 남지 않은 상황까지도 아무런 경과 보고가 없다는 건 불만스럽습니다. 어떤 소식이든
-								좋으니 부록과 관련된 부분은 펀딩 마감 전에 제대로 된 공지를 한 번 더 해주셨으면 합니다.</p>
+							<p id="comment-text"><%= comment.getComment_con() %></p>
 
 							<div id="comment-bottom">
-								<p>5일 전</p>
+						        <p><%= (daysAgo == 0) ? "오늘" : daysAgo + "일 전" %></p> <!-- 0일 전이면 '오늘'로 출력 -->					        
 								<div id="comment-recommend">
-									<img alt="recommend-image" src="image/recommend.png">
-									<p id="recommed-score">0</p>
+								    <form action="commentInsert.jsp" method="post">
+								        <input type="hidden" name="recom_comment_num" value="<%= comment.getComment_num() %>"> 
+								        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
+								        <img alt="recommend-image" src="image/recommend.png" style="cursor:pointer;" onclick="this.closest('form').submit();"> <!-- 클릭 시 폼 제출 -->
+								    </form>
 								</div>
-							</div>
+						    </div>
+						    
+								<%
+							            }
+							        } else {
+							    %>
+							        <p>댓글이 없습니다.</p>
+							    <%
+							        }
+							    %>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-
-
-
-
 		<div class="right-section">
 		
-			<div id="creator-content">
+			<div id="creator-content">	
 				<div id="creator-box">
 					<b style="font-size: 18px">창작자 소개</b>
 					<div id="creator-info">
