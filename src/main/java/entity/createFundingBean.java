@@ -7,7 +7,6 @@ public class createFundingBean {
 	private int createfunding_category;
 	private int createfunding_tprice;
 	private String createfunding_term;
-	private int createfunding_nprice;
 	private String createfunding_image;
 	private String createfunding_summary;
 	private String createfunding_con_0;
@@ -74,12 +73,6 @@ public class createFundingBean {
 	}
 	public void setCreatefunding_term(String createfunding_term) {
 		this.createfunding_term = createfunding_term;
-	}
-	public int getCreatefunding_nprice() {
-		return createfunding_nprice;
-	}
-	public void setCreatefunding_nprice(int createfunding_nprice) {
-		this.createfunding_nprice = createfunding_nprice;
 	}
 	public String getCreatefunding_image() {
 		return createfunding_image;

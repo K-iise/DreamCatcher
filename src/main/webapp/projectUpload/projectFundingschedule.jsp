@@ -11,13 +11,55 @@
 request.setCharacterEncoding("UTF-8");
 String user_id = (String) session.getAttribute("idKey");
 
+System.out.println("-----------------------------------------");
+
 usersMgr uMgr = new usersMgr();
 usersBean mybean = new usersBean();
 mybean=uMgr.oneUserList(user_id);
 alarmMgr aMgr=new alarmMgr();
 fundingMgr fdMgr=new fundingMgr();
 fundingBean fdbean=new fundingBean();
+createFundingMgr cfMgr=new createFundingMgr();
+createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
+String action = request.getParameter("Action");
+System.out.println("action: " + action); // 디버깅 로그
+String nextPage = request.getParameter("nextPage");
+System.out.println("Next page: " + nextPage); // 디버깅 로그
+
+if ("submit".equals(action)) {
+    // 목표 금액과 프로젝트 제목, 요약 가져오기
+    int tprice = 0;
+	try {
+	    tprice = Integer.parseInt(request.getParameter("tprice"));  // 목표 금액을 int로 변환
+	} catch (NumberFormatException e) {
+	    // 변환 실패 시 예외 처리
+	    System.out.println("목표 금액 변환 오류: " + e.getMessage());
+	    // 예외 처리를 통해 적절한 처리 방법을 추가할 수 있음 (예: 기본값 설정, 에러 메시지 반환 등)
+	}
+    String endDate = request.getParameter("end-date");  // 종료일
+    
+    // 폼 값 출력 (디버깅용)
+    System.out.println("목표 금액: " + tprice);
+    System.out.println("종료일: " + endDate);
+    
+    // cfbean 설정 및 저장 로
+
+    cfbean.setCreatefunding_term(endDate);  // 종료일 설정
+    cfbean.setCreatefunding_tprice(tprice);  // 목표 금액 설정
+    
+    // 이미지 파일 업로드 처리 (서버에 저장)
+
+    // 데이터베이스에 저장
+    cfMgr.createFundingUpdate(cfbean);  // 데이터 저장
+    
+    // 저장 성공 후 페이지 이동
+    if (nextPage != null && !nextPage.isEmpty()) {
+        response.sendRedirect(nextPage);  // 저장 성공하면 다른 페이지로 이동
+    } else {
+        request.getRequestDispatcher("projectfundingschedule.jsp").forward(request, response);  // 실패 시 현재 페이지로 이동
+    }
+}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -337,11 +379,19 @@ fundingBean fdbean=new fundingBean();
     </style>
     <script>
     // 폼 제출을 위한 JavaScript 함수
-    function submitForm(pageURL) {
-        var form = document.getElementById("projectForm");  // 'projectForm' ID를 가진 폼을 가져옵니다.
-        form.action = pageURL;  // action 속성을 동적으로 변경합니다.
-        form.submit();  // 폼을 제출합니다.
+    // 폼 제출을 위한 JavaScript 함수
+    function submitForm(actionUrl) {
+        // 숨겨진 input에 actionUrl을 설정
+        var form = document.getElementById("projectForm");
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "nextPage";
+        actionInput.value = actionUrl;  // 이동할 페이지 경로
+
+        form.appendChild(actionInput);  // 폼에 추가
+        form.submit();  // 폼 제출
     }
+
 </script>
 </head>
 <body>
@@ -380,13 +430,14 @@ fundingBean fdbean=new fundingBean();
 
         <!-- 메뉴들 -->
         <nav class="menu-bar">
-           <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectBasicinfo')">기본 정보</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectFundingschedule')">펀딩 계획</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectExplanation')">프로젝트 계획</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectCreatorinfo')">창작자 정보</label>
+            <label class="category-label" onclick="submitForm('projectBasicinfo.jsp')">기본 정보</label>
+			<label class="category-label" onclick="submitForm('projectFundingschedule.jsp')">펀딩 계획</label>
+			<label class="category-label" onclick="submitForm('projectExplanation.jsp')">프로젝트 계획</label>
+			<label class="category-label" onclick="submitForm('projectCreatorinfo.jsp')">창작자 정보</label>
         </nav>
     </div>
-	<form id="projectForm" action="" method="post">
+	<form id="projectForm" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="Action" value="submit" >
     <div class="container">
         
         <!-- 프로젝트 목표 금액 섹션 -->
@@ -396,7 +447,7 @@ fundingBean fdbean=new fundingBean();
                 <p>프로젝트를 완수하기 위해 필요한 금액을 설정해주세요.</p>
             </div>
             <div class="input-group-inline">
-                <input type="text" placeholder="금액을 입력해주세요">
+                <input name="tprice" type="text" placeholder="금액을 입력해주세요">
             </div>
         </div>
         
@@ -412,22 +463,6 @@ fundingBean fdbean=new fundingBean();
 
             <!-- 우측 일정 설정 -->
             <div class="funding-schedule">
-                <!-- 시작일 -->
-                <div class="schedule-row">
-                    <label for="start-date">시작일</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="start-date" placeholder="시작 날짜 선택" readonly>
-                        <span class="calendar-icon" onclick="openCalendar('#start-date')">&#128197;</span>
-                    </div>
-                </div>
-
-                <!-- 시작 시간 -->
-                <div class="schedule-row">
-                    <label for="start-time">시작 시간</label>
-                    <div class="input-wrapper">
-                        <select id="start-time"></select>
-                    </div>
-                </div>
 
                 <div class="schedule-row">
                     <label for="funding-max">펀딩 기간</label>
@@ -439,7 +474,7 @@ fundingBean fdbean=new fundingBean();
                 <div class="schedule-row">
                     <label for="end-date">종료일</label>
                     <div class="input-wrapper">
-                        <input type="text" id="end-date" placeholder="종료 날짜 선택" readonly>
+                        <input type="text" name="end-date" id="end-date" placeholder="종료 날짜 선택" readonly>
                         <span class="calendar-icon" onclick="openCalendar('#end-date')">&#128197;</span>
                     </div>
                 </div>

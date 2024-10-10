@@ -60,12 +60,11 @@ private DBCMgr pool;
 				bean.setCreatefunding_con_1(rs.getString("createfunding_con_1"));
 				bean.setCreatefunding_con_2(rs.getString("createfunding_con_2"));
 				bean.setCreatefunding_con_3(rs.getString("createfunding_con_3"));
-				bean.setCreatefunding_image(rs.getString("createfunding_image"));
-				bean.setCreatefunding_nprice(rs.getInt("createfunding_nprice"));
+				bean.setCreatefunding_image(rs.getString("createfunding_image"));			
 				bean.setCreatefunding_summary(rs.getString("createfunding_summary"));
 				bean.setCreatefunding_term(rs.getString("createfunding_term"));
 				bean.setCreatefunding_title(rs.getString("createfunding_title"));
-				bean.setCreatefunding_tprice(rs.getInt("Createfunding_tprice"));
+				bean.setCreatefunding_tprice(rs.getInt("createfunding_tprice"));
 				
 			}
 
@@ -83,11 +82,12 @@ private DBCMgr pool;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		System.out.println(1);
 		try {
 			con = pool.getConnection();
 			sql = "update createfunding set createfunding_title = ?, createfunding_category = ?, "
 					+ "createfunding_con_0 = ?, createfunding_con_1 = ?,createfunding_con_2 = ?,createfunding_con_3 = ?, "
-					+ "createfunding_tprice = ?, createfunding_summary = ?, createfunding_term = ?, createfunding_nprice = ?, "
+					+ "createfunding_tprice = ?, createfunding_summary = ?, createfunding_term = ?, "
 					+ "createfunding_image = ? where createfunding_user_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getCreatefunding_title());
@@ -99,9 +99,8 @@ private DBCMgr pool;
 			pstmt.setInt(7, bean.getCreatefunding_tprice());
 			pstmt.setString(8, bean.getCreatefunding_summary());
 			pstmt.setString(9, bean.getCreatefunding_term());
-			pstmt.setInt(10, bean.getCreatefunding_nprice());
-			pstmt.setString(11, bean.getCreatefunding_image());
-			pstmt.setString(12, bean.getCreatefunding_user_id());
+			pstmt.setString(10, bean.getCreatefunding_image());
+			pstmt.setString(11, bean.getCreatefunding_user_id());
 			
 			pstmt.executeUpdate();
 
@@ -110,6 +109,7 @@ private DBCMgr pool;
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
+		System.out.println(2);
 		return;
 		
 	}
