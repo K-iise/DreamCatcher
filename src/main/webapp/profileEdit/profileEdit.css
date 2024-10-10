@@ -380,3 +380,105 @@ hr {
     color: #3d3d3d;
 }
 
+#deliver-detail{
+	display: block;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+#deliver-profile {
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	margin:20px;
+}
+
+#deliver-profile b{
+	font-size: 15px;
+	margin: 0px;
+}
+
+#deliver-profile p{
+	font-size: 15px;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* 모달 배경 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 화면에 고정 */
+    z-index: 1; /* 가장 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 화면 너비 */
+    height: 100%; /* 전체 화면 높이 */
+    overflow: auto; /* 스크롤 가능 */
+    background-color: rgba(0, 0, 0, 0.4); /* 반투명 배경 */
+}
+
+#delivery-form{
+	display: flex;
+	flex-direction: column;
+}
+
+/* 모달 내용 */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 상단 중앙 정렬 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px; /* 모달 너비 */
+}
+
+/* 닫기 버튼 */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#receiver{
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+#recipient-name{
+	width: 220px;
+	height: 30px;
+	font-size: 15px;
+}
+
+#address-name{
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#address{
+	width: 580px;
+	height: 30px;
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+
+#address-add{
+	width: 590px;
+	height: 40px;
+	font-size: 20px;
+	background: #FE4848;
+	color: #FFFFFF;
+	border: 0px;
+	justify-content: center;
+}
+

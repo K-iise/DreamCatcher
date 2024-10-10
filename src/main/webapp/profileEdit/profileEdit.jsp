@@ -200,8 +200,14 @@ if(mybean.getUser_image()==null||mybean.getUser_image().equals("")){
 							<b>등록된 주소</b>
 							<button class="change-button">변경</button>
 						</div>
-						<p class="user-name" style="margin: 0px; color: rgb(158, 158, 158);">등록된 소개가 없습니다.</p>
-						<textarea placeholder="자기소개를 입력해주세요." class="input_textarea"></textarea>
+						<div id="deliver-detail">
+								<div id="deliver-profile">
+									<b id="deliver-name">김윤기</b>
+									<p id="deliver-address">[38540] 경북 경산시 감못둑길 20 (갑제동) 2005</p>
+									
+								</div>
+								<button id="change-button">변경</button>
+						</div>
 						<button class="save-button">저장</button>
 					</div>
 					
@@ -217,6 +223,25 @@ if(mybean.getUser_image()==null||mybean.getUser_image().equals("")){
 		<div id="review-content" class="tab-content" style="display: none;">프로젝트 후기 내용</div>
 		
 	</div>
+	
+	<!-- 배송지 추가 모달 -->
+	<div id="delivery-modal" class="modal">
+	    <div class="modal-content">
+	        <span class="close">&times;</span>
+	        <h2>배송지 추가</h2>
+	        <div id="delivery-form">
+	            <label id ="receiver"for="recipient-name">받는 사람</label>
+	            <input type="text" id="recipient-name" placeholder="받는 분의 성함을 입력해주세요.">
+	
+	            <label id = "address-name" for="address">주소</label>
+	            <input type="text" id="address" placeholder="받는 분의 주소를 입력해주세요.">
+	
+	            <button id = "address-add">추가</button>
+	        </div>
+	    </div>
+	</div>
+	
+	
 	<script src="profileEdit.js"></script>
 </body>
 </html>
