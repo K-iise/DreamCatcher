@@ -3,6 +3,8 @@ package control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import entity.createFundingBean;
 
@@ -98,7 +100,23 @@ private DBCMgr pool;
 			pstmt.setString(6, bean.getCreatefunding_con_3());
 			pstmt.setInt(7, bean.getCreatefunding_tprice());
 			pstmt.setString(8, bean.getCreatefunding_summary());
-			pstmt.setString(9, bean.getCreatefunding_term());
+	        // 1. 날짜 문자열 포맷 수정
+	        String inputDate = bean.getCreatefunding_term();  // "2024-10-05 00:00:00.0" 같은 문자열
+
+	        // 2. 시간 부분이 포함된 문자열을 Date로 변환
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = null;
+
+	        // 문자열이 시간 정보가 포함된 경우 포맷을 맞춰 변환
+	        try {
+	            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(inputDate);  // "2024-10-05 00:00:00.0"
+	        } catch (Exception e) {
+	            date = sdf.parse(inputDate);  // "2024-10-05"
+	        }
+
+	        // 3. java.sql.Date로 변환
+	        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	        pstmt.setDate(9, sqlDate);  // 날짜 세팅 // 날짜 세팅
 			pstmt.setString(10, bean.getCreatefunding_image());
 			pstmt.setString(11, bean.getCreatefunding_user_id());
 			

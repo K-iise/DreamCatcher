@@ -21,6 +21,23 @@ fundingMgr fdMgr=new fundingMgr();
 fundingBean fdbean=new fundingBean();
 createFundingMgr cfMgr=new createFundingMgr();
 createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
+// cfbean.getCreatefunding_term()이 문자열로 되어 있다고 가정
+String fundingTerm = cfbean.getCreatefunding_term();
+
+// 문자열을 Date로 변환
+java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+java.util.Date date = null;
+
+try {
+    date = inputFormat.parse(fundingTerm); // "yyyy-MM-dd HH:mm:ss.S" 형식으로 파싱
+} catch (java.text.ParseException e) {
+    e.printStackTrace();
+}
+
+// 변환된 Date를 "yyyy-MM-dd" 형식으로 출력
+String formattedDate = (date != null) ? outputFormat.format(date) : "";
+
 
 String action = request.getParameter("Action");
 System.out.println("action: " + action); // 디버깅 로그
@@ -447,7 +464,7 @@ if ("submit".equals(action)) {
                 <p>프로젝트를 완수하기 위해 필요한 금액을 설정해주세요.</p>
             </div>
             <div class="input-group-inline">
-                <input name="tprice" type="text" placeholder="금액을 입력해주세요">
+                <input name="tprice" type="text" placeholder="금액을 입력해주세요" value='<%=cfbean.getCreatefunding_tprice() %>'>
             </div>
         </div>
         
@@ -474,7 +491,7 @@ if ("submit".equals(action)) {
                 <div class="schedule-row">
                     <label for="end-date">종료일</label>
                     <div class="input-wrapper">
-                        <input type="text" name="end-date" id="end-date" placeholder="종료 날짜 선택" readonly>
+                        <input type="text" name="end-date" id="end-date" placeholder="종료 날짜 선택" value="<%= formattedDate %>" readonly>
                         <span class="calendar-icon" onclick="openCalendar('#end-date')">&#128197;</span>
                     </div>
                 </div>
