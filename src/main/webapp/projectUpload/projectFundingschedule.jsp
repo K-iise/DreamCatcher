@@ -6,8 +6,8 @@
 <%@ page import="java.io.*" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
-
 <%
+
 request.setCharacterEncoding("UTF-8");
 String user_id = (String) session.getAttribute("idKey");
 
@@ -78,7 +78,6 @@ if ("submit".equals(action)) {
     }
 }
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -112,7 +111,7 @@ if ("submit".equals(action)) {
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            padding: 20px 15%; /* 페이지 중앙에 맞춤 */
+            padding: 20px 15%;
             border-bottom: 1px solid #dee2e6;
             position: relative;
         }
@@ -176,15 +175,22 @@ if ("submit".equals(action)) {
         /* 사용자 컨트롤 */
         .user-controls {
             position: absolute;
-            right: 15%; /* 기본 정보와 동일한 위치 */
+            right: 15%;
             top: 20px;
             display: flex;
             align-items: center;
         }
 
+        .user-controls .upload-button {
+            background: url("image/uploadproject.png") no-repeat;
+            width: 140px;
+            height: 40px;
+            border-width: 0;
+            margin-right: 10px;
+        }
+
         .user-controls .heart-button {
             background: url("image/hearticon.png") no-repeat;
-            background-size: contain; /* 아이콘 크기 설정 */
             width: 40px;
             height: 40px;
             border: 0px;
@@ -193,16 +199,6 @@ if ("submit".equals(action)) {
 
         .user-controls .bell-button {
             background: url("image/bellicon.png") no-repeat;
-            background-size: contain; /* 아이콘 크기 설정 */
-            width: 40px;
-            height: 40px;
-            border: 0px;
-            margin-left: 20px;
-        }
-
-        .user-controls .bell-button2 {
-            background: url("image/bellicon2.png") no-repeat;
-            background-size: contain; /* 아이콘 크기 설정 */
             width: 40px;
             height: 40px;
             border: 0px;
@@ -232,7 +228,7 @@ if ("submit".equals(action)) {
         .container {
             padding: 20px;
             margin: 0 auto;
-            width: calc(100% - 40px); /* 기본 정보와 동일하게 중앙 정렬 */
+            width: calc(100% - 40px);
             max-width: 1200px;
         }
 
@@ -358,50 +354,45 @@ if ("submit".equals(action)) {
         .schedule-start .input-wrapper {
             width: 100%;
         }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropbtn {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            min-height: 160px;
-            box-shadow: rgba(0,0,0,0.2);
-            z-index: 1000;
-            right: 0;
-            margin-right: 15%;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            width: 100%;
-        }
         
-        .next-button {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	padding: 15px 25px;
-	background-color: red;
-	color: white;
-	border: none;
-	cursor: pointer;
-	border-radius: 5px;
-	z-index: 100;
-}
+        .user-controls .bell-button2 {
+			background: url("image/bellicon2.png") no-repeat;
+			width: 40px;
+			height: 40px;
+			border: 0px;
+			margin-left: 20px;
+		}
+
+		.dropdown {
+		    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+		    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+		}
+		
+		.dropbtn {
+		    background-color: transparent;
+		    border: none;
+		    cursor: pointer;
+		}
+		
+		.dropdown-content {
+		    display: none; /* 기본적으로 숨김 */
+		    position: absolute; /* 부모 요소에 대해 절대 위치 */
+		    background-color: #f9f9f9;
+		    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
+		    min-height: 160px;
+		    box-shadow: rgba(0,0,0,0.2);
+		    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+		    right: 0;
+		    margin-right: 15%;
+		}
+		
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block; /* 세로로 나열되도록 설정 */
+		    width: 100%;
+		}
     </style>
     <script>
     // 폼 제출을 위한 JavaScript 함수
@@ -419,7 +410,6 @@ if ("submit".equals(action)) {
     }
 
 </script>
-
 </head>
 <body>
     <div class="header">
@@ -436,24 +426,24 @@ if ("submit".equals(action)) {
         <!-- 사용자 컨트롤 -->
         <div class="user-controls">
             <input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
-            <% if (aMgr.alarmOnOff(mybean.getUser_id())) { %>
-            <input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
-            <% } else { %>
-            <input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';">
-            <% } %>
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
 
-            <span class="dropbtn" onclick="toggleDropdown()">
-                <img src='<%=mybean.getUser_image() %>' alt="User Icon">
-                <b><%= mybean.getUser_name() %></b>
-            </span>
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
+			</span>
         </div>
-
-        <div class="dropdown-content">
-            <a href="../profile/profile.jsp?selectedid=<%= user_id %>">프로필</a>
-            <a href="../interestProject/interestProject.jsp">관심 프로젝트</a>
-            <a href="../alarm/alarm.jsp">알림</a>
-            <a href="../logout/logout.jsp">로그아웃</a>
-        </div>
+        
+    <div class="dropdown-content">
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
 
         <!-- 메뉴들 -->
         <nav class="menu-bar">
@@ -487,18 +477,16 @@ if ("submit".equals(action)) {
                 <p>전까지 날짜를 변경할 수 있고, 즉시 펀딩을 시작할 수도</p>
                 <p>있습니다.</p>
             </div>
-            
-
 
             <!-- 우측 일정 설정 -->
             <div class="funding-schedule">
 
-                    <div class="schedule-row">
-                        <label for="funding-max">펀딩 기간</label>
-                        <div class="input-wrapper">
-                            <p>최대 60일</p>
-                        </div>
+                <div class="schedule-row">
+                    <label for="funding-max">펀딩 기간</label>
+                    <div class="input-wrapper">
+                        <p>최대 60일</p>
                     </div>
+                </div>
 
                 <div class="schedule-row">
                     <label for="end-date">종료일</label>
@@ -506,27 +494,26 @@ if ("submit".equals(action)) {
                         <input type="text" name="end-date" id="end-date" placeholder="종료 날짜 선택" value="<%= formattedDate %>" readonly>
                         <span class="calendar-icon" onclick="openCalendar('#end-date')">&#128197;</span>
                     </div>
+                </div>
 
-                    <div class="schedule-row">
-                        <label for="payment-end">결제 종료</label>
-                        <div class="input-wrapper">
-                            <p>종료일 다음 날부터 7일</p>
-                        </div>
+                <div class="schedule-row">
+                    <label for="payment-end">결제 종료</label>
+                    <div class="input-wrapper">
+                        <p>종료일 다음 날부터 7일</p>
                     </div>
+                </div>
 
-                    <div class="schedule-row">
-                        <label for="settlement-date">정산일</label>
-                        <div class="input-wrapper">
-                            <p>결제 종료 후 7영업일</p>
-                        </div>
+                <div class="schedule-row">
+                    <label for="settlement-date">정산일</label>
+                    <div class="input-wrapper">
+                        <p>결제 종료 후 7영업일</p>
                     </div>
                 </div>
             </div>
-            
-            <button type="submit" class="next-button">확인</button>
         </div>
-    </form>
-
+        
+    </div>
+</form>
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
@@ -569,7 +556,6 @@ if ("submit".equals(action)) {
             }
         }
     </script>
-
     <script src="dropdown.js"></script>
 </body>
 </html>
