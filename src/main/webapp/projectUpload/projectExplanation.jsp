@@ -17,6 +17,8 @@ mybean=uMgr.oneUserList(user_id);
 alarmMgr aMgr=new alarmMgr();
 fundingMgr fdMgr=new fundingMgr();
 fundingBean fdbean=new fundingBean();
+createFundingMgr cfMgr=new createFundingMgr();
+createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
 %>
 <!DOCTYPE html>
@@ -279,10 +281,10 @@ fundingBean fdbean=new fundingBean();
 
         <!-- 메뉴들 -->
         <nav class="menu-bar">
-           <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectBasicinfo')">기본 정보</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectFundingschedule')">펀딩 계획</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectExplanation')">프로젝트 계획</label>
-            <label class="category-label" onclick="submitForm('uploadData.jsp?page=projectCreatorinfo')">창작자 정보</label>
+            <label class="category-label" onclick="submitForm('projectBasicinfo.jsp')">기본 정보</label>
+            <label class="category-label" onclick="submitForm('projectFundingschedule.jsp')">펀딩 계획</label>
+            <label class="category-label" onclick="submitForm('projectExplanation.jsp')">프로젝트 계획</label>
+            <label class="category-label" onclick="submitForm('projectCreatorinfo.jsp')">창작자 정보</label>
         </nav>
     </div>
 	<form id="projectForm" action="" method="post">
