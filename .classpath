@@ -13,6 +13,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/718_34/Desktop/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/718_01/Documents/네이트온 받은 파일/ojdbc7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
