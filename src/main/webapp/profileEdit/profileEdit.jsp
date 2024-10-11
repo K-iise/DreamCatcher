@@ -233,7 +233,15 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 				</div>
 
 				<!-- 프로필 편집 오른쪽 부분. -->
-				<div class="right-section"></div>
+				<div class="right-section">
+					<div class="info-box">
+						<b>어떤 정보가 프로필에 공개되나요?</b>
+						<p>
+						프로필 사진과, 사용자 이름, 소개글, 연락처 , 주소 및 회원님과 관련된 프로젝트 등이 프로필 페이지에 공개 됩니다. <a href="">내 프로필 바로가기</a>
+						</p>
+						
+					</div>
+				</div>
 			</div>
 
 		</div>
