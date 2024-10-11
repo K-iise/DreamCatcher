@@ -10,9 +10,23 @@
     <meta charset="utf-8">
     <title>로그인 화면</title>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: auto; /* 가로 스크롤바가 필요할 때 생기도록 설정 */
+            overflow-y: auto; /* 세로 스크롤바는 제거 */
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 1200px; /* 화면이 1200px 이하로 줄어들면 가로 스크롤바가 생김 */
+        }
+
         div {
             width: 100%;
         }
+
         div.left {
             width: 60%;
             height: 100vh; /* 전체 높이를 사용 */
@@ -23,37 +37,32 @@
             flex-direction: column; /* 세로 방향으로 정렬 */
             justify-content: center; /* 세로 방향 중앙 정렬 */
         }
+
         div.right {
             width: 40%;
             height: 100vh; /* 전체 높이를 사용 */
             float: right;
             box-sizing: border-box;
         }
+
         div.right img {
             height: 100%; /* 전체 높이를 사용 */
             width: 100%; /* 전체 폭을 사용 */
             object-fit: cover; /* 비율을 유지하며 채우기 */
         }
+
         header {
             font-size: 28px;
         }
+
         input {
-            width: 50%; /* 부모 요소의 50% */        
+            width: 50%; /* 부모 요소의 50% */
             padding: 20px; /* 안쪽 여백 */
             border: 1px solid #ccc; /* 테두리 */
             border-radius: 5px; /* 모서리를 둥글게 */
             box-sizing: border-box; /* 패딩과 테두리가 포함된 크기 계산 */
             font-size: 22px; /* 글자 크기 */
-            transition: border-color 0.3s; /* 테두리 색상 변화 애니메이션 */
             margin: 10px auto; /* 위 아래 여백 및 가로 중앙 정렬 */
-        }
-        input:focus {
-            border-color: #007BFF; /* 포커스 시 테두리 색상 변경 */
-            outline: none; /* 기본 아웃라인 제거 */
-        }
-        input::placeholder {
-            color: #aaa; /* 플레이스홀더 색상 */
-            font-style: italic; /* 이탤릭체 */
         }
 
         .button {
@@ -65,7 +74,6 @@
             color: white; /* 글자 색상 */
             font-size: 22px; /* 글자 크기 */
             cursor: pointer; /* 커서 모양 변경 */
-            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
             margin: 10px auto; /* 위 아래 여백 및 가로 중앙 정렬 */
         }
 
@@ -88,6 +96,14 @@
             color: rgba(0, 0, 0, 0.5); /* | 기호 색상 설정 */
             font-size: 16px; /* 기호의 폰트 크기 설정 */
             margin: 0 5px; /* 기호 주변 여백 설정 */
+        }
+
+        /* 화면 크기 줄일 때 고정된 너비를 유지하고 스크롤바가 나타나게 설정 */
+        @media (max-width: 1200px) {
+            body {
+                min-width: 1200px; /* 1200px 이하로 줄어들면 스크롤바가 생기도록 고정 */
+                overflow-x: scroll; /* 가로 스크롤바 활성화 */
+            }
         }
     </style>
 </head>

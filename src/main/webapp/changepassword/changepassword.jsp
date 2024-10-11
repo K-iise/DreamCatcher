@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <jsp:useBean id="updatepw" class="entity.usersBean"/>
+<jsp:useBean id="updatepw" class="entity.usersBean"/>
 <%
 	String username = (String) session.getAttribute("user_id");
 	String resnum = (String) session.getAttribute("user_resnum");
@@ -11,7 +11,17 @@
 <meta charset="UTF-8">
 <title>비밀번호 재설정</title>
 <style type="text/css">
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow-x: auto; /* 가로 스크롤바 생성 */
+	overflow-y: auto; /* 세로 스크롤바 항상 생성 */
+	box-sizing: border-box;
+}
+
 body {
+	min-width: 1200px; /* 최소 너비 설정 */
 	text-align: center; /* 중앙 정렬 추가 */
 	display: flex; /* 플렉스 박스 사용 */
 	flex-direction: column; /* 세로 방향으로 정렬 */
@@ -23,7 +33,7 @@ header {
 }
 
 input {
-	width: 100%; /* 부모 요소의 50% */
+	width: 100%; /* 부모 요소의 100% */
 	padding: 20px; /* 안쪽 여백 */
 	border: 1px solid #ccc; /* 테두리 */
 	border-radius: 5px; /* 모서리를 둥글게 */
@@ -44,7 +54,7 @@ input::placeholder {
 }
 
 .button {
-	width: 100%; /* 부모 요소의 50% */
+	width: 100%; /* 부모 요소의 100% */
 	padding: 15px; /* 안쪽 여백 */
 	border: none; /* 테두리 없음 */
 	border-radius: 5px; /* 모서리를 둥글게 */
@@ -79,10 +89,10 @@ input::placeholder {
 
 .findbox {
 	border: 1px solid #ccc; /* 테두리 색상 및 두께 */
-	width: 50%; /* 부모 요소의 70% */
+	width: 50%; /* 부모 요소의 50% */
 	border-radius: 5px; /* 모서리를 둥글게 */
 	padding: 20px; /* 안쪽 여백 추가 */
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택사항) */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
 	margin: 10px auto; /* 위 아래 여백 및 가로 중앙 정렬 */
 }
 
@@ -90,6 +100,14 @@ label {
 	font-size: 28px; /* 텍스트 크기 조정 */
 	margin: 5px 0 5px; /* 위 아래 여백 조정 */
 	display: block; /* 블록 요소로 변경하여 새 줄에서 시작 */
+}
+
+/* 가로 스크롤바가 나타나는 시점 */
+@media (max-width: 1200px) {
+    body {
+        min-width: 1200px; /* 1200px 이하로 줄어들면 가로 스크롤바 생성 */
+        overflow-x: scroll;
+    }
 }
 </style>
 </head>
