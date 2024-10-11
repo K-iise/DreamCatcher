@@ -6,9 +6,23 @@
     <meta charset="utf-8">
     <title>비밀번호 찾기 화면</title>
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: auto; /* 가로 스크롤바 생성 */
+            overflow-y: auto; /* 세로 스크롤바 유지 */
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 1200px; /* 최소 너비 설정 */
+        }
+
         div {
             width: 100%;
         }
+
         div.right {
             width: 60%;
             height: 100vh;
@@ -19,20 +33,24 @@
             flex-direction: column;
             justify-content: center;
         }
+
         div.left {
             width: 40%;
             height: 100vh;
             float: left;
             box-sizing: border-box;
         }
+
         div.left img {
             height: 100%;
             width: 100%;
             object-fit: cover;
         }
+
         header {
             font-size: 28px;
         }
+
         input {
             width: 100%;
             padding: 20px;
@@ -43,14 +61,17 @@
             transition: border-color 0.3s;
             margin: 10px auto;
         }
+
         input:focus {
             border-color: #007BFF;
             outline: none;
         }
+
         input::placeholder {
             color: #aaa;
             font-style: italic;
         }
+
         .button {
             width: 100%;
             padding: 15px;
@@ -63,23 +84,28 @@
             transition: background-color 0.3s;
             margin: 10px auto;
         }
+
         .button:hover {
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         .link {
             margin-top: 10px;
             font-size: 20px;
             color: rgba(0, 0, 0, 0.5);
             text-decoration: none;
         }
+
         .link:hover {
             text-decoration: underline;
         }
+
         .separator {
             color: rgba(0, 0, 0, 0.5);
             font-size: 16px;
             margin: 0 5px;
         }
+
         .findbox {
             border: 1px solid #ccc;
             width: 80%;
@@ -88,10 +114,19 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin: 10px auto;
         }
+
         label {
             font-size: 18px;
             margin: 5px 0 5px;
             display: block;
+        }
+
+        /* 화면 크기 줄일 때 가로 스크롤바가 나타나도록 설정 */
+        @media (max-width: 1200px) {
+            body {
+                min-width: 1200px;
+                overflow-x: scroll; /* 가로 스크롤바 생성 */
+            }
         }
     </style>
 </head>
