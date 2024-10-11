@@ -463,6 +463,7 @@ hr {
 	width: 100%; /* 고정 너비 설정 */
 }
 
+/* 상세 카테고리 창*/
 .cat-container {
 	position: relative;
 	display: flex;
