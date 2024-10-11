@@ -6,6 +6,41 @@
 <meta charset="UTF-8">
 <title>프로젝트 후원하기</title>
 <link href="projectdonate.css" rel="stylesheet" />
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+   // 객체 초기화
+        var IMP = window.IMP;
+        IMP.init("imp46127837");
+
+        function requestPay() {
+          // 결제창 호출      
+          IMP.request_pay(
+            {
+              // 파라미터 값 설정 
+              pg: "html5_inicis.INIBillTst",
+              pay_method: "card",
+              merchant_uid: "57008833-33004", // 상점 고유 주문번호
+              name: "포트원 테스트",
+              amount: 1000,
+              buyer_email: "good@portone.io",
+              buyer_name: "포트원 기술지원팀",
+              buyer_tel: "010-4522-4302",
+              buyer_addr: "서울특별시 강남구 삼성동",
+              buyer_postcode: "123-456",
+            },
+            function (rsp) {
+            	// callback
+                if (rsp.success) {
+                    // 결제가 성공하면 fundingcheck.jsp로 이동
+                    window.location.href = "/DreamCatcher/fundingcheck/fundingcheck.jsp";
+                } else {
+                    // 결제가 실패하면 실패 메시지 표시
+                    alert("결제에 실패하였습니다: " + rsp.error_msg);
+                }
+            }
+          );
+      }
+      </script>
 </head>
 <body>
 	<!-- 상단 부분 -->
@@ -138,7 +173,7 @@
 			계획이 지연, 변경되거나 무산될 수도 있습니다. 본 프로젝트를 완수할 책임과 권리는 창작자에게 있습니다.
 			</p>
 
-			<button id="donate-button">후원하기</button>
+			<button id="donate-button" onclick="requestPay()">후원하기</button>
 		</div>
 	</div>
 	
