@@ -6,6 +6,9 @@
 <%@ page import="entity.followBean"%>
 <%@ page import="control.commentsMgr" %>
 <%@ page import="entity.commentsBean" %>
+<%@ page import="control.resomeCommentMgr" %>
+<%@ page import="control.fundingMgr"%>
+<%@ page import="entity.fundingBean"%>
 <%
 usersBean ubean = new usersBean();
 usersBean mybean = new usersBean();
@@ -13,12 +16,23 @@ usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
 followMgr fMgr = new followMgr();
 commentsMgr cMgr = new commentsMgr();
+resomeCommentMgr rMgr = new resomeCommentMgr();
+fundingMgr fndMgr = new fundingMgr();
 
 //funding_num을 쿼리 파라미터에서 가져옴
 int fundingNum = Integer.parseInt(request.getParameter("fundingNum"));
 
 //댓글 목록을 가져옴
 Vector<commentsBean> commentsList = cMgr.commentList(fundingNum);
+
+//funding_user_id를 가져오기 위한 funding 정보 조회
+Vector<fundingBean> fundingList = fndMgr.fundingListForNum(fundingNum);
+String fundingUserId = null;
+
+//fundingList가 비어있지 않은 경우 funding_user_id를 가져옴
+if (!fundingList.isEmpty()) {
+ fundingUserId = fundingList.get(0).getFunding_user_id();
+}
 
 String user_id = (String) session.getAttribute("idKey");
 %>
@@ -384,22 +398,37 @@ String user_id = (String) session.getAttribute("idKey");
 									int daysAgo = new commentsMgr().commentDate(comment.getComment_num()); // 댓글 작성일로부터 경과된 일수 가져오기
 									// 댓글 작성자의 user_name 가져오기
 									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id()); 
+									// 해당 댓글의 추천 수 가져오기
+					                int recomeCount = rMgr.recomeCount(comment.getComment_num());
 							%>
 							<div id="comments-profile">
 								<div id="comment-top">
-									<img alt="information-image" src="image/guest.png">
+									<img alt="information-image" src="<%=commentUser.getUser_image()%>">
 									<div id="information-text">
 										<b><%= commentUser.getUser_name() %></b>
 									</div>
 								</div>
 								<div id="comment-option">
+									<%
+							        	if (user_id != null && user_id.equals(comment.getComment_user_id())) {
+							        %>
 									<img alt="option-icon" src="image/optionicon.png"
 										onclick="toggleCommentDropdown(event)">
 									<div id="comment-dropdown" class="dropdown-comment">
 										<p onclick="editComment()">수정</p>
-										<p onclick="deleteComment()">삭제</p>
+										<p onclick="deleteComment(<%= comment.getComment_num() %>, <%= fundingNum %>)">삭제</p>
+									</div>
+									<%
+							        } else if (user_id != null && user_id.equals(fundingUserId)) {
+							        %>
+									<img alt="option-icon" src="image/optionicon.png"
+										onclick="toggleCommentDropdown(event)">
+									<div id="comment-dropdown" class="dropdown-comment">
 										<p onclick="replyToComment()">답변</p>
 									</div>
+									<%
+							        }
+							        %>
 								</div>
 							</div>
 							<p id="comment-text"><%= comment.getComment_con() %></p>
@@ -412,6 +441,7 @@ String user_id = (String) session.getAttribute("idKey");
 								        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
 								        <img alt="recommend-image" src="image/recommend.png" style="cursor:pointer;" onclick="this.closest('form').submit();"> <!-- 클릭 시 폼 제출 -->
 								    </form>
+								    <p id="recommed-score"><%= recomeCount %></p>
 								</div>
 						    </div>
 						    

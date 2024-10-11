@@ -560,6 +560,7 @@ hr {
 }
 
 #comment-option {
+	position: relative;
 	margin: 20px;
 	display: flex;
 }
@@ -570,13 +571,17 @@ hr {
 }
 
 .dropdown-comment {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 100px;
-	margin-top: 22px; box-shadow : 0px 8px 16px 0px rgba( 0, 0, 0, 0.2);
-	z-index: 1;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    display: none;
+    position: absolute; /* 부모 요소 기준으로 절대 위치 잡기 */
+    background-color: #f9f9f9;
+    min-width: 100px;
+    margin-top: 22px; /* 드롭다운과 버튼 사이의 간격 조정 */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* 다른 요소보다 위에 표시 */
+}
+
+#comment-top {
+    position: relative; /* 댓글 상단을 기준으로 절대 위치를 잡음 */
 }
 
 .dropdown-comment p {

@@ -24,7 +24,7 @@ public class commentsMgr {
 		Vector<commentsBean> vlist = new Vector<commentsBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from comments where comment_funding_num = ?";
+			sql = "select * from comments where comment_funding_num = ? ORDER BY comment_num DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, funding_num);
 
@@ -100,25 +100,21 @@ public class commentsMgr {
 	}
 
 	public void commentDelete(int num) {
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "delete from comments where comment_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-
-			pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    String sql = null;
+	    try {
+	        con = pool.getConnection();
+	        sql = "DELETE FROM comments WHERE comment_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, num);
+	        pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt);
+	    }
+	    return;
 	}
 
 	public void commentUpdate(commentsBean bean) {
