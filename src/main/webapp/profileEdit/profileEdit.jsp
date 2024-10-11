@@ -132,6 +132,212 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 		</span>
 	</header>
 	<!-- 카테고리 끝 -->
+	
+	<!-- 상세 카테고리 창 -->
+	<div class="cat-container">
+			<div class="depth1-wrapper">
+				<div class="depth1-group">
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M16.4 9.6H9.6V16.4H16.4V9.6ZM8 8V18H18V8H8Z" fill="#0D0D0D"></path>
+                                    <path fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M28.4 9.6H21.6V16.4H28.4V9.6ZM20 8V18H30V8H20Z"
+									fill="#0D0D0D"></path>
+                                    <path fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M16.4 21.6H9.6V28.4H16.4V21.6ZM8 20V30H18V20H8Z"
+									fill="#0D0D0D"></path>
+                                    <path d="M20 20H30V30H20V20Z"
+									fill="#FF5757"></path>
+                                </svg>
+						</div>
+						<div class="depth1-text">전체</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">보드게임 · TRPG</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">디지털 게임</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">웹툰 · 만화</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">웹툰 리소스</div>
+					</div>
+				</div>
+				<div class="depth1-group">
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">디자인 문구</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">캐릭터 · 굿즈</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">홈 · 리빙</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">테크 · 가전</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">반려동물</div>
+					</div>
+				</div>
+				<div class="depth1-group">
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">푸드</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">향수 · 뷰티</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">의류</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">잡화</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">주얼리</div>
+					</div>
+				</div>
+				<div class="depth1-group">
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">출판</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">디자인</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">예술</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">사진</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">음악</div>
+					</div>
+				</div>
+				<div class="depth1-group">
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">영화 · 비디오</div>
+					</div>
+					<div class="depth1-item">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">공연</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
 	<hr id="default-hr" width="100%" noshade />
 
 	<!-- 프로필 편집 -->
@@ -237,7 +443,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 					<div class="info-box">
 						<b>어떤 정보가 프로필에 공개되나요?</b>
 						<p>
-						프로필 사진과, 사용자 이름, 소개글, 연락처 , 주소 및 회원님과 관련된 프로젝트 등이 프로필 페이지에 공개 됩니다. <a href="">내 프로필 바로가기</a>
+						프로필 사진과, 사용자 이름, 소개글, 연락처 , 주소 및 회원님과 관련된 프로젝트 등이 프로필 페이지에 공개 됩니다. <a href="	">내 프로필 바로가기</a>
 						</p>
 						
 					</div>
@@ -268,6 +474,8 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 
 
 	<script src="profileEdit.js"></script>
+	<script src="detailInfo.js"></script>
 	<script src="delivery_modal.js"></script>
+	<script src="dropdown.js"></script>
 </body>
 </html>
