@@ -368,6 +368,7 @@ String user_id = (String) session.getAttribute("idKey");
 	<!-- 각 관심 카테고리 마다 사용될 body. -->
 	<div class="MainBottom">
 		<div class="left-section">
+		
 			<div id="content">
 				<div id="funding-content" class="tab-content">
 					<!-- 펀딩 내용 -->
@@ -379,6 +380,7 @@ String user_id = (String) session.getAttribute("idKey");
 
 				<div id="community-content" class="tab-content"
 					style="display: none;">
+					
 					<!-- 커뮤니티 내용 -->
 					<div id="community">
 						<!-- 댓글 입력 창 -->
@@ -390,9 +392,8 @@ String user_id = (String) session.getAttribute("idKey");
 						    </form>
 						</div>
 
-						<!-- 댓글 창 Example -->
-						<div id="comments">
-							<%
+						<!-- 댓글 창 Example -->		
+						<%
 							if (commentsList != null && !commentsList.isEmpty()) {
 								for (commentsBean comment : commentsList) {
 									int daysAgo = new commentsMgr().commentDate(comment.getComment_num()); // 댓글 작성일로부터 경과된 일수 가져오기
@@ -400,7 +401,9 @@ String user_id = (String) session.getAttribute("idKey");
 									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id()); 
 									// 해당 댓글의 추천 수 가져오기
 					                int recomeCount = rMgr.recomeCount(comment.getComment_num());
-							%>
+						%>					
+						<div id="comments">				
+							
 							<div id="comments-profile">
 								<div id="comment-top">
 									<img alt="information-image" src="<%=commentUser.getUser_image()%>">
@@ -444,20 +447,27 @@ String user_id = (String) session.getAttribute("idKey");
 								    <p id="recommed-score"><%= recomeCount %></p>
 								</div>
 						    </div>
-						    
+						    </div>  <!-- comments 끝 -->		
 								<%
 							            }
-							        } else {
-							    %>
+								
+							        } else{ %>
+							        
+							    
 							        <p>댓글이 없습니다.</p>
+
 							    <%
 							        }
 							    %>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+					
+						
+					</div> <!-- community 끝 -->
+					
+				</div> <!-- community-content 끝 -->
+				
+			</div> <!-- content 끝 -->
+			
+		</div> <!-- left-section 끝 -->
 
 		<div class="right-section">
 		
@@ -551,7 +561,8 @@ String user_id = (String) session.getAttribute("idKey");
 
 			</div>
 		</div>
-	</div>
+		
+	</div> <!-- Main Bottom 끝 -->
 
 	<hr id="default-hr" width="100%" noshade />
 
