@@ -312,7 +312,8 @@ createFundingMgr cfMgr = new createFundingMgr();
 
 	<div class="Main">
 		<div class="Main-header">
-
+	
+			<!-- 상세 카테고리 버튼 -->
 			<div class="category-section">
 				<button class="scroll-button left" onclick="scrollLeftItems()">◀</button>
 				<div class="swiper-container">
@@ -510,9 +511,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 				<button class="scroll-button right" onclick="scrollRightItems()">▶</button>
 			</div>
 
-
-
-
+			<!-- 현재 카테고리 제목 -->
 			<div class="current-text">디자인 문구</div>
 
 			<!-- 달성률 드롭다운. -->

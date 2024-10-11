@@ -428,19 +428,18 @@ progress::-moz-progress-bar {
     display: flex;
     flex-direction: column; /* 아이콘과 텍스트를 세로로 정렬 */
     align-items: center; /* 아이콘과 텍스트 중앙 정렬 */
-    justify-content: center; /* 아이콘과 텍스트 중앙 정렬 */
     margin-right: 10px; /* 항목 간 간격 */
     width: 63.125px; /* 항목 너비 설정 */
     text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .category-icon img, .category-icon svg {
-    width: 48px; /* 아이콘 크기 */
-    height: 48px; /* 아이콘 크기 */
+    width: 70px; /* 아이콘 크기 */
+    height: 70px; /* 아이콘 크기 */
 }
 
 .category-text {
-    font-size: 14px; /* 텍스트 크기 설정 */
+    font-size: 16px; /* 텍스트 크기 설정 */
     color: #0D0D0D; /* 텍스트 색상 설정 */
 }
 
