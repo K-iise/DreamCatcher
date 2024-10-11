@@ -114,6 +114,7 @@ if ("submit".equals(action)) {
             padding: 20px 15%;
             border-bottom: 1px solid #dee2e6;
             position: relative;
+            height: 210px;
         }
 
         /* 뒤로가기 버튼이 있는 줄 */
@@ -393,6 +394,18 @@ if ("submit".equals(action)) {
 		    display: block; /* 세로로 나열되도록 설정 */
 		    width: 100%;
 		}
+		
+	.next-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 15px 25px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 100;
     </style>
     <script>
     // 폼 제출을 위한 JavaScript 함수
@@ -511,7 +524,7 @@ if ("submit".equals(action)) {
                 </div>
             </div>
         </div>
-        
+     <button type="submit" class="next-button">확인</button>
     </div>
 </form>
     <!-- Flatpickr JS -->

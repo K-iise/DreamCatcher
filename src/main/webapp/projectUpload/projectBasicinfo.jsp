@@ -132,6 +132,7 @@ body, html {
     padding: 20px 15%;
     border-bottom: 1px solid #dee2e6;
     position: relative;
+    height: 210px; /* 헤더의 높이를 고정 값으로 설정 */
 }
 
 /* 뒤로가기 버튼이 있는 줄 */
@@ -443,6 +444,18 @@ textarea {
     width: 100%;
 }
 
+    .next-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 15px 25px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 100;
+
 </style>
 <script>
     // 폼 제출을 위한 JavaScript 함수
@@ -599,7 +612,8 @@ textarea {
             <input type="file" class="upload-input" id="projectImage" name="projectImage">
         </div>
     </div>
-  
+  	
+  	<button type="submit" class="next-button">확인</button>
     </div>
 	</form>
 <script>
