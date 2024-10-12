@@ -53,21 +53,12 @@
             min-height: 70vh;
         }
 
-        .controls {
-            width: 80%;
-            max-width: 1000px;
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 10px;
-        }
-
         table {
             width: 80%;
             max-width: 1000px;
             border-collapse: collapse;
             margin-top: 10px;
             table-layout: fixed;
-            min-height: 400px;
         }
 
         th, td {
@@ -85,15 +76,6 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-
-        /* 각 열의 고정 너비 설정 */
-        th:nth-child(1), td:nth-child(1) { width: 5%; }
-        th:nth-child(2), td:nth-child(2) { width: 15%; }
-        th:nth-child(3), td:nth-child(3) { width: 20%; }
-        th:nth-child(4), td:nth-child(4) { width: 20%; }
-        th:nth-child(5), td:nth-child(5) { width: 10%; }
-        th:nth-child(6), td:nth-child(6) { width: 20%; }
-        th:nth-child(7), td:nth-child(7) { width: 15%; }
 
         .delete-btn {
             background-color: #d9534f;
@@ -149,7 +131,7 @@
             justify-content: center;
             background-color: white;
             padding: 10px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* 그림자 효과 추가 */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
 
         .pagination button {
@@ -171,6 +153,13 @@
             background-color: #cccccc;
             cursor: not-allowed;
         }
+
+        .no-data-message {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -184,9 +173,6 @@
     </div>
 
     <div class="content">
-        <div class="controls">
-            <button class="delete-btn" onclick="deleteSelected()">삭제</button>
-        </div>
         <table>
             <thead>
                 <tr>
@@ -203,32 +189,34 @@
                 <!-- 테이블 데이터가 동적으로 들어갑니다. -->
             </tbody>
         </table>
+        <div class="no-data-message" id="no-data-message" style="display:none;">
+            데이터가 없습니다.
+        </div>
     </div>
 
-    <div class="pagination-container">
+    <div class="pagination-container" id="pagination-container">
         <div class="pagination" id="pagination">
             <!-- 페이지네이션 버튼이 동적으로 들어갑니다. -->
         </div>
     </div>
 
     <script>
-        const data = [
-            {id: 'admin', name: 'Dream Management', role: '관리자', active: true, date: '2023-07-21 16:53:33'},
+        let data = [
+            {id: 'admin', name: 'Dream Management', role: '관리자', active: false, date: '2023-07-21 16:53:33'},
             {id: 'test1', name: 'Project Alpha', role: '개발', active: false, date: '2023-07-21 17:00:00'},
-            {id: 'test2', name: 'Beta Test', role: '디자인', active: true, date: '2023-07-21 17:01:00'},
-            {id: 'test3', name: 'Marketing Launch', role: '마케팅', active: true, date: '2023-07-21 17:02:00'},
+            {id: 'test2', name: 'Beta Test', role: '디자인', active: false, date: '2023-07-21 17:01:00'},
+            {id: 'test3', name: 'Marketing Launch', role: '마케팅', active: false, date: '2023-07-21 17:02:00'},
             {id: 'test4', name: 'UX Review', role: '사용자 경험', active: false, date: '2023-07-21 17:03:00'},
-            {id: 'test5', name: 'Backend Upgrade', role: '개발', active: true, date: '2023-07-21 17:04:00'},
+            {id: 'test5', name: 'Backend Upgrade', role: '개발', active: false, date: '2023-07-21 17:04:00'},
             {id: 'test6', name: 'UI Redesign', role: '디자인', active: false, date: '2023-07-21 17:05:00'},
-            {id: 'test7', name: 'SEO Optimization', role: '마케팅', active: true, date: '2023-07-21 17:06:00'},
+            {id: 'test7', name: 'SEO Optimization', role: '마케팅', active: false, date: '2023-07-21 17:06:00'},
             {id: 'test8', name: 'Server Migration', role: '개발', active: false, date: '2023-07-21 17:07:00'},
-            {id: 'test9', name: 'User Feedback', role: '사용자 경험', active: true, date: '2023-07-21 17:08:00'},
+            {id: 'test9', name: 'User Feedback', role: '사용자 경험', active: false, date: '2023-07-21 17:08:00'},
             {id: 'test10', name: 'Security Update', role: '개발', active: false, date: '2023-07-21 17:09:00'},
-            {id: 'test11', name: 'Cloud Migration', role: 'IT 인프라', active: true, date: '2023-07-21 17:10:00'},
+            {id: 'test11', name: 'Cloud Migration', role: 'IT 인프라', active: false, date: '2023-07-21 17:10:00'},
             {id: 'test12', name: 'Performance Testing', role: 'QA', active: false, date: '2023-07-21 17:11:00'},
-            {id: 'test13', name: 'UI Enhancements', role: '디자인', active: true, date: '2023-07-21 17:12:00'},
-            {id: 'test14', name: 'Market Research', role: '마케팅', active: true, date: '2023-07-21 17:13:00'},
-            {id: 'test15', name: 'Customer Feedback Analysis', role: '사용자 경험', active: false, date: '2023-07-21 17:14:00'}
+            {id: 'test13', name: 'UI Enhancements', role: '디자인', active: false, date: '2023-07-21 17:12:00'},
+            {id: 'test14', name: 'Market Research', role: '마케팅', active: false, date: '2023-07-21 17:13:00'}
         ];
 
         const rowsPerPage = 10;
@@ -252,6 +240,12 @@
                 };
                 pagination.appendChild(btn);
             }
+
+            if (totalPages === 0) {
+                document.getElementById('pagination-container').style.display = 'none';
+            } else {
+                document.getElementById('pagination-container').style.display = 'flex';
+            }
         }
 
         function updatePaginationButtons() {
@@ -265,30 +259,39 @@
             const tableBody = document.getElementById('table-body');
             tableBody.innerHTML = '';
 
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const pageData = data.slice(start, end);
+            if (data.length === 0) {
+                document.getElementById('no-data-message').style.display = 'block';
+                document.getElementById('pagination-container').style.display = 'none';
+            } else {
+                document.getElementById('no-data-message').style.display = 'none';
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = Math.min(start + rowsPerPage, data.length);
+                const pageData = data.slice(start, end);
 
-            pageData.forEach(row => {
-                const tr = document.createElement('tr');
+                pageData.forEach((row, index) => {
+                    const tr = document.createElement('tr');
 
-                tr.innerHTML = `
-                    <td><input type="checkbox" class="checkbox select-row"></td>
-                    <td>${row.id}</td>
-                    <td>${row.name}</td>
-                    <td>${row.role}</td>
-                    <td><span class="${row.active ? 'active-icon' : 'inactive-icon'}">${row.active ? 'O' : 'X'}</span></td>
-                    <td>${row.date}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="approve-btn">승인</button>
-                            <button class="reject-btn">거절</button>
-                        </div>
-                    </td>
-                `;
+                    tr.innerHTML = `
+                        <td><input type="checkbox" class="checkbox select-row"></td>
+                        <td>${row.id}</td>
+                        <td>${row.name}</td>
+                        <td>${row.role}</td>
+                        <td><span class="${row.active ? 'active-icon' : 'inactive-icon'}">${row.active ? 'O' : 'X'}</span></td>
+                        <td>${row.date}</td>
+                        <td>
+                            <div class="action-buttons">
+                                ${row.active ? 
+                                    `<button class="delete-btn" onclick="deleteRow(${index})">삭제</button>` :
+                                    `<button class="approve-btn" onclick="approveRow(${index})">승인</button>
+                                     <button class="reject-btn" onclick="rejectRow(${index})">거절</button>`
+                                }
+                            </div>
+                        </td>
+                    `;
 
-                tableBody.appendChild(tr);
-            });
+                    tableBody.appendChild(tr);
+                });
+            }
         }
 
         function toggleSelectAll() {
@@ -300,12 +303,28 @@
             }
         }
 
-        function deleteSelected() {
-            const checkboxes = document.getElementsByClassName('select-row');
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    checkboxes[i].parentNode.parentNode.style.display = 'none';
-                }
+        function deleteRow(index) {
+            const globalIndex = (currentPage - 1) * rowsPerPage + index;
+            data.splice(globalIndex, 1);
+            adjustTableAfterDeletion();
+            renderTable();
+            initPagination();
+        }
+
+        function approveRow(index) {
+            const globalIndex = (currentPage - 1) * rowsPerPage + index;
+            data[globalIndex].active = true;
+            renderTable();
+        }
+
+        function rejectRow(index) {
+            deleteRow(index);
+        }
+
+        function adjustTableAfterDeletion() {
+            const start = (currentPage - 1) * rowsPerPage;
+            if (start >= data.length && currentPage > 1) {
+                currentPage--;
             }
         }
 
