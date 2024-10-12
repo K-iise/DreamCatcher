@@ -613,18 +613,18 @@ hr {
 	flex-direction: column; /* 수직으로 정렬 */
 }
 
-#donate-content {
+.donate-content {
 	display: flex;
 	flex-direction: column; /* 수직으로 정렬 */
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
-#donate-content b {
+.donate-content b {
 	font-size: 20px;
 	margin-bottom: 20px;
 }
 
-#donate-information {
+.donate-information {
 	flex-direction: column; /* 수직으로 정렬 */
 	display: flex;
 	width: 100%;
@@ -639,7 +639,7 @@ hr {
 }
 
 /* 선물하기 창  */
-#donate-information p {
+.donate-information p {
 	font-family: 'NanumGothic';
 	font-style: normal;
 	font-weight: 400;
@@ -648,26 +648,25 @@ hr {
 	color: rgba(0, 0, 0, 0.5);
 }
 
-#donate-information b{
+.donate-information b{
 font-family: 'NanumGothic';
 font-style: normal;
 font-weight: 700;
 font-size: 38px;
 line-height: 25px;
 color: #000000;
-
 }
 
-#product-ul{
+.product-ul{
 	font-size: 12px;
 	margin: 0px;
 	margin-top: 5px;
 }
 
 
-#product-buy{
+.product-buy{
 	flex-direction: column; /* 수직으로 정렬 */
-	display: flex;
+	display: none;
 	width: 100%;
 	border: none;
 	resize: none;
@@ -680,7 +679,7 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-#buy-info{
+.buy-info{
 	flex-direction: column; /* 수직으로 정렬 */
 	display: flex;
 	width: 100%;
@@ -693,29 +692,27 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-#buy-button{
+.buy-button{
 	color: #FAFAFA;
 	background: #DC5252;
 	border: 0px;
+	width:100%;
 	font-size: 24px;
 	font-weight: bold;
 	padding: 10px;
 }
 
-#select-button{
+.select-button{
 	color: #DC5252;
 	background: #FAFAFA;
 	border: 1px solid #DC5252;
 	font-size: 24px;
 	font-weight: bold;
+	width:100%;
 	padding: 10px;
 	margin-bottom: 10px;
 }
 
-#product-bottom{
-	display: flex;
-	
-}
 
 
 .stepper {
@@ -745,18 +742,19 @@ color: #000000;
     font-size: 18px;
 }
 
-#product-bottom{
+.product-bottom{
 	display: flex;
 	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	margin-top: 10px;
 }
 
-#product-bottom p{
+.product-bottom p{
 	font-size: 18px;
 	font-weight: bold;
 	color: #DC5252;
 }
 
-#product-title{
+.product-title{
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;

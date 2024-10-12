@@ -550,18 +550,18 @@ String user_id = (String) session.getAttribute("idKey");
 		
 		
 		
-			<div id="donate-content">
+			<div class="donate-content">
 				<b>선물하기</b>
 
 				<!-- 상품 선택(구매)  예시 -->
-				<div id="product-buy">
-					<div id="buy-info">
-						<label id="product-information"> 
-						<div id="product-title">
+				<div class="product-buy">
+					<div class="buy-info">
+						<label class="product-information"> 
+						<div class="product-title">
 							<b>더블크로스 The 3rd	Edition 기본 세트</b>
 							<button id="delete-button">X</button>
 						</div>
-							<ul id="product-ul">
+							<ul class="product-ul">
 								<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
 								<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
 								<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적
@@ -571,7 +571,7 @@ String user_id = (String) session.getAttribute("idKey");
 								<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
 							</ul>
 
-							<div id="product-bottom">
+							<div class="product-bottom">
 								<div class="stepper">
 									<button type="button" id="decrease" disabled>-</button>
 									<input type="number" value="1" class="stepper-input" readonly>
@@ -581,16 +581,16 @@ String user_id = (String) session.getAttribute("idKey");
 							</div>
 						</label>
 					</div>
-					<button id="select-button">선물 선택하기</button>
-					<button id="buy-button">총 42,600원 후원하기</button>
+					<button class="select-button">선물 선택하기</button>
+					<button class="buy-button">총 <label class="button-price">42,600원</label> 후원하기</button>
 				</div>
 
 				<!-- 상품 예시 1 -->
-				<div id="donate-information">
+				<div class="donate-information">
 					<p>2148개 선택</p>
-					<b>78,000 원 +</b> <label id="product-information"> 더블크로스
+					<b>78,000원</b> <label class="product-information"> 더블크로스
 						The 3rd Edition 기본 세트
-						<ul id="product-ul">
+						<ul class="product-ul">
 							<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
 							<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
 							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 1권 (x1)</li>
@@ -602,23 +602,23 @@ String user_id = (String) session.getAttribute("idKey");
 				</div>
 
 				<!-- 상품 예시 2 -->
-				<div id="donate-information">
+				<div class="donate-information">
 					<p>2148개 선택</p>
-					<b>78,000 원 +</b> <label id="product-information"> 더블크로스
-						The 3rd Edition 기본 세트
-						<ul id="product-ul">
-							<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 1권 (x1)</li>
-							<li>더블크로스 A4 클리어파일 2매 세트 (x1)</li>
-							<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
+					<b>79,000원</b> <label class="product-information"> 더블크로스
+						The 4rd Edition 기본 세트
+						<ul class="product-ul">
+							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
+							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
+							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
 						</ul>
 					</label>
 				</div>
 
-			</div>
-		</div>
+			</div> <!-- donate-content 끝 -->
+		</div> <!-- right-section 끝-->
 		
 	</div> <!-- Main Bottom 끝 -->
 
@@ -631,5 +631,6 @@ String user_id = (String) session.getAttribute("idKey");
 	<script src="stepper.js"></script>
 	<script src="commentEdit.js"></script>
 	<script src="commentReply.js"></script>
+	<script src="productBuy.js"></script>
 </body>
 </html>
