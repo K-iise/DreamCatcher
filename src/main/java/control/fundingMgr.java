@@ -68,7 +68,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding order by funding_tprice / funding_nprice asc";
+			sql = "SELECT * FROM funding ORDER BY funding_tprice / NULLIF(funding_nprice, 0) ASC";
 			pstmt = con.prepareStatement(sql);
 			
 
