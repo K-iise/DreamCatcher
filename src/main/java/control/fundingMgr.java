@@ -209,7 +209,7 @@ public class fundingMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4,funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image, funding_write_date) values(?, ?, ?, ?, ?, ? , ?, ?, ?)";
+			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4, funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image, funding_write_date) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getFunding_title());
 			pstmt.setInt(2, bean.getFunding_category());

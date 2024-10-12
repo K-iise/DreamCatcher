@@ -101,18 +101,23 @@ private DBCMgr pool;
 			pstmt.setInt(7, bean.getCreatefunding_tprice());
 			pstmt.setString(8, bean.getCreatefunding_summary());
 	        // 1. 날짜 문자열 포맷 수정
-	        String inputDate = bean.getCreatefunding_term();  // "2024-10-05 00:00:00.0" 같은 문자열
+			String inputDate = bean.getCreatefunding_term();  // "2024-10-05 00:00:00.0" 같은 문자열
 
-	        // 2. 시간 부분이 포함된 문자열을 Date로 변환
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	        Date date = null;
+			// 2. 시간 부분이 포함된 문자열을 Date로 변환
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = null;
 
-	        // 문자열이 시간 정보가 포함된 경우 포맷을 맞춰 변환
-	        try {
-	            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(inputDate);  // "2024-10-05 00:00:00.0"
-	        } catch (Exception e) {
-	            date = sdf.parse(inputDate);  // "2024-10-05"
-	        }
+			// inputDate가 null인 경우 처리
+			if (inputDate == null) {
+			    date = null;  // inputDate가 null일 경우 date도 null로 설정
+			} else {
+			    // 문자열이 시간 정보가 포함된 경우 포맷을 맞춰 변환
+			    try {
+			        date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(inputDate);  // "2024-10-05 00:00:00.0"
+			    } catch (Exception e) {
+			        date = sdf.parse(inputDate);  // "2024-10-05"
+			    }
+			}
 
 	        // 3. java.sql.Date로 변환
 	        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
@@ -153,6 +158,29 @@ private DBCMgr pool;
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return flag;
+		
+	}
+	
+	public void createFundingDelete(String user_id) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "delete from createfunding where createfunding_user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+		
 		
 	}
 

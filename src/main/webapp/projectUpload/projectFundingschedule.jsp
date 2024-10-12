@@ -29,12 +29,21 @@ java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM
 java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
 java.util.Date date = null;
 
-try {
-    date = inputFormat.parse(fundingTerm); // "yyyy-MM-dd HH:mm:ss.S" 형식으로 파싱
-} catch (java.text.ParseException e) {
-    e.printStackTrace();
+// fundingTerm이 null인 경우 현재 날짜로 설정
+if (fundingTerm == null || fundingTerm.isEmpty()) {
+    date = new java.util.Date(); // 기본값을 현재 날짜로 설정
+} else {
+    try {
+        date = inputFormat.parse(fundingTerm); // "yyyy-MM-dd HH:mm:ss.S" 형식으로 파싱
+    } catch (java.text.ParseException e) {
+        e.printStackTrace();
+    }
 }
 
+
+if (date == null) {
+    date = new java.util.Date(); // 기본값을 현재 날짜로 설정
+}
 // 변환된 Date를 "yyyy-MM-dd" 형식으로 출력
 String formattedDate = (date != null) ? outputFormat.format(date) : "";
 
