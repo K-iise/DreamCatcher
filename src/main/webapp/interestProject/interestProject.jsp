@@ -70,25 +70,6 @@
             // 선택된 콘텐츠만 보이기
             document.getElementById(contentId).style.display = 'block';
         }
-        
-        // 드롭다운 색상 변경
-        function changeColor(selectElement) {
-            const options = selectElement.options;
-
-            // 모든 옵션의 색상 초기화
-            for (let i = 0; i < options.length; i++) {
-                options[i].style.color = 'black'; // 기본 색상
-            }
-
-            // 선택된 옵션의 색상을 빨간색으로 변경
-            options[selectElement.selectedIndex].style.color = 'red';
-        }
-
-        // 페이지가 로드될 때 드롭다운의 선택 상태를 유지하는 함수
-        window.onload = function() {
-            const sortType = "<%= selectedSort != null ? selectedSort : "all" %>";
-            document.getElementById(sortType).selected = true;
-        };
 </script>
 </head>
 <body>
