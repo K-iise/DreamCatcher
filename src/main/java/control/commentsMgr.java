@@ -75,6 +75,25 @@ public class commentsMgr {
 		return;
 
 	}
+	
+	public void ansDelete(int num) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    String sql = null;
+	    try {
+	        con = pool.getConnection();
+	        // comment_num에 해당하는 행의 comment_ans 값을 null로 변경
+	        sql = "UPDATE comments SET comment_ans = NULL WHERE comment_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, num);
+	        pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt);
+	    }
+	    return;
+	}
 
 	public void commentInsert(commentsBean bean) {
 

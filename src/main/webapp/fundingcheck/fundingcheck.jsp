@@ -398,7 +398,8 @@ String user_id = (String) session.getAttribute("idKey");
 								for (commentsBean comment : commentsList) {
 									int daysAgo = new commentsMgr().commentDate(comment.getComment_num()); // 댓글 작성일로부터 경과된 일수 가져오기
 									// 댓글 작성자의 user_name 가져오기
-									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id()); 
+									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id());
+									usersBean replyUser = uMgr.oneUserList(fundingUserId);
 									// 해당 댓글의 추천 수 가져오기
 					                int recomeCount = rMgr.recomeCount(comment.getComment_num());
 						%>
@@ -437,7 +438,9 @@ String user_id = (String) session.getAttribute("idKey");
 								</div>
 							</div>
 							<p id="comment-text"><%= comment.getComment_con() %></p>
-							<textarea placeholder="<%= comment.getComment_con() %>" class="input_textarea"></textarea>
+							<textarea placeholder="<%= comment.getComment_con() %>" class="input_textarea" style="display:none;"></textarea>
+							<input type="hidden" class="comment_num" value="<%= comment.getComment_num() %>"> <!-- 댓글 번호 hidden 필드 -->
+							<input type="hidden" name="fundingNum" value="<%= fundingNum %>">
 							<button class="save-button" onclick="saveComment(event)">변경하기</button>
 							
 							<div id="comment-bottom">
@@ -455,51 +458,40 @@ String user_id = (String) session.getAttribute("idKey");
 						   	</div><!-- comments 끝 -->	
 						   	
 						   	<!-- 댓글 답변 -->
-						   	<div class="comment-reply">
+						   	<div class="comment-reply" style="<%= (comment.getComment_ans() == null || comment.getComment_ans().isEmpty()) ? "display:none;" : "display:flex;" %>">
 						   	
 							<div id="comments-profile">
 								<div id="comment-top">
-									<img alt="information-image" src="<%=commentUser.getUser_image()%>">
+									<img alt="information-image" src="<%=replyUser.getUser_image()%>">
 									<div id="information-text">
-										<b><%= commentUser.getUser_name() %></b>
+										<b><%= replyUser.getUser_name() %></b>
 									</div>
 								</div>
 								<div id="comment-option">
 									<%
-							        	if (user_id != null && user_id.equals(comment.getComment_user_id())) {
+							        	if (user_id != null && user_id.equals(fundingUserId)) {
 							        %>
 									<img alt="option-icon" src="image/optionicon.png"
 										onclick="toggleCommentDropdown(event)">
 									<div id="comment-dropdown" class="dropdown-comment">
-										<p onclick="editComment(event)">수정</p>
-										<p onclick="deleteComment(<%= comment.getComment_num() %>, <%= fundingNum %>)">삭제</p>
+										<p onclick="deleteReply(<%= comment.getComment_num() %>, <%= fundingNum %>)">삭제</p>
 									</div>
 									<%
-							        } else if (user_id != null && user_id.equals(fundingUserId)) {
-							        %>
-									<img alt="option-icon" src="image/optionicon.png"
-										onclick="toggleCommentDropdown(event)">
-									<div id="comment-dropdown" class="dropdown-comment">
-										<p onclick="replyToComment()">답변</p>
-									</div>
-									<%
-							        }
-							        %>
+							        } 
+									%>
 								</div>
 							</div>
-							<p id="comment-text"><%= comment.getComment_con() %></p>
-							<textarea placeholder="<%= comment.getComment_con() %>" class="input_textarea"></textarea>
-							<button class="save-button" onclick="saveReply(event)">변경하기</button>
+							<p id="comment-text"><%= comment.getComment_ans() %></p> <!-- 답변 내용 표시 -->
+							<textarea placeholder="답변을 입력하세요..." class="input_textarea" style="display:none;"></textarea>
+							<input type="hidden" class="comment_num" value="<%= comment.getComment_num() %>">
+							<button class="save-button" onclick="saveReply(event)" style="display:none;">작성</button>
 							
 							<div id="comment-bottom">
-						        <p><%= (daysAgo == 0) ? "오늘" : daysAgo + "일 전" %></p> <!-- 0일 전이면 '오늘'로 출력 -->					        
 								<div id="comment-recommend">
 								    <form action="commentInsert.jsp" method="post">
 								        <input type="hidden" name="recom_comment_num" value="<%= comment.getComment_num() %>"> 
 								        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
-								        <img alt="recommend-image" src="image/recommend.png" style="cursor:pointer;" onclick="this.closest('form').submit();"> <!-- 클릭 시 폼 제출 -->
 								    </form>
-								    <p id="recommed-score"><%= recomeCount %></p>
 								</div>
 						    </div>
 						   	
