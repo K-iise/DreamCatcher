@@ -31,9 +31,21 @@ System.out.println("Next page: " + nextPage); // 디버깅 로그
 
 if ("submit".equals(action)) {
     String editor0 = request.getParameter("editor0");
+    if (editor0 != null) {
+        editor0 = editor0.replaceAll("\\r?\\n", "").trim();
+    }
     String editor1 = request.getParameter("editor1");
+    if (editor1 != null) {
+        editor1 = editor1.replaceAll("\\r?\\n", "").trim();
+    }
     String editor2 = request.getParameter("editor2");
+    if (editor2 != null) {
+        editor2 = editor2.replaceAll("\\r?\\n", "").trim();
+    }
     String editor3 = request.getParameter("editor3");
+    if (editor3 != null) {
+        editor3 = editor3.replaceAll("\\r?\\n", "").trim();
+    }
 
     
     System.out.println("editor0: " + editor0.replace("\n",""));
@@ -314,8 +326,8 @@ tinymce.init({
     forced_root_block: 'p',    // <p> 태그 사용
 
     // 유효한 HTML 태그 설정
-    valid_elements: 'p,br,a[href|target=_blank],b,strong,i,em,ul,ol,li,div,img[src|alt|width|height],span[style],h1,h2,h3,h4,h5,h6,code,pre',  // <p> 태그 허용
-    valid_children: ['*', '+a', '+p', '+div', '+img', '+br'],  // 자식 요소로 <br>와 <p> 허용
+    valid_elements: 'p[style],br,a[href|target=_blank],b,strong,i,em,ul,ol,li,div,img[src|alt|width|height],span[style],h1,h2,h3,h4,h5,h6,code,pre',
+
 
     paste_as_text: true,  // 붙여넣기를 텍스트로 처리
     
@@ -461,7 +473,6 @@ tinymce.init({
                 </div>
             </div>
 
-            <!-- 프로젝트 예산 섹션 -->
             <div class="section">
                 <div class="text-info"></div>
                 <div class="editor-container">
