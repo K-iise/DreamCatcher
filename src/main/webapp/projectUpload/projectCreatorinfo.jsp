@@ -24,7 +24,18 @@ fundingBean fdbean=new fundingBean();
 createFundingMgr cfMgr=new createFundingMgr();
 createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
+acountMgr acMgr=new acountMgr();
+acountBean abean=new acountBean();
 
+if(acMgr.acountCheck(mybean.getUser_id())){
+	
+	abean=acMgr.acountList(mybean.getUser_id());
+
+}else{
+	acMgr.acountInsert(mybean.getUser_id());
+	abean.setAcount_user_id(mybean.getUser_id());
+	
+}
 String action = request.getParameter("Action");
 System.out.println("action: " + action); // 디버깅 로그
 String nextPage = request.getParameter("nextPage");
@@ -34,6 +45,7 @@ if ("submit".equals(action)) {
     String name = request.getParameter("name");
     String info = request.getParameter("info");
     Part fileupload = request.getPart("file-upload");
+
  
     System.out.println("name: " + name);
     System.out.println("info: " + info);
@@ -74,6 +86,46 @@ if ("submit".equals(action)) {
 
     // 데이터베이스에 저장
     uMgr.userUpdate(mybean);  // 데이터 저장
+    
+    String accountType = request.getParameter("accountType");
+    
+    if(accountType.equals("personal")){
+    	
+    	abean.setAcount_type(0);
+    	
+    }else if(accountType.equals("business")){
+    	
+    	abean.setAcount_type(1);
+    	
+    }
+    
+    String bank = request.getParameter("bank");
+    abean.setAcount_bank(bank);
+    
+    String accountNumberStr = request.getParameter("accountNumber");
+    int accountNumber = 0;
+
+    if (accountNumberStr != null && !accountNumberStr.isEmpty()) {
+        try {
+            accountNumber = Integer.parseInt(accountNumberStr);
+        } catch (NumberFormatException e) {
+            // 예외 처리: 숫자가 아닌 경우 처리 로직
+            System.out.println("잘못된 계좌 번호 형식입니다.");
+        }
+    } else {
+        // accountNumberStr가 null이거나 비어 있는 경우 처리 로직
+        System.out.println("계좌 번호가 제공되지 않았습니다.");
+    }
+    
+    abean.setAcount_num(accountNumber);
+    
+    String accountHolder = request.getParameter("accountHolder");
+    
+    abean.setAcount_name(accountHolder);
+    
+    acMgr.acountUpdate(abean);
+    
+    
 
     // 저장이 성공하면 전송된 페이지로 이동
     if (nextPage != null && !nextPage.isEmpty()) {
@@ -652,9 +704,9 @@ private String extractFileName(Part part) {
             <div class="input-group-inline">
                 <label for="accountType">계좌 종류</label>
                 <div class="account-type-toggle">
-                    <input type="radio" id="personal" name="accountType" value="personal" checked>
+                    <input type="radio" id="personal" name="accountType" value="personal" <%= 0==abean.getAcount_type() ? "checked" : "" %>>
                     <label for="personal"><span>개인</span></label>
-                    <input type="radio" id="business" name="accountType" value="business">
+                    <input type="radio" id="business" name="accountType" value="business"<%= 1==abean.getAcount_type() ? "checked" : "" %>>
                     <label for="business"><span>사업자</span></label>
                 </div>
             </div>
@@ -663,11 +715,11 @@ private String extractFileName(Part part) {
             <div class="input-group-inline">
                 <label for="bank">거래 은행</label>
                 <select id="bank" name="bank">
-                    <option value="">은행을 선택해주세요</option>
-                    <option value="kookmin">국민은행</option>
-                    <option value="shinhan">신한은행</option>
-                    <option value="woori">우리은행</option>
-                    <option value="hana">하나은행</option>
+                    <option value="" <%= "".equals(abean.getAcount_bank()) ? "selected" : "" %>>은행을 선택해주세요</option>
+                    <option value="kookmin"<%= "kookmin".equals(abean.getAcount_bank()) ? "selected" : "" %>>국민은행</option>
+                    <option value="shinhan"<%= "shinhan".equals(abean.getAcount_bank()) ? "selected" : "" %>>신한은행</option>
+                    <option value="woori"<%= "woori".equals(abean.getAcount_bank()) ? "selected" : "" %>>우리은행</option>
+                    <option value="hana"<%= "hana".equals(abean.getAcount_bank()) ? "selected" : "" %>>하나은행</option>
                     <!-- Add other banks as needed -->
                 </select>
             </div>
@@ -675,17 +727,17 @@ private String extractFileName(Part part) {
             <!-- 예금주명 입력 -->
             <div class="input-group-inline">
                 <label for="accountHolder">예금주명</label>
-                <input type="text" id="accountHolder" name="accountHolder" placeholder="예금주명을 입력해주세요">
+                <input type="text" id="accountHolder" name="accountHolder" placeholder="예금주명을 입력해주세요" value=<%=abean.getAcount_name() %>>
             </div>
 
             <!-- 계좌번호 입력 -->
             <div class="input-group-inline">
                 <label for="accountNumber">계좌번호</label>
-                <input type="text" id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력해주세요" maxlength="16">
+                <input type="text" id="accountNumber" name="accountNumber" placeholder="계좌번호를 입력해주세요" maxlength="16" value=<%=abean.getAcount_num() %>>
             </div>
         </div>
     </div>
-    <button type="submit" class="next-button">확인</button>
+    <button class="next-button" onclick="submitForm('projectCreatorinfo.jsp')">확인</button>
     </div>
     
     

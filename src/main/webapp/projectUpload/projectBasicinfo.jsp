@@ -613,7 +613,7 @@ textarea {
         </div>
     </div>
   	
-  	<button type="submit" class="next-button">확인</button>
+  	<button class="next-button" onclick="submitForm('projectFundingschedule.jsp')">확인</button>
     </div>
 	</form>
 <script>
