@@ -14,7 +14,21 @@ public class fundingBean {
 	private int funding_nprice;
 	private String funding_user_id;
 	private String funding_image;
+	private String funding_write_date;
+	private int funding_agree;
 	
+	public String getFunding_write_date() {
+		return funding_write_date;
+	}
+	public void setFunding_write_date(String funding_write_date) {
+		this.funding_write_date = funding_write_date;
+	}
+	public int getFunding_agree() {
+		return funding_agree;
+	}
+	public void setFunding_agree(int funding_agree) {
+		this.funding_agree = funding_agree;
+	}
 	public String getFunding_image() {
 		return funding_image;
 	}
