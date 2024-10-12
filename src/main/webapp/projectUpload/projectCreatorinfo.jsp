@@ -777,7 +777,7 @@ private String extractFileName(Part part) {
 
         function completeAuth() {
             var authBox = document.getElementById('authBox');
-            authBox.innerHTML = `
+            authBox.innerHTML = 
                 <div class="auth-info">
                     <span class="icon">👤</span>
                     <div>
@@ -788,7 +788,7 @@ private String extractFileName(Part part) {
                 <div class="auth-complete">
                     ✔ 인증 완료
                 </div>
-            `;
+            ;
         }
     </script>
     <script src="dropdown.js"></script>
