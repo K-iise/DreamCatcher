@@ -524,7 +524,7 @@ if ("submit".equals(action)) {
                 </div>
             </div>
         </div>
-     <button type="submit" class="next-button">확인</button>
+     <button class="next-button" onclick="submitForm('projectExplanation.jsp')">확인</button>
     </div>
 </form>
     <!-- Flatpickr JS -->
