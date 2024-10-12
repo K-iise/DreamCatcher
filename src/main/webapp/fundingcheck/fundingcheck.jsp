@@ -616,6 +616,24 @@ String user_id = (String) session.getAttribute("idKey");
 						</ul>
 					</label>
 				</div>
+				
+				<!-- 상품 예시 3 -->
+				<div class="donate-information">
+					<p>2148개 선택</p>
+					<b>79,000원</b> <label class="product-information"> 더블크로스
+						The 4rd Edition 기본 세트
+						<ul class="product-ul">
+							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
+							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
+							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
+						</ul>
+					</label>
+				</div>
+				
+				
 
 			</div> <!-- donate-content 끝 -->
 		</div> <!-- right-section 끝-->

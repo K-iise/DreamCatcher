@@ -47,3 +47,19 @@ document.addEventListener('DOMContentLoaded', function() {
         productBuy.style.display = 'none';
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const selectButton = document.querySelector('.select-button');
+
+    selectButton.addEventListener('click', function() {
+        const donateInfoList = document.querySelectorAll('.donate-information');
+        const middleIndex = Math.floor(donateInfoList.length / 2);  // 중간 인덱스 계산
+
+        if (donateInfoList.length > 0) {  // 요소가 있는지 확인
+            const donateInfo = donateInfoList[middleIndex];  // 중간 요소 선택
+            donateInfo.setAttribute('tabindex', '-1');  // 포커스를 받을 수 있도록 tabindex 추가
+            donateInfo.focus();  // 포커스 이동
+        }
+    });
+});
