@@ -28,13 +28,13 @@ acountMgr acMgr=new acountMgr();
 acountBean abean=new acountBean();
 
 if(acMgr.acountCheck(mybean.getUser_id())){
-	
+
 	abean=acMgr.acountList(mybean.getUser_id());
 
 }else{
 	acMgr.acountInsert(mybean.getUser_id());
 	abean.setAcount_user_id(mybean.getUser_id());
-	
+
 }
 String action = request.getParameter("Action");
 System.out.println("action: " + action); // 디버깅 로그
@@ -46,16 +46,16 @@ if ("submit".equals(action)) {
     String info = request.getParameter("info");
     Part fileupload = request.getPart("file-upload");
 
- 
+
     System.out.println("name: " + name);
     System.out.println("info: " + info);
     System.out.println("fileupload: " + fileupload);
-    
+
 
     // 데이터 설정 및 저장 로직
 	mybean.setUser_name(name);
 	mybean.setUser_info(info);
-    
+
 	if (fileupload != null && fileupload.getSize() > 0) {
         String fileName = extractFileName(fileupload);
 
@@ -70,38 +70,38 @@ if ("submit".equals(action)) {
 
         // 저장할 경로 및 파일 이름 생성
         String filePath = uploadPath + File.separator + fileName;
-        
+
         System.out.println("Upload Path: " + uploadPath);  // 경로 출력
         System.out.println("File Path: " + filePath);  // 파일 경로 출력
-        
+
         // 파일 저장
         fileupload.write(filePath);
 
         // 파일 경로를 데이터베이스에 저장 
         String relativePath = request.getContextPath() + "/userimage/" + fileName;
-        
+
         mybean.setUser_image(relativePath);
     }
 
 
     // 데이터베이스에 저장
     uMgr.userUpdate(mybean);  // 데이터 저장
-    
+
     String accountType = request.getParameter("accountType");
-    
+
     if(accountType.equals("personal")){
-    	
+
     	abean.setAcount_type(0);
-    	
+
     }else if(accountType.equals("business")){
-    	
+
     	abean.setAcount_type(1);
-    	
+
     }
-    
+
     String bank = request.getParameter("bank");
     abean.setAcount_bank(bank);
-    
+
     String accountNumberStr = request.getParameter("accountNumber");
     int accountNumber = 0;
 
@@ -116,16 +116,16 @@ if ("submit".equals(action)) {
         // accountNumberStr가 null이거나 비어 있는 경우 처리 로직
         System.out.println("계좌 번호가 제공되지 않았습니다.");
     }
-    
+
     abean.setAcount_num(accountNumber);
-    
+
     String accountHolder = request.getParameter("accountHolder");
-    
+
     abean.setAcount_name(accountHolder);
-    
+
     acMgr.acountUpdate(abean);
-    
-    
+
+
 
     // 저장이 성공하면 전송된 페이지로 이동
     if (nextPage != null && !nextPage.isEmpty()) {
@@ -763,11 +763,6 @@ private String extractFileName(Part part) {
                 }
             });
 
-            var uploadButton = document.querySelector('.upload-button');
-            uploadButton.addEventListener('click', function() {
-                uploadInput.click();
-            });
-
             // 인증하기 버튼 클릭 이벤트
             var authButton = document.getElementById('authButton');
             authButton.addEventListener('click', function() {
@@ -777,7 +772,7 @@ private String extractFileName(Part part) {
 
         function completeAuth() {
             var authBox = document.getElementById('authBox');
-            authBox.innerHTML = 
+            authBox.innerHTML = `
                 <div class="auth-info">
                     <span class="icon">👤</span>
                     <div>
@@ -788,7 +783,7 @@ private String extractFileName(Part part) {
                 <div class="auth-complete">
                     ✔ 인증 완료
                 </div>
-            ;
+            `;
         }
     </script>
     <script src="dropdown.js"></script>
