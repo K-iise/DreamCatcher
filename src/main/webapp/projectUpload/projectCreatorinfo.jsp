@@ -737,7 +737,7 @@ private String extractFileName(Part part) {
             </div>
         </div>
     </div>
-    <button class="next-button" onclick="submitForm('projectCreatorinfo.jsp')">확인</button>
+    <button class="next-button" onclick="submitForm('createFunding.jsp')">확인</button>
     </div>
     
     
