@@ -401,7 +401,9 @@ String user_id = (String) session.getAttribute("idKey");
 									usersBean commentUser = uMgr.oneUserList(comment.getComment_user_id()); 
 									// 해당 댓글의 추천 수 가져오기
 					                int recomeCount = rMgr.recomeCount(comment.getComment_num());
-						%>					
+						%>
+						<div class="comment-engratf">	
+										
 						<div id="comments">				
 							
 							<div id="comments-profile">
@@ -418,7 +420,58 @@ String user_id = (String) session.getAttribute("idKey");
 									<img alt="option-icon" src="image/optionicon.png"
 										onclick="toggleCommentDropdown(event)">
 									<div id="comment-dropdown" class="dropdown-comment">
-										<p onclick="editComment()">수정</p>
+										<p onclick="editComment(event)">수정</p>
+										<p onclick="deleteComment(<%= comment.getComment_num() %>, <%= fundingNum %>)">삭제</p>
+									</div>
+									<%
+							        } else if (user_id != null && user_id.equals(fundingUserId)) {
+							        %>
+									<img alt="option-icon" src="image/optionicon.png"
+										onclick="toggleCommentDropdown(event)">
+									<div id="comment-dropdown" class="dropdown-comment">
+										<p onclick="replyToComment(event)">답변</p>
+									</div>
+									<%
+							        }
+							        %>
+								</div>
+							</div>
+							<p id="comment-text"><%= comment.getComment_con() %></p>
+							<textarea placeholder="<%= comment.getComment_con() %>" class="input_textarea"></textarea>
+							<button class="save-button" onclick="saveComment(event)">변경하기</button>
+							
+							<div id="comment-bottom">
+						        <p><%= (daysAgo == 0) ? "오늘" : daysAgo + "일 전" %></p> <!-- 0일 전이면 '오늘'로 출력 -->					        
+								<div id="comment-recommend">
+								    <form action="commentInsert.jsp" method="post">
+								        <input type="hidden" name="recom_comment_num" value="<%= comment.getComment_num() %>"> 
+								        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
+								        <img alt="recommend-image" src="image/recommend.png" style="cursor:pointer;" onclick="this.closest('form').submit();"> <!-- 클릭 시 폼 제출 -->
+								    </form>
+								    <p id="recommed-score"><%= recomeCount %></p>
+								</div>
+						    </div>
+						    
+						   	</div><!-- comments 끝 -->	
+						   	
+						   	<!-- 댓글 답변 -->
+						   	<div class="comment-reply">
+						   	
+							<div id="comments-profile">
+								<div id="comment-top">
+									<img alt="information-image" src="<%=commentUser.getUser_image()%>">
+									<div id="information-text">
+										<b><%= commentUser.getUser_name() %></b>
+									</div>
+								</div>
+								<div id="comment-option">
+									<%
+							        	if (user_id != null && user_id.equals(comment.getComment_user_id())) {
+							        %>
+									<img alt="option-icon" src="image/optionicon.png"
+										onclick="toggleCommentDropdown(event)">
+									<div id="comment-dropdown" class="dropdown-comment">
+										<p onclick="editComment(event)">수정</p>
 										<p onclick="deleteComment(<%= comment.getComment_num() %>, <%= fundingNum %>)">삭제</p>
 									</div>
 									<%
@@ -435,7 +488,9 @@ String user_id = (String) session.getAttribute("idKey");
 								</div>
 							</div>
 							<p id="comment-text"><%= comment.getComment_con() %></p>
-
+							<textarea placeholder="<%= comment.getComment_con() %>" class="input_textarea"></textarea>
+							<button class="save-button" onclick="saveReply(event)">변경하기</button>
+							
 							<div id="comment-bottom">
 						        <p><%= (daysAgo == 0) ? "오늘" : daysAgo + "일 전" %></p> <!-- 0일 전이면 '오늘'로 출력 -->					        
 								<div id="comment-recommend">
@@ -447,7 +502,10 @@ String user_id = (String) session.getAttribute("idKey");
 								    <p id="recommed-score"><%= recomeCount %></p>
 								</div>
 						    </div>
-						    </div>  <!-- comments 끝 -->		
+						   	
+						   		</div> <!-- comment-reply 끝 -->
+						   		
+						   	</div><!-- comment-engratf 끝 -->
 								<%
 							            }
 								
@@ -492,18 +550,18 @@ String user_id = (String) session.getAttribute("idKey");
 		
 		
 		
-			<div id="donate-content">
+			<div class="donate-content">
 				<b>선물하기</b>
 
 				<!-- 상품 선택(구매)  예시 -->
-				<div id="product-buy">
-					<div id="buy-info">
-						<label id="product-information"> 
-						<div id="product-title">
+				<div class="product-buy">
+					<div class="buy-info">
+						<label class="product-information"> 
+						<div class="product-title">
 							<b>더블크로스 The 3rd	Edition 기본 세트</b>
 							<button id="delete-button">X</button>
 						</div>
-							<ul id="product-ul">
+							<ul class="product-ul">
 								<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
 								<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
 								<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적
@@ -513,7 +571,7 @@ String user_id = (String) session.getAttribute("idKey");
 								<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
 							</ul>
 
-							<div id="product-bottom">
+							<div class="product-bottom">
 								<div class="stepper">
 									<button type="button" id="decrease" disabled>-</button>
 									<input type="number" value="1" class="stepper-input" readonly>
@@ -523,16 +581,16 @@ String user_id = (String) session.getAttribute("idKey");
 							</div>
 						</label>
 					</div>
-					<button id="select-button">선물 선택하기</button>
-					<button id="buy-button">총 42,600원 후원하기</button>
+					<button class="select-button">선물 선택하기</button>
+					<button class="buy-button">총 <label class="button-price">42,600원</label> 후원하기</button>
 				</div>
 
 				<!-- 상품 예시 1 -->
-				<div id="donate-information">
+				<div class="donate-information">
 					<p>2148개 선택</p>
-					<b>78,000 원 +</b> <label id="product-information"> 더블크로스
+					<b>78,000원</b> <label class="product-information"> 더블크로스
 						The 3rd Edition 기본 세트
-						<ul id="product-ul">
+						<ul class="product-ul">
 							<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
 							<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
 							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 1권 (x1)</li>
@@ -544,23 +602,41 @@ String user_id = (String) session.getAttribute("idKey");
 				</div>
 
 				<!-- 상품 예시 2 -->
-				<div id="donate-information">
+				<div class="donate-information">
 					<p>2148개 선택</p>
-					<b>78,000 원 +</b> <label id="product-information"> 더블크로스
-						The 3rd Edition 기본 세트
-						<ul id="product-ul">
-							<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 1권 (x1)</li>
-							<li>더블크로스 A4 클리어파일 2매 세트 (x1)</li>
-							<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
+					<b>79,000원</b> <label class="product-information"> 더블크로스
+						The 4rd Edition 기본 세트
+						<ul class="product-ul">
+							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
+							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
+							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
 						</ul>
 					</label>
 				</div>
+				
+				<!-- 상품 예시 3 -->
+				<div class="donate-information">
+					<p>2148개 선택</p>
+					<b>79,000원</b> <label class="product-information"> 더블크로스
+						The 4rd Edition 기본 세트
+						<ul class="product-ul">
+							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
+							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
+							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
+							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
+						</ul>
+					</label>
+				</div>
+				
+				
 
-			</div>
-		</div>
+			</div> <!-- donate-content 끝 -->
+		</div> <!-- right-section 끝-->
 		
 	</div> <!-- Main Bottom 끝 -->
 
@@ -571,5 +647,8 @@ String user_id = (String) session.getAttribute("idKey");
 	<script src="fundinglabel.js"></script>
 	<script src="comment_dropdown.js"></script>
 	<script src="stepper.js"></script>
+	<script src="commentEdit.js"></script>
+	<script src="commentReply.js"></script>
+	<script src="productBuy.js"></script>
 </body>
 </html>

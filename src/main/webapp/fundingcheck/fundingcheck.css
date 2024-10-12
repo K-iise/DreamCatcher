@@ -479,8 +479,7 @@ hr {
 	width: 100%;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 	flex-direction: column;
-	border: 1px solid #e0e0e0;
-	margin-bottom: 10px;
+	border-bottom: 1px solid #e0e0e0;
 }
 
 #comments-profile {
@@ -614,18 +613,18 @@ hr {
 	flex-direction: column; /* 수직으로 정렬 */
 }
 
-#donate-content {
+.donate-content {
 	display: flex;
 	flex-direction: column; /* 수직으로 정렬 */
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
-#donate-content b {
+.donate-content b {
 	font-size: 20px;
 	margin-bottom: 20px;
 }
 
-#donate-information {
+.donate-information {
 	flex-direction: column; /* 수직으로 정렬 */
 	display: flex;
 	width: 100%;
@@ -640,7 +639,7 @@ hr {
 }
 
 /* 선물하기 창  */
-#donate-information p {
+.donate-information p {
 	font-family: 'NanumGothic';
 	font-style: normal;
 	font-weight: 400;
@@ -649,26 +648,25 @@ hr {
 	color: rgba(0, 0, 0, 0.5);
 }
 
-#donate-information b{
+.donate-information b{
 font-family: 'NanumGothic';
 font-style: normal;
 font-weight: 700;
 font-size: 38px;
 line-height: 25px;
 color: #000000;
-
 }
 
-#product-ul{
+.product-ul{
 	font-size: 12px;
 	margin: 0px;
 	margin-top: 5px;
 }
 
 
-#product-buy{
+.product-buy{
 	flex-direction: column; /* 수직으로 정렬 */
-	display: flex;
+	display: none;
 	width: 100%;
 	border: none;
 	resize: none;
@@ -681,7 +679,7 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-#buy-info{
+.buy-info{
 	flex-direction: column; /* 수직으로 정렬 */
 	display: flex;
 	width: 100%;
@@ -694,29 +692,27 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-#buy-button{
+.buy-button{
 	color: #FAFAFA;
 	background: #DC5252;
 	border: 0px;
+	width:100%;
 	font-size: 24px;
 	font-weight: bold;
 	padding: 10px;
 }
 
-#select-button{
+.select-button{
 	color: #DC5252;
 	background: #FAFAFA;
 	border: 1px solid #DC5252;
 	font-size: 24px;
 	font-weight: bold;
+	width:100%;
 	padding: 10px;
 	margin-bottom: 10px;
 }
 
-#product-bottom{
-	display: flex;
-	
-}
 
 
 .stepper {
@@ -746,18 +742,19 @@ color: #000000;
     font-size: 18px;
 }
 
-#product-bottom{
+.product-bottom{
 	display: flex;
 	justify-content: space-between; /* 좌우 공간 균등 분배 */
+	margin-top: 10px;
 }
 
-#product-bottom p{
+.product-bottom p{
 	font-size: 18px;
 	font-weight: bold;
 	color: #DC5252;
 }
 
-#product-title{
+.product-title{
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
@@ -841,3 +838,63 @@ color: #000000;
 	background: #FAFAFA;
 	border: 1px solid #DC5252;
 }
+
+.input_textarea{
+	display: none;
+    height: 150px;
+    border: 0px;
+    padding: 0px;
+    resize: none;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 1px;
+    padding: 12px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+    color: #3d3d3d;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.save-button{
+	display: none;
+	font-size: 16px;
+    line-height: 27px;
+    letter-spacing: -0.02em;
+    width: 110px;
+    cursor: pointer;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    height: 40px;
+    white-space: nowrap;
+    border-radius: 1px;
+    margin: 0px;
+    border: 0px;
+    outline: none;
+    font-weight: normal;
+    box-sizing: border-box;
+    padding: 0px 16px;
+    background-color: rgb(61, 61, 61);
+    color: rgb(255, 255, 255);
+    margin: 20px 0px 20px;
+}
+
+.comment-engratf{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+
+.comment-reply{
+    display: none;
+    flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+    flex-direction: column;
+    padding: 16px 16px 0px; /* 패딩 설정 */
+    box-sizing: border-box; /* 박스 모델을 패딩 포함으로 설정 */
+    border: none; /* 경계선 없음 */
+    box-shadow: 0 1px 0 0 #e0e0e0; /* 아래쪽 그림자 효과로 경계선처럼 보이게 설정 */
+}
+
