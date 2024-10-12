@@ -499,5 +499,30 @@ public class fundingMgr {
 		return category;
 		
 	}
+	
+	public String getCategoryForFunding(int fundingNum) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String categoryFunding = null; // 카테고리 이름 초기화
+	    try {
+	        con = pool.getConnection();
+	        String sql = "SELECT c.category_funding " +
+	                     "FROM funding f " +
+	                     "JOIN category c ON f.funding_category = c.category_num " +
+	                     "WHERE f.funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
 
+	        if (rs.next()) {
+	            categoryFunding = rs.getString("category_funding");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return categoryFunding;
+	}
 }
