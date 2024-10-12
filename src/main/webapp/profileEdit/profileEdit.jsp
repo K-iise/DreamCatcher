@@ -372,6 +372,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 								alt="Profile Image"
 								style="width: 100px; height: 100px; border-radius: 50%;">
 							<div class="image-info">
+								<label for="profilePhotoInput" class="custom-file-input-label">이미지 파일 업로드</label>
 								<input type="file" id="profilePhotoInput" accept="image/*"
 									class="file-input">
 								<p class="user-name"

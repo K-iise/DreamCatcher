@@ -432,3 +432,60 @@ progress::-moz-progress-bar {
 	margin-left: auto; /* 버튼을 오른쪽 끝으로 밀어냄 */
 	margin-right: 30px;
 }
+
+.cat-container {
+	position: relative;
+	display: flex;
+}
+
+.depth1-wrapper {
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	width: 100%;
+	height: auto;
+	justify-content: space-between; /* 아이템 간의 공간을 균등하게 분할 */
+	transition: max-height 0.3s ease-in-out;
+	flex-direction: row;
+	background: rgb(255, 255, 255);
+	z-index: 999;
+	user-select: none;
+	box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 7px;
+	position: absolute; /* 절대 위치 설정 */
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+.category-label:hover ~ .depth1-wrapper {
+	display: flex; /* 호버 시에 보이게 */
+	flex-wrap: wrap; /* 내용에 맞게 줄 바꿈 */
+}
+
+.depth1-group {
+	display: flex; /* 가로 방향 정렬 */
+	flex-direction: column; /* 세로 방향 정렬 */
+}
+
+.depth1-item {
+	display: flex;
+	align-items: center; /* 아이콘과 텍스트 정렬 */
+	padding: 8px 12px; /* 항목 패딩 */
+	cursor: pointer;
+}
+
+.depth1-item:hover {
+	background-color: #f1f1f1; /* 호버 시 배경색 변화 */
+}
+
+.depth1-icon {
+	margin-right: 8px; /* 아이콘과 텍스트 간격 */
+}
+
+.depth1-icon-img {
+	width: 45px; /* 아이콘 크기 조정 */
+	height: 45px;
+}
+
+.depth1-text {
+	font-size: 18px;
+}
