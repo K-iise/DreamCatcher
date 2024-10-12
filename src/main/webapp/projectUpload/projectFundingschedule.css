@@ -1,0 +1,319 @@
+/* 전체 페이지의 기본 스타일 설정 */
+body, html {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f5f5f5;
+	height: 100%;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+/* 상단바 디자인 */
+.header {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 20px 15%;
+	border-bottom: 1px solid #dee2e6;
+	position: relative;
+	height: 210px;
+}
+
+/* 뒤로가기 버튼이 있는 줄 */
+.back-row {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+/* 뒤로가기 버튼 */
+.back-button {
+	width: 30px;
+	height: 30px;
+	background-color: transparent;
+	cursor: pointer;
+	font-size: 24px;
+	color: black;
+	border: none;
+}
+
+/* 로고 영역 */
+.logo {
+	margin-bottom: 25px;
+	display: flex;
+	align-items: center;
+}
+
+.logo h1 {
+	margin: 0;
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.menu-bar {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.menu-bar .category-label {
+	font-size: 25px;
+	font-weight: 700;
+	margin-right: 20px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.menu-bar .category-label:hover {
+	color: red;
+}
+
+.menu-bar .category-label+.category-label {
+	margin-left: 20px;
+}
+
+/* 사용자 컨트롤 */
+.user-controls {
+	position: absolute;
+	right: 15%;
+	top: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.user-controls .upload-button {
+	background: url("image/uploadproject.png") no-repeat;
+	width: 140px;
+	height: 40px;
+	border-width: 0;
+	margin-right: 10px;
+}
+
+.user-controls .heart-button {
+	background: url("image/hearticon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.user-controls .bell-button {
+	background: url("image/bellicon.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.user-controls span {
+	display: inline-block;
+	width: 150px;
+	padding: 15px;
+	align-items: center;
+	border: 1px solid black;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.user-controls span img {
+	width: 35px;
+	height: 35px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+/* 기본 컨테이너 스타일 */
+.container {
+	padding: 20px;
+	margin: 0 auto;
+	width: calc(100% - 40px);
+	max-width: 1200px;
+}
+
+.section {
+	border-bottom: 1px solid #ccc;
+	padding: 30px 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.text-info {
+	flex-basis: 50%;
+}
+
+.input-group-inline {
+	display: flex;
+	flex-grow: 1;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+label {
+	margin-right: 10px;
+}
+
+select, input[type="text"], textarea {
+	padding: 8px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+input[type="text"], textarea {
+	width: 100%;
+}
+
+input[type="text"] {
+	height: 60px;
+	font-size: 18px;
+}
+
+textarea {
+	height: 150px;
+	font-size: 16px;
+}
+
+.input-group-full {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+/* 펀딩 일정 섹션 스타일 */
+.funding-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 100%;
+}
+
+.funding-info {
+	flex: 1;
+	padding-right: 20px;
+}
+
+.funding-schedule {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+}
+
+.schedule-row {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	height: 50px;
+	width: 100%;
+}
+
+/* 일정 레이블들의 너비를 동일하게 설정하고 텍스트를 왼쪽 정렬 */
+.schedule-row label {
+	width: 120px;
+	font-weight: bold;
+	text-align: left;
+	padding-right: 10px;
+}
+
+.schedule-row .input-wrapper {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	position: relative;
+}
+
+/* 달력 아이콘 */
+.calendar-icon {
+	position: absolute;
+	right: 10px;
+	font-size: 20px;
+	cursor: pointer;
+	color: #aaa;
+}
+
+.schedule-row input, .schedule-row select {
+	width: 100%;
+	height: 40px;
+	padding: 8px 40px 8px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.schedule-start {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.schedule-start .input-wrapper {
+	width: 100%;
+}
+
+.user-controls .bell-button2 {
+	background: url("image/bellicon2.png") no-repeat;
+	width: 40px;
+	height: 40px;
+	border: 0px;
+	margin-left: 20px;
+}
+
+.dropdown {
+	position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
+	display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
+}
+
+.dropbtn {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.dropdown-content {
+	display: none; /* 기본적으로 숨김 */
+	position: absolute; /* 부모 요소에 대해 절대 위치 */
+	background-color: #f9f9f9;
+	min-width: 150px; /* 드롭다운의 최소 너비 설정 */
+	min-height: 160px;
+	box-shadow: rgba(0, 0, 0, 0.2);
+	z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+	right: 0;
+	margin-right: 15%;
+	margin-top: 65px;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block; /* 세로로 나열되도록 설정 */
+	width: 100%;
+}
+
+.next-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 15px 25px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 100;
+}
