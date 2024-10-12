@@ -22,7 +22,7 @@ public class fundingMgr {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<fundingBean> vlist=null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
 			sql = "select * from funding where funding_category = ?";
@@ -44,6 +44,8 @@ public class fundingMgr {
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
 				bean.setFunding_image(rs.getString("funding_image"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
 				
 				vlist.addElement(bean);
 				
@@ -85,6 +87,8 @@ public class fundingMgr {
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
 				bean.setFunding_image(rs.getString("funding_image"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
 				
 				vlist.addElement(bean);
 				
@@ -127,6 +131,8 @@ public class fundingMgr {
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
 				bean.setFunding_image(rs.getString("funding_image"));
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
 				
 				vlist.addElement(bean);								
 			}
@@ -180,6 +186,8 @@ public class fundingMgr {
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
 				bean.setFunding_image(rs.getString("funding_image"));
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
 				
 				vlist.addElement(bean);
 				
@@ -201,7 +209,7 @@ public class fundingMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4,funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image) values(?, ?, ?, ?, ? , ?, ?, ?)";
+			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4,funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image, funding_write_date) values(?, ?, ?, ?, ?, ? , ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getFunding_title());
 			pstmt.setInt(2, bean.getFunding_category());
@@ -214,6 +222,8 @@ public class fundingMgr {
 			pstmt.setInt(9, bean.getFunding_nprice());
 			pstmt.setString(10, bean.getFunding_user_id());
 			pstmt.setString(11, bean.getFunding_image());
+			pstmt.setString(12, bean.getFunding_write_date());
+			
 			
 			pstmt.executeUpdate();
 
@@ -373,6 +383,8 @@ public class fundingMgr {
 					bean.setFunding_nprice(rs.getInt("funding_nprice"));
 					bean.setFunding_image(rs.getString("funding_image"));
 					bean.setFunding_user_id(rs.getString("funding_user_id"));
+					bean.setFunding_write_date(rs.getString("funding_write_date"));
+					bean.setFunding_agree(rs.getInt("funding_agree"));
 					
 					vlist.addElement(bean);
 					
@@ -417,6 +429,8 @@ public class fundingMgr {
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
 				bean.setFunding_image(rs.getString("funding_image"));
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
 				
 				vlist.addElement(bean);
 				
