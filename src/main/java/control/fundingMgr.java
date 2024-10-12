@@ -35,7 +35,10 @@ public class fundingMgr {
 				fundingBean bean=new fundingBean();
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(category);
-				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
@@ -73,7 +76,10 @@ public class fundingMgr {
 				fundingBean bean=new fundingBean();
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(rs.getInt("funding_category"));
-				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
@@ -112,7 +118,10 @@ public class fundingMgr {
 				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));			
 				bean.setFunding_category(rs.getInt("funding_category"));				
-				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
@@ -162,7 +171,10 @@ public class fundingMgr {
 				bean.setFunding_category(rs.getInt("funding_category"));
 				
 
-				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));
@@ -189,16 +201,19 @@ public class fundingMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into funding(funding_title, funding_category, funding_con, funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image) values(?, ?, ?, ?, ? , ?, ?, ?)";
+			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4,funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image) values(?, ?, ?, ?, ? , ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getFunding_title());
 			pstmt.setInt(2, bean.getFunding_category());
-			pstmt.setString(3, bean.getFunding_con());
-			pstmt.setInt(4, bean.getFunding_tprice());
-			pstmt.setString(5, bean.getFunding_term());
-			pstmt.setInt(6, bean.getFunding_nprice());
-			pstmt.setString(7, bean.getFunding_user_id());
-			pstmt.setString(8, bean.getFunding_image());
+			pstmt.setString(3, bean.getFunding_con1());
+			pstmt.setString(4, bean.getFunding_con2());
+			pstmt.setString(5, bean.getFunding_con3());
+			pstmt.setString(6, bean.getFunding_con4());
+			pstmt.setInt(7, bean.getFunding_tprice());
+			pstmt.setString(8, bean.getFunding_term());
+			pstmt.setInt(9, bean.getFunding_nprice());
+			pstmt.setString(10, bean.getFunding_user_id());
+			pstmt.setString(11, bean.getFunding_image());
 			
 			pstmt.executeUpdate();
 
@@ -240,16 +255,19 @@ public class fundingMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "update funding set funding_title = ?, funding_category = ?, funding_con = ?, funding_tprice = ?, funding_term = ?, funding_nprice = ?, funding_user_id = ?, funding_image = ? where funding_num = ?";
+			sql = "update funding set funding_title = ?, funding_category = ?, funding_con1 = ?, funding_con2 = ?, funding_con3 = ?, funding_con4 = ?, funding_tprice = ?, funding_term = ?, funding_nprice = ?, funding_user_id = ?, funding_image = ? where funding_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getFunding_title());
 			pstmt.setInt(2, bean.getFunding_category());
-			pstmt.setString(3, bean.getFunding_con());
-			pstmt.setInt(4, bean.getFunding_tprice());
-			pstmt.setString(5, bean.getFunding_term());
-			pstmt.setInt(6, bean.getFunding_nprice());
-			pstmt.setString(7, bean.getFunding_image());
-			pstmt.setString(8, bean.getFunding_user_id());
+			pstmt.setString(3, bean.getFunding_con1());
+			pstmt.setString(4, bean.getFunding_con2());
+			pstmt.setString(5, bean.getFunding_con3());
+			pstmt.setString(6, bean.getFunding_con4());
+			pstmt.setInt(7, bean.getFunding_tprice());
+			pstmt.setString(8, bean.getFunding_term());
+			pstmt.setInt(9, bean.getFunding_nprice());
+			pstmt.setString(10, bean.getFunding_image());
+			pstmt.setString(11, bean.getFunding_user_id());
 			
 
 			pstmt.executeUpdate();
@@ -346,7 +364,10 @@ public class fundingMgr {
 					bean.setFunding_num(rs.getInt("funding_num"));
 					bean.setFunding_title(rs.getString("funding_title"));
 					bean.setFunding_category(rs.getInt("funding_category"));
-					bean.setFunding_con(rs.getString("funding_con"));
+					bean.setFunding_con1(rs.getString("funding_con1"));
+					bean.setFunding_con2(rs.getString("funding_con2"));
+					bean.setFunding_con3(rs.getString("funding_con3"));
+					bean.setFunding_con4(rs.getString("funding_con4"));
 					bean.setFunding_tprice(rs.getInt("funding_tprice"));
 					bean.setFunding_term(rs.getString("funding_term"));
 					bean.setFunding_nprice(rs.getInt("funding_nprice"));
@@ -387,7 +408,10 @@ public class fundingMgr {
 				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(rs.getInt("funding_category"));
-				bean.setFunding_con(rs.getString("funding_con"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
 				bean.setFunding_tprice(rs.getInt("funding_tprice"));
 				bean.setFunding_term(rs.getString("funding_term"));
 				bean.setFunding_nprice(rs.getInt("funding_nprice"));

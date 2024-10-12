@@ -5,7 +5,10 @@ public class fundingBean {
 	private int funding_num;
 	private String funding_title;
 	private int funding_category;
-	private String funding_con;
+	private String funding_con1;
+	private String funding_con2;
+	private String funding_con3;
+	private String funding_con4;
 	private int funding_tprice;
 	private String funding_term;
 	private int funding_nprice;
@@ -36,14 +39,32 @@ public class fundingBean {
 	public void setFunding_category(int funding_category) {
 		this.funding_category = funding_category;
 	}
-	public String getFunding_con() {
-		return funding_con;
-	}
-	public void setFunding_con(String funding_con) {
-		this.funding_con = funding_con;
-	}
 	public int getFunding_tprice() {
 		return funding_tprice;
+	}
+	public String getFunding_con1() {
+		return funding_con1;
+	}
+	public void setFunding_con1(String funding_con1) {
+		this.funding_con1 = funding_con1;
+	}
+	public String getFunding_con2() {
+		return funding_con2;
+	}
+	public void setFunding_con2(String funding_con2) {
+		this.funding_con2 = funding_con2;
+	}
+	public String getFunding_con3() {
+		return funding_con3;
+	}
+	public void setFunding_con3(String funding_con3) {
+		this.funding_con3 = funding_con3;
+	}
+	public String getFunding_con4() {
+		return funding_con4;
+	}
+	public void setFunding_con4(String funding_con4) {
+		this.funding_con4 = funding_con4;
 	}
 	public void setFunding_tprice(int funding_tprice) {
 		this.funding_tprice = funding_tprice;
