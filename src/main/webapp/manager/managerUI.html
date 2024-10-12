@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Catcher - 프로젝트 관리</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-left {
+            position: absolute;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .header-left .back-arrow {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .controls {
+            width: 80%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 80%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin-top: 10px;
+            table-layout: fixed;
+            min-height: 400px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* 각 열의 고정 너비 설정 */
+        th:nth-child(1), td:nth-child(1) { width: 5%; }
+        th:nth-child(2), td:nth-child(2) { width: 15%; }
+        th:nth-child(3), td:nth-child(3) { width: 20%; }
+        th:nth-child(4), td:nth-child(4) { width: 20%; }
+        th:nth-child(5), td:nth-child(5) { width: 10%; }
+        th:nth-child(6), td:nth-child(6) { width: 20%; }
+        th:nth-child(7), td:nth-child(7) { width: 15%; }
+
+        .delete-btn {
+            background-color: #d9534f;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .approve-btn {
+            background-color: #5cb85c;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .reject-btn {
+            background-color: #d9534f;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover, .approve-btn:hover, .reject-btn:hover {
+            opacity: 0.8;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .active-icon {
+            color: green;
+        }
+
+        .inactive-icon {
+            color: red;
+        }
+
+        .checkbox {
+            margin: 0;
+        }
+
+        .pagination-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* 그림자 효과 추가 */
+        }
+
+        .pagination button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 2px solid black;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        .pagination button.active {
+            background-color: black;
+            color: white;
+            border: 2px solid black;
+        }
+
+        .pagination button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <span class="back-arrow">←</span>
+            <span>뒤로 가기</span>
+        </div>
+        <h1>Dream Catcher</h1> 
+    </div>
+
+    <div class="content">
+        <div class="controls">
+            <button class="delete-btn" onclick="deleteSelected()">삭제</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selectAll" class="checkbox" onclick="toggleSelectAll()"></th>
+                    <th>아이디</th>
+                    <th>프로젝트 이름</th>
+                    <th>카테고리</th>
+                    <th>활성화</th>
+                    <th>등록일자</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- 테이블 데이터가 동적으로 들어갑니다. -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-container">
+        <div class="pagination" id="pagination">
+            <!-- 페이지네이션 버튼이 동적으로 들어갑니다. -->
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            {id: 'admin', name: 'Dream Management', role: '관리자', active: true, date: '2023-07-21 16:53:33'},
+            {id: 'test1', name: 'Project Alpha', role: '개발', active: false, date: '2023-07-21 17:00:00'},
+            {id: 'test2', name: 'Beta Test', role: '디자인', active: true, date: '2023-07-21 17:01:00'},
+            {id: 'test3', name: 'Marketing Launch', role: '마케팅', active: true, date: '2023-07-21 17:02:00'},
+            {id: 'test4', name: 'UX Review', role: '사용자 경험', active: false, date: '2023-07-21 17:03:00'},
+            {id: 'test5', name: 'Backend Upgrade', role: '개발', active: true, date: '2023-07-21 17:04:00'},
+            {id: 'test6', name: 'UI Redesign', role: '디자인', active: false, date: '2023-07-21 17:05:00'},
+            {id: 'test7', name: 'SEO Optimization', role: '마케팅', active: true, date: '2023-07-21 17:06:00'},
+            {id: 'test8', name: 'Server Migration', role: '개발', active: false, date: '2023-07-21 17:07:00'},
+            {id: 'test9', name: 'User Feedback', role: '사용자 경험', active: true, date: '2023-07-21 17:08:00'},
+            {id: 'test10', name: 'Security Update', role: '개발', active: false, date: '2023-07-21 17:09:00'},
+            {id: 'test11', name: 'Cloud Migration', role: 'IT 인프라', active: true, date: '2023-07-21 17:10:00'},
+            {id: 'test12', name: 'Performance Testing', role: 'QA', active: false, date: '2023-07-21 17:11:00'},
+            {id: 'test13', name: 'UI Enhancements', role: '디자인', active: true, date: '2023-07-21 17:12:00'},
+            {id: 'test14', name: 'Market Research', role: '마케팅', active: true, date: '2023-07-21 17:13:00'},
+            {id: 'test15', name: 'Customer Feedback Analysis', role: '사용자 경험', active: false, date: '2023-07-21 17:14:00'}
+        ];
+
+        const rowsPerPage = 10;
+        let currentPage = 1;
+
+        function initPagination() {
+            const totalPages = Math.ceil(data.length / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                if (i === currentPage) {
+                    btn.classList.add('active');
+                }
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                    updatePaginationButtons();
+                };
+                pagination.appendChild(btn);
+            }
+        }
+
+        function updatePaginationButtons() {
+            const buttons = document.querySelectorAll('.pagination button');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        function renderTable() {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = data.slice(start, end);
+
+            pageData.forEach(row => {
+                const tr = document.createElement('tr');
+
+                tr.innerHTML = `
+                    <td><input type="checkbox" class="checkbox select-row"></td>
+                    <td>${row.id}</td>
+                    <td>${row.name}</td>
+                    <td>${row.role}</td>
+                    <td><span class="${row.active ? 'active-icon' : 'inactive-icon'}">${row.active ? 'O' : 'X'}</span></td>
+                    <td>${row.date}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="approve-btn">승인</button>
+                            <button class="reject-btn">거절</button>
+                        </div>
+                    </td>
+                `;
+
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const checkboxes = document.getElementsByClassName('select-row');
+            
+            for (let i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = selectAllCheckbox.checked;
+            }
+        }
+
+        function deleteSelected() {
+            const checkboxes = document.getElementsByClassName('select-row');
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    checkboxes[i].parentNode.parentNode.style.display = 'none';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+            initPagination();
+        });
+
+    </script>
+
+</body>
+</html>
