@@ -1,15 +1,19 @@
+<%@page import="java.nio.file.Paths"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="control.*"%>
 <%@ page import="entity.*"%>
 <%@ page import="java.io.*" %>
+<%@ page import="java.nio.file.*" %>
 <%@ page import="javax.servlet.*" %>
 <%@ page import="javax.servlet.http.*" %>
+<%@ page import="javax.servlet.annotation.MultipartConfig" %>
 <%
 
 request.setCharacterEncoding("UTF-8");
 String user_id = (String) session.getAttribute("idKey");
+System.out.println("-----------------------------------------");
 
 usersMgr uMgr = new usersMgr();
 usersBean mybean = new usersBean();
@@ -20,6 +24,77 @@ fundingBean fdbean=new fundingBean();
 createFundingMgr cfMgr=new createFundingMgr();
 createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
+
+String action = request.getParameter("Action");
+System.out.println("action: " + action); // 디버깅 로그
+String nextPage = request.getParameter("nextPage");
+System.out.println("Next page: " + nextPage); // 디버깅 로그
+
+if ("submit".equals(action)) {
+    String name = request.getParameter("name");
+    String info = request.getParameter("info");
+    Part fileupload = request.getPart("file-upload");
+ 
+    System.out.println("name: " + name);
+    System.out.println("info: " + info);
+    System.out.println("fileupload: " + fileupload);
+    
+
+    // 데이터 설정 및 저장 로직
+	mybean.setUser_name(name);
+	mybean.setUser_info(info);
+    
+	if (fileupload != null && fileupload.getSize() > 0) {
+        String fileName = extractFileName(fileupload);
+
+        // 저장할 실제 서버 경로 설정
+        String uploadPath = getServletContext().getRealPath("/userimage");
+        File uploadDir = new File(uploadPath);
+
+        // 디렉터리가 없으면 생성
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+
+        // 저장할 경로 및 파일 이름 생성
+        String filePath = uploadPath + File.separator + fileName;
+        
+        System.out.println("Upload Path: " + uploadPath);  // 경로 출력
+        System.out.println("File Path: " + filePath);  // 파일 경로 출력
+        
+        // 파일 저장
+        fileupload.write(filePath);
+
+        // 파일 경로를 데이터베이스에 저장 
+        String relativePath = request.getContextPath() + "/userimage/" + fileName;
+        
+        mybean.setUser_image(relativePath);
+    }
+
+
+    // 데이터베이스에 저장
+    uMgr.userUpdate(mybean);  // 데이터 저장
+
+    // 저장이 성공하면 전송된 페이지로 이동
+    if (nextPage != null && !nextPage.isEmpty()) {
+        response.sendRedirect(nextPage);
+    } else {
+    	request.getRequestDispatcher("projectBasicinfo.jsp").forward(request, response);  // 기본 페이지로 이동
+    }
+}
+
+%>
+<%!
+private String extractFileName(Part part) {
+    String contentDisposition = part.getHeader("content-disposition");
+    String[] items = contentDisposition.split(";");
+    for (String item : items) {
+        if (item.trim().startsWith("filename")) {
+            return item.substring(item.indexOf("=") + 2, item.length() - 1);
+        }
+    }
+    return "";
+}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,6 +118,7 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
         box-sizing: inherit;
     }
 
+<<<<<<< Updated upstream
     /* 상단바 디자인 */
     .header {
         background-color: #fff;
@@ -54,6 +130,23 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
         border-bottom: 1px solid #dee2e6;
         position: relative;
     }
+=======
+        /* 상단바 디자인 - 기본정보 페이지의 스타일을 그대로 적용 */
+        .header {
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 20px 15%;
+            position: relative;
+            height: 210px; /* 헤더의 높이를 고정 값으로 설정 */
+            border-bottom: 1px solid #dee2e6;  /* 동일한 구분선 */
+            margin: 0; /* 추가적인 여백 없애기 */
+        }
+        
+
+>>>>>>> Stashed changes
 
     /* 뒤로가기 버튼이 있는 줄 */
     .back-row {
@@ -252,12 +345,35 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
         margin-bottom: 10px;
     }
 
+<<<<<<< Updated upstream
     .preview-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%; /* 이미지도 원형으로 변경 */
     }
+=======
+        .upload-box {
+            width: 150px;
+            height: 150px;
+            background-color: #f5f5f5;
+            border: 1px dashed #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .upload-placeholder {
+		    width: 150px; /* 적당한 크기로 설정 */
+		    height: 150px;
+		    border-radius: 50%;
+		    background-size: cover;
+		    background-position: center;
+		    background-repeat: no-repeat;
+		}
+>>>>>>> Stashed changes
 
     .upload-button {
         padding: 8px 16px;
@@ -373,6 +489,7 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
     }
 
 
+<<<<<<< Updated upstream
 	.user-controls .bell-button2 {
 		background: url("image/bellicon2.png") no-repeat;
 		width: 40px;
@@ -420,6 +537,72 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
         form.submit();  // 폼을 제출합니다.
     }
 </script>
+=======
+        .account-type-toggle span {
+            text-align: center;
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            min-height: 160px;
+            box-shadow: rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            right: 0;
+            margin-right: 15%;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+        
+    .next-button {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 15px 25px;
+	background-color: red;
+	color: white;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	z-index: 100;
+}
+    </style>
+    <script>
+        // 폼 제출을 위한 JavaScript 함수
+ function submitForm(actionUrl) {
+        // 숨겨진 input에 actionUrl을 설정
+        var form = document.getElementById("projectForm");
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "nextPage";
+        actionInput.value = actionUrl;  // 이동할 페이지 경로
+
+        form.appendChild(actionInput);  // 폼에 추가
+        form.submit();  // 폼 제출
+    }
+    
+    </script>
+>>>>>>> Stashed changes
 </head>
 <body>
     <div class="header">
@@ -463,7 +646,8 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
             <label class="category-label" onclick="submitForm('projectCreatorinfo.jsp')">창작자 정보</label>
         </nav>
     </div>
-	<form id="projectForm" action="" method="post">
+	<form id="projectForm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Action" value="submit" >
     <div class="container">
         <!-- 창작자 이름 섹션 -->
         <div class="section">
@@ -472,7 +656,7 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
                 <p>창작자 개인이나 팀을 대표할 수 있는 이름을 써주세요.</p>
             </div>
             <div class="input-group-inline">
-                <input type="text">
+                <input type="text" name="name" id="name" value=<%=mybean.getUser_name() %>>
             </div>
         </div>
 
@@ -484,10 +668,24 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
             </div>
             <div class="upload-controls">
                 <div class="upload-box">
-                    <span class="upload-placeholder">이미지 미리보기</span>
+                <%
+		            String imagePath = mybean.getUser_image();  // 이미지 경로를 서버로부터 가져옴
+		            if (imagePath != null && !imagePath.isEmpty()) {
+		                // 이미지가 있을 경우
+		        %>
+		         	<span class="upload-placeholder" style="background-image: url('<%=imagePath %>');"></span>
+		        <%
+		            } else {
+		                // 이미지가 없을 경우 빈칸
+		        %>
+		            <span class="upload-placeholder">이미지 미리보기</span>
+		        <%
+		            }
+		        %>
+                    
                 </div>
                 <label for="file-upload" class="upload-button">이미지 파일 업로드</label>
-                <input type="file" id="file-upload" class="upload-input" style="display:none;">
+                <input type="file" id="file-upload" name="file-upload" class="upload-input" style="display:none;">
                 <div class="upload-info">파일 형식은 jpg, png 또는 gif로, 사이즈는 가로 150px, 세로 150px 이상으로 올려주세요.</div>
             </div>
         </div>
@@ -498,8 +696,8 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
                 <h2>창작자 소개</h2>
                 <p>2~3문장으로 창작자님의 이력과 간단한 소개를 써주세요.</p>
             </div>
-            <div class="input-group-inline">
-                <textarea></textarea>
+            <div class="input-group-inline" >
+                <textarea name="info" id="info"><%=mybean.getUser_info() %></textarea>
             </div>
         </div>
         
@@ -561,6 +759,8 @@ createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
         </div>
     </div>
     </div>
+    
+    
 </form>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
