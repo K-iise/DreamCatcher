@@ -14,267 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알람 화면</title>
-<style>
-/* 전체 화면 비율 맞추기 */
-body {
-	margin: 0; /* 기본 여백 제거 */
-	padding: 0 15%; /* 왼쪽과 오른쪽에 15%의 여백 추가 */
-}
-
-/* 카테고리 스타일*/
-.category-label {
-	font-size: 25px; /* 원하는 크기로 변경 */
-	font-weight: 700;
-	margin-right: 20px;
-}
-
-.category-label img {
-	width: 20px; /* 이미지의 너비를 조정 */
-	height: 20px; /* 이미지의 높이를 조정 */
-	margin-right: 15px; /* 이미지와 텍스트 사이의 간격 */
-}
-
-.dropdown {
-    position: relative; /* 부모 요소가 dropdown-content를 기준으로 잡을 수 있도록 설정 */
-    display: inline-block; /* dropdown 요소가 인라인 블록으로 정렬되도록 설정 */
-}
-
-.dropbtn {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none; /* 기본적으로 숨김 */
-    position: absolute; /* 부모 요소에 대해 절대 위치 */
-    background-color: #f9f9f9;
-    min-width: 160px; /* 드롭다운의 최소 너비 설정 */
-    min-height: 160px;
-    box-shadow: rgba(0,0,0,0.2);
-    z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
-    right: 0;
-    margin-right: 15%;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block; /* 세로로 나열되도록 설정 */
-    width: 100%;
-}
-/* 마우스를 올렸을 때의 스타일 */
-.category-label:hover {
-	color: red; /* 마우스 오버 시 텍스트 색상 */
-}
-
-.category-label:hover img {
-	filter: brightness(0) saturate(100%) invert(26%) sepia(93%)
-		saturate(2500%) hue-rotate(351deg) brightness(100%) contrast(100%);
-	/* 이미지 색상 변경 */
-}
-
-.alarm-label {
-	font-size: 20px; /* 원하는 크기로 변경 */
-	font-weight: 500;
-	margin-right: 30px;
-	color: gray; /* 기본 텍스트 색상 */
-	cursor: pointer; /* 클릭 가능 표시 */
-}
-
-.active {
-	color: black; /* 활성화된 텍스트 색상 */
-}
-
-hr {
-	border: none; /* 기본 경계 제거 */
-	height: 1px; /* 높이 설정 */
-	background-color: #dee2e6; /* 기본 색상 */
-}
-
-.alarm {
-	display: flex; /* Flexbox 사용 */
-	margin-bottom: 20px;
-	margin-top: 20px;
-	align-items: center; /* 추가 */
-}
-
-/* 검색 바 css */
-.search-span {
-	width: 260px; /* 너비를 조정 */
-	height: 35px; /* 높이를 조정 */
-	border: 1px solid #000000;
-	float: right;
-	display: flex; /* Flexbox 사용 */
-	align-items: center; /* 추가 */
-	background: #dee2e6;
-	border: 5px;
-}
-
-.search-span .input_text {
-	font-size: 18px;
-	border: 0px;
-	outline: none;
-	background: #dee2e6;
-}
-
-.search-span .input_icon {
-	border: 0px;
-	float: right;
-}
-
-/* 상단바 1 css */
-.title-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.title-header div {
-    display: flex;
-    align-items: center; /* 내부 요소 수직 가운데 정렬 */
-}
-
-
-
-/* 상단바 아이콘 */
-.title-header .upload-button {
-	background: url("image/uploadproject.png") no-repeat;
-	width: 140px;
-	height: 40px;
-	border: 0px;
-	margin-right: 10px;
-}
-
-.title-header .login-button {
-	background: url("image/login.png") no-repeat;
-	width: 225px;
-	height: 49px;
-	margin-left: 20px;
-	border-width: 0;
-}
-
-.title-header .heart-button {
-	background: url("image/hearticon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header .bell-button {
-	background: url("image/bellicon.png") no-repeat;
-	width: 40px;
-	height: 40px;
-	border: 0px;
-	margin-left: 20px;
-}
-
-.title-header span {
-	display: inline-block; /* 인라인 블록으로 변경하여 크기 제한 적용 */
-	width: 150px;
-	padding: 15px;
-	align-items: center; /* 수직 가운데 정렬 */
-	border: 1px solid black; /* 테두리 두께, 스타일, 색상 모두 명시 */
-	margin-left: 20px;
-	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
-    overflow: hidden; /* 넘치는 텍스트 숨기기 */
-    text-overflow: ellipsis; /* 말줄임표(...) 적용 */
-}
-
-.title-header span img {
-	width: 35px; /* 원하는 너비 설정 */
-	height: 35px; /* 원하는 높이 설정 */
-	vertical-align: middle;
-	margin-right: 5px;
-}
-
-
-/* 알람 정보 */
-.alarm-sample {
-	display: flex; /* Flexbox 사용 */
-	align-items: center; /* 위쪽 정렬 */
-	width: auto;
-	height: auto; /* 높이를 자동으로 조정 */
-	padding: 5px; /* 여백 추가 */
-	border: 1px solid #dee2e6; /* 경계선 추가 */
-	background-color: #f8f9fa; /* 배경색 설정 */
-	margin-bottom: 10px; /* 아래쪽 여백 */
-	
-}
-
-.alarm-sample:hover{
-	background-color: #f0fbff;
-}
-
-/* 알람 사진 */
-.alarm-image {
-	width: 60px; /* 원하는 너비 설정 */
-	height: 60px; /* 원하는 높이 설정 */
-	margin-right: 20px; /* 이미지와 텍스트 사이의 간격 */
-}
-
-/* 알람 전체 텍스트 */
-.alarm-text {
-	display: flex;
-	flex-direction: column; /* 제목과 내용을 세로로 나열 */
-}
-
-/* 알람 이름 */
-.alarmname {
-	font-size: 20px; /* 제품명 크기 */
-	color: #000000; /* 색상 */
-}
-
-
-
-.delete-button:hover {
-	background-color: #c82333; /* 호버 시 색상 변경 */
-}
-
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* Centralized */
-    padding: 30px; /* Extra padding for better look */
-    border: 1px solid #888;
-    width: 25%; /* Adjust width */
-    text-align: center;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
-    border-radius: 10px; /* Round the edges */
-}
-
-/* Button style for confirm and cancel */
-.modal-content button {
-    width: 100px; /* Adjust width */
-    padding: 10px;
-    margin: 10px; /* Add margin between buttons */
-    border: none;
-    border-radius: 5px;
-    font-size: 16px; /* Adjust font size */
-}
-
-.modal-content button:first-of-type {
-    background-color: #dc3545; /* Red color for confirm */
-    color: white;
-}
-
-.modal-content button:first-of-type:hover {
-    background-color: #c82333; /* Darker red on hover */
-}
-
-.modal-content button:last-of-type {
-    background-color: #6c757d; /* Gray color for cancel */
-    color: white;
-}
-
-.modal-content button:last-of-type:hover {
-    background-color: #5a6268; /* Darker gray on hover */
-}
-
-</style>
-
+<link href="alarm.css" rel="stylesheet" />
 <script>
 		// 카테고리 색상 변경.
         function highlight(selectedLabel, contentId) {
@@ -377,16 +117,224 @@ hr {
 
 	<!-- 카테고리 시작 -->
 	<header>
-		<label class="category-label"><img src="image/menubar.png">카테고리</label>
-		<label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
+		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
 			class="input_text" name="search" placeholder="검색어를 입력하세요."> <img
 			alt="searchicon" src="image/searchicon.png" class="input_icon">
 		</span>
+
 	</header>
 	<!-- 카테고리 끝 -->
+	
+	<!-- 상세 카테고리 창 -->
+	<div class="cat-container">
+		<div class="depth1-wrapper">
+			<div class="depth1-group">
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
+							xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M16.4 9.6H9.6V16.4H16.4V9.6ZM8 8V18H18V8H8Z" fill="#0D0D0D"></path>
+                                    <path fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M28.4 9.6H21.6V16.4H28.4V9.6ZM20 8V18H30V8H20Z"
+								fill="#0D0D0D"></path>
+                                    <path fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M16.4 21.6H9.6V28.4H16.4V21.6ZM8 20V30H18V20H8Z"
+								fill="#0D0D0D"></path>
+                                    <path d="M20 20H30V30H20V20Z"
+								fill="#FF5757"></path>
+                                </svg>
+					</div>
+					<div class="depth1-text">전체</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">보드게임 · TRPG</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">디지털 게임</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">웹툰 · 만화</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">웹툰 리소스</div>
+				</div>
+			</div>
+			<div class="depth1-group">
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">디자인 문구</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">캐릭터 · 굿즈</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">홈 · 리빙</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">테크 · 가전</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">반려동물</div>
+				</div>
+			</div>
+			<div class="depth1-group">
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">푸드</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">향수 · 뷰티</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">의류</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">잡화</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">주얼리</div>
+				</div>
+			</div>
+			<div class="depth1-group">
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">출판</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">디자인</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">예술</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">사진</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">음악</div>
+				</div>
+			</div>
+			<div class="depth1-group">
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">영화 · 비디오</div>
+				</div>
+				<div class="depth1-item">
+					<div class="depth1-icon">
+						<img
+							src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
+							class="depth1-icon-img">
+					</div>
+					<div class="depth1-text">공연</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<hr id="default-hr" width="100%" noshade />
 
 	<!-- 관심 프로젝트 -->
@@ -401,6 +349,8 @@ hr {
     	<label class="alarm-label" onclick="highlight(this, 'project-content')">프로젝트</label>
     	<hr id="highlight-hr" width="100%" noshade />
 	</div>
+	
+	
 
 
 	<!-- 각 관심 카테고리 마다 사용될 body. -->
@@ -430,7 +380,9 @@ hr {
 	    <div id="project-content" class="tab-content" style="display: none;">
 	        <p>여기에 프로젝트 내용이 표시됩니다.</p>
 	    </div>
-	</div>	
+	</div>
+
+	<script src="detailInfo.js"></script>
 	<script src="dropdown.js"></script>
 </body>
 </html>
