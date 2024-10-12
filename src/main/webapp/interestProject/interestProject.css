@@ -299,6 +299,7 @@ progress::-moz-progress-bar {
 .cat-container {
 	position: relative;
 	display: flex;
+	width: 100%;
 }
 
 .depth1-wrapper {
