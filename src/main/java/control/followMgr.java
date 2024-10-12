@@ -192,26 +192,25 @@ public Vector<followBean> followerList(String user_id){
 	public boolean followCheck(String set_user_id, String get_user_id) {
 		
 		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		boolean flag=false;
-		try {
-			con = pool.getConnection();
-			sql = "select * from follow where follow_set_user_id = ? and follow_get_user_id = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, set_user_id);
-			pstmt.setString(2, get_user_id);
-
-			rs = pstmt.executeQuery();
-			flag=rs.next();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return flag;
-		
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    boolean isFollowing = false;
+	    try {
+	        con = pool.getConnection();
+	        String sql = "SELECT COUNT(*) FROM follow WHERE follow_set_user_id = ? AND follow_get_user_id = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, set_user_id);
+	        pstmt.setString(2, get_user_id);
+	        rs = pstmt.executeQuery();
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            isFollowing = true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return isFollowing;
 	}
 	
 }

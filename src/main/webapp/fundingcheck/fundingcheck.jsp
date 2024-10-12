@@ -1,16 +1,9 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="control.usersMgr"%>
-<%@ page import="entity.usersBean"%>
-<%@ page import="control.followMgr"%>
-<%@ page import="entity.followBean"%>
-<%@ page import="control.commentsMgr" %>
-<%@ page import="entity.commentsBean" %>
-<%@ page import="control.resomeCommentMgr" %>
-<%@ page import="control.fundingMgr"%>
-<%@ page import="entity.fundingBean"%>
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>
+
 <%
-usersBean ubean = new usersBean();
 usersBean mybean = new usersBean();
 usersMgr uMgr = new usersMgr();
 followBean fbean = new followBean();
@@ -18,7 +11,10 @@ followMgr fMgr = new followMgr();
 commentsMgr cMgr = new commentsMgr();
 resomeCommentMgr rMgr = new resomeCommentMgr();
 fundingMgr fndMgr = new fundingMgr();
-
+readRecordMgr reMgr = new readRecordMgr();
+readRecordBean reBean = new readRecordBean();
+createFundingMgr cfMgr=new createFundingMgr();
+alarmMgr aMgr=new alarmMgr();
 //funding_num을 쿼리 파라미터에서 가져옴
 int fundingNum = Integer.parseInt(request.getParameter("fundingNum"));
 
@@ -27,14 +23,39 @@ Vector<commentsBean> commentsList = cMgr.commentList(fundingNum);
 
 //funding_user_id를 가져오기 위한 funding 정보 조회
 Vector<fundingBean> fundingList = fndMgr.fundingListForNum(fundingNum);
-String fundingUserId = null;
 
-//fundingList가 비어있지 않은 경우 funding_user_id를 가져옴
+//fundingList에서 첫 번째 fundingBean 객체 가져오기
+fundingBean fundingData = null;
 if (!fundingList.isEmpty()) {
- fundingUserId = fundingList.get(0).getFunding_user_id();
+ fundingData = fundingList.get(0);
 }
 
+//funding_user_id, funding_image, funding_title, funding_nprice를 가져오기
+String fundingUserId = fundingData.getFunding_user_id();
+String fundingImage = fundingData.getFunding_image();
+String fundingTitle = fundingData.getFunding_title();
+int fundingNprice = fundingData.getFunding_nprice(); 
+int fundingTprice = fundingData.getFunding_tprice();
+String fundingTerm = fundingData.getFunding_term();
+String fundingDate = fundingTerm.substring(0, fundingTerm.indexOf(" "));
+int wishCount = reMgr.getWishCountForFunding(fundingNum);
+
 String user_id = (String) session.getAttribute("idKey");
+mybean=uMgr.oneUserList(user_id);
+//열람 기록이 이미 존재하는지 확인
+boolean readExists = reMgr.checkIfRead(user_id, fundingNum);
+if(!readExists){
+	reBean.setRead_funding_num(fundingNum); // 현재 funding_num 설정
+	reBean.setRead_user_id(user_id); // 세션에서 가져온 user_id 설정
+	reBean.setRead_wish(0); // read_wish를 0으로 설정
+
+	// DB에 열람 내역 저장
+	reMgr.readInsert(reBean);
+}
+int userCount = reMgr.getUserCountForFunding(fundingNum);
+//해당 펀딩의 카테고리 가져오기
+String categoryFunding = fndMgr.getCategoryForFunding(fundingNum);
+boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여부 확인
 %>
 <!DOCTYPE html>
 <html>
@@ -52,22 +73,30 @@ String user_id = (String) session.getAttribute("idKey");
 			<%
 			if (mybean.getUser_id() == null || mybean.getUser_id().equals("")) {
 			%>
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="login-button" onclick="">
+			<input type="button" class="upload-button" onclick="alert('로그인 해주세요');"> 
+			<input type="button" class="login-button" onclick="location.href='../login/login.jsp';">
+
+
 			<%
 			} else {
 			%>
+			<%if(cfMgr.createFundingCheck(mybean.getUser_id())){%>
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectBasicinfo.jsp'">
+			<%}else{ %>
+			<input type="button" class="upload-button" onclick="location.href='../projectUpload/projectPlan.jsp'"> 
+			<%} %>
+			<input type="button" class="heart-button" onclick="location.href='../interestProject/interestProject.jsp'">
+			<%if(aMgr.alarmOnOff(mybean.getUser_id())){ %>
+			<input type="button" class="bell-button2" onclick="location.href='../alarm/alarm.jsp';">
+			<%}else{ %>
+			<input type="button" class="bell-button" onclick="location.href='../alarm/alarm.jsp';"> 
+			<%} %>
 
-			<input type="button" class="upload-button" onclick=""> <input
-				type="button" class="heart-button" onclick=""> <input
-				type="button" class="bell-button" onclick=""> <span
-				class="dropbtn" onclick="toggleDropdown()"> <img
-				src="image/guest.png" alt="User Icon"> <b><%=mybean.getUser_name()%></b>
+			<span class="dropbtn" onclick="toggleDropdown()">
+				<img src='<%=mybean.getUser_image() %>' alt="User Icon">
+			    <b><%= mybean.getUser_name() %></b>
 			</span>
-
-
 		</div>
-
 
 		<%
 		}
@@ -76,15 +105,16 @@ String user_id = (String) session.getAttribute("idKey");
 
 	<!-- 사용자 클릭 드롭다운. -->
 	<div class="dropdown-content">
-		<a href="#">프로필</a> <a href="#">관심프로젝트</a> <a href="#">알림</a> <a
-			href="#">로그아웃</a>
-	</div>
-
+		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
+	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
+	    <a href="../alarm/alarm.jsp">알림</a>
+	    <a href="../logout/logout.jsp">로그아웃</a>
+    </div>
+    
 	<!-- 카테고리 시작 -->
 	<header>
-		<label class="category-label" id="category-label"> <img
-			src="image/menubar.png">카테고리
-		</label> <label class="category-label">홈</label> <label class="category-label">인기</label>
+		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
@@ -308,7 +338,7 @@ String user_id = (String) session.getAttribute("idKey");
 			<div class="slider-container">
 				<div class="slides">
 					<div class="slide">
-						<img src="image/fundingimage.jpg" alt="Slide 1">
+						<img src="<%= fundingImage %>" alt="Slide 1">
 					</div>
 					<div class="slide">
 						<img src="image/banner_image.png" alt="Slide 2">
@@ -324,22 +354,26 @@ String user_id = (String) session.getAttribute("idKey");
 
 		<div class="right-section">
 			<div class="funding-info">
-				<p id="funding-category">생활가전 ></p>
-				<b id="funding-name">귀, 파지말고 관리하세요! 세계가 인정한 이어스캐너 비비드 Home30S</b>
-				<h2 id="funding-people">970 명 참여</h2>
-				<h2 id="funding-money">80,302,700 원 달성</h2>
+				<p id="funding-category"><%= categoryFunding %></p>
+				<b id="funding-name"><%= fundingTitle %></b>
+				<h2 id="funding-people"><%= userCount %> 명 참여</h2>
+				<h2 id="funding-money"><%= fundingNprice %> 원 달성</h2>
 				<hr id="default-hr" width="100%" noshade />
 				<div class="funding-detail">
-					<p>목표 금액 : 5,000,000 원</p>
-					<p>펀딩 기간 : 2024.09.16 ~ 2024.09.27</p>
-					<p>결제 : 목표 금액 달성 시 2024.09.28에 결제 진행</p>
+					<p>목표 금액 : <%= fundingTprice %> 원</p>
+					<p>펀딩 기간 : <%= fundingDate %> 정각 마감</p>
+					<p>결제 : 목표 금액 달성 시 <%= fundingDate %> 익일에 결제 진행</p>
 				</div>
 				<div id="funding-buttons">
 					<div class="button-container">
-						<button class="circle-button">
-							<img src="image/heartbutton.png"></img>
-						</button>
-						<span class="button-number">123</span>
+					    <form action="updateWishStatus.jsp" method="post">
+					        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
+					        <input type="hidden" name="userId" value="<%= user_id %>">
+					        <button type="submit" class="circle-button">
+					            <img src="image/heartbutton.png" alt="하트 버튼" style="cursor:pointer;"></img>
+					        </button>
+					    </form>
+					    <span class="button-number"><%= wishCount %></span>
 					</div>
 
 					<div class="button-container">
@@ -525,17 +559,22 @@ String user_id = (String) session.getAttribute("idKey");
 				<div id="creator-box">
 					<b style="font-size: 18px">창작자 소개</b>
 					<div id="creator-info">
-						<img alt="creator-image" src="image/guest.png">
-						<a>다람북스</a>
+						<img alt="creator-image" src="<%= uMgr.oneUserList(fundingUserId).getUser_image() %>">
+    					<a><%= uMgr.oneUserList(fundingUserId).getUser_name() %></a>
 					</div>
 					
 					<p id="creator-intro">
-					다람북스는 책과 일상 속에서 의미 있는 제품을 만드는 창작 팀입니다. 이야기가 가진 힘을 믿으며, 그 이야기를 다양한 형태로 풀어내 사람들에게 영감을 주는 것을 목표로 하고 있습니다. 실용적이면서도 특별한 제품들을 통해 일상 속에 이야기를 더해 나갑니다.
+					<%=uMgr.oneUserList(fundingUserId).getUser_info() %>
 					</p>
 					<hr id="default-hr" width="100%" noshade />
 					<div id="creator-buttons">
 						<button id="inquiry-button">창작자 문의</button>
-						<button id="follow-button">+ 팔로우</button>
+						<form action="<%= isFollowing ? "followDelete.jsp" : "followInsert.jsp" %>" method="post"> <!-- 팔로우 여부에 따라 action 변경 -->
+					        <input type="hidden" name="follow_set_user_id" value="<%= user_id %>">
+					        <input type="hidden" name="follow_get_user_id" value="<%= fundingUserId %>">
+					        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
+					        <button type="submit" id="follow-button"><%= isFollowing ? "팔로우 취소" : "+ 팔로우" %></button> <!-- 텍스트 변경 -->
+					    </form>
 					</div>
 				</div>
 			</div>

@@ -94,4 +94,100 @@ public class readRecordMgr {
 		}
 		return;
 	}
+	
+
+	public int getWishCountForFunding(int fundingNum) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int count = 0; // 개수 초기화
+	    try {
+	        con = pool.getConnection();
+	        String sql = "SELECT COUNT(*) AS wish_count FROM READ_RECORD WHERE READ_FUNDING_NUM = ? AND READ_WISH = 1";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            count = rs.getInt("wish_count"); // 개수 가져오기
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return count;
+	}
+	
+	public boolean checkIfRead(String user_id, int funding_num) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = null;
+	    boolean exists = false;
+
+	    try {
+	        con = pool.getConnection();
+	        sql = "SELECT COUNT(*) FROM READ_RECORD WHERE READ_USER_ID = ? AND READ_FUNDING_NUM = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, user_id);
+	        pstmt.setInt(2, funding_num);
+	        rs = pstmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            exists = rs.getInt(1) > 0; // count가 0보다 크면 존재함
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    
+	    return exists;
+	}
+	
+	public void updateReadWish(String user_id, int fundingNum, int newWishValue) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    String sql = null;
+	    try {
+	        con = pool.getConnection();
+	        sql = "UPDATE READ_RECORD SET READ_WISH = ? WHERE READ_USER_ID = ? AND READ_FUNDING_NUM = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, newWishValue);
+	        pstmt.setString(2, user_id);
+	        pstmt.setInt(3, fundingNum);
+	        pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt);
+	    }
+	}
+	
+	public int getUserCountForFunding(int fundingNum) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    int userCount = 0; // 참여한 유저 수 초기화
+	    try {
+	        con = pool.getConnection();
+	        String sql = "SELECT COUNT(DISTINCT buy_user_id) AS user_count " +
+	                     "FROM buy_record br " +
+	                     "JOIN price p ON br.buy_price_num = p.price_num " +
+	                     "WHERE p.price_funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            userCount = rs.getInt("user_count");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return userCount;
+	}
 }
