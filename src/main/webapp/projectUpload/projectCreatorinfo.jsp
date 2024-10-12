@@ -103,6 +103,7 @@ private String extractFileName(Part part) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>프로젝트 창작자 정보</title>
 <style>
+
     /* 전체 페이지의 기본 스타일 설정 */
     body, html {
         margin: 0;
@@ -118,19 +119,7 @@ private String extractFileName(Part part) {
         box-sizing: inherit;
     }
 
-<<<<<<< Updated upstream
-    /* 상단바 디자인 */
-    .header {
-        background-color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 20px 15%;
-        border-bottom: 1px solid #dee2e6;
-        position: relative;
-    }
-=======
+
         /* 상단바 디자인 - 기본정보 페이지의 스타일을 그대로 적용 */
         .header {
             background-color: #fff;
@@ -144,9 +133,10 @@ private String extractFileName(Part part) {
             border-bottom: 1px solid #dee2e6;  /* 동일한 구분선 */
             margin: 0; /* 추가적인 여백 없애기 */
         }
+
         
 
->>>>>>> Stashed changes
+
 
     /* 뒤로가기 버튼이 있는 줄 */
     .back-row {
@@ -345,14 +335,201 @@ private String extractFileName(Part part) {
         margin-bottom: 10px;
     }
 
-<<<<<<< Updated upstream
+
     .preview-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 50%; /* 이미지도 원형으로 변경 */
     }
-=======
+
+
+
+        .back-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 24px;
+            color: black;
+            border: none;
+        }
+
+        .logo {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        /* 메뉴바 디자인 */
+        .menu-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            padding-bottom: 0;  
+            margin-bottom: 0;  
+        }
+
+        .menu-bar .category-label {
+            font-size: 25px;
+            font-weight: 700;
+            margin-right: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .menu-bar .category-label:hover {
+            color: red;
+        }
+
+        .user-controls {
+            position: absolute;
+            right: 15%;
+            top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-controls .upload-button {
+            background: url("image/uploadproject.png") no-repeat;
+            width: 140px;
+            height: 40px;
+            border-width: 0;
+            margin-right: 10px;
+        }
+
+        .user-controls .heart-button {
+            background: url("image/hearticon.png") no-repeat;
+            width: 40px;
+            height: 40px;
+            border: 0px;
+            margin-left: 20px;
+        }
+
+        .user-controls .bell-button {
+            background: url("image/bellicon.png") no-repeat;
+            width: 40px;
+            height: 40px;
+            border: 0px;
+            margin-left: 20px;
+        }
+
+        .user-controls .bell-button2 {
+            background: url("image/bellicon2.png") no-repeat;
+            width: 40px;
+            height: 40px;
+            border: 0px;
+            margin-left: 20px;
+        }
+
+        .user-controls span {
+            display: inline-block;
+            width: 150px;
+            padding: 15px;
+            align-items: center;
+            border: 1px solid black;
+            margin-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-controls span img {
+            width: 35px;
+            height: 35px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        /* 기본 컨테이너 스타일 */
+        .container {
+            padding: 20px;
+            margin: 0 auto;
+            width: calc(100% - 40px);
+            max-width: 1200px;
+        }
+
+        .section {
+            border-bottom: 1px solid #ccc;
+            padding: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0; /* 상단과 하단의 여백을 없앱니다 */
+        }
+
+        .text-info {
+            flex-basis: 50%;
+            min-width: 300px;
+        }
+
+        .input-group-inline {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        select, input[type="text"], textarea {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 600px;
+            height: 50px;
+        }
+
+        input[type="text"], textarea {
+            font-size: 18px;
+        }
+
+        textarea {
+            height: 150px;
+            font-size: 16px;
+        }
+
+        .input-group-full {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .upload-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 400px;
+        }
+
         .upload-box {
             width: 150px;
             height: 150px;
@@ -364,6 +541,7 @@ private String extractFileName(Part part) {
             align-items: center;
             margin-bottom: 10px;
         }
+
         
         .upload-placeholder {
 		    width: 150px; /* 적당한 크기로 설정 */
@@ -373,7 +551,7 @@ private String extractFileName(Part part) {
 		    background-position: center;
 		    background-repeat: no-repeat;
 		}
->>>>>>> Stashed changes
+
 
     .upload-button {
         padding: 8px 16px;
@@ -489,7 +667,7 @@ private String extractFileName(Part part) {
     }
 
 
-<<<<<<< Updated upstream
+
 	.user-controls .bell-button2 {
 		background: url("image/bellicon2.png") no-repeat;
 		width: 40px;
@@ -537,7 +715,124 @@ private String extractFileName(Part part) {
         form.submit();  // 폼을 제출합니다.
     }
 </script>
-=======
+
+
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .upload-button {
+            padding: 8px 16px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            width: auto;
+        }
+
+        .upload-info {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .url-input {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .url-prefix {
+            margin-right: 8px;
+        }
+
+        .auth-box {
+            width: 550px;
+            height: 100px;
+            background-color: #fafafa;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .auth-button {
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .auth-info {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .auth-info .icon {
+            margin-right: 8px;
+            font-size: 20px;
+            color: #f65a5b;
+        }
+
+        .auth-complete {
+            color: #f65a5b;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .form-box {
+            border: 1px solid #ccc;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 550px;
+            float: right;
+        }
+
+        .form-box .input-group-inline {
+            margin-bottom: 20px;
+        }
+
+        .account-type-toggle {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .account-type-toggle label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 60px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            color: #333;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .account-type-toggle input[type="radio"] {
+            display: none;
+        }
+
+        .account-type-toggle input[type="radio"]:checked + label {
+            border-color: #f65a5b;
+            color: #f65a5b;
+            background-color: #fff;
+        }
+
+
         .account-type-toggle span {
             text-align: center;
             width: 100%;
@@ -589,6 +884,7 @@ private String extractFileName(Part part) {
     </style>
     <script>
         // 폼 제출을 위한 JavaScript 함수
+
  function submitForm(actionUrl) {
         // 숨겨진 input에 actionUrl을 설정
         var form = document.getElementById("projectForm");
@@ -602,7 +898,7 @@ private String extractFileName(Part part) {
     }
     
     </script>
->>>>>>> Stashed changes
+
 </head>
 <body>
     <div class="header">
@@ -758,6 +1054,7 @@ private String extractFileName(Part part) {
             </div>
         </div>
     </div>
+    <button type="submit" class="next-button">확인</button>
     </div>
     
     

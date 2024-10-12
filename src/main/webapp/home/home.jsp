@@ -333,16 +333,22 @@ createFundingMgr cfMgr=new createFundingMgr();
 				<%for(int i=0;i<d3;i++){ %>
 				
 					<div id="interest-project">
-						<!-- 프로젝트 사진 -->
-						<img src=<%=fdjvlist.get(i).getFunding_image() %>>
-						<!-- 창작자 명 -->
-						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdjvlist.get(i).getFunding_user_id() %>"><%=uMgr.oneUserList(fdjvlist.get(i).getFunding_user_id()).getUser_name() %></a><br>
-						<!-- 제품명 -->
-						<label class="product-name"><%=fdjvlist.get(i).getFunding_title() %></label><br>
-						<!-- 진행 정보 -->
-						<div class="progress-info">
-							<span class="progress-percentage"><%= (int)(((double)fdjvlist.get(i).getFunding_nprice() / fdjvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
-						</div>
+					    <!-- 프로젝트 사진 -->
+					    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdjvlist.get(i).getFunding_num()%>">
+					        <img src=<%=fdjvlist.get(i).getFunding_image() %> >
+					    </a>
+					    <!-- 창작자 명 -->
+					    <a class="creator-name" href="../profile/profile.jsp?userId=<%=fdjvlist.get(i).getFunding_user_id() %>">
+					        <%=uMgr.oneUserList(fdjvlist.get(i).getFunding_user_id()).getUser_name() %>
+					    </a><br>
+					    <!-- 제품명 -->
+					    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdjvlist.get(i).getFunding_num()%>">
+					        <label class="product-name"><%=fdjvlist.get(i).getFunding_title() %></label>
+					    </a><br>
+					    <!-- 진행 정보 -->
+					    <div class="progress-info">
+					        <span class="progress-percentage"><%= (int)(((double)fdjvlist.get(i).getFunding_nprice() / fdjvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
+					    </div>
 					</div>
 				
 				<%} %>
@@ -399,18 +405,23 @@ createFundingMgr cfMgr=new createFundingMgr();
 				%>
 				<%for(int i=0;i<d2;i++){ %>
 					<div id="recent-project">
-						<!-- 프로젝트 사진 -->
-						<img src=<%=fdcvlist.get(i).getFunding_image()%>>
-						<!-- 창작자 명 -->
-						<a class="creator-name" href="../profile/profile.jsp?userId=<%=fdcvlist.get(i).getFunding_user_id() %>">
-						<%=uMgr.oneUserList(fdcvlist.get(i).getFunding_user_id()).getUser_name()%></a><br>
-						<!-- 제품명 -->
-						<label class="product-name"><%=fdcvlist.get(i).getFunding_title() %></label><br>
-						<!-- 진행 정보 -->
-						<div class="progress-info">
-							<span class="progress-percentage"><%= (int)(((double)fdcvlist.get(i).getFunding_nprice() / fdcvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
-						</div>
-					</div><!-- recent-project end -->	
+				    <!-- 프로젝트 사진 -->
+				    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdcvlist.get(i).getFunding_num()%>">
+				        <img src=<%=fdcvlist.get(i).getFunding_image()%> >
+				    </a>
+				    <!-- 창작자 명 -->
+				    <a class="creator-name" href="../profile/profile.jsp?userId=<%=fdcvlist.get(i).getFunding_user_id()%>">
+				        <%=uMgr.oneUserList(fdcvlist.get(i).getFunding_user_id()).getUser_name()%>
+				    </a><br>
+				    <!-- 제품명 -->
+				    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdcvlist.get(i).getFunding_num()%>">
+				        <label class="product-name"><%=fdcvlist.get(i).getFunding_title() %></label>
+				    </a><br>
+				    <!-- 진행 정보 -->
+				    <div class="progress-info">
+				        <span class="progress-percentage"><%= (int)(((double)fdcvlist.get(i).getFunding_nprice() / fdcvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
+				    </div>
+				</div>
 				<%} %>
 				</div><!-- projects end -->
 			</div> <!-- recent-content end-->
