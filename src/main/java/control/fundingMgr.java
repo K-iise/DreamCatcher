@@ -1,8 +1,10 @@
 package control;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import entity.fundingBean;
@@ -204,61 +206,50 @@ public class fundingMgr {
 	}
 	
 	
-	public void fundingInsert(fundingBean bean) {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "insert into funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4, funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image, funding_write_date) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getFunding_title());
-			pstmt.setInt(2, bean.getFunding_category());
-			pstmt.setString(3, bean.getFunding_con1());
-			pstmt.setString(4, bean.getFunding_con2());
-			pstmt.setString(5, bean.getFunding_con3());
-			pstmt.setString(6, bean.getFunding_con4());
-			pstmt.setInt(7, bean.getFunding_tprice());
-			pstmt.setString(8, bean.getFunding_term());
-			pstmt.setInt(9, bean.getFunding_nprice());
-			pstmt.setString(10, bean.getFunding_user_id());
-			pstmt.setString(11, bean.getFunding_image());
-			pstmt.setString(12, bean.getFunding_write_date());
-			
-			
-			pstmt.executeUpdate();
+	public int fundingInsert(fundingBean bean) {
+	    Connection con = null;
+	    CallableStatement cstmt = null;
+	    int fundingNum = -1; // 반환할 funding_num 초기값 설정
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-		
+	    try {
+	        con = pool.getConnection();
+	        // CallableStatement 사용
+	        String sql = "DECLARE num NUMBER; " +
+	                     "BEGIN " +
+	                     "INSERT INTO funding(funding_title, funding_category, funding_con1, funding_con2, funding_con3, funding_con4, funding_tprice, funding_term, funding_nprice, funding_user_id, funding_image, funding_write_date) " +
+	                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+	                     "RETURNING funding_num INTO ?; " +
+	                     "END;";
+	        
+	        cstmt = con.prepareCall(sql);
+	        cstmt.setString(1, bean.getFunding_title());
+	        cstmt.setInt(2, bean.getFunding_category());
+	        cstmt.setString(3, bean.getFunding_con1());
+	        cstmt.setString(4, bean.getFunding_con2());
+	        cstmt.setString(5, bean.getFunding_con3());
+	        cstmt.setString(6, bean.getFunding_con4());
+	        cstmt.setInt(7, bean.getFunding_tprice());
+	        cstmt.setString(8, bean.getFunding_term());
+	        cstmt.setInt(9, bean.getFunding_nprice());
+	        cstmt.setString(10, bean.getFunding_user_id());
+	        cstmt.setString(11, bean.getFunding_image());
+	        cstmt.setString(12, bean.getFunding_write_date());
+
+	        // OUTPUT 매개변수 등록
+	        cstmt.registerOutParameter(13, java.sql.Types.INTEGER); // 반환할 funding_num 위치
+	        cstmt.executeUpdate();
+
+	        fundingNum = cstmt.getInt(13); // funding_num을 가져옴
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, cstmt);
+	    }
+
+	    return fundingNum; // 자동 생성된 funding_num 반환
 	}
 
-	public void fundingDelete(int num) {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "delete from funding where funding_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			
-			pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-		
-	}
 
 	public void fundingUpdate(fundingBean bean) {
 		
