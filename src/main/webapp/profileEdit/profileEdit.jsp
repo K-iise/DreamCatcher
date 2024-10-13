@@ -1,15 +1,18 @@
+<%@page import="java.nio.file.Paths"%>
 <%@page import="java.util.Vector"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-
 <%@ page import="control.*"%>
 <%@ page import="entity.*"%>
+<%@ page import="java.io.*" %>
+<%@ page import="java.nio.file.*" %>
+<%@ page import="javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import="javax.servlet.annotation.MultipartConfig" %>
 
-<%@ page import="control.usersMgr"%>
-<%@ page import="entity.usersBean"%>
-<%@ page import="control.fundingMgr"%>
-<%@ page import="entity.fundingBean"%>
 
 <%
+request.setCharacterEncoding("UTF-8");
 String user_id = (String) session.getAttribute("idKey");
 String selectedId = request.getParameter("selectedid");
 String selectuserId = selectedId;
@@ -37,6 +40,92 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 	mybean.setUser_image("image/guest.png");
 
 }
+
+String action = request.getParameter("Action");
+System.out.println("action: " + action); // 디버깅 로그
+String Data = request.getParameter("Data");
+System.out.println("Data: " + Data); // 디버깅 로그
+
+if ("submit".equals(action)) {
+	if("name".equals(Data)){
+		
+		String name = request.getParameter("name");
+		System.out.println("name: " + name);
+		mybean.setUser_name(name);
+		
+	}else if ("info".equals(Data)){
+		
+		String info = request.getParameter("info");
+		System.out.println("info: " + info);
+		mybean.setUser_info(info);
+		
+	}else if ("phone".equals(Data)){
+		
+		String phone = request.getParameter("phone");
+		System.out.println("phone: " + phone);
+		mybean.setUser_phone(phone);
+		
+	}else if ("address".equals(Data)){
+		
+		String address = request.getParameter("address");
+		System.out.println("address: " + address);
+		mybean.setUser_address(address);
+		
+	}else if ("profilePhotoInput".equals(Data)){
+		
+	    Part profilePhotoInput = request.getPart("profilePhotoInput");
+	    System.out.println("profilePhotoInput: " + profilePhotoInput);
+	
+		if (profilePhotoInput != null && profilePhotoInput.getSize() > 0) {
+	        String fileName = extractFileName(profilePhotoInput);
+
+	        // 저장할 실제 서버 경로 설정
+	        String uploadPath = getServletContext().getRealPath("/userimage");
+	        File uploadDir = new File(uploadPath);
+
+	        // 디렉터리가 없으면 생성
+	        if (!uploadDir.exists()) {
+	            uploadDir.mkdir();
+	        }
+
+	        // 저장할 경로 및 파일 이름 생성
+	        String filePath = uploadPath + File.separator + fileName;
+
+	        System.out.println("Upload Path: " + uploadPath);  // 경로 출력
+	        System.out.println("File Path: " + filePath);  // 파일 경로 출력
+
+	        // 파일 저장
+	        profilePhotoInput.write(filePath);
+
+	        // 파일 경로를 데이터베이스에 저장 
+	        String relativePath = request.getContextPath() + "/userimage/" + fileName;
+
+	        mybean.setUser_image(relativePath);
+	    }
+		
+	}
+
+    // 데이터베이스에 저장
+    uMgr.userUpdate(mybean);  // 데이터 저장
+
+    // 저장이 성공하면 전송된 페이지로 이동
+
+    response.sendRedirect("profileEdit.jsp");
+    
+}
+
+%>
+<%!
+private String extractFileName(Part part) {
+    String contentDisposition = part.getHeader("content-disposition");
+    String[] items = contentDisposition.split(";");
+    for (String item : items) {
+        if (item.trim().startsWith("filename")) {
+            return item.substring(item.indexOf("=") + 2, item.length() - 1);
+        }
+    }
+    return "";
+}
 %>
 
 <!DOCTYPE html>
@@ -57,6 +146,22 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
             });
         }
         
+</script>
+<script>
+        // 폼 제출을 위한 JavaScript 함수
+
+ function submitForm(Data) {
+        // 숨겨진 input에 actionUrl을 설정
+        var form = document.getElementById("projectForm");
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "Data";
+        actionInput.value = Data;  // 이동할 페이지 경로
+
+        form.appendChild(actionInput);  // 폼에 추가
+        form.submit();  // 폼 제출
+    }
+    
 </script>
 </head>
 <body>
@@ -351,6 +456,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 		<hr id="highlight-hr" width="100%" noshade />
 	</div>
 	<form id="projectForm" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="Action" value="submit" >
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
 
@@ -365,59 +471,59 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 					<div class="edit-box">
 						<div class="edit-title">
 							<b>프로필 사진</b>
-							<button class="change-button" >변경</button>
+							<button class="change-button" type="button">변경</button>
 						</div>
 						<div class="image-box">
-							<img id="profileImage" src="<%=mybean.getUser_image()%>"
+							<img id="profileImage" name="profileImage" src="<%=mybean.getUser_image()%>"
 								alt="Profile Image"
 								style="width: 100px; height: 100px; border-radius: 50%;">
 							<div class="image-info">
 								<label for="profilePhotoInput" class="custom-file-input-label">이미지 파일 업로드</label>
-								<input type="file" id="profilePhotoInput" accept="image/*"
+								<input type="file" id="profilePhotoInput" name="profilePhotoInput" accept="image/*"
 									class="file-input">
 								<p class="user-name"
 									style="margin: 8px 0px 0px; color: rgb(109, 109, 109); font-size: 13px; line-height: 20px; letter-spacing: -0.015em;">250
 									x 250 픽셀에 최적화되어 있으며, 5MB 이하의 JPG, GIF, PNG 파일을 지원합니다.</p>
 							</div>
 						</div>
-						<button class="save-button">저장</button>
+						<button class="save-button" type="button" onclick="submitForm('profilePhotoInput')">저장</button>
 					</div>
 
 					<!-- 사용자 이름 편집. -->
 					<div class="edit-box">
 						<div class="edit-title">
 							<b>사용자 이름</b>
-							<button class="change-button">변경</button>
+							<button class="change-button" type="button">변경</button>
 						</div>
-						<p class="user-name" style="margin: 0px;"><%=mybean.getUser_name() %></p>
-						<input class="input_text" type="text" inputmode="text"
+						<p class="user-name"  style="margin: 0px;"><%=mybean.getUser_name() %></p>
+						<input class="input_text" type="text" inputmode="text" id="name" name="name" value=<%=mybean.getUser_name() %>
 							placeholder="이름을 입력해주세요.">
-						<button class="save-button">저장</button>
+						<button class="save-button" type="button" onclick="submitForm('name')">저장</button>
 					</div>
 
 					<!-- 소개 편집 -->
 					<div class="edit-box">
 						<div class="edit-title">
 							<b>소개</b>
-							<button class="change-button">변경</button>
+							<button class="change-button" type="button">변경</button>
 						</div>
-						<p class="user-name"
+						<p class="user-name" 
 							style="margin: 0px; color: rgb(158, 158, 158); white-space: pre-wrap;"><%=mybean.getUser_info() %></p>
-						<textarea placeholder="자기소개를 입력해주세요." class="input_textarea"></textarea>
-						<button class="save-button">저장</button>
+						<textarea placeholder="자기소개를 입력해주세요." class="input_textarea" id="info" name="info"><%=mybean.getUser_info() %></textarea>
+						<button class="save-button" type="button" onclick="submitForm('info')">저장</button>
 					</div>
 
 					<!-- 연락처 편집 -->
 					<div class="edit-box">
 						<div class="edit-title">
 							<b>연락처</b>
-							<button class="change-button">변경</button>
+							<button class="change-button" type="button">변경</button>
 						</div>
 						<p class="user-name"
 							style="margin: 0px; color: rgb(158, 158, 158);"><%=mybean.getUser_phone() %></p>
-						<input class="input_text" type="text" inputmode="text"
+						<input class="input_text" type="text" inputmode="text" id="phone" name="phone" value=<%=mybean.getUser_phone() %>
 							placeholder="휴대폰 번호를 입력해주세요.">
-						<button class="save-button">저장</button>
+						<button class="save-button" type="button" onclick="submitForm('phone')">저장</button>
 					</div>
 
 
@@ -428,12 +534,12 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 						</div>
 						<div id="deliver-detail">
 							<div id="deliver-profile">
-								<b id="deliver-name"><%=mybean.getUser_name() %></b>
+								
 								<p id="deliver-address"><%=mybean.getUser_address() %></p>
 							</div>
-							<button id="deliver-change">변경</button>
+							<button id="deliver-change" type="button">변경</button>
 						</div>
-						<button class="save-button">저장</button>
+						
 					</div>
 
 				</div>
@@ -461,13 +567,12 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 			<span class="close">&times;</span>
 			<h2>배송지 수정</h2>
 			<div id="delivery-form">
-				<label id="receiver" for="recipient-name">받는 사람</label> <input
-					type="text" id="recipient-name" placeholder="받는 분의 성함을 입력해주세요.">
+				
 
 				<label id="address-name" for="address">주소</label> <input type="text"
-					id="address" placeholder="받는 분의 주소를 입력해주세요.">
+					id="address" name="address" placeholder="받는 분의 주소를 입력해주세요." value=<%=mybean.getUser_address() %>>
 
-				<button id="address-add">수정</button>
+				<button id="address-add" type="button" onclick="submitForm('address')">수정</button>
 			</div>
 		</div>
 	</div>

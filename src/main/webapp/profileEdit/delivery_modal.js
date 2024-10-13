@@ -32,17 +32,17 @@ window.onclick = function(event) {
 
 // 배송지 추가 버튼 클릭 시 처리
 document.getElementById("address-add").onclick = function() {
-	const recipientName = recipientInput.value.trim();
+
 	const address = addressInput.value.trim();
 
-	if (recipientName && address) {
+	if (address) {
 		// 배송지 정보 업데이트
-		deliverName.innerText = recipientName;
+		
 		deliverAddress.innerText = address;
-
+		submitForm('address');
 		// 모달 닫기
 		modal.style.display = "none";
-
+		
 		// 배송지 추가 버튼 숨기기, 배송지 정보 보여주기
 		document.getElementById("delivery-button").style.display = "none";
 		deliveryDetail.style.display = "flex";
