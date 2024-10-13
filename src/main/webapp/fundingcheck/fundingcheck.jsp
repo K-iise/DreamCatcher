@@ -15,6 +15,7 @@ readRecordMgr reMgr = new readRecordMgr();
 readRecordBean reBean = new readRecordBean();
 createFundingMgr cfMgr=new createFundingMgr();
 alarmMgr aMgr=new alarmMgr();
+priceMgr pMgr=new priceMgr();
 //funding_num을 쿼리 파라미터에서 가져옴
 int fundingNum = Integer.parseInt(request.getParameter("fundingNum"));
 
@@ -24,6 +25,7 @@ Vector<commentsBean> commentsList = cMgr.commentList(fundingNum);
 //funding_user_id를 가져오기 위한 funding 정보 조회
 Vector<fundingBean> fundingList = fndMgr.fundingListForNum(fundingNum);
 
+Vector<priceBean> priceList = pMgr.priceList(fundingNum);
 //fundingList에서 첫 번째 fundingBean 객체 가져오기
 fundingBean fundingData = null;
 if (!fundingList.isEmpty()) {
@@ -56,6 +58,7 @@ int userCount = reMgr.getUserCountForFunding(fundingNum);
 //해당 펀딩의 카테고리 가져오기
 String categoryFunding = fndMgr.getCategoryForFunding(fundingNum);
 boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여부 확인
+//펀딩 넘버에 해당하는 가격 목록을 가져옴
 %>
 <!DOCTYPE html>
 <html>
@@ -360,12 +363,12 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 				<!-- 수정 부분 남은 날짜 추가. -->
 				<div class="info-box">
 					<h2 id="funding-people"><%= userCount %> <span style="font-size: 0.7em; font-weight: 600;">명 참여</span></h2>
-					<label class="funding-box" style="color: red;">11일 남음</label>
+					<label class="funding-box" style="color: red;"><%= fndMgr.fundDate(fundingNum) %>일 남음</label>
 				</div>
 				<!-- 수정 부분 달성 퍼센트 추가. -->
 				<div class="info-box">
 					<h2 id="funding-money"><%= fundingNprice %> <span style="font-size: 0.7em; font-weight: 600;">원 달성</span></h2>
-					<label class="funding-box">60% 달성</label>
+					<label class="funding-box"><%= fundingData.getFunding_nprice() * 100 / fundingData.getFunding_tprice() %>% 달성</label>
 				</div>
 				<hr id="default-hr" width="100%" noshade />
 				<div class="funding-detail">
@@ -563,120 +566,71 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 		</div> <!-- left-section 끝 -->
 
 		<div class="right-section">
-		
-			<div id="creator-content">	
-				<div id="creator-box">
-					<b style="font-size: 18px">창작자 소개</b>
-					<div id="creator-info">
-						<img alt="creator-image" src="<%= uMgr.oneUserList(fundingUserId).getUser_image() %>">
-    					<a><%= uMgr.oneUserList(fundingUserId).getUser_name() %></a>
-					</div>
-					
-					<p id="creator-intro">
-					<%=uMgr.oneUserList(fundingUserId).getUser_info() %>
-					</p>
-					<hr id="default-hr" width="100%" noshade />
-					<div id="creator-buttons">
-						<button id="inquiry-button">창작자 문의</button>
-						<form action="<%= isFollowing ? "followDelete.jsp" : "followInsert.jsp" %>" method="post"> <!-- 팔로우 여부에 따라 action 변경 -->
-					        <input type="hidden" name="follow_set_user_id" value="<%= user_id %>">
-					        <input type="hidden" name="follow_get_user_id" value="<%= fundingUserId %>">
-					        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
-					        <button type="submit" id="follow-button"><%= isFollowing ? "팔로우 취소" : "+ 팔로우" %></button> <!-- 텍스트 변경 -->
-					    </form>
-					</div>
-				</div>
-			</div>
-		
-		
-		
-			<div class="donate-content">
-				<b>선물하기</b>
+    
+        <div id="creator-content">    
+            <div id="creator-box">
+                <b style="font-size: 18px">창작자 소개</b>
+                <div id="creator-info">
+                    <img alt="creator-image" src="<%= uMgr.oneUserList(fundingUserId).getUser_image() %>">
+                    <a><%= uMgr.oneUserList(fundingUserId).getUser_name() %></a>
+                </div>
+                
+                <p id="creator-intro">
+                <%=uMgr.oneUserList(fundingUserId).getUser_info() %>
+                </p>
+                <hr id="default-hr" width="100%" noshade />
+                <div id="creator-buttons">
+                    <button id="inquiry-button">창작자 문의</button>
+                    <form action="<%= isFollowing ? "followDelete.jsp" : "followInsert.jsp" %>" method="post"> <!-- 팔로우 여부에 따라 action 변경 -->
+                        <input type="hidden" name="follow_set_user_id" value="<%= user_id %>">
+                        <input type="hidden" name="follow_get_user_id" value="<%= fundingUserId %>">
+                        <input type="hidden" name="fundingNum" value="<%= fundingNum %>">
+                        <button type="submit" id="follow-button"><%= isFollowing ? "팔로우 취소" : "+ 팔로우" %></button> <!-- 텍스트 변경 -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+        <div class="donate-content">
+            <b>선물하기</b>
 
-				<!-- 상품 선택(구매)  예시 -->
-				<div class="product-buy">
-					<div class="buy-info">
-						<label class="product-information"> 
-						<div class="product-title">
-							<b>더블크로스 The 3rd	Edition 기본 세트</b>
-							<button id="delete-button">X</button>
-						</div>
-							<ul class="product-ul">
-								<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
-								<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
-								<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적
-									1권 (x1)</li>
-								<li><더블크로스 The 3rd Edition 상급 룰북> 서적 1권 (x1)</li>
-								<li>더블크로스 A4 클리어파일 2매 세트 (x1)</li>
-								<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
-							</ul>
+            <!-- 상품 선택(구매) 예시 -->
+            <div class="product-buy" style="display: none;"> <!-- 기본적으로 숨김 -->
+                <div class="buy-info">
+                    <label class="product-information"> 
+                    <div class="product-title">
+                        <b><!-- "donate-information" 이름 --></b>
+                        <button id="delete-button">X</button>
+                    </div>
+                        
+                    <div class="product-bottom">
+                        <div class="stepper">
+                            <button type="button" id="decrease" disabled>-</button>
+                            <input type="number" value="1" class="stepper-input" readonly>
+                            <button type="button" id="increase">+</button>
+                        </div>
+                        <p><!-- "donate-information" 금액 --></p>
+                    </div>
+                    </label>
+                </div>
+                <button class="select-button">선물 선택하기</button>
+                <button class="buy-button">총 <label class="button-price"><!-- "donate-information" 금액 --></label> 후원하기</button>
+            </div>
 
-							<div class="product-bottom">
-								<div class="stepper">
-									<button type="button" id="decrease" disabled>-</button>
-									<input type="number" value="1" class="stepper-input" readonly>
-									<button type="button" id="increase">+</button>
-								</div>
-								<p>42,600원</p>
-							</div>
-						</label>
-					</div>
-					<button class="select-button">선물 선택하기</button>
-					<button class="buy-button">총 <label class="button-price">42,600원</label> 후원하기</button>
-				</div>
-
-				<!-- 상품 예시 1 -->
-				<div class="donate-information">
-					<p>2148개 선택</p>
-					<b>78,000원</b> <label class="product-information"> 더블크로스
-						The 3rd Edition 기본 세트
-						<ul class="product-ul">
-							<li><더블크로스 The 3rd Edition 룰북1> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 룰북2> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 1권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 1권 (x1)</li>
-							<li>더블크로스 A4 클리어파일 2매 세트 (x1)</li>
-							<li>더블크로스 A4 기본 시트 4장 세트 (x1)</li>
-						</ul>
-					</label>
-				</div>
-
-				<!-- 상품 예시 2 -->
-				<div class="donate-information">
-					<p>2148개 선택</p>
-					<b>79,000원</b> <label class="product-information"> 더블크로스
-						The 4rd Edition 기본 세트
-						<ul class="product-ul">
-							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
-							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
-							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
-						</ul>
-					</label>
-				</div>
-				
-				<!-- 상품 예시 3 -->
-				<div class="donate-information">
-					<p>2148개 선택</p>
-					<b>79,000원</b> <label class="product-information"> 더블크로스
-						The 4rd Edition 기본 세트
-						<ul class="product-ul">
-							<li><더블크로스 The 3rd Edition 룰북1> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 룰북2> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 시나리오집 문리스 나이트> 서적 2권 (x1)</li>
-							<li><더블크로스 The 3rd Edition 상급 룰북> 서적 2권 (x1)</li>
-							<li>더블크로스 A3 클리어파일 2매 세트 (x1)</li>
-							<li>더블크로스 A3 기본 시트 4장 세트 (x1)</li>
-						</ul>
-					</label>
-				</div>
-				
-				
-
-			</div> <!-- donate-content 끝 -->
-		</div> <!-- right-section 끝-->
+            <!-- 상품 예시 반복문 시작 -->
+            <% for (priceBean priceData : priceList) { %>
+                <div class="donate-information" data-price-num="<%= priceData.getPrice_num() %>">
+                    <p><%= priceData.getPrice_count() %>개 남음</p>
+                    <b><%= priceData.getPrice() %>원</b>
+                    <label class="product-information">
+                        <%= priceData.getPrice_comp() %> <!-- 상품 제목 -->
+                    </label>
+                </div>
+            <% } %>
+            <!-- 상품 예시 반복문 끝 -->
+            
+        </div> <!-- donate-content 끝 -->
+    </div> <!-- right-section 끝 -->
 		
 	</div> <!-- Main Bottom 끝 -->
 

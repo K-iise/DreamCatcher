@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(productPrice);
 			
 			const productTitle = donateInfo.querySelector('.product-information').childNodes[0].textContent; // 상품 제목
-            const productUl = donateInfo.querySelector('.product-ul').innerHTML; // 상품 목록
+         
 
             // product-buy에 있는 정보 업데이트
             const productBuy = document.querySelector('.product-buy');
 			
             const buyInfoTitle = productBuy.querySelector('.product-title b');
-            const buyInfoUl = productBuy.querySelector('.product-ul');
+
 			
 			const buyPrice = productBuy.querySelector('.product-bottom p');
 			const buttonPrice = productBuy.querySelector('.button-price');
@@ -24,9 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // 제목 변경
             buyInfoTitle.textContent = productTitle;
 
-            // ul 내용 변경
-            buyInfoUl.innerHTML = productUl;
-			
 			// 금액 변경
 			buyPrice.textContent = productPrice;
 			
@@ -107,3 +104,53 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const donateInfoList = document.querySelectorAll('.donate-information');
+
+    donateInfoList.forEach(function(donateInfo) {
+        donateInfo.addEventListener('click', function() {
+            // donate-information의 금액과 제목 가져오기
+            const productPrice = donateInfo.querySelector('b').textContent; // 금액
+            const productTitle = donateInfo.querySelector('.product-information').childNodes[0].textContent; // 상품 제목
+            const priceNum = donateInfo.dataset.priceNum; // price_num을 data 속성으로 가져오기
+
+            // product-buy에 있는 정보 업데이트
+            const productBuy = document.querySelector('.product-buy');
+            const buyInfoTitle = productBuy.querySelector('.product-title b');
+            const buyPrice = productBuy.querySelector('.product-bottom p');
+            const buttonPrice = productBuy.querySelector('.button-price');
+
+            // 제목 변경
+            buyInfoTitle.textContent = productTitle;
+            // 금액 변경
+            buyPrice.textContent = productPrice;
+            // 버튼 금액 변경
+            buttonPrice.textContent = productPrice;
+
+            // product-buy를 flex로 표시
+            productBuy.style.display = 'flex';
+
+            // 후원하기 버튼 클릭 시 action 업데이트
+            const buyButton = productBuy.querySelector('.buy-button');
+            buyButton.addEventListener('click', function(event) {
+                event.preventDefault(); // 기본 폼 제출 방지
+
+                // 폼 생성 및 설정
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `../projectdonate/projectdonate.jsp?price_num=${priceNum}`;
+
+                // 숨겨진 입력 추가 (선택적으로)
+                const inputPriceNum = document.createElement('input');
+                inputPriceNum.type = 'hidden';
+                inputPriceNum.name = 'price_num';
+                inputPriceNum.value = priceNum;
+                form.appendChild(inputPriceNum);
+
+                // 폼 제출
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    });
+});
