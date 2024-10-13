@@ -16,6 +16,32 @@ fundingMgr fdMgr = new fundingMgr();
 readRecordMgr rMgr = new readRecordMgr();
 alarmMgr aMgr = new alarmMgr();
 createFundingMgr cfMgr = new createFundingMgr();
+
+String categoryNumStr = request.getParameter("category_num");
+//카테고리 번호가 지정되지 않았으면 기본값을 설정하지 않음
+int categoryNum = (categoryNumStr != null) ? Integer.parseInt(categoryNumStr) : -1;
+// 해당 카테고리의 funding 정보 가져오기
+Vector<fundingBean> fundingList;
+//categoryNum이 -1인 경우 모든 카테고리의 프로젝트 가져오기
+if (categoryNum == -1) {
+ fundingList = fdMgr.fundingListForAllCategories(); // 모든 카테고리의 프로젝트를 가져오는 메소드 추가 필요
+} else {
+ fundingList = fdMgr.fundingListForCategory(categoryNum);
+}
+// 프로젝트 수 계산
+int projectCount = 0; // 카운트 초기화
+Vector<fundingBean> activeFundingList = new Vector<>(); // 종료되지 않은 프로젝트를 저장할 리스트
+
+for (fundingBean funding : fundingList) {
+    int fundingNum = funding.getFunding_num();
+    // 사용자의 이름을 가져오기 위해 usersMgr 호출
+    usersBean user = uMgr.oneUserList(funding.getFunding_user_id());
+    
+    if (fdMgr.fundDate(fundingNum) > 0) { // 종료되지 않은 프로젝트만
+        activeFundingList.add(funding); // 종료되지 않은 프로젝트를 리스트에 추가
+        projectCount++; // 카운트 증가
+    }
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -104,210 +130,214 @@ createFundingMgr cfMgr = new createFundingMgr();
 	<!-- 카테고리 끝 -->
 
 	<!-- 상세 카테고리 창 -->
+	<!-- 상세 카테고리 창 -->
 	<div class="cat-container">
-		<div class="depth1-wrapper">
-			<div class="depth1-group">
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
-							xmlns="http://www.w3.org/2000/svg">
+			<div class="depth1-wrapper">
+				<div class="depth1-group">
+					<div class="depth1-item"  onclick="location.href='../categoryTab/categoryTab.jsp?category_num=-1'">
+						<div class="depth1-icon">
+							<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
+								xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M16.4 9.6H9.6V16.4H16.4V9.6ZM8 8V18H18V8H8Z" fill="#0D0D0D"></path>
+									clip-rule="evenodd"
+									d="M16.4 9.6H9.6V16.4H16.4V9.6ZM8 8V18H18V8H8Z" fill="#0D0D0D"></path>
                                     <path fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M28.4 9.6H21.6V16.4H28.4V9.6ZM20 8V18H30V8H20Z"
-								fill="#0D0D0D"></path>
+									clip-rule="evenodd"
+									d="M28.4 9.6H21.6V16.4H28.4V9.6ZM20 8V18H30V8H20Z"
+									fill="#0D0D0D"></path>
                                     <path fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M16.4 21.6H9.6V28.4H16.4V21.6ZM8 20V30H18V20H8Z"
-								fill="#0D0D0D"></path>
+									clip-rule="evenodd"
+									d="M16.4 21.6H9.6V28.4H16.4V21.6ZM8 20V30H18V20H8Z"
+									fill="#0D0D0D"></path>
                                     <path d="M20 20H30V30H20V20Z"
-								fill="#FF5757"></path>
+									fill="#FF5757"></path>
                                 </svg>
+						</div>
+						<div class="depth1-text">전체</div>
 					</div>
-					<div class="depth1-text">전체</div>
+					
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=1'" >
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">보드게임 · TRPG</div>
+					</div>
+					
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=2'">
+				        <div class="depth1-icon">
+				            <img 
+				            	src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg" 
+				            	class="depth1-icon-img">
+				        </div>
+				        <div class="depth1-text">디지털 게임</div>
+				    </div>
+				    
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=3'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">웹툰 · 만화</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=4'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">웹툰 리소스</div>
+					</div>
 				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
-							class="depth1-icon-img">
+				<div class="depth1-group">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=5'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">디자인 문구</div>
 					</div>
-					<div class="depth1-text">보드게임 · TRPG</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=6'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">캐릭터 · 굿즈</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=7'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">홈 · 리빙</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=8'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">테크 · 가전</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=9'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">반려동물</div>
+					</div>
 				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg"
-							class="depth1-icon-img">
+				<div class="depth1-group">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=10'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">푸드</div>
 					</div>
-					<div class="depth1-text">디지털 게임</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=11'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">향수 · 뷰티</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=12'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">의류</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=13'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">잡화</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=14'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">주얼리</div>
+					</div>
 				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
-							class="depth1-icon-img">
+				<div class="depth1-group">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=15'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">출판</div>
 					</div>
-					<div class="depth1-text">웹툰 · 만화</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=16'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">디자인</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=17'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">예술</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=18'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">사진</div>
+					</div>
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=19'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">음악</div>
+					</div>
 				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
-							class="depth1-icon-img">
+				<div class="depth1-group">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=20'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">영화 · 비디오</div>
 					</div>
-					<div class="depth1-text">웹툰 리소스</div>
-				</div>
-			</div>
-			<div class="depth1-group">
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
-							class="depth1-icon-img">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=21'">
+						<div class="depth1-icon">
+							<img
+								src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
+								class="depth1-icon-img">
+						</div>
+						<div class="depth1-text">공연</div>
 					</div>
-					<div class="depth1-text">디자인 문구</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">캐릭터 · 굿즈</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">홈 · 리빙</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">테크 · 가전</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">반려동물</div>
-				</div>
-			</div>
-			<div class="depth1-group">
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">푸드</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">향수 · 뷰티</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">의류</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">잡화</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">주얼리</div>
-				</div>
-			</div>
-			<div class="depth1-group">
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">출판</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">디자인</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">예술</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">사진</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">음악</div>
-				</div>
-			</div>
-			<div class="depth1-group">
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">영화 · 비디오</div>
-				</div>
-				<div class="depth1-item">
-					<div class="depth1-icon">
-						<img
-							src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
-							class="depth1-icon-img">
-					</div>
-					<div class="depth1-text">공연</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
+		
 	<hr id="default-hr" width="100%" noshade />
 
 	<div class="Main">
@@ -318,7 +348,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 				<button class="scroll-button left" onclick="scrollLeftItems()">◀</button>
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=-1'">
 							<div class="category-icon">
 								<svg width="48" height="48" viewBox="0 0 48 48" fill="none"
 									xmlns="http://www.w3.org/2000/svg">
@@ -338,7 +368,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">전체</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=1'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
@@ -346,7 +376,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">보드게임 · TRPG</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=2'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg"
@@ -354,7 +384,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">디지털 게임</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=3'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
@@ -362,7 +392,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">웹툰 · 만화</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=4'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
@@ -370,7 +400,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">웹툰 리소스</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=5'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
@@ -378,7 +408,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">디자인 문구</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=6'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
@@ -386,7 +416,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">캐릭터 · 굿즈</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=7'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
@@ -394,7 +424,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">홈 · 리빙</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=8'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
@@ -402,7 +432,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">테크 · 가전</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=9'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
@@ -410,7 +440,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">반려동물</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=10'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
@@ -418,7 +448,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">푸드</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=11'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
@@ -426,7 +456,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">향수 · 뷰티</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=12'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
@@ -434,7 +464,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">의류</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=13'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
@@ -442,7 +472,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">잡화</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=14'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
@@ -450,7 +480,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">주얼리</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=15'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
@@ -458,7 +488,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">출판</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=16'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
@@ -466,7 +496,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">디자인</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=17'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
@@ -474,7 +504,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">예술</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=18'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
@@ -482,7 +512,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">사진</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=19'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
@@ -490,7 +520,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">음악</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=20'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
@@ -498,7 +528,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 							</div>
 							<div class="category-text">영화 · 비디오</div>
 						</div>
-						<div class="category-item">
+						<div class="category-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=21'">
 							<div class="category-icon">
 								<img
 									src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
@@ -512,72 +542,65 @@ createFundingMgr cfMgr = new createFundingMgr();
 			</div>
 
 			<!-- 현재 카테고리 제목 -->
-			<div class="current-text">디자인 문구</div>
+			<div class="current-text"><%= fdMgr.getCategory(categoryNum) %></div>
 
 			<!-- 달성률 드롭다운. -->
 			<div class="dropdown1">
-				<select id="add-sort">
-					<option value="added">전체보기</option>
-					<option value="deadline_approaching">75% 이하</option>
-					<option value="deadline_approaching">75% ~ 100%</option>
-					<option value="deadline_approaching">100% 이상</option>
-				</select>
+			    <select id="add-sort" onchange="filterProjects()">
+			        <option value="added">전체보기</option>
+			        <option value="less_than_75">75% 이하</option>
+			        <option value="between_75_and_100">75% ~ 100%</option>
+			        <option value="more_than_100">100% 이상</option>
+			    </select>
 			</div>
 		</div>
 
 		<div class="Main-body">
-			<div class="body-header">
-				<span style="color: red">586</span> 개의 프로젝트가 있습니다.
+			<div class="body-header">총
+				<span style="color: red"> <%= projectCount %></span> 개의 프로젝트가 있습니다.
 			</div>
 
 			<div class="body-content">
-
-				<!-- 샘플 1 -->
-				<div id="interest-project">
-					<!-- 프로젝트 사진 -->
-					<img src="" alt="">
-					<!-- 창작자 명 -->
-					<a class="creator-name" href="">이매진스</a><br>
-					<!-- 제품명 -->
-					<label class="product-name">모두와 함께하고픈 하얀토끼 방구빵빵이</label><br>
-					<!-- 진행 정보 -->
-					<p class="description">
-						<!-- 상세 설명(프로젝트 요약) -->
-						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
-					</p>
-					<div class="progress-info">
-						<span class="progress-percentage">1099%</span> <span
-							class="progress-amount">21,988,600원</span> <span
-							class="progress-time">27일 남음 </span>
-					</div>
-					<!-- 진행 바 -->
-					<progress id="progress" value="365666" min="0" max="100%"></progress>
-				</div>
-
-				<!-- 샘플 2 -->
-				<div id="interest-project">
-					<!-- 프로젝트 사진 -->
-					<img src="" alt="">
-					<!-- 창작자 명 -->
-					<a class="creator-name" href="">이매진스</a><br>
-					<!-- 제품명 -->
-					<label class="product-name">모두와 함께하고픈 하얀토끼 방구빵빵이</label><br>
-					<!-- 진행 정보 -->
-					<p class="description">
-						<!-- 상세 설명(프로젝트 요약) -->
-						조선시대 왕의 그림, 일월오봉도. 힙한 세미와이드 청바지로 재탄생하다.
-					</p>
-					<div class="progress-info">
-						<span class="progress-percentage">1099%</span> <span
-							class="progress-amount">21,988,600원</span> <span
-							class="progress-time">27일 남음 </span>
-					</div>
-					<!-- 진행 바 -->
-					<progress id="progress" value="365666" min="0" max="100%"></progress>
-				</div>
-
-
-			</div>
+            <!-- funding 정보를 출력 -->
+	            <%
+	            	
+	                for (fundingBean funding : fundingList) {
+	                	int fundingNum = funding.getFunding_num();
+	                	 // 사용자의 이름을 가져오기 위해 usersMgr 호출
+			            usersBean user = uMgr.oneUserList(funding.getFunding_user_id());
+			            if (fdMgr.fundDate(fundingNum) > 0) {
+	            %>
+	            <!-- 샘플 프로젝트 -->
+	            <div id="interest-project" class="funding-project" data-percentage="<%= funding.getFunding_nprice() * 100 / funding.getFunding_tprice() %>">
+	                <!-- 프로젝트 사진 -->
+	                <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%= funding.getFunding_num() %>">
+				        <img src="<%= funding.getFunding_image() %>" alt="프로젝트 이미지">
+				    </a>
+	                <!-- 창작자 명 -->
+	                <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
+	                <!-- 제품명 -->
+	                <label class="product-name"><%= funding.getFunding_title() %></label><br>
+	                <!-- 진행 정보 -->
+	                <div class="progress-info">
+	                    <span class="progress-percentage"><%= funding.getFunding_nprice() * 100 / funding.getFunding_tprice() %>%</span> 
+	                    <span class="progress-amount"><%= funding.getFunding_nprice() %>원</span> 
+	                    <span class="progress-time">
+							<% if (fdMgr.fundDate(fundingNum) > 0) {%>
+			                <%= fdMgr.fundDate(fundingNum) %>일 남음
+			            	<% } else { %>
+			                종료
+			            	<% } %>
+						</span>
+	                </div>
+	                <!-- 진행 바 -->
+	                <progress id="progress" value="<%= funding.getFunding_nprice() %>" max="<%= funding.getFunding_tprice() %>"></progress>
+	            </div>
+	            <!-- 샘플 프로젝트 끝 -->
+	            <%
+			            }
+	                }
+	            %>
+	        </div>
 			<!-- body-content 끝 -->
 
 		</div>
