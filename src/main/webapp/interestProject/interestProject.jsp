@@ -404,7 +404,9 @@
 			    %>
 			    <div id="interest-project">
 			        <!-- 프로젝트 사진 -->
+			        <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=funding.getFunding_num()%>">
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        </a>
 			        <!-- 창작자 명 -->
 			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->
@@ -431,7 +433,9 @@
 			    <div id="interest-project">
 			        <!-- 종료된 프로젝트만 출력하는 블록 -->
 			        <!-- 프로젝트 사진 -->
+			        <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=funding.getFunding_num()%>">
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        </a>
 			        <!-- 창작자 명 -->
 			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->
@@ -452,7 +456,9 @@
 			    <div id="interest-project">
 			        <!-- 모든 프로젝트를 출력하는 블록 -->
 			        <!-- 프로젝트 사진 -->
+			        <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=funding.getFunding_num()%>">
 			        <img src="<%= funding.getFunding_image() %>" alt="<%= funding.getFunding_title() %>"> 
+			        </a>
 			        <!-- 창작자 명 -->
 			        <a class="creator-name" href="../profile/profile.jsp?userId=<%=user.getUser_id() %>"><%= user.getUser_name() %></a><br>
 			        <!-- 제품명 -->

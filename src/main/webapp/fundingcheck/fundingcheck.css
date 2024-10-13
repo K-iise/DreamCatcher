@@ -138,6 +138,7 @@ hr {
 .cat-container {
 	position: relative;
 	display: flex;
+	width: 100%;
 }
 
 .depth1-wrapper {
@@ -195,7 +196,7 @@ hr {
 .MainTop {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
@@ -295,26 +296,32 @@ hr {
 	font-size: 20px;
 	color: #808080;
 	font-weight: bold;
+	margin: 0px;
+	margin-bottom: 30px;
 }
 
 #funding-name {
-	font-size: 23px;
-	font-weight: normal;
+	/* 프로젝트 제목 */
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 35px;
+	color: #000000;
+	margin-bottom: 40px;
 }
 
 #funding-people {
-	font-size: 24px;
+	font-size: 25px;
 	font-weight: bold;
 	margin: 0px;
-	margin-top: 20px;
+	color: red;
 }
 
 #funding-money {
-	font-size: 24px;
+	font-size: 25px;
 	font-weight: bold;
 	margin: 0px;
-	margin-top: 20px;
-	margin-bottom: 10px;
 }
 
 .funding-detail p {
@@ -409,7 +416,7 @@ hr {
 	flex-direction: column; /* 수직으로 정렬 */
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 	width: 100%;
-	min-height:1000px;
+	min-height: 1000px;
 	border: none;
 	resize: none;
 	box-sizing: border-box;
@@ -524,7 +531,8 @@ hr {
 	margin-top: 10px;
 	margin-left: 20px;
 	margin-right: 20px;
-	margin-bottom: 15px; font-size : 15px;
+	margin-bottom: 15px;
+	font-size: 15px;
 	flex-wrap: wrap;
 	font-size: 15px; /* 아이템들이 넘치면 줄 바꿈 */
 }
@@ -570,17 +578,17 @@ hr {
 }
 
 .dropdown-comment {
-    display: none;
-    position: absolute; /* 부모 요소 기준으로 절대 위치 잡기 */
-    background-color: #f9f9f9;
-    min-width: 100px;
-    margin-top: 22px; /* 드롭다운과 버튼 사이의 간격 조정 */
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1; /* 다른 요소보다 위에 표시 */
+	display: none;
+	position: absolute; /* 부모 요소 기준으로 절대 위치 잡기 */
+	background-color: #f9f9f9;
+	min-width: 100px;
+	margin-top: 22px; /* 드롭다운과 버튼 사이의 간격 조정 */
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1; /* 다른 요소보다 위에 표시 */
 }
 
 #comment-top {
-    position: relative; /* 댓글 상단을 기준으로 절대 위치를 잡음 */
+	position: relative; /* 댓글 상단을 기준으로 절대 위치를 잡음 */
 }
 
 .dropdown-comment p {
@@ -648,23 +656,22 @@ hr {
 	color: rgba(0, 0, 0, 0.5);
 }
 
-.donate-information b{
-font-family: 'NanumGothic';
-font-style: normal;
-font-weight: 700;
-font-size: 38px;
-line-height: 25px;
-color: #000000;
+.donate-information b {
+	font-family: 'NanumGothic';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 38px;
+	line-height: 25px;
+	color: #000000;
 }
 
-.product-ul{
+.product-ul {
 	font-size: 12px;
 	margin: 0px;
 	margin-top: 5px;
 }
 
-
-.product-buy{
+.product-buy {
 	flex-direction: column; /* 수직으로 정렬 */
 	display: none;
 	width: 100%;
@@ -679,7 +686,7 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-.buy-info{
+.buy-info {
 	flex-direction: column; /* 수직으로 정렬 */
 	display: flex;
 	width: 100%;
@@ -692,75 +699,73 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-.buy-button{
+.buy-button {
 	color: #FAFAFA;
 	background: #DC5252;
 	border: 0px;
-	width:100%;
+	width: 100%;
 	font-size: 24px;
 	font-weight: bold;
 	padding: 10px;
 }
 
-.select-button{
+.select-button {
 	color: #DC5252;
 	background: #FAFAFA;
 	border: 1px solid #DC5252;
 	font-size: 24px;
 	font-weight: bold;
-	width:100%;
+	width: 100%;
 	padding: 10px;
 	margin-bottom: 10px;
 }
 
-
-
 .stepper {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .stepper button {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    border: 1px solid #ccc;
-    background: #fff;
-    cursor: pointer;
+	width: 40px;
+	height: 40px;
+	font-size: 24px;
+	border: 1px solid #ccc;
+	background: #fff;
+	cursor: pointer;
 }
 
 .stepper button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+	cursor: not-allowed;
+	opacity: 0.5;
 }
 
 .stepper-input {
-    width: 40px;
-    height: 40px;
-    text-align: right;
-    border: 0px;
-    font-size: 18px;
+	width: 40px;
+	height: 40px;
+	text-align: right;
+	border: 0px;
+	font-size: 18px;
 }
 
-.product-bottom{
+.product-bottom {
 	display: flex;
 	justify-content: space-between; /* 좌우 공간 균등 분배 */
 	margin-top: 10px;
 }
 
-.product-bottom p{
+.product-bottom p {
 	font-size: 18px;
 	font-weight: bold;
 	color: #DC5252;
 }
 
-.product-title{
+.product-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
 }
 
-#delete-button{
+#delete-button {
 	border: 0px;
 	font-size: 18px;
 }
@@ -771,7 +776,7 @@ color: #000000;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
-#creator-box{
+#creator-box {
 	display: flex;
 	flex-direction: column; /* 수직으로 정렬 */
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
@@ -786,40 +791,40 @@ color: #000000;
 	margin-bottom: 20px;
 }
 
-#creator-info{
+#creator-info {
 	display: flex;
 	flex-direction: row; /* 수평으로 정렬 */
 	align-items: center;
 	margin-top: 20px;
 }
 
-#creator-info img{
+#creator-info img {
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;
 	margin-right: 20px;
 }
 
-#creator-info a{
+#creator-info a {
 	font-size: 18px;
 	font-weight: bold;
 	color: black; /* 기본 링크 색상 */
 	text-decoration: none; /* 밑줄 제거 */
 }
 
-#creator-intro{
+#creator-intro {
 	display: flex;
 	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
 }
 
-#creator-buttons{
+#creator-buttons {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 }
 
-#inquiry-button{
+#inquiry-button {
 	width: 120px;
 	height: 45px;
 	font-weight: bold;
@@ -829,72 +834,90 @@ color: #000000;
 	margin-right: 15px;
 }
 
-#follow-button{
+#follow-button {
 	width: 120px;
 	height: 45px;
-	font-size:16px;
+	font-size: 16px;
 	font-weight: bold;
 	color: #DC5252;
 	background: #FAFAFA;
 	border: 1px solid #DC5252;
 }
 
-.input_textarea{
+.input_textarea {
 	display: none;
-    height: 150px;
-    border: 0px;
-    padding: 0px;
-    resize: none;
-    border: 1px solid rgb(230, 230, 230);
-    border-radius: 1px;
-    padding: 12px;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-        font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.015em;
-    font-weight: 400;
-    color: #3d3d3d;
-    margin-top: 10px;
-    box-sizing: border-box;
+	height: 150px;
+	border: 0px;
+	padding: 0px;
+	resize: none;
+	border: 1px solid rgb(230, 230, 230);
+	border-radius: 1px;
+	padding: 12px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+	font-family: 'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto,
+		Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+		'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+		'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: -0.015em;
+	font-weight: 400;
+	color: #3d3d3d;
+	margin-top: 10px;
+	box-sizing: border-box;
 }
 
-.save-button{
+.save-button {
 	display: none;
 	font-size: 16px;
-    line-height: 27px;
-    letter-spacing: -0.02em;
-    width: 110px;
-    cursor: pointer;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    height: 40px;
-    white-space: nowrap;
-    border-radius: 1px;
-    margin: 0px;
-    border: 0px;
-    outline: none;
-    font-weight: normal;
-    box-sizing: border-box;
-    padding: 0px 16px;
-    background-color: rgb(61, 61, 61);
-    color: rgb(255, 255, 255);
-    margin: 20px 0px 20px;
+	line-height: 27px;
+	letter-spacing: -0.02em;
+	width: 110px;
+	cursor: pointer;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	height: 40px;
+	white-space: nowrap;
+	border-radius: 1px;
+	margin: 0px;
+	border: 0px;
+	outline: none;
+	font-weight: normal;
+	box-sizing: border-box;
+	padding: 0px 16px;
+	background-color: rgb(61, 61, 61);
+	color: rgb(255, 255, 255);
+	margin: 20px 0px 20px;
 }
 
-.comment-engratf{
+.comment-engratf {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 10px;
 }
 
-.comment-reply{
-    display: none;
-    flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
-    flex-direction: column;
-    padding: 16px 16px 0px; /* 패딩 설정 */
-    box-sizing: border-box; /* 박스 모델을 패딩 포함으로 설정 */
-    border: none; /* 경계선 없음 */
-    box-shadow: 0 1px 0 0 #e0e0e0; /* 아래쪽 그림자 효과로 경계선처럼 보이게 설정 */
+.comment-reply {
+	display: none;
+	flex-wrap: wrap; /* 아이템들이 넘치면 줄 바꿈 */
+	flex-direction: column;
+	padding: 16px 16px 0px; /* 패딩 설정 */
+	box-sizing: border-box; /* 박스 모델을 패딩 포함으로 설정 */
+	border: none; /* 경계선 없음 */
+	box-shadow: 0 1px 0 0 #e0e0e0; /* 아래쪽 그림자 효과로 경계선처럼 보이게 설정 */
 }
 
+.info-box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.funding-box {
+	border: 1px solid #000000;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px;
+	margin-left: 20px;
+}

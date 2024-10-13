@@ -356,8 +356,17 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 			<div class="funding-info">
 				<p id="funding-category"><%= categoryFunding %></p>
 				<b id="funding-name"><%= fundingTitle %></b>
-				<h2 id="funding-people"><%= userCount %> 명 참여</h2>
-				<h2 id="funding-money"><%= fundingNprice %> 원 달성</h2>
+				
+				<!-- 수정 부분 남은 날짜 추가. -->
+				<div class="info-box">
+					<h2 id="funding-people"><%= userCount %> <span style="font-size: 0.7em; font-weight: 600;">명 참여</span></h2>
+					<label class="funding-box" style="color: red;">11일 남음</label>
+				</div>
+				<!-- 수정 부분 달성 퍼센트 추가. -->
+				<div class="info-box">
+					<h2 id="funding-money"><%= fundingNprice %> <span style="font-size: 0.7em; font-weight: 600;">원 달성</span></h2>
+					<label class="funding-box">60% 달성</label>
+				</div>
 				<hr id="default-hr" width="100%" noshade />
 				<div class="funding-detail">
 					<p>목표 금액 : <%= fundingTprice %> 원</p>

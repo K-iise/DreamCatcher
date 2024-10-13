@@ -183,7 +183,7 @@
         <table>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="selectAll" class="checkbox" onclick="toggleSelectAll()"></th>
+                    
                     <th>아이디</th>
                     <th>프로젝트 이름</th>
                     <th>카테고리</th>
@@ -194,7 +194,7 @@
             </thead>
             <tbody id="table-body">
                 <tr>
-                    <td><input type="checkbox" class="checkbox select-row"></td>
+                    
                     <td>user123</td>
                     <td>프로젝트 A</td>
                     <td>게임</td>
@@ -207,7 +207,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="checkbox select-row"></td>
+                    
                     <td>user456</td>
                     <td>프로젝트 B</td>
                     <td>음악</td>
@@ -221,7 +221,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="checkbox select-row"></td>
+                    
                     <td>user789</td>
                     <td>프로젝트 C</td>
                     <td>미술</td>
