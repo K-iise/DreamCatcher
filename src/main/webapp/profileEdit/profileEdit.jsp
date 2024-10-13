@@ -350,7 +350,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 		<label class="profile-label">프로필 편집</label>
 		<hr id="highlight-hr" width="100%" noshade />
 	</div>
-
+	<form id="projectForm" method="post" enctype="multipart/form-data">
 	<!-- 각 프로필 카테고리 마다 사용될 body. -->
 	<div id="content">
 
@@ -365,7 +365,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 					<div class="edit-box">
 						<div class="edit-title">
 							<b>프로필 사진</b>
-							<button class="change-button">변경</button>
+							<button class="change-button" >변경</button>
 						</div>
 						<div class="image-box">
 							<img id="profileImage" src="<%=mybean.getUser_image()%>"
@@ -389,7 +389,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 							<b>사용자 이름</b>
 							<button class="change-button">변경</button>
 						</div>
-						<p class="user-name" style="margin: 0px;">김윤기</p>
+						<p class="user-name" style="margin: 0px;"><%=mybean.getUser_name() %></p>
 						<input class="input_text" type="text" inputmode="text"
 							placeholder="이름을 입력해주세요.">
 						<button class="save-button">저장</button>
@@ -402,7 +402,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 							<button class="change-button">변경</button>
 						</div>
 						<p class="user-name"
-							style="margin: 0px; color: rgb(158, 158, 158); white-space: pre-wrap;">등록된 소개가 없습니다.</p>
+							style="margin: 0px; color: rgb(158, 158, 158); white-space: pre-wrap;"><%=mybean.getUser_info() %></p>
 						<textarea placeholder="자기소개를 입력해주세요." class="input_textarea"></textarea>
 						<button class="save-button">저장</button>
 					</div>
@@ -414,8 +414,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 							<button class="change-button">변경</button>
 						</div>
 						<p class="user-name"
-							style="margin: 0px; color: rgb(158, 158, 158);">등록된 연락처가
-							없습니다.</p>
+							style="margin: 0px; color: rgb(158, 158, 158);"><%=mybean.getUser_phone() %></p>
 						<input class="input_text" type="text" inputmode="text"
 							placeholder="휴대폰 번호를 입력해주세요.">
 						<button class="save-button">저장</button>
@@ -429,8 +428,8 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 						</div>
 						<div id="deliver-detail">
 							<div id="deliver-profile">
-								<b id="deliver-name">김윤기</b>
-								<p id="deliver-address">[38540] 경북 경산시 감못둑길 20 (갑제동) 2005</p>
+								<b id="deliver-name"><%=mybean.getUser_name() %></b>
+								<p id="deliver-address"><%=mybean.getUser_address() %></p>
 							</div>
 							<button id="deliver-change">변경</button>
 						</div>
@@ -444,7 +443,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 					<div class="info-box">
 						<b>어떤 정보가 프로필에 공개되나요?</b>
 						<p>
-						프로필 사진과, 사용자 이름, 소개글, 연락처 , 주소 및 회원님과 관련된 프로젝트 등이 프로필 페이지에 공개 됩니다. <a href="	">내 프로필 바로가기</a>
+						프로필 사진과, 사용자 이름, 소개글, 연락처 , 주소 및 회원님과 관련된 프로젝트 등이 프로필 페이지에 공개 됩니다. <a href="../profile/profile.jsp?userId=<%=mybean.getUser_id()%>">내 프로필 바로가기</a>
 						</p>
 						
 					</div>
@@ -460,7 +459,7 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 	<div id="delivery-modal" class="modal">
 		<div class="modal-content">
 			<span class="close">&times;</span>
-			<h2>배송지 추가</h2>
+			<h2>배송지 수정</h2>
 			<div id="delivery-form">
 				<label id="receiver" for="recipient-name">받는 사람</label> <input
 					type="text" id="recipient-name" placeholder="받는 분의 성함을 입력해주세요.">
@@ -468,11 +467,11 @@ if (mybean.getUser_image() == null || mybean.getUser_image().equals("")) {
 				<label id="address-name" for="address">주소</label> <input type="text"
 					id="address" placeholder="받는 분의 주소를 입력해주세요.">
 
-				<button id="address-add">추가</button>
+				<button id="address-add">수정</button>
 			</div>
 		</div>
 	</div>
-
+	</form>
 
 	<script src="profileEdit.js"></script>
 	<script src="detailInfo.js"></script>
