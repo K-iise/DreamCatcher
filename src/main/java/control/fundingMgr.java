@@ -33,6 +33,7 @@ public class fundingMgr {
 			while(rs.next()) {
 				
 				fundingBean bean=new fundingBean();
+				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(category);
 				bean.setFunding_con1(rs.getString("funding_con1"));
@@ -76,6 +77,7 @@ public class fundingMgr {
 			while(rs.next()) {
 				
 				fundingBean bean=new fundingBean();
+				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));
 				bean.setFunding_category(rs.getInt("funding_category"));
 				bean.setFunding_con1(rs.getString("funding_con1"));
