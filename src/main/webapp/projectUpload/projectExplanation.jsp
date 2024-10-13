@@ -366,8 +366,7 @@ tinymce.init({
             var editor0Content = '<%=(cfbean.getCreatefunding_con_0() != null) ? cfbean.getCreatefunding_con_0().trim() : ""%>';
             var editor1Content = '<%=(cfbean.getCreatefunding_con_1() != null) ? cfbean.getCreatefunding_con_1().trim() : ""%>';
             var editor2Content = '<%=(cfbean.getCreatefunding_con_2() != null) ? cfbean.getCreatefunding_con_2().trim() : ""%>';
-            var editor3Content = '<%=(cfbean.getCreatefunding_con_3() != null) ? cfbean.getCreatefunding_con_3().trim() : ""%>
-        ';
+            var editor3Content = '<%=(cfbean.getCreatefunding_con_3() != null) ? cfbean.getCreatefunding_con_3().trim() : ""%>';
 
 										// JSP에서 받은 값이 존재하는 경우 해당 값으로 설정
 										if (editor0Content) {
