@@ -23,11 +23,12 @@ private DBCMgr pool;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "insert into createfunding(createfunding_user_id, createfunding_category, createfunding_summary) values(?, ?, ?)";
+			sql = "insert into createfunding(createfunding_user_id, createfunding_category, createfunding_summary, createfunding_term) values(?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getCreatefunding_user_id());
 			pstmt.setInt(2, bean.getCreatefunding_category());
 			pstmt.setString(3, bean.getCreatefunding_summary());
+			pstmt.setString(4, bean.getCreatefunding_term());
 
 			pstmt.executeUpdate();
 

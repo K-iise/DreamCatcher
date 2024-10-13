@@ -77,16 +77,16 @@ private DBCMgr pool;
 		
 	}
 	
-	public void createpriceDelete(createpriceBean bean) {
+	public void createpriceDelete(int num) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "delete from createprice where createprice_funding_user_id = ?";
+			sql = "delete from createprice where createprice_num = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getCreateprice_funding_user_id());
+			pstmt.setInt(1, num);
 
 			pstmt.executeUpdate();
 
