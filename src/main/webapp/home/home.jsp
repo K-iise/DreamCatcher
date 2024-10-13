@@ -373,7 +373,9 @@ createFundingMgr cfMgr=new createFundingMgr();
 			%>
 			<%for(int i=0;i<d;i++){ %>
 			<div id="project-ranking">
+			 <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdivlist.get(i).getFunding_num()%>">
 				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
+			</a>
 				<div id="project-rankinfo">
 					<a href="../profile/profile.jsp?userId=<%=fdivlist.get(i).getFunding_user_id() %>">
     					<b style="color: #6D6D6D !important"><%= uMgr.oneUserList(fdivlist.get(i).getFunding_user_id()).getUser_name() %></b>
