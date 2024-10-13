@@ -532,7 +532,9 @@ else if("follow-delete".equals(followAction)){
 			    <% for (int i = 0; i < fdCount; i++) { %>
 			        <div id="upload-project">
 			            <!-- 프로젝트 사진 -->
+			            <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdvlist.get(i).getFunding_num()%>">
 			            <img src='<%= fdvlist.get(i).getFunding_image() %>'> 
+			            </a>
 			            <!-- 창작자 명 -->
 			            <a class="creator-name" href="profile.jsp?userId=<%=fdvlist.get(i).getFunding_user_id() %>">
 			                <%= uMgr.oneUserList(fdvlist.get(i).getFunding_user_id()).getUser_name() %>
