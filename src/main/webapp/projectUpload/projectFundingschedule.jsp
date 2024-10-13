@@ -20,6 +20,10 @@ fundingMgr fdMgr = new fundingMgr();
 fundingBean fdbean = new fundingBean();
 createFundingMgr cfMgr = new createFundingMgr();
 createFundingBean cfbean = cfMgr.createFundingList(mybean.getUser_id());
+createpriceMgr cpMgr=new createpriceMgr();
+createpriceBean cpbean=new createpriceBean();
+cpbean.setCreateprice_funding_user_id(mybean.getUser_id());
+Vector<createpriceBean> cpvlist= cpMgr.priceList(mybean.getUser_id());
 // cfbean.getCreatefunding_term()이 문자열로 되어 있다고 가정
 String fundingTerm = cfbean.getCreatefunding_term();
 
@@ -50,7 +54,32 @@ System.out.println("action: " + action); // 디버깅 로그
 String nextPage = request.getParameter("nextPage");
 System.out.println("Next page: " + nextPage); // 디버깅 로그
 
-if ("submit".equals(action)) {
+
+// 디버깅 로그
+ if ("delete".equals(action)) {
+        int pricenumToDelete = 0;
+        try {
+            pricenumToDelete = Integer.parseInt(request.getParameter("pricenum"));
+        } catch (NumberFormatException e) {
+            System.out.println("pricenum 변환 오류: " + e.getMessage());
+        }
+
+        if (pricenumToDelete > 0) {
+            cpMgr.createpriceDelete(pricenumToDelete);  // 해당 아이템 삭제
+            System.out.println("아이템 삭제 완료: " + pricenumToDelete);
+        }
+
+        // 비동기 응답
+        response.setContentType("text/plain");
+        response.getWriter().write("success");
+        return;
+    }
+ else if ("submit".equals(action)) {
+
+
+	    // 삭제 후 리다이렉트 (목록 페이지로 다시 돌아가기)
+	    
+	
 	// 목표 금액과 프로젝트 제목, 요약 가져오기
 	int tprice = 0;
 	try {
@@ -75,14 +104,40 @@ if ("submit".equals(action)) {
 
 	// 데이터베이스에 저장
 	cfMgr.createFundingUpdate(cfbean); // 데이터 저장
+	if("projectFundingschedule.jsp".equals(nextPage)){
+	String itemname = request.getParameter("item-name");
+	int itemprice = 0;
+	try {
+		itemprice = Integer.parseInt(request.getParameter("item-price")); // 목표 금액을 int로 변환
+	} catch (NumberFormatException e) {
+		// 변환 실패 시 예외 처리
+		System.out.println("목표 금액 변환 오류: " + e.getMessage());
+		// 예외 처리를 통해 적절한 처리 방법을 추가할 수 있음 (예: 기본값 설정, 에러 메시지 반환 등)
+	}
+	int itemquantity = 0;
+	try {
+		itemquantity = Integer.parseInt(request.getParameter("item-quantity")); // 목표 금액을 int로 변환
+	} catch (NumberFormatException e) {
+		// 변환 실패 시 예외 처리
+		System.out.println("목표 금액 변환 오류: " + e.getMessage());
+		// 예외 처리를 통해 적절한 처리 방법을 추가할 수 있음 (예: 기본값 설정, 에러 메시지 반환 등)
+	}
+	cpbean.setCreateprice_comp(itemname);
+	cpbean.setCreateprice(itemprice);
+	cpbean.setCreateprice_count(itemquantity);
+	
+	cpMgr.createpriceInsert(cpbean);
+	}
 
 	// 저장 성공 후 페이지 이동
 	if (nextPage != null && !nextPage.isEmpty()) {
 		response.sendRedirect(nextPage); // 저장 성공하면 다른 페이지로 이동
 	} else {
-		request.getRequestDispatcher("projectfundingschedule.jsp").forward(request, response); // 실패 시 현재 페이지로 이동
+		response.sendRedirect("projectFundingschedule.jsp"); // 실패 시 현재 페이지로 이동
 	}
 }
+
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -110,6 +165,7 @@ if ("submit".equals(action)) {
 		form.appendChild(actionInput); // 폼에 추가
 		form.submit(); // 폼 제출
 	}
+	
 </script>
 </head>
 <body>
@@ -225,7 +281,7 @@ if ("submit".equals(action)) {
 					</div>
 				</div>
 			</div>
-			
+		
 <!-- 새로운 아이템 추가 섹션 -->
 <div class="section">
     <div class="container-flex">
@@ -235,7 +291,42 @@ if ("submit".equals(action)) {
                 <h2>내가 만든 아이템</h2>
             </div>
             <div id="item-list" class="item-list">
-                <!-- 추가된 아이템이 여기에 표시됨 -->
+            <%for(int i=0;i<cpvlist.size();i++){ %>
+	            <div class="item-box" id="item-<%= cpvlist.get(i).getCreateprice_num() %>">
+	                <div class="item-info">
+						<span class="item-name">설명: <%=cpvlist.get(i).getCreateprice_comp() %></span>
+						<span class="item-price">가격: <%=cpvlist.get(i).getCreateprice() %></span>
+						<span class="item-quantity">수량: <%=cpvlist.get(i).getCreateprice_count() %></span>
+						<input type="hidden" name="pricenum" value=<%=cpvlist.get(i).getCreateprice_num() %>>
+					</div>
+					<button class="delete-button" onclick="deleteItem(<%= cpvlist.get(i).getCreateprice_num() %>)">삭제</button>
+				</div>
+			<%} %>
+			<script>
+			
+			function deleteItem(pricenum) {
+			    if (confirm("정말 이 아이템을 삭제하시겠습니까?")) {
+			        var xhr = new XMLHttpRequest();
+			        xhr.open("POST", "projectFundingschedule.jsp", true);
+			        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			        
+			        // 삭제 요청 완료 후 처리
+			        xhr.onreadystatechange = function() {
+			            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+			                alert("아이템이 삭제되었습니다.");
+			                // 삭제 후 해당 아이템 박스를 화면에서 제거
+			                var itemBox = document.getElementById("item-" + pricenum);
+			                itemBox.parentNode.removeChild(itemBox);
+			            }
+			        };
+			        
+			        // 서버로 삭제 요청 전송
+			        xhr.send("Action=delete&pricenum=" + pricenum);
+			    }
+			}
+			</script>
+			
+			</script>
             </div>
         </div>
 
@@ -244,20 +335,22 @@ if ("submit".equals(action)) {
             <div class="item-form">
                 <h2>아이템 만들기</h2>
                 <label for="item-name">아이템 이름</label>
-                <input type="text" id="item-name" placeholder="아이템 이름을 입력해주세요" maxlength="50">
+                <input type="text" id="item-name" name="item-name" placeholder="아이템 이름을 입력해주세요" maxlength="50">
 
                 <label for="item-price">아이템 가격</label>
-                <input type="text" id="item-price" placeholder="가격을 입력해주세요">
+                <input type="text" id="item-price" name="item-price" placeholder="가격을 입력해주세요">
 
                 <label for="item-quantity">아이템 수량</label>
-                <input type="text" id="item-quantity" placeholder="수량을 입력해주세요">
+                <input type="text" id="item-quantity" name="item-quantity" placeholder="수량을 입력해주세요">
 
                 <div class="button-group">
                     
-                    <button type="button" onclick="addItem()">추가</button>
+                    <button type="button" onclick="submitForm('projectFundingschedule.jsp')">추가</button>
                 </div>
             </div>
         </div>
+        
+        
     </div>
 </div>
 
@@ -266,36 +359,7 @@ if ("submit".equals(action)) {
 		</div>
 	</form>
 	
-	<script>
-	// 아이템 추가하는 함수
-	function addItem() {
-		var itemName = document.getElementById("item-name").value;
-		var itemPrice = document.getElementById("item-price").value;
-		var itemQuantity = document.getElementById("item-quantity").value;
 
-		if (itemName && itemPrice && itemQuantity) {
-			// 왼쪽에 아이템 추가
-			var itemList = document.getElementById("item-list");
-			var newItem = document.createElement("div");
-			newItem.className = "item-box";  // 박스 스타일 적용
-			newItem.innerHTML = `
-				<div class="item-info">
-					<span class="item-name">설명: ${itemName}</span>
-					<span class="item-price">가격: ${itemPrice}</span>
-					<span class="item-quantity">수량: ${itemQuantity}</span>
-				</div>
-				<button class="delete-button" onclick="this.parentElement.remove()">삭제</button>
-			`;
-			itemList.appendChild(newItem);
-
-			// 입력 폼 초기화
-			document.getElementById("item-name").value = '';
-			document.getElementById("item-price").value = '';
-			document.getElementById("item-quantity").value = '';
-		}
-	}
-
-</script>
 
 	<!-- Flatpickr JS -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

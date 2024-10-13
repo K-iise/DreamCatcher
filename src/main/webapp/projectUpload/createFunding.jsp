@@ -17,6 +17,8 @@ fundingBean fdbean=new fundingBean();
 createFundingMgr cfMgr=new createFundingMgr();
 createFundingBean cfbean=cfMgr.createFundingList(mybean.getUser_id());
 
+
+
 String fundingTerm = cfbean.getCreatefunding_term();
 
 //문자열을 Date로 변환
@@ -82,7 +84,33 @@ DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 String dateString = currentDate.format(formatter);
 fdbean.setFunding_write_date(dateString);
 
-fdMgr.fundingInsert(fdbean);
+createpriceMgr cpMgr=new createpriceMgr();
+createpriceBean cpbean=new createpriceBean();
+cpbean.setCreateprice_funding_user_id(mybean.getUser_id());
+priceMgr pMgr=new priceMgr();
+Vector<createpriceBean> cpvlist= cpMgr.priceList(mybean.getUser_id());
+
+
+int num = fdMgr.fundingInsert(fdbean); // 자동으로 생성된 funding_num을 num에 저장
+if (num > 0) {
+    System.out.println("새로운 funding_num이 생성되었습니다: " + num);
+} else {
+    System.out.println("funding 생성 실패");
+}
+for(int i=0;i<cpvlist.size();i++){
+	
+	priceBean pbean=new priceBean();
+	pbean.setPrice_funding_num(num);
+	pbean.setPrice_comp(cpvlist.get(i).getCreateprice_comp());
+	pbean.setPrice(cpvlist.get(i).getCreateprice());
+	pbean.setPrice_count(cpvlist.get(i).getCreateprice_count());
+	
+	pMgr.priceInsert(pbean);
+	cpMgr.createpriceDelete(cpvlist.get(i));
+	
+	
+	
+}
 cfMgr.createFundingDelete(cfbean.getCreatefunding_user_id());
 
 response.sendRedirect("../home/home.jsp");
