@@ -30,3 +30,25 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 });
+
+function filterProjects() {
+    const dropdown = document.getElementById("add-sort");
+    const selectedValue = dropdown.value;
+    const projects = document.querySelectorAll(".funding-project");
+
+    projects.forEach(project => {
+        const percentage = parseFloat(project.getAttribute("data-percentage"));
+        
+        if (selectedValue === "added") {
+            project.style.display = "block"; // 전체보기
+        } else if (selectedValue === "less_than_75" && percentage <= 75) {
+            project.style.display = "block"; // 75% 이하
+        } else if (selectedValue === "between_75_and_100" && percentage > 75 && percentage < 100) {
+            project.style.display = "block"; // 75% ~ 100%
+        } else if (selectedValue === "more_than_100" && percentage >= 100) {
+            project.style.display = "block"; // 100% 이상
+        } else {
+            project.style.display = "none"; // 필터에 맞지 않으면 숨김
+        }
+    });
+}

@@ -470,8 +470,7 @@ public class fundingMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return category;
-		
+		return category;		
 	}
 	
 	public int getCategory(String cg) {
@@ -527,4 +526,44 @@ public class fundingMgr {
 	    }
 	    return categoryFunding;
 	}
+	
+	public Vector<fundingBean> fundingListForAllCategories() {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = null;
+	    Vector<fundingBean> vlist = new Vector<fundingBean>();
+	    
+	    try {
+	        con = pool.getConnection();
+	        sql = "SELECT * FROM funding"; // 모든 카테고리의 프로젝트를 가져오기 위한 SQL 쿼리
+	        pstmt = con.prepareStatement(sql);
+	        rs = pstmt.executeQuery();
+
+	        while (rs.next()) {
+	            fundingBean bean = new fundingBean();
+	            bean.setFunding_num(rs.getInt("funding_num"));
+	            bean.setFunding_title(rs.getString("funding_title"));
+	            bean.setFunding_category(rs.getInt("funding_category")); // 이 카테고리 정보도 필요할 경우
+	            bean.setFunding_con1(rs.getString("funding_con1"));
+	            bean.setFunding_con2(rs.getString("funding_con2"));
+	            bean.setFunding_con3(rs.getString("funding_con3"));
+	            bean.setFunding_con4(rs.getString("funding_con4"));
+	            bean.setFunding_tprice(rs.getInt("funding_tprice"));
+	            bean.setFunding_term(rs.getString("funding_term"));
+	            bean.setFunding_nprice(rs.getInt("funding_nprice"));
+	            bean.setFunding_user_id(rs.getString("funding_user_id"));
+	            bean.setFunding_image(rs.getString("funding_image"));
+	            bean.setFunding_write_date(rs.getString("funding_write_date"));
+	            bean.setFunding_agree(rs.getInt("funding_agree"));
+
+	            vlist.addElement(bean);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return vlist;
+	}	
 }

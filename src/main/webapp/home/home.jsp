@@ -18,6 +18,7 @@ readRecordMgr rMgr=new readRecordMgr();
 alarmMgr aMgr=new alarmMgr();
 createFundingMgr cfMgr=new createFundingMgr();
 
+
 %>
 <!DOCTYPE html>
 <html>
@@ -91,7 +92,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 	<div class="cat-container">
 			<div class="depth1-wrapper">
 				<div class="depth1-group">
-					<div class="depth1-item">
+					<div class="depth1-item"  onclick="location.href='../categoryTab/categoryTab.jsp'">
 						<div class="depth1-icon">
 							<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +113,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">전체</div>
 					</div>
-					<div class="depth1-item">
+					
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=1'" >
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/board.svg"
@@ -120,15 +122,17 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">보드게임 · TRPG</div>
 					</div>
-					<div class="depth1-item">
-						<div class="depth1-icon">
-							<img
-								src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg"
-								class="depth1-icon-img">
-						</div>
-						<div class="depth1-text">디지털 게임</div>
-					</div>
-					<div class="depth1-item">
+					
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=2'">
+				        <div class="depth1-icon">
+				            <img 
+				            	src="https://tumblbug-assets.imgix.net/categories/svg/digital-game.svg" 
+				            	class="depth1-icon-img">
+				        </div>
+				        <div class="depth1-text">디지털 게임</div>
+				    </div>
+				    
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=3'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/comics.svg"
@@ -136,7 +140,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">웹툰 · 만화</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=4'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/webtoon-resource.svg"
@@ -146,7 +150,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 					</div>
 				</div>
 				<div class="depth1-group">
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=5'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/stationary.svg"
@@ -154,7 +158,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">디자인 문구</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=6'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/charactor-goods.svg"
@@ -162,7 +166,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">캐릭터 · 굿즈</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=7'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/home-living.svg"
@@ -170,7 +174,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">홈 · 리빙</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=8'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/tech-electronics.svg"
@@ -178,7 +182,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">테크 · 가전</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=9'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/pet.svg"
@@ -188,7 +192,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 					</div>
 				</div>
 				<div class="depth1-group">
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=10'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/food.svg"
@@ -196,7 +200,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">푸드</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=11'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/perfumes-cosmetics.svg"
@@ -204,7 +208,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">향수 · 뷰티</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=12'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/fashion.svg"
@@ -212,7 +216,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">의류</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=13'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/accessories.svg"
@@ -220,7 +224,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">잡화</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=14'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/jewerly.svg"
@@ -230,7 +234,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 					</div>
 				</div>
 				<div class="depth1-group">
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=15'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/publishing.svg"
@@ -238,7 +242,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">출판</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=16'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/design.svg"
@@ -246,7 +250,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">디자인</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=17'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/art.svg"
@@ -254,7 +258,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">예술</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=18'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/photography.svg"
@@ -262,7 +266,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">사진</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=19'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/music.svg"
@@ -272,7 +276,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 					</div>
 				</div>
 				<div class="depth1-group">
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=20'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/film.svg"
@@ -280,7 +284,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 						</div>
 						<div class="depth1-text">영화 · 비디오</div>
 					</div>
-					<div class="depth1-item">
+					<div class="depth1-item" onclick="location.href='../categoryTab/categoryTab.jsp?category_num=21'">
 						<div class="depth1-icon">
 							<img
 								src="https://tumblbug-assets.imgix.net/categories/svg/performing-art.svg"
