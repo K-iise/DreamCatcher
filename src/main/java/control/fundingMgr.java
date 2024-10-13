@@ -557,4 +557,128 @@ public class fundingMgr {
 	    }
 	    return vlist;
 	}	
+	
+
+	public int getFundingNumByPriceNum(int priceNum) {
+        int fundingNum = -1; // 기본값으로 -1을 설정 (유효하지 않은 값)
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = pool.getConnection();
+
+            // price_num에 해당하는 price_funding_num을 찾는 쿼리
+            String sql = "SELECT price_funding_num FROM price WHERE price_num = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, priceNum);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int priceFundingNum = rs.getInt("price_funding_num");
+                
+                // 찾은 price_funding_num을 사용하여 funding_num을 찾는 쿼리
+                sql = "SELECT funding_num FROM funding WHERE funding_num = ?";
+                pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, priceFundingNum);
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    fundingNum = rs.getInt("funding_num");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pool.freeConnection(con, pstmt, rs);
+        }
+
+        return fundingNum; // funding_num 또는 -1 반환
+    }
+	
+	public String getFundingTitleByFundingNum(int fundingNum) {
+	    String fundingTitle = null; // 기본값으로 null 설정
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        con = pool.getConnection();
+
+	        // funding_num에 해당하는 funding_title을 찾는 쿼리
+	        String sql = "SELECT funding_title FROM funding WHERE funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            fundingTitle = rs.getString("funding_title");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+
+	    return fundingTitle; // funding_title 또는 null 반환
+	}
+	
+	public String getFundingTotalPriceByFundingNum(int fundingNum) {
+	    String fundingNprice = null; // 기본값으로 null 설정
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        con = pool.getConnection();
+
+	        // funding_num에 해당하는 funding_nprice을 찾는 쿼리
+	        String sql = "SELECT funding_nprice FROM funding WHERE funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            fundingNprice = rs.getString("funding_nprice");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+
+	    return fundingNprice; // funding_nprice 또는 null 반환
+	}
+	
+	public int getFundingPercent(int fundingNum) {
+        int percent = 0; // 기본값으로 0 설정
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = pool.getConnection();
+            String sql = "SELECT funding_tprice, funding_nprice FROM funding WHERE funding_num = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, fundingNum);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int targetPrice = rs.getInt("funding_tprice");
+                int currentPrice = rs.getInt("funding_nprice");
+
+                // 목표 금액이 0이 아닌 경우에만 달성률 계산
+                if (targetPrice > 0) {
+                    percent = (int) ((double) currentPrice / targetPrice * 100);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            pool.freeConnection(con, pstmt, rs);
+        }
+
+        return percent; // 달성률 반환
+    }
 }
+

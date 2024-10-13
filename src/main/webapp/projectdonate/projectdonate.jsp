@@ -1,5 +1,48 @@
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="control.*"%>
+<%@ page import="entity.*"%>	
+<%
+	fundingMgr fMgr = new fundingMgr();
+	priceMgr pMgr = new priceMgr();
+	// 이전 화면에서 전달받은 price_num 값 (이 값은 POST 방식으로 받아올 수 있습니다.)
+	int priceNum = Integer.parseInt(request.getParameter("price_num"));
+	// funding_num 가져오기
+    int fundingNum = fMgr.getFundingNumByPriceNum(priceNum);
+	 // price 구성 요소 가져오기
+    priceBean price = pMgr.getPrice(fundingNum);
+	
+    // funding_title 가져오기
+    String fundingTitle = null;
+    if (fundingNum != -1) { // 유효한 funding_num인 경우에만 조회
+        fundingTitle = fMgr.getFundingTitleByFundingNum(fundingNum);
+    }
+    String fundingNprice = null;
+    if (fundingNum != -1) { // 유효한 funding_num인 경우에만 조회
+        fundingNprice = fMgr.getFundingTotalPriceByFundingNum(fundingNum);
+    }
+	 // 달성률 가져오기
+    int fundingPercent = 0;
+    if (fundingNum != -1) {
+        fundingPercent = fMgr.getFundingPercent(fundingNum);
+    }    
+ 	// fundingNum을 사용하여 남은 날짜 계산
+    int remainingDays = 0;
+    if (fundingNum != -1) {
+        remainingDays = fMgr.fundDate(fundingNum); // 남은 날짜를 가져옵니다.
+    }
+	 // funding의 카테고리 정보 가져오기
+    String categoryFunding = null; // 초기값 설정
+    if (fundingNum != -1) {
+        categoryFunding = fMgr.getCategoryForFunding(fundingNum); // 카테고리 이름 가져오기
+    }
+    // 가격 정보가 있을 경우, 가격을 가져옵니다.
+    int priceValue = 0;
+    if (price != null) {
+        priceValue = price.getPrice(); // 가격 정보를 가져옵니다.
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,16 +68,16 @@
 				<img alt="project-image" src="image/example.jpg">
 				<div id="title-info">
 					<!-- 카테고리 정보 -->
-					<a id="text-category">캐릭터 · 굿즈</a>
+					<a id="text-category"><%= categoryFunding%> </a>
 					<!-- 프로젝트 제목 -->
-					<p id="text-title">The Dawn 첫 번째 공식 굿즈 데뷔!</p>
+					<p id="text-title"><%= fundingTitle%></p>
 					<div id="product-price">
 						<!-- 총 펀딩 금액 -->
-						<b id="totalprice">102,170,000원</b>
+						<b id="totalprice"><%= fundingNprice %>원 </b>
 						<!-- 현재 펀딩 퍼센트 -->
-						<p id="recent-percent">1021%</p>
+						<p id="recent-percent"><%=fundingPercent %>%</p>
 						<!-- 펀닝 남은 일짜. -->
-						<p id="remain-day">· 21일 남음</p>
+						<p id="remain-day">· <%= remainingDays %>일 남음</p>
 					</div>
 				</div>
 			</div>
@@ -51,9 +94,9 @@
 
 					<div id="box-content">
 						<div id="product-content">
-							더 던 매거진 세트.
-							<li>스페셜 매거진 (x1)</li>
-							<li>대형 접지 포스터 (x1)</li>
+							 <div id="product-content"> 
+								 <%= price.getPrice_comp() %>
+						    </div>
 						</div>
 
 						<div id="expection-content">
