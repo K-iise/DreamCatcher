@@ -326,8 +326,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 			<div class="additional-content">
 				<h2 style="margin: 20px;">주목할 만한 프로젝트</h2>
 				<%
-				Vector<fundingBean> fdjvlist=fdMgr.fundingByRecordHigh();
-				int d3 = Math.min(5, fdjvlist.size());
+				Vector<fundingBean> fdjvlist=fdMgr.fundingListForPercent();
+				int d3 = Math.min(4, fdjvlist.size());
 				%>
 				<div id="projects">
 				<%for(int i=0;i<d3;i++){ %>
@@ -366,7 +366,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 				<a href="#">전체 보기</a>
 			</div>
 			<%
-			Vector<fundingBean> fdivlist=fdMgr.fundingListForPercent();
+			Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 			int d=5;
 			if(fdivlist.size()<5) {d=fdivlist.size();}
 			%>
