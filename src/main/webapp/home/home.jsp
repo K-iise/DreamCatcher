@@ -334,6 +334,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 				
 					<div id="interest-project">
 					    <!-- 프로젝트 사진 -->
+				
 					    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdjvlist.get(i).getFunding_num()%>">
 					        <img src=<%=fdjvlist.get(i).getFunding_image() %> >
 					    </a>
