@@ -317,7 +317,7 @@ createFundingMgr cfMgr = new createFundingMgr();
 
 		<div class="Main-body">
 			<div class="body-header">
-				<span style="color: red; font-size: 22px; font-weight: bold" >타로</span> 를 검색한 결과 입니다.
+				<span style="color: red; font-size: 22px; font-weight: bold" >"타로"</span> 를 검색한 결과 입니다.
 			</div>
 
 			<div class="body-content">
