@@ -68,8 +68,7 @@ public class buyRecordMgr {
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
-		
+		return;		
 	}
 	
 	public int buyRecordCount(String user_id) {

@@ -130,7 +130,6 @@ for (fundingBean funding : fundingList) {
 	<!-- 카테고리 끝 -->
 
 	<!-- 상세 카테고리 창 -->
-	<!-- 상세 카테고리 창 -->
 	<div class="cat-container">
 			<div class="depth1-wrapper">
 				<div class="depth1-group">

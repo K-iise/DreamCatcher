@@ -623,6 +623,34 @@ public class fundingMgr {
 	    return fundingTitle; // funding_title 또는 null 반환
 	}
 	
+	public String getFundingImageByFundingNum(int fundingNum) {
+	    String fundingImage = null; // 기본값으로 null 설정
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        con = pool.getConnection();
+
+	        
+	        String sql = "SELECT funding_image FROM funding WHERE funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, fundingNum);
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            fundingImage = rs.getString("funding_image");
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+
+	    return fundingImage; 
+	}
+	
 	public String getFundingTotalPriceByFundingNum(int fundingNum) {
 	    String fundingNprice = null; // 기본값으로 null 설정
 	    Connection con = null;
@@ -680,5 +708,25 @@ public class fundingMgr {
 
         return percent; // 달성률 반환
     }
+	
+	public void increaseFundingNprice(int fundingNum, int amount) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+
+	    try {
+	        con = pool.getConnection();
+	        String sql = "UPDATE funding SET funding_nprice = funding_nprice + ? WHERE funding_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, amount); // 증가할 금액
+	        pstmt.setInt(2, fundingNum); // 해당 funding_num
+
+	        pstmt.executeUpdate(); // 업데이트 실행
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt);
+	    }
+	}
+	
 }
 
