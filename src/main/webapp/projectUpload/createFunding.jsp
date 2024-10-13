@@ -106,7 +106,7 @@ for(int i=0;i<cpvlist.size();i++){
 	pbean.setPrice_count(cpvlist.get(i).getCreateprice_count());
 	
 	pMgr.priceInsert(pbean);
-	cpMgr.createpriceDelete(cpvlist.get(i));
+	cpMgr.createpriceDelete(cpvlist.get(i).getCreateprice_num());
 	
 	
 	

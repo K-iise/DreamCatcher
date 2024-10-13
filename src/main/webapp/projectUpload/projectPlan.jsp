@@ -1,3 +1,4 @@
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.time.LocalDate"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
@@ -41,6 +42,13 @@ if ("action".equals(Action)) {
 	
 	cfbean.setCreatefunding_category(project);
 	cfbean.setCreatefunding_summary(projectSummary);
+	
+    LocalDate currentDate = LocalDate.now();
+ // 날짜를 문자열로 포맷팅하기
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String dateString = currentDate.format(formatter);
+    
+	cfbean.setCreatefunding_term(dateString);
 	
 	cfMgr.createFunding_insert(cfbean);
     
