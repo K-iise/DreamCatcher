@@ -77,7 +77,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
-		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label onclick="window.location.href='../popularTab/popularTab.jsp'" class="category-label" style="cursor: pointer;">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
 		<span class="search-span"> <input type="text"
