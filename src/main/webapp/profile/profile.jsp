@@ -478,7 +478,7 @@ else if("follow-delete".equals(followAction)){
 			<%
 			if (mybean.getUser_id().equals(ubean.getUser_id())) {
 			%>
-			<input type="button" class="edit-button" onclick="">
+			<input type="button" class="edit-button" onclick="location.href='../profileEdit/profileEdit.jsp';">
 			<%
 			} else {
 			%>
