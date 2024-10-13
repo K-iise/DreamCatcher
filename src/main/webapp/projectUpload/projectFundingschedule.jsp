@@ -225,10 +225,78 @@ if ("submit".equals(action)) {
 					</div>
 				</div>
 			</div>
+			
+<!-- 새로운 아이템 추가 섹션 -->
+<div class="section">
+    <div class="container-flex">
+        <!-- 왼쪽 아이템 목록 -->
+        <div class="left-section">
+            <div class="text-info">
+                <h2>내가 만든 아이템</h2>
+            </div>
+            <div id="item-list" class="item-list">
+                <!-- 추가된 아이템이 여기에 표시됨 -->
+            </div>
+        </div>
+
+        <!-- 오른쪽 아이템 입력 폼 -->
+        <div class="right-section">
+            <div class="item-form">
+                <h2>아이템 만들기</h2>
+                <label for="item-name">아이템 이름</label>
+                <input type="text" id="item-name" placeholder="아이템 이름을 입력해주세요" maxlength="50">
+
+                <label for="item-price">아이템 가격</label>
+                <input type="text" id="item-price" placeholder="가격을 입력해주세요">
+
+                <label for="item-quantity">아이템 수량</label>
+                <input type="text" id="item-quantity" placeholder="수량을 입력해주세요">
+
+                <div class="button-group">
+                    
+                    <button type="button" onclick="addItem()">추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 			<button class="next-button"
 				onclick="submitForm('projectExplanation.jsp')">확인</button>
 		</div>
 	</form>
+	
+	<script>
+	// 아이템 추가하는 함수
+	function addItem() {
+		var itemName = document.getElementById("item-name").value;
+		var itemPrice = document.getElementById("item-price").value;
+		var itemQuantity = document.getElementById("item-quantity").value;
+
+		if (itemName && itemPrice && itemQuantity) {
+			// 왼쪽에 아이템 추가
+			var itemList = document.getElementById("item-list");
+			var newItem = document.createElement("div");
+			newItem.className = "item-box";  // 박스 스타일 적용
+			newItem.innerHTML = `
+				<div class="item-info">
+					<span class="item-name">설명: ${itemName}</span>
+					<span class="item-price">가격: ${itemPrice}</span>
+					<span class="item-quantity">수량: ${itemQuantity}</span>
+				</div>
+				<button class="delete-button" onclick="this.parentElement.remove()">삭제</button>
+			`;
+			itemList.appendChild(newItem);
+
+			// 입력 폼 초기화
+			document.getElementById("item-name").value = '';
+			document.getElementById("item-price").value = '';
+			document.getElementById("item-quantity").value = '';
+		}
+	}
+
+</script>
+
 	<!-- Flatpickr JS -->
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
