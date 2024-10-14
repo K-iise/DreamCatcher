@@ -27,7 +27,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding where funding_category = ?";
+			sql = "select * from funding where funding_category = ? and funding_agree = 1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, category);
 
@@ -71,7 +71,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "SELECT * FROM funding ORDER BY funding_tprice / NULLIF(funding_nprice, 0) ASC";
+			sql = "SELECT * FROM funding WHERE funding_agree = 1 ORDER BY funding_tprice / NULLIF(funding_nprice, 0) ASC";
 			pstmt = con.prepareStatement(sql);
 			
 
@@ -115,7 +115,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding where funding_num = ?";
+			sql = "select * from funding where funding_num = ? and funding_agree = 1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 
@@ -158,7 +158,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding where funding_user_id = ?";
+			sql = "select * from funding where funding_user_id = ? and funding_agree = 1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 
@@ -214,7 +214,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding";
+			sql = "select * from funding where funding_agree = 1";
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -340,7 +340,7 @@ public class fundingMgr {
 		int count=0;
 		try {
 			con = pool.getConnection();
-			sql = "select count(*) as funding_count from funding where funding_user_id = ?";
+			sql = "select count(*) as funding_count from funding where funding_user_id = ? and funding_agree = 1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 
@@ -402,7 +402,7 @@ public class fundingMgr {
 		for(int i=0;i<rvlist.size();i++) {
 			try {
 				con = pool.getConnection();
-				sql = "select * from funding where funding_num = ?";
+				sql = "select * from funding where funding_num = ? and funding_agree = 1";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, rvlist.get(i).getRead_funding_num());
 	
@@ -449,7 +449,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "SELECT f.* FROM funding f JOIN (SELECT read_funding_num, COUNT(*) AS read_count FROM read_record GROUP BY read_funding_num) r ON f.funding_num = r.read_funding_num ORDER BY r.read_count DESC";
+			sql = "SELECT f.* FROM funding f JOIN (SELECT read_funding_num, COUNT(*) AS read_count FROM read_record GROUP BY read_funding_num) r ON f.funding_num = r.read_funding_num WHERE f.funding_agree = 1 ORDER BY r.read_count DESC";
 
 			pstmt = con.prepareStatement(sql);
 
@@ -574,7 +574,7 @@ public class fundingMgr {
 	    
 	    try {
 	        con = pool.getConnection();
-	        sql = "SELECT * FROM funding"; // 모든 카테고리의 프로젝트를 가져오기 위한 SQL 쿼리
+	        sql = "SELECT * FROM funding where funding_agree = 1"; // 모든 카테고리의 프로젝트를 가져오기 위한 SQL 쿼리
 	        pstmt = con.prepareStatement(sql);
 	        rs = pstmt.executeQuery();
 
@@ -625,7 +625,7 @@ public class fundingMgr {
                 int priceFundingNum = rs.getInt("price_funding_num");
                 
                 // 찾은 price_funding_num을 사용하여 funding_num을 찾는 쿼리
-                sql = "SELECT funding_num FROM funding WHERE funding_num = ?";
+                sql = "SELECT funding_num FROM funding WHERE funding_num = ? and funding_agree = 1";
                 pstmt = con.prepareStatement(sql);
                 pstmt.setInt(1, priceFundingNum);
                 rs = pstmt.executeQuery();
@@ -653,7 +653,7 @@ public class fundingMgr {
 	        con = pool.getConnection();
 
 	        // funding_num에 해당하는 funding_title을 찾는 쿼리
-	        String sql = "SELECT funding_title FROM funding WHERE funding_num = ?";
+	        String sql = "SELECT funding_title FROM funding WHERE funding_num = ? and funding_agree = 1";
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setInt(1, fundingNum);
 	        rs = pstmt.executeQuery();
@@ -680,7 +680,7 @@ public class fundingMgr {
 	        con = pool.getConnection();
 
 	        
-	        String sql = "SELECT funding_image FROM funding WHERE funding_num = ?";
+	        String sql = "SELECT funding_image FROM funding WHERE funding_num = ? and funding_agree = 1";
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setInt(1, fundingNum);
 	        rs = pstmt.executeQuery();
@@ -708,7 +708,7 @@ public class fundingMgr {
 	        con = pool.getConnection();
 
 	        // funding_num에 해당하는 funding_nprice을 찾는 쿼리
-	        String sql = "SELECT funding_nprice FROM funding WHERE funding_num = ?";
+	        String sql = "SELECT funding_nprice FROM funding WHERE funding_num = ? and funding_agree = 1";
 	        pstmt = con.prepareStatement(sql);
 	        pstmt.setInt(1, fundingNum);
 	        rs = pstmt.executeQuery();
@@ -733,7 +733,7 @@ public class fundingMgr {
 
         try {
             con = pool.getConnection();
-            String sql = "SELECT funding_tprice, funding_nprice FROM funding WHERE funding_num = ?";
+            String sql = "SELECT funding_tprice, funding_nprice FROM funding WHERE funding_num = ? and funding_agree = 1";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, fundingNum);
             rs = pstmt.executeQuery();
