@@ -58,6 +58,9 @@
  	NumberFormat formatter = NumberFormat.getInstance();
  	String formattedTotalDonation = formatter.format(totalDonation); // 쉼표가 추가된 총 후원 금액
  	String formattedPriceValue = formatter.format(amount);       // 쉼표가 추가된 가격 정보
+ 	
+ 	priceBean priceC = pMgr.getPriceByNum(priceNum); // priceNum을 사용하여 priceBean 가져옴
+    String priceComp = priceC.getPrice_comp(); // 해당 price_num에 맞는 price_comp 가져오기
 %>
 <!DOCTYPE html>
 <html>
@@ -183,7 +186,7 @@
 					<div id="box-content">
 						<div id="product-content">
 							 <div id="product-content"> 
-								 <%= price.getPrice_comp() %>
+								 <%= priceComp %>
 						    </div>
 						</div>
 

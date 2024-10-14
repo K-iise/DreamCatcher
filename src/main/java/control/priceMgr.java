@@ -174,4 +174,32 @@ public class priceMgr {
 	    return bean; // 단일 가격 정보 반환
 	}
 	
+	public priceBean getPriceByNum(int price_num) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    priceBean bean = null; // 가격 정보를 담을 bean 초기화
+	    try {
+	        con = pool.getConnection();
+	        String sql = "SELECT * FROM price WHERE price_num = ?";
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, price_num);
+	        rs = pstmt.executeQuery();
+
+	        // 첫 번째 결과만 가져오도록 수정
+	        if (rs.next()) {
+	            bean = new priceBean();
+	            bean.setPrice_num(rs.getInt("price_num"));
+	            bean.setPrice_funding_num(rs.getInt("price_funding_num"));
+	            bean.setPrice_comp(rs.getString("price_comp"));
+	            bean.setPrice(rs.getInt("price"));
+	            bean.setPrice_count(rs.getInt("price_count"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        pool.freeConnection(con, pstmt, rs);
+	    }
+	    return bean; // 단일 가격 정보 반환
+	}
 }
