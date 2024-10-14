@@ -94,7 +94,7 @@
             pg: "html5_inicis.INIBillTst",
             pay_method: "card",
             merchant_uid: "<%= merchantUid %>", // 상점 고유 주문번호
-            name: "포트원 테스트",
+            name: "<%=fundingTitle%>",
             amount: totalDonation,
             buyer_email: "",
             buyer_name: recipientName, // 입력된 이름 값 사용
