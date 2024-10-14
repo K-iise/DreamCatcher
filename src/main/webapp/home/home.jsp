@@ -336,8 +336,10 @@ createFundingMgr cfMgr=new createFundingMgr();
 				int d3 = Math.min(4, fdjvlist.size());
 				%>
 				<div id="projects">
-				<%for(int i=0;i<d3;i++){ %>
-				
+				<%for(int i=0;i<d3;i++){ 
+						if (fdMgr.fundDate(fdjvlist.get(i).getFunding_num()) > 0) {
+				%>
+					
 					<div id="interest-project">
 					    <!-- 프로젝트 사진 -->
 				
@@ -358,7 +360,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 					    </div>
 					</div>
 				
-				<%} %>
+				<%		}
+						}%>
 				</div>
 			</div>
 		</div>
@@ -377,7 +380,9 @@ createFundingMgr cfMgr=new createFundingMgr();
 			int d=5;
 			if(fdivlist.size()<5) {d=fdivlist.size();}
 			%>
-			<%for(int i=0;i<d;i++){ %>
+			<%for(int i=0;i<d;i++){ 
+				if (fdMgr.fundDate(fdivlist.get(i).getFunding_num()) > 0) {
+			%>
 			<div id="project-ranking">
 			 <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdivlist.get(i).getFunding_num()%>">
 				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
@@ -392,7 +397,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 					<b><%= (int)(((double)fdivlist.get(i).getFunding_nprice() / fdivlist.get(i).getFunding_tprice()) * 100) %>% 달성</b>
 				</div>
 			</div>
-			<%} %>
+			<%	}
+				} %>
 		</div>
 	</div>
 	
@@ -412,7 +418,9 @@ createFundingMgr cfMgr=new createFundingMgr();
 				Vector<fundingBean> fdcvlist=fdMgr.fundingByRecord(rMgr.readList30(user_id));
 				int d2 = Math.min(5, fdcvlist.size());
 				%>
-				<%for(int i=0;i<d2;i++){ %>
+				<%for(int i=0;i<d2;i++){ 
+						if (fdMgr.fundDate(fdcvlist.get(i).getFunding_num()) > 0) {
+				%>
 					<div id="recent-project">
 				    <!-- 프로젝트 사진 -->
 				    <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdcvlist.get(i).getFunding_num()%>">
@@ -431,7 +439,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 				        <span class="progress-percentage"><%= (int)(((double)fdcvlist.get(i).getFunding_nprice() / fdcvlist.get(i).getFunding_tprice()) * 100)%>% 달성</span>
 				    </div>
 				</div>
-				<%} %>
+				<%	}
+					} %>
 				</div><!-- projects end -->
 			</div> <!-- recent-content end-->
 	</div>

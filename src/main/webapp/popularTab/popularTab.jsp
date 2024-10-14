@@ -335,7 +335,10 @@ Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 			<div class="body-content">
 				
 				<!-- 샘플 2 -->
-				<% for(int i = 0; i < fdivlist.size(); i++) { %>
+				<% 
+					for(int i = 0; i < fdivlist.size(); i++) { 
+						 if (fdMgr.fundDate(fdivlist.get(i).getFunding_num()) > 0) {
+				%>
 				<div id="interest-project" class="funding-project" data-percentage="<%= fdivlist.get(i).getFunding_nprice() * 100 / fdivlist.get(i).getFunding_tprice() %>">
 					<!-- 프로젝트 사진 -->
 					<a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdivlist.get(i).getFunding_num()%>">
@@ -352,7 +355,7 @@ Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 						<span class="progress-percentage"><%= (int)(((double)fdivlist.get(i).getFunding_nprice() / fdivlist.get(i).getFunding_tprice()) * 100) %>%</span> <span
 							class="progress-amount"><%= fdivlist.get(i).getFunding_nprice()%>원</span> 
 							<span class="progress-time">
-								<%if(fdMgr.fundDate(fdivlist.get(i).getFunding_num())>=0){ %>
+								<%if(fdMgr.fundDate(fdivlist.get(i).getFunding_num())>0){ %>
 			                    <%= fdMgr.fundDate(fdivlist.get(i).getFunding_num()) %>일 남음
 			                <%}else{ %>
 			                	종료
@@ -362,7 +365,8 @@ Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 					<!-- 진행 바 -->
 					 <progress id="progress" value="<%= (int)(((double)fdivlist.get(i).getFunding_nprice() / fdivlist.get(i).getFunding_tprice()) * 100) %>" min="0" max="100"></progress>
 				</div>
-				<%} %>
+				<% }
+					}%>
 
 			</div> <!-- body-content 끝 -->
 
