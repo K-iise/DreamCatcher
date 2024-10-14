@@ -387,8 +387,8 @@ createFundingMgr cfMgr=new createFundingMgr();
 				if (fdMgr.fundDate(fdivlist.get(i).getFunding_num()) > 0) {
 			%>
 			<div id="project-ranking">
-			 <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdivlist.get(i).getFunding_num()%>">
-				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b><%=i+1 %>등</b>
+			 <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdivlist.get(i).getFunding_num()%>" " style="display: flex; flex-direction: row;">
+				<img src='<%=fdivlist.get(i).getFunding_image()%>'> <b style="display: flex; align-items: flex-start; margin-left: 30px;"><%=i+1 %>등</b>
 			</a>
 				<div id="project-rankinfo">
 					<a href="../profile/profile.jsp?userId=<%=fdivlist.get(i).getFunding_user_id() %>">
