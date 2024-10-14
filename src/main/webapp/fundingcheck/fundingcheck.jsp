@@ -427,18 +427,19 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 					<!-- 펀딩 내용 -->
 					<div id="project-plan">
 					    <!-- 프로젝트 계획 내용 -->
+					    <h2>프로젝트 소개</h2>
 					    <% if (fundingData.getFunding_con1() != null) { %>
 					        <%= fundingData.getFunding_con1() %>
 					    <% } %>
-					
+						<h2>프로젝트 예산</h2>
 					    <% if (fundingData.getFunding_con2() != null) { %>
 					        <%= fundingData.getFunding_con2() %>
 					    <% } %>
-					
+						<h2>프로젝트 일정</h2>
 					    <% if (fundingData.getFunding_con3() != null) { %>
 					        <%= fundingData.getFunding_con3() %>
 					    <% } %>
-					
+						<h2>선물 설명</h2>
 					    <% if (fundingData.getFunding_con4() != null) { %>
 					        <%= fundingData.getFunding_con4() %>
 					    <% } %>

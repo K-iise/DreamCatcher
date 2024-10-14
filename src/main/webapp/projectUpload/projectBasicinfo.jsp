@@ -224,7 +224,7 @@ private String extractFileName(Part part) {
             	<%if(cfbean.getCreatefunding_title()==null||cfbean.getCreatefunding_title().equals("")){ %>
                 <input type="text" name="projectTitle" placeholder="프로젝트의 제목을 입력해 주세요." >
                 <%}else{ %>
-                <input type="text" name="projectTitle" value=<%=cfbean.getCreatefunding_title() %> >
+                <input type="text" name="projectTitle" value="<%= cfbean.getCreatefunding_title().replace("\"", "&quot;") %>" >
                 <%} %>
 
             </div>
