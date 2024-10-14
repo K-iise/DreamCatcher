@@ -118,13 +118,15 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 	<!-- 카테고리 시작 -->
 	<header>
 		<label class="category-label" id="category-label"> <img src="image/menubar.png">카테고리
-		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label class="category-label">인기</label>
+		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label onclick="window.location.href='../popularTab/popularTab.jsp'" class="category-label" style="cursor: pointer;">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
-		<span class="search-span"> <input type="text"
-			class="input_text" name="search" placeholder="검색어를 입력하세요."> <img
-			alt="searchicon" src="image/searchicon.png" class="input_icon">
-		</span>
+		<form method="GET" action="../searchTab/searchTab.jsp">
+		    <span class="search-span">
+		        <input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요." value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+		        <button type="submit"><img alt="searchicon" src="image/searchicon.png" class="input_icon"></button>
+		    </span>
+		</form>
 
 	</header>
 	<!-- 카테고리 끝 -->
@@ -133,7 +135,7 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 	<div class="cat-container">
 			<div class="depth1-wrapper">
 				<div class="depth1-group">
-					<div class="depth1-item"  onclick="location.href='../categoryTab/categoryTab.jsp?category_num=-1'">
+					<div class="depth1-item"  onclick="location.href='../categoryTab/categoryTab.jsp'">
 						<div class="depth1-icon">
 							<svg width="45" height="45" viewBox="0 0 38 38" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
