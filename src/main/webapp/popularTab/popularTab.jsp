@@ -17,6 +17,13 @@ readRecordMgr rMgr = new readRecordMgr();
 alarmMgr aMgr = new alarmMgr();
 createFundingMgr cfMgr = new createFundingMgr();
 Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
+
+for(int i=0; i<fdivlist.size();i++){
+	if(fdMgr.fundDate(fdivlist.get(i).getFunding_num()) <= 0){
+		 fdivlist.removeElement(fdivlist.get(i));
+	 }
+}
+
 %>
 <!DOCTYPE html>
 <html>
@@ -341,7 +348,6 @@ Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 				<!-- 샘플 2 -->
 				<% 
 					for(int i = 0; i < fdivlist.size(); i++) { 
-						 if (fdMgr.fundDate(fdivlist.get(i).getFunding_num()) > 0) {
 				%>
 				<div id="interest-project" class="funding-project" data-percentage="<%= fdivlist.get(i).getFunding_nprice() * 100 / fdivlist.get(i).getFunding_tprice() %>">
 					<!-- 프로젝트 사진 -->
@@ -369,8 +375,7 @@ Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
 					<!-- 진행 바 -->
 					 <progress id="progress" value="<%= (int)(((double)fdivlist.get(i).getFunding_nprice() / fdivlist.get(i).getFunding_tprice()) * 100) %>" min="0" max="100"></progress>
 				</div>
-				<% }
-					}%>
+				<% }%>
 
 			</div> <!-- body-content 끝 -->
 
