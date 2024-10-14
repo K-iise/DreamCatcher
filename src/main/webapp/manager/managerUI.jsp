@@ -216,8 +216,11 @@ if ("submit".equals(action)) {
 
     <div class="header">
         <div class="header-left">
-            <span class="back-arrow">←</span>
-            <span>뒤로 가기</span>
+        <span class="back-arrow">←</span>
+            <a href="../home/home.jsp">
+			    
+			    <span>홈으로</span>
+			</a>
         </div>
         <h1>Dream Catcher</h1> 
     </div>
@@ -276,7 +279,11 @@ if ("submit".equals(action)) {
 			            <input type="hidden" name="Action" value="submit">
 			            <tr>
 			                <td><%=fdvlist.get(i).getFunding_user_id() %></td>
-			                <td><%=fdvlist.get(i).getFunding_title() %></td>
+			                <td>
+			                <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdvlist.get(i).getFunding_num() %>">
+							    <%=fdvlist.get(i).getFunding_title() %>
+							</a>
+							</td>
 			                <td><%=fdMgr.getCategory(fdvlist.get(i).getFunding_category())%></td>
 			                <td><span class="active-icon">O</span></td>
 			                <td><%=formattedDate %></td>
@@ -292,7 +299,11 @@ if ("submit".equals(action)) {
 			            <input type="hidden" name="Action" value="submit">
 			            <tr>
 			                <td><%=fdvlist.get(i).getFunding_user_id() %></td>
-			                <td><%=fdvlist.get(i).getFunding_title() %></td>
+			                <td>
+			                <a href="../fundingcheck/fundingcheck.jsp?fundingNum=<%=fdvlist.get(i).getFunding_num() %>">
+							    <%=fdvlist.get(i).getFunding_title() %>
+							</a>
+							</td>
 			                <td><%=fdMgr.getCategory(fdvlist.get(i).getFunding_category())%></td>
 			                <td><span class="inactive-icon">X</span></td>
 			                <td><%=formattedDate %></td>

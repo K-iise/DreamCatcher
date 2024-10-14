@@ -70,6 +70,9 @@ createFundingMgr cfMgr=new createFundingMgr();
 		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
 	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
 	    <a href="../alarm/alarm.jsp">알림</a>
+	    <%if(mybean.getUser_master()==1){ %>
+	    <a href="../manager/managerUI.jsp">게시글 관리</a>
+	    <%} %>
 	    <a href="../logout/logout.jsp">로그아웃</a>
     </div>
     
@@ -373,7 +376,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 					<h2>인기 프로젝트</h2>
 					<p><%= LocalDate.now() %> 기준</p>
 				</div>
-				<a href="#">전체 보기</a>
+				<a href="../popularTab/popularTab.jsp">전체 보기</a>
 			</div>
 			<%
 			Vector<fundingBean> fdivlist=fdMgr.fundingByRecordHigh();
@@ -410,7 +413,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 			<div class="recent-content">
 				<div id="recent-head">
 				<h2 style="margin: 20px;">최근 본 프로젝트</h2>
-				<a href="#">전체 보기</a>
+				
 				</div>
 				<div id="projects">
 				<!-- 최대 5개 까지만 하면 좋음. -->
