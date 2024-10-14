@@ -11,6 +11,8 @@
 	usersBean myBean = new usersBean();
 	buyRecordBean buyBean = new buyRecordBean();
 	buyRecordMgr bMgr = new buyRecordMgr();
+	OrderMgr orderMgr = new OrderMgr();
+    String merchantUid = orderMgr.generateOrderId(); // 새로운 주문 번호 생성
 	
 	// 이전 화면에서 전달받은 price_num 값 (이 값은 POST 방식으로 받아올 수 있습니다.)
 	int priceNum = Integer.parseInt(request.getParameter("price_num"));
@@ -91,7 +93,7 @@
             // 파라미터 값 설정
             pg: "html5_inicis.INIBillTst",
             pay_method: "card",
-            merchant_uid: "57008833-33049", // 상점 고유 주문번호
+            merchant_uid: "<%= merchantUid %>", // 상점 고유 주문번호
             name: "포트원 테스트",
             amount: totalDonation,
             buyer_email: "",
