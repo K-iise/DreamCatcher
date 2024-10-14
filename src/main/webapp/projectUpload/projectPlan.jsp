@@ -113,10 +113,12 @@ if ("action".equals(Action)) {
 		<label class="category-label">신규</label> 
 		<label class="category-label">스토어</label>
 
-		<span class="search-span"> 
-			<input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요."> 
-			<img alt="searchicon" src="image/searchicon.png" class="input_icon">
-		</span>
+		<form method="GET" action="../searchTab/searchTab.jsp">
+		    <span class="search-span">
+		        <input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요." value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+		        <button type="submit"><img alt="searchicon" src="image/searchicon.png" class="input_icon"></button>
+		    </span>
+		</form>
 	</nav>
 	<hr id="default-hr" width="100%" noshade />
 	<form id="projectForm" method="POST">
