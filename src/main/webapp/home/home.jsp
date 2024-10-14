@@ -80,10 +80,12 @@ createFundingMgr cfMgr=new createFundingMgr();
 		</label> <label class="category-label" style="cursor:pointer;" onclick="window.location.href='../home/home.jsp'">홈</label> <label onclick="window.location.href='../popularTab/popularTab.jsp'" class="category-label" style="cursor: pointer;">인기</label>
 		<label class="category-label">신규</label> <label class="category-label">스토어</label>
 
-		<span class="search-span"> <input type="text"
-			class="input_text" name="search" placeholder="검색어를 입력하세요."> <img
-			alt="searchicon" src="image/searchicon.png" class="input_icon">
-		</span>
+		<form method="GET" action="../searchTab/searchTab.jsp">
+		    <span class="search-span">
+		        <input type="text" class="input_text" name="search" placeholder="검색어를 입력하세요." value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">
+		        <button type="submit"><img alt="searchicon" src="image/searchicon.png" class="input_icon"></button>
+		    </span>
+		</form>
 
 	</header>
 	<!-- 카테고리 끝 -->
@@ -297,7 +299,7 @@ createFundingMgr cfMgr=new createFundingMgr();
 		</div>
 
 	<hr id="default-hr" width="100%" noshade />
-
+	
 	<!--  Main 화면 위쪽 영역 -->
 	<div class="MainTop">
 		<!-- 왼쪽 섹션 (슬라이더 포함) -->
