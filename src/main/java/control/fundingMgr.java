@@ -205,6 +205,53 @@ public class fundingMgr {
 		return vlist;		
 	}
 	
+	public Vector<fundingBean> fundingList(){
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<fundingBean> vlist=new Vector<fundingBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from funding";
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				fundingBean bean=new fundingBean();
+				bean.setFunding_num(rs.getInt("funding_num"));
+				bean.setFunding_title(rs.getString("funding_title"));
+				bean.setFunding_category(rs.getInt("funding_category"));
+				bean.setFunding_num(rs.getInt("funding_num"));
+				bean.setFunding_title(rs.getString("funding_title"));
+				bean.setFunding_category(rs.getInt("funding_category"));
+				bean.setFunding_con1(rs.getString("funding_con1"));
+				bean.setFunding_con2(rs.getString("funding_con2"));
+				bean.setFunding_con3(rs.getString("funding_con3"));
+				bean.setFunding_con4(rs.getString("funding_con4"));
+				bean.setFunding_tprice(rs.getInt("funding_tprice"));
+				bean.setFunding_term(rs.getString("funding_term"));
+				bean.setFunding_nprice(rs.getInt("funding_nprice"));
+				bean.setFunding_image(rs.getString("funding_image"));
+				bean.setFunding_user_id(rs.getString("funding_user_id"));
+				bean.setFunding_write_date(rs.getString("funding_write_date"));
+				bean.setFunding_agree(rs.getInt("funding_agree"));
+				
+				vlist.addElement(bean);
+				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;		
+	}
+	
 	
 	public int fundingInsert(fundingBean bean) {
 	    Connection con = null;
@@ -726,6 +773,50 @@ public class fundingMgr {
 	    } finally {
 	        pool.freeConnection(con, pstmt);
 	    }
+	}
+	
+	public void fundingDelete(int num) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "delete from funding where funding_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+		
+	}
+	
+	public void fundingApprove(int num) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "update funding set funding_agree = 1 where funding_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+		
 	}
 	
 }
