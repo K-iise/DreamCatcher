@@ -107,22 +107,22 @@ public class fundingMgr {
 	}
 	
 
-	public Vector<fundingBean> fundingListForNum(int num){
+	public fundingBean fundingListForNum(int num){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		Vector<fundingBean> vlist=new Vector<fundingBean>();
+		fundingBean bean=new fundingBean();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding where funding_num = ? and funding_agree = 1";
+			sql = "select * from funding where funding_num = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {				
-				fundingBean bean=new fundingBean();				
+				bean=new fundingBean();				
 				bean.setFunding_num(rs.getInt("funding_num"));
 				bean.setFunding_title(rs.getString("funding_title"));			
 				bean.setFunding_category(rs.getInt("funding_category"));				
@@ -137,15 +137,14 @@ public class fundingMgr {
 				bean.setFunding_user_id(rs.getString("funding_user_id"));
 				bean.setFunding_write_date(rs.getString("funding_write_date"));
 				bean.setFunding_agree(rs.getInt("funding_agree"));
-				
-				vlist.addElement(bean);								
+											
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-		return vlist;		
+		return bean;		
 	}
 	
 
@@ -214,7 +213,7 @@ public class fundingMgr {
 		Vector<fundingBean> vlist=new Vector<fundingBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from funding where funding_agree = 1";
+			sql = "select * from funding ";
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();

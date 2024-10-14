@@ -463,7 +463,10 @@ tinymce.init({
 		<div class="dropdown-content">
 			<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a> <a
 				href="../interestProject/interestProject.jsp">관심 프로젝트</a> <a
-				href="../alarm/alarm.jsp">알림</a> <a href="../logout/logout.jsp">로그아웃</a>
+				href="../alarm/alarm.jsp">알림</a>
+				<%if(mybean.getUser_master()==1){ %>
+	    <a href="../manager/managerUI.jsp">게시글 관리</a>
+	    <%} %> <a href="../logout/logout.jsp">로그아웃</a>
 		</div>
 
 		<!-- 메뉴들 -->

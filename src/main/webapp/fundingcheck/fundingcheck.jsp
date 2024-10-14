@@ -23,14 +23,12 @@ int fundingNum = Integer.parseInt(request.getParameter("fundingNum"));
 Vector<commentsBean> commentsList = cMgr.commentList(fundingNum);
 
 //funding_user_id를 가져오기 위한 funding 정보 조회
-Vector<fundingBean> fundingList = fndMgr.fundingListForNum(fundingNum);
+
 
 Vector<priceBean> priceList = pMgr.priceList(fundingNum);
 //fundingList에서 첫 번째 fundingBean 객체 가져오기
-fundingBean fundingData = null;
-if (!fundingList.isEmpty()) {
- fundingData = fundingList.get(0);
-}
+fundingBean fundingData = fndMgr.fundingListForNum(fundingNum);
+
 
 //funding_user_id, funding_image, funding_title, funding_nprice를 가져오기
 String fundingUserId = fundingData.getFunding_user_id();
@@ -112,6 +110,9 @@ boolean isFollowing = fMgr.followCheck(user_id, fundingUserId); // 팔로우 여
 		<a href="../profile/profile.jsp?selectedid=<%=user_id%>">프로필</a>
 	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
 	    <a href="../alarm/alarm.jsp">알림</a>
+	    <%if(mybean.getUser_master()==1){ %>
+	    <a href="../manager/managerUI.jsp">게시글 관리</a>
+	    <%} %>
 	    <a href="../logout/logout.jsp">로그아웃</a>
     </div>
     

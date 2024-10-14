@@ -114,6 +114,9 @@
 		<a href="../profile/profile.jsp?selectedid=<%=id%>">프로필</a>
 	    <a href="../interestProject/interestProject.jsp">관심프로젝트</a>
 	    <a href="../alarm/alarm.jsp">알림</a>
+	    <%if(mybean.getUser_master()==1){ %>
+	    <a href="../manager/managerUI.jsp">게시글 관리</a>
+	    <%} %>
 	    <a href="../logout/logout.jsp">로그아웃</a>
     </div>
 
@@ -392,11 +395,9 @@
 			    %>
 			    <%
 			        int fundingNum = bean.getRead_funding_num();
-			        Vector<fundingBean> fundingInfo = fmgr.fundingListForNum(fundingNum);
+			        fundingBean funding = fmgr.fundingListForNum(fundingNum);
 			
 			        // funding 정보가 있는 경우 출력
-			        if (fundingInfo.size() > 0) {
-			            fundingBean funding = fundingInfo.get(0); // 첫 번째 결과만 사용
 			
 			            // 사용자의 이름을 가져오기 위해 usersMgr 호출
 			            usersBean user = umgr.oneUserList(funding.getFunding_user_id());
@@ -487,7 +488,7 @@
 			    </div>
 			    <%
 			            }
-			        }				           
+			        				           
 			    %>
 			    <% 
 			            }
