@@ -2,6 +2,47 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="control.*"%>
 <%@ page import="entity.*"%>
+<%
+
+request.setCharacterEncoding("UTF-8");
+fundingMgr fdMgr=new fundingMgr();
+
+String action = request.getParameter("Action");
+System.out.println("action: " + action); // 디버깅 로그
+String type = request.getParameter("type");
+System.out.println("type: " + type); // 디버깅 로그
+String dataStr = request.getParameter("Data");
+int data = 0;
+
+if (dataStr != null && !dataStr.isEmpty()) {
+    try {
+        data = Integer.parseInt(dataStr);  // 문자열을 int로 변환
+    } catch (NumberFormatException e) {
+        e.printStackTrace();  // 예외 처리: 변환 실패 시 처리
+    }
+}
+System.out.println("Data: " + data); // 디버깅 로그
+
+if ("submit".equals(action)) {
+	
+	if("delete1".equals(type)||"reject".equals(type)){
+		
+		fdMgr.fundingDelete(data);
+		
+	}else if("approve".equals(type)){
+		
+		fdMgr.fundingApprove(data);
+		
+	}
+
+
+    // 저장이 성공하면 전송된 페이지로 이동
+
+    response.sendRedirect("managerUI.jsp");
+    
+}
+
+%>
 
 <!DOCTYPE html>
 
@@ -168,6 +209,8 @@
             font-size: 18px;
         }
     </style>
+
+
 </head>
 <body>
 
@@ -178,7 +221,7 @@
         </div>
         <h1>Dream Catcher</h1> 
     </div>
-
+	
     <div class="content">
         <table>
             <thead>
@@ -193,83 +236,137 @@
                 </tr>
             </thead>
             <tbody id="table-body">
-                <tr>
-                    
-                    <td>user123</td>
-                    <td>프로젝트 A</td>
-                    <td>게임</td>
-                    <td><span class="active-icon">O</span></td>
-                    <td>2024-10-10</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="delete-btn" onclick="deleteRow(0)">삭제</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    
-                    <td>user456</td>
-                    <td>프로젝트 B</td>
-                    <td>음악</td>
-                    <td><span class="inactive-icon">X</span></td>
-                    <td>2024-09-28</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="approve-btn" onclick="approveRow(1)">승인</button>
-                            <button class="reject-btn" onclick="rejectRow(1)">거절</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    
-                    <td>user789</td>
-                    <td>프로젝트 C</td>
-                    <td>미술</td>
-                    <td><span class="active-icon">O</span></td>
-                    <td>2024-10-01</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="delete-btn" onclick="deleteRow(2)">삭제</button>
-                        </div>
-                    </td>
-                </tr>
+            <%
+            
+            Vector<fundingBean> fdvlist = fdMgr.fundingList();
+            
+
+            %>
+            <%for(int i=0; i<fdvlist.size();i++){ %>
+            <%
+            
+            String fundingTerm = fdvlist.get(i).getFunding_write_date();
+
+	         // 문자열을 Date로 변환
+	         java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+	         java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	         java.util.Date date = null;
+	
+	         // fundingTerm이 null인 경우 현재 날짜로 설정
+	         if (fundingTerm == null || fundingTerm.isEmpty()) {
+	         	date = new java.util.Date(); // 기본값을 현재 날짜로 설정
+	         } else {
+	         	try {
+	         		date = inputFormat.parse(fundingTerm); // "yyyy-MM-dd HH:mm:ss.S" 형식으로 파싱
+	         	} catch (java.text.ParseException e) {
+	         		e.printStackTrace();
+	         	}
+	         }
+	
+	         if (date == null) {
+	         	date = new java.util.Date(); // 기본값을 현재 날짜로 설정
+	         }
+	         // 변환된 Date를 "yyyy-MM-dd" 형식으로 출력
+	         String formattedDate = (date != null) ? outputFormat.format(date) : "";
+	         String formId = "projectForm" + i;
+            
+            %>
+	            <% if (fdvlist.get(i).getFunding_agree() == 1) { %>
+			        <form id="<%=formId%>" method="post">
+			            <input type="hidden" name="Action" value="submit">
+			            <tr>
+			                <td><%=fdvlist.get(i).getFunding_user_id() %></td>
+			                <td><%=fdvlist.get(i).getFunding_title() %></td>
+			                <td><%=fdMgr.getCategory(fdvlist.get(i).getFunding_category())%></td>
+			                <td><span class="active-icon">O</span></td>
+			                <td><%=formattedDate %></td>
+			                <td>
+			                    <div class="action-buttons">
+			                        <button class="delete-btn" onclick="delete1('<%=fdvlist.get(i).getFunding_num()%>', '<%=formId%>'); return false;">삭제</button>
+			                    </div>
+			                </td>
+			            </tr>
+			        </form>
+			    <% } else { %>
+			        <form id="<%=formId%>" method="post">
+			            <input type="hidden" name="Action" value="submit">
+			            <tr>
+			                <td><%=fdvlist.get(i).getFunding_user_id() %></td>
+			                <td><%=fdvlist.get(i).getFunding_title() %></td>
+			                <td><%=fdMgr.getCategory(fdvlist.get(i).getFunding_category())%></td>
+			                <td><span class="inactive-icon">X</span></td>
+			                <td><%=formattedDate %></td>
+			                <td>
+			                    <div class="action-buttons">
+			                        <button class="approve-btn" onclick="approve('<%=fdvlist.get(i).getFunding_num()%>', '<%=formId%>'); return false;">승인</button>
+			                        <button class="reject-btn" onclick="reject('<%=fdvlist.get(i).getFunding_num()%>', '<%=formId%>'); return false;">거절</button>
+			                    </div>
+			                </td>
+			            </tr>
+			        </form>
+			    <% } %>
+                <%} %>
+
             </tbody>
         </table>
     </div>
 
-    <div class="pagination-container" id="pagination-container">
-        <div class="pagination" id="pagination">
-            <!-- 페이지네이션 버튼이 동적으로 들어갑니다. -->
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-        </div>
-    </div>
+
 
     <script>
-        // Select All 체크박스 동작
-        function toggleSelectAll() {
-            var checkboxes = document.querySelectorAll('.select-row');
-            var selectAll = document.getElementById('selectAll').checked;
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = selectAll;
-            });
-        }
 
-        // Row 삭제 기능
-        function deleteRow(index) {
-            alert('Row ' + index + ' 삭제');
-        }
 
-        // Row 승인 기능
-        function approveRow(index) {
-            alert('Row ' + index + ' 승인');
-        }
+    function delete1(Data, formId) {
+        var form = document.getElementById(formId);  // 전달된 formId로 폼 타겟팅
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "type";
+        actionInput.value = "delete1";  
 
-        // Row 거절 기능
-        function rejectRow(index) {
-            alert('Row ' + index + ' 거절');
-        }
+        var actionInput2 = document.createElement("input");
+        actionInput2.type = "hidden";
+        actionInput2.name = "Data";
+        actionInput2.value = Data;
+
+        form.appendChild(actionInput);
+        form.appendChild(actionInput2);
+        form.submit();  // 폼 제출
+    }
+
+    function approve(Data, formId) {
+        var form = document.getElementById(formId);  // 전달된 formId로 폼 타겟팅
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "type";
+        actionInput.value = "approve";  
+
+        var actionInput2 = document.createElement("input");
+        actionInput2.type = "hidden";
+        actionInput2.name = "Data";
+        actionInput2.value = Data;
+
+        form.appendChild(actionInput);
+        form.appendChild(actionInput2);
+        form.submit();  // 폼 제출
+    }
+
+    function reject(Data, formId) {
+        var form = document.getElementById(formId);  // 전달된 formId로 폼 타겟팅
+        var actionInput = document.createElement("input");
+        actionInput.type = "hidden";
+        actionInput.name = "type";
+        actionInput.value = "reject";  
+
+        var actionInput2 = document.createElement("input");
+        actionInput2.type = "hidden";
+        actionInput2.name = "Data";
+        actionInput2.value = Data;
+
+        form.appendChild(actionInput);
+        form.appendChild(actionInput2);
+        form.submit();  // 폼 제출
+    }
+
     </script>
 
 </body>
